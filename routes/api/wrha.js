@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { scrapeSite } = require('../util/scraper')
+const { scrapeSite } = require('../../util/scraper')
 
 const router = express.Router()
 
