@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Backend for jamesgiesbrecht.ca",
   "main": "app.js",
+  "engines": {
+    "node": ">=11.14.0"
+  },
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
