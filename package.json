@@ -10,6 +10,7 @@
     "install:server": "cd server && npm install",
     "install:prod:client": "cd client && npm ci",
     "install:prod:server": "cd server && npm ci",
+    "start:both": "npm run start:local & (cd client && npm start)",
     "start:local": "cd server && npm start",
     "start:prod": "pm2 reload james-giesbrecht-node",
     "test": "echo \"Error: no test specified\" && exit 1"

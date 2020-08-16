@@ -7,7 +7,7 @@ const app = express()
 const PORT = 3001
 
 const mainRoutes = require('./routes/index')
-const apiRoutes = require('./routes/api/wrha')
+const apiRoutes = require('./routes/api/index')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(public))
