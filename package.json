@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "jamesgiesbrecht.ca",
   "scripts": {
-    "start:local": "cd server && npm start",
-    "start:prod": "pm2 reload james-giesbrecht-node",
     "build": "cd client && npm run build",
+    "deploy:local": "npm run install:client && npm run install:server && npm run build && npm run start:local",
+    "deploy:prod": "npm run install:prod:client && npm run install:prod:server && npm run build && npm run start:prod",
     "install:client": "cd client && npm install",
     "install:server": "cd server && npm install",
     "install:prod:client": "cd client && npm ci",
     "install:prod:server": "cd server && npm ci",
-    "deploy:local": "npm run install:client && npm run install:server && npm run build && npm run start:local",
-    "deploy:prod": "npm run install:prod:client && npm run install:prod:server && npm run build && npm run start:prod",
+    "start:local": "cd server && npm start",
+    "start:prod": "pm2 reload james-giesbrecht-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
