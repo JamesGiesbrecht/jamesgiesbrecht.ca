@@ -1,29 +1,27 @@
 {
   "name": "james-giesbrecht",
   "version": "1.0.0",
-  "description": "Backend for jamesgiesbrecht.ca",
-  "main": "app.js",
-  "engines": {
-    "node": ">=11.14.0"
-  },
+  "description": "jamesgiesbrecht.ca",
   "scripts": {
-    "start": "nodemon app.js",
+    "build": "cd client && npm run build",
+    "deploy:local": "npm run install:client && npm run install:server && npm run build && npm run start:local",
+    "deploy:prod": "npm run install:prod:client && npm run install:prod:server && npm run build && npm run start:prod",
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
+    "install:prod:client": "cd client && npm ci",
+    "install:prod:server": "cd server && npm ci",
+    "start:local": "cd server && npm start",
+    "start:prod": "pm2 reload james-giesbrecht-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "James Giesbrecht",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^7.6.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-security": "^1.4.0",
-    "nodemon": "^2.0.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesGiesbrecht/james-giesbrecht.git"
   },
-  "dependencies": {
-    "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
-    "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1"
-  }
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesGiesbrecht/james-giesbrecht/issues"
+  },
+  "homepage": "https://github.com/JamesGiesbrecht/james-giesbrecht#readme"
 }
