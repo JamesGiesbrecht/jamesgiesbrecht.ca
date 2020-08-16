@@ -1,3 +1,6 @@
 const path = require('path')
 
-module.exports = path.dirname(process.mainModule.filename)
+const rootDir = path.dirname(process.mainModule.filename)
+
+exports.root = rootDir
+exports.public = path.join(rootDir, '..', 'client', 'build')

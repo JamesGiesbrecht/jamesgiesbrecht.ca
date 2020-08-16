@@ -1,6 +1,7 @@
 const express = require('express')
 
 const bodyParser = require('body-parser')
+const { public } = require('./util/path')
 
 const app = express()
 const PORT = 3001
@@ -9,6 +10,7 @@ const mainRoutes = require('./routes/index')
 const apiRoutes = require('./routes/api/wrha')
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(public))
 
 app.use('/api', apiRoutes)
 app.use(mainRoutes)
