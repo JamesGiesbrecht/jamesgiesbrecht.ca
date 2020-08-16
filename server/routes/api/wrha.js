@@ -22,9 +22,7 @@ const getMessage = (waitTimes) => (
 
 router.get('/', (req, res) => {
   res.json({
-    data: {
-      message: 'Hello from API',
-    },
+    message: 'Hello from API',
   })
 })
 
@@ -32,10 +30,8 @@ router.get('/wrha/grace', async (req, res) => {
   const waitTimes = await getGraceWaitTimes()
   const message = getMessage(waitTimes)
   res.json({
-    data: {
-      ...waitTimes,
-      message,
-    },
+    ...waitTimes,
+    message,
   })
 })
 
