@@ -1,0 +1,26 @@
+{
+  "name": "james-giesbrecht",
+  "version": "1.0.0",
+  "description": "jamesgiesbrecht.ca",
+  "scripts": {
+    "start:local": "cd server && npm start",
+    "start:prod": "pm2 reload james-giesbrecht-node",
+    "build": "cd client && npm run build",
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
+    "install:prod:client": "cd client && npm ci",
+    "install:prod:server": "cd server && npm ci",
+    "deploy": "npm run install:prod:client && npm run install:prod:server && npm run build && npm run start:local",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesGiesbrecht/james-giesbrecht.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesGiesbrecht/james-giesbrecht/issues"
+  },
+  "homepage": "https://github.com/JamesGiesbrecht/james-giesbrecht#readme"
+}
