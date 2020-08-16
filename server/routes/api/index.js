@@ -4,7 +4,7 @@ const wrhaRoutes = require('./wrha')
 
 const router = express.Router()
 
-router.use(wrhaRoutes)
+router.use('/wrha', wrhaRoutes)
 
 router.use((req, res) => {
   res.status(400).json({
