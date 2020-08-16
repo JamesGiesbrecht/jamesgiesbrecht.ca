@@ -1,6 +1,7 @@
 {
   "name": "james-giesbrecht-frontend",
   "version": "0.1.0",
+  "description": "Frontend for jamesgiesbrecht.ca",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
