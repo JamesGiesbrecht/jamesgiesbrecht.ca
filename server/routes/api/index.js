@@ -12,7 +12,7 @@ router.use('/wrha', wrhaRoutes)
 
 router.use((req, res) => {
   res.status(400).json({
-    message: 'Error: API does not exist',
+    error: 'API does not exist',
   })
 })
 

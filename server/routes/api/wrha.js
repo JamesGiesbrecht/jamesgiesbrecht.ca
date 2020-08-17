@@ -41,9 +41,6 @@ const getMessage = (waitTimes, hospitalName) => (
 )
 
 const getWaitTimes = async (hospital) => {
-  if (!hospitals[hospital]) {
-    return { message: 'Error: Hospital not found' }
-  }
   const siteUrl = `https://wrha.mb.ca/wait-times/${hospitals[hospital].url}`
   const $ = await scrapeSite(siteUrl)
   let waitTime = $('.table-wait-times-data[data-label="Wait Time"]').text()
@@ -61,8 +58,12 @@ const getWaitTimes = async (hospital) => {
 }
 
 router.get('/:hospital', async (req, res) => {
-  const waitTimes = await getWaitTimes(req.params.hospital)
-  res.json(waitTimes)
+  const hospital = req.params.hospital.toLowerCase()
+  if (!hospitals[hospital]) {
+    return res.status(400).json({ error: 'Hospital not found' })
+  }
+  const waitTimes = await getWaitTimes(hospital)
+  return res.json(waitTimes)
 })
 
 module.exports = router
