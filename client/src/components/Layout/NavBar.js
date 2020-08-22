@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, useMediaQuery } from '@material-ui/core'
+import React, { useState, useRef } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener } from '@material-ui/core'
 import { Home, Code, Mail, Menu as MenuIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
   const classes = useStyles()
-  const [isOpen, setIsOpen] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
   const anchorRef = useRef(null)
 
