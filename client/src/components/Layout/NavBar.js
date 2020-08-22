@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener } from '@material-ui/core'
+import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar } from '@material-ui/core'
 import { Home, Code, Mail, Menu as MenuIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +37,7 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
   const anchorRef = useRef(null)
+  const scrollTrigger = useScrollTrigger()
 
   const handleToggle = () => {
     setIsOpen((prevOpen) => !prevOpen)
@@ -51,7 +52,7 @@ const NavBar = () => {
 
   const handleTabChange = (e, newValue) => {
     setActiveNav(newValue)
-}
+  }
 
   const navItems = [
     { name: 'Home', icon: <Home /> },
@@ -109,27 +110,29 @@ const NavBar = () => {
   )
 
   return (
-    <Paper className={classes.navBar} square>
-      <Typography variant="h6" className={classes.title}>
-        JG
-      </Typography>
-      <div className={classes.grow} />
-      <div className={classes.desktopNav}>
-        <Tabs value={activeNav} onChange={handleTabChange}>
-          {desktopNav}
-        </Tabs>
-      </div>
-      <div className={classes.mobileNav}>
-        <IconButton
-          onClick={handleToggle}
-          color="inherit"
-          ref={anchorRef}
-        >
-          <MenuIcon />
-        </IconButton>
-      </div>
-      {mobileMenu}
-    </Paper>
+    <Slide appear={false} direction="down" in={!scrollTrigger}>
+      <AppBar className={classes.navBar} color="inherit">
+        <Typography variant="h6" className={classes.title}>
+          JG
+        </Typography>
+        <div className={classes.grow} />
+        <div className={classes.desktopNav}>
+          <Tabs value={activeNav} onChange={handleTabChange}>
+            {desktopNav}
+          </Tabs>
+        </div>
+        <div className={classes.mobileNav}>
+          <IconButton
+            onClick={handleToggle}
+            color="inherit"
+            ref={anchorRef}
+          >
+            <MenuIcon />
+          </IconButton>
+        </div>
+        {mobileMenu}
+      </AppBar>
+    </Slide>
   )
 }
 
