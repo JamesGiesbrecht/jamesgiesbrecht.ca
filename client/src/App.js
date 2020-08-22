@@ -27,7 +27,6 @@ const App = () => {
       >
         <About />
         <Projects />
-
       </Layout>
     </ThemeProvider>
   )
