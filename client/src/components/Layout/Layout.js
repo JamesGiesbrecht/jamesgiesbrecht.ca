@@ -1,15 +1,27 @@
 import React from 'react'
-import { Container, Toolbar } from '@material-ui/core'
+import { Container, Toolbar, makeStyles } from '@material-ui/core'
 import NavBar from './NavBar'
 import Footer from './Footer'
 
+const useStyles = makeStyles(() => ({
+  sections: {
+    '& > *': {
+      marginTop: '100px',
+    },
+  },
+}))
+
 const Layout = ({ children }) => {
+  const classes = useStyles()
+
   return (
     <>
       <NavBar />
       <Toolbar />
       <Container>
-        {children}
+        <div className={classes.sections}>
+          {children}
+        </div>
       </Container>
       <Footer />
     </>

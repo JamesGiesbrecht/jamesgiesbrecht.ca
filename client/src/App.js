@@ -2,6 +2,7 @@ import React from 'react'
 import { CssBaseline } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Layout from './components/Layout/Layout'
+import About from './components/About'
 import useColorScheme from './hooks/useColorScheme'
 
 const App = () => {
@@ -23,10 +24,7 @@ const App = () => {
         theme={colorScheme}
         toggleTheme={toggleColorScheme}
       >
-        <button onClick={toggleColorScheme}>Theme Change</button>
-        <br />
-        <br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ipsum enim, consequat ac enim viverra, faucibus egestas nibh. Vivamus dui erat, sodales quis nulla eu, rhoncus vehicula ex. Curabitur in neque ut odio iaculis vulputate vitae vel velit. Vestibulum eleifend feugiat sem, sit amet bibendum urna convallis ac. Etiam non finibus libero. Praesent placerat arcu neque, non vulputate arcu tempor eu. Maecenas rutrum iaculis massa at congue. Curabitur a sapien ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis leo elit, molestie cursus ullamcorper nec, sodales eget erat. Duis quis molestie nisl, sed scelerisque magna.
+        <About />
 
         In aliquam molestie justo quis iaculis. Duis tristique sem nec tristique ultrices. Cras eu feugiat lorem, faucibus venenatis mauris. Cras finibus ligula mauris, eu imperdiet sapien egestas id. Nulla efficitur leo congue, tincidunt lacus et, laoreet ante. Maecenas efficitur sit amet velit at ultrices. Nullam mattis bibendum consequat. Ut gravida suscipit ante, luctus feugiat mauris mattis sed. Quisque eu molestie velit. Nulla elementum felis vel ligula iaculis pharetra. Nulla facilisi. Aliquam leo arcu, mollis eget leo ac, elementum lobortis mauris. Praesent nibh felis, ultricies vel mi in, iaculis tempor orci. Suspendisse potenti. Mauris congue ligula nulla, quis fermentum ligula ullamcorper in. Sed porta ultrices felis vehicula hendrerit.
 
