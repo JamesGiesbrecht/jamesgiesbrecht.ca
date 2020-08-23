@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles, Link, Container } from '@material-ui/core'
+import { makeStyles, Link } from '@material-ui/core'
 // eslint-disable-next-line no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
 
