@@ -1,12 +1,13 @@
 import React from 'react'
-import { makeStyles, Link } from '@material-ui/core'
+import { makeStyles, Link, Container } from '@material-ui/core'
 // eslint-disable-next-line no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   footer: {
     padding: theme.spacing(3, 2),
-    marginTop: theme.spacing(8),
+    marginTop: 'auto',
+    paddingTop: theme.spacing(8),
     textAlign: 'center',
   },
   icon: {
