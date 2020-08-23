@@ -1,6 +1,7 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
 
+// eslint-disable-next-line arrow-body-style
 const Projects = () => {
   return (
     <div>

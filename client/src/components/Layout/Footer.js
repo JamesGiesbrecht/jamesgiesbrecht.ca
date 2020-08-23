@@ -1,23 +1,69 @@
 import React from 'react'
-import { Container, Typography, makeStyles } from '@material-ui/core'
+import { makeStyles, Link } from '@material-ui/core'
+// eslint-disable-next-line no-unused-vars
+import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   footer: {
     padding: theme.spacing(3, 2),
-    marginTop: 'auto',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+    marginTop: theme.spacing(8),
+    textAlign: 'center',
+  },
+  icon: {
+    '& :hover': {
+      color: theme.palette.action.hover,
+    },
+    '& +a': {
+      marginLeft: theme.spacing(4),
+    },
   },
 }))
+
+const socialMedia = [
+  {
+    name: 'Email',
+    link: 'mailto:giesbrechtjames@gmail.com',
+    icon: <Mail />,
+  },
+  {
+    name: 'Github',
+    link: 'https://github.com/JamesGiesbrecht',
+    icon: <GitHub />,
+  },
+  {
+    name: 'LinkedIn',
+    link: 'https://www.linkedin.com/in/jamesgiesbrecht',
+    icon: <LinkedIn />,
+  },
+  // {
+  //   name: 'Twitter',
+  //   link: 'https://twitter.com/JamesGiesbrecht',
+  //   icon: <Twitter />,
+  // },
+  // {
+  //   name: 'Instagram',
+  //   link: 'https://www.instagram.com/jamesgiesbrecht/',
+  //   icon: <Instagram />,
+  // },
+]
 
 const Footer = () => {
   const classes = useStyles()
 
+  const icons = socialMedia.map((social) => (
+    <Link
+      key={social.name}
+      className={classes.icon}
+      href={social.link}
+      color="inherit"
+    >
+      {social.icon}
+    </Link>
+  ))
+
   return (
     <footer className={classes.footer}>
-      <Container maxWidth="md">
-        <Typography variant="body1">Footer</Typography>
-      </Container>
+      {icons}
     </footer>
   )
 }
