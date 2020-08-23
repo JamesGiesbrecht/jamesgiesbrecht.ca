@@ -1,10 +1,11 @@
 import React from 'react'
 import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography } from '@material-ui/core'
 import { Link as LinkIcon, Code as CodeIcon } from '@material-ui/icons'
+import TechChip from './TechChip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 400,
     margin: theme.spacing(3, 'auto'),
   },
   media: {
@@ -53,6 +54,8 @@ const Project = ({ project }) => {
     )
     : null
 
+  const chips = project.stack.map((tech) => <TechChip tech={tech} />)
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -66,6 +69,7 @@ const Project = ({ project }) => {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">{project.description}</Typography>
+        {chips}
       </CardContent>
       <CardActions>
         {buttons}

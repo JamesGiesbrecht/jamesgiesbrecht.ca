@@ -72,7 +72,7 @@ export default [
   },
   {
     name: 'Critter Companion',
-    summary: 'A basic progress tracker for Animal Crossing New Horizons.',
+    summary: 'Progress tracker for Animal Crossing New Horizons',
     description: 'A way for users to track their collections of critters in Animal Crossing New Horizons.',
     link: 'https://crittercompanion.app',
     github: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
@@ -80,7 +80,7 @@ export default [
   },
   {
     name: 'Onesnap',
-    summary: 'Instagram Clone for a college final project.',
+    summary: 'Instagram clone for a college final project',
     description: 'An Instagram clone made for a final project in a web development class at Red River College.',
     image: onesnap,
     github: 'https://github.com/JamesGiesbrecht/Onesnap',
