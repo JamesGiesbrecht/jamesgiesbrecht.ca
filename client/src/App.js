@@ -1,43 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react'
+import { CssBaseline } from '@material-ui/core'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import Layout from './components/Layout/Layout'
+import About from './components/About'
+import useColorScheme from './hooks/useColorScheme'
+import Projects from './components/Projects'
 
 const App = () => {
-  const [apiRes, setApiRes] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
+  /* THEMING AND STYLES START */
+  const [colorScheme, toggleColorScheme] = useColorScheme()
+  const theme = React.useMemo(() => createMuiTheme({
+    palette: {
+      type: colorScheme,
+    },
+  }),
+  [colorScheme])
 
-  useEffect(() => {
-    axios.get('/api')
-      .then((response) => {
-        console.log(response)
-        setApiRes(response.data.message)
-      })
-      .catch((error) => {
-        console.log(error)
-        setApiRes('An error occured')
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [])
+  /* THEMING AND STYLES END */
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Welcome to jamesgiesbrecht.ca</p>
-        <p>{isLoading ? 'Loading...' : apiRes}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Layout
+        theme={colorScheme}
+        toggleTheme={toggleColorScheme}
+      >
+        <About />
+        <Projects />
+      </Layout>
+    </ThemeProvider>
   )
 }
 
