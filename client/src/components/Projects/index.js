@@ -1,17 +1,30 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, makeStyles } from '@material-ui/core'
 import projects from '../../assets/projects'
 import Project from './Project'
 
+const useStyles = makeStyles(() => ({
+  projects: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: 900,
+    margin: '0 auto',
+  },
+}))
+
 const Projects = () => {
-  const projs = projects.map((proj) => (
-    <Project project={proj} />
+  const classes = useStyles()
+
+  const projs = projects.map((proj, i) => (
+    <Project project={proj} isOdd={i % 2 === 1} />
   ))
 
   return (
     <div>
       <Typography variant="h3">Projects</Typography>
-      {projs}
+      <div className={classes.projects}>
+        {projs}
+      </div>
     </div>
   )
 }

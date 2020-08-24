@@ -10,9 +10,19 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
-      maxWidth: '85%',
+      maxWidth: '100%',
+      minWidth: 800,
       flexDirection: 'row',
+      marginLeft: 0,
     },
+  },
+  flipped: {
+    flexDirection: 'row-reverse',
+    marginLeft: 'auto',
+    marginRight: 0,
+  },
+  flippedContent: {
+    marginRight: 'auto',
   },
   mobile: {
     [theme.breakpoints.up('md')]: {
@@ -28,8 +38,9 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: '56.25%', // 16:9
     [theme.breakpoints.up('md')]: {
-      minWidth: 300,
-      height: 'auto',
+      padding: 0,
+      width: 175,
+      height: 300,
     },
   },
   link: {
@@ -50,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Project = ({ project }) => {
+const Project = ({ project, isOdd }) => {
   const classes = useStyles()
 
   const getButton = (link, type) => {
@@ -94,7 +105,7 @@ const Project = ({ project }) => {
         title={project.name}
         subheader={project.summary}
       />
-      <div className={classes.content}>
+      <div>
         <CardMedia
           className={classes.media}
           image={project.image}
@@ -116,13 +127,13 @@ const Project = ({ project }) => {
   )
 
   const desktopCard = (
-    <Card className={[classes.root, classes.desktop].join(' ')}>
+    <Card className={[classes.root, classes.desktop, isOdd ? classes.flipped : ''].join(' ')}>
       <CardMedia
         className={classes.media}
         image={project.image}
         title={project.name}
       />
-      <div>
+      <div className={isOdd ? classes.flippedContent : ''}>
         <CardHeader
           title={project.name}
           subheader={project.summary}
