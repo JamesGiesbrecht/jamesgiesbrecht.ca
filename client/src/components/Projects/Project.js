@@ -5,13 +5,12 @@ import TechChip from './TechChip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 500,
+    width: '100%',
     margin: theme.spacing(3, 'auto'),
     position: 'relative',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
-      maxWidth: '100%',
-      minWidth: 800,
+      width: 850,
       flexDirection: 'row',
       marginLeft: 0,
     },

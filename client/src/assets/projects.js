@@ -8,6 +8,7 @@ import javascript from './img/logos/javascript.png'
 import css from './img/logos/css.png'
 import bootstrap from './img/logos/bootstrap.svg'
 
+import jamesGiesbrecht from './img/projects/james-giesbrecht.png'
 import onesnap from './img/projects/onesnap.png'
 import critterCompanion from './img/projects/critter-companion.jpg'
 
@@ -15,7 +16,7 @@ const tech = {
   node: {
     name: 'Node.js',
     logo: nodeJs,
-    color: '#FFFFFF',
+    color: '#F5F5F5',
     fontColor: '#5C9144',
   },
   react: {
@@ -33,7 +34,7 @@ const tech = {
   express: {
     name: 'Express',
     logo: express,
-    color: '#FFFFFF',
+    color: '#F5F5F5',
     fontColor: '#000000',
   },
   php: {
@@ -67,6 +68,7 @@ export default [
     name: 'JamesGiesbrecht.ca',
     summary: 'The website you\'re on right now!',
     description: 'This website',
+    image: jamesGiesbrecht,
     link: '#',
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
     stack: [tech.react, tech.materialUI, tech.node, tech.express],

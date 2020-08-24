@@ -3,12 +3,15 @@ import { Typography, makeStyles } from '@material-ui/core'
 import projects from '../../assets/projects'
 import Project from './Project'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   projects: {
     display: 'flex',
     flexDirection: 'column',
     maxWidth: 900,
     margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 500,
+    },
   },
 }))
 
