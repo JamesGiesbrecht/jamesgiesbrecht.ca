@@ -9,6 +9,7 @@ import css from './img/logos/css.png'
 import bootstrap from './img/logos/bootstrap.svg'
 
 import onesnap from './img/projects/onesnap.png'
+import critterCompanion from './img/projects/critter-companion.jpg'
 
 const tech = {
   node: {
@@ -58,7 +59,7 @@ const tech = {
     logo: bootstrap,
     color: '#563D7C',
     fontColor: '#FFFFFF',
-  }
+  },
 }
 
 export default [
@@ -74,6 +75,7 @@ export default [
     name: 'Critter Companion',
     summary: 'Progress tracker for Animal Crossing New Horizons',
     description: 'A way for users to track their collections of critters in Animal Crossing New Horizons.',
+    image: critterCompanion,
     link: 'https://crittercompanion.app',
     github: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
     stack: [tech.react, tech.materialUI],

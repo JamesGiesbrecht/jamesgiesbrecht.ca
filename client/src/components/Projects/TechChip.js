@@ -6,6 +6,7 @@ const TechChip = ({ tech }) => {
     chip: {
       backgroundColor: tech.color,
       color: tech.fontColor,
+      margin: theme.spacing(0.5),
     },
     chipImg: {
       padding: '2px',

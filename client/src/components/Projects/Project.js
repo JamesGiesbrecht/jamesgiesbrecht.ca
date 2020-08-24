@@ -5,16 +5,48 @@ import TechChip from './TechChip'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
+    maxWidth: 500,
     margin: theme.spacing(3, 'auto'),
+    position: 'relative',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+      maxWidth: '85%',
+      flexDirection: 'row',
+    },
+  },
+  mobile: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  desktop: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-    backgroundColor: 'white',
+    [theme.breakpoints.up('md')]: {
+      minWidth: 300,
+      height: 'auto',
+    },
   },
   link: {
     marginRight: theme.spacing(1),
+  },
+  actions: {
+    flexDirection: 'column',
+    '& > *': {
+      marginTop: theme.spacing(1),
+    },
+    [theme.breakpoints.up('md')]: {
+      position: 'absolute',
+      bottom: 0,
+    },
+  },
+  buttons: {
+    marginRight: 'auto',
   },
 }))
 
@@ -56,25 +88,65 @@ const Project = ({ project }) => {
 
   const chips = project.stack.map((tech) => <TechChip tech={tech} />)
 
-  return (
-    <Card className={classes.root}>
+  const mobileCard = (
+    <Card className={[classes.root, classes.mobile].join(' ')}>
       <CardHeader
         title={project.name}
         subheader={project.summary}
       />
+      <div className={classes.content}>
+        <CardMedia
+          className={classes.media}
+          image={project.image}
+          title={project.name}
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">{project.description}</Typography>
+        </CardContent>
+        <CardActions className={classes.actions}>
+          <div>
+            {chips}
+          </div>
+          <div>
+            {buttons}
+          </div>
+        </CardActions>
+      </div>
+    </Card>
+  )
+
+  const desktopCard = (
+    <Card className={[classes.root, classes.desktop].join(' ')}>
       <CardMedia
         className={classes.media}
         image={project.image}
         title={project.name}
       />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">{project.description}</Typography>
-        {chips}
-      </CardContent>
-      <CardActions>
-        {buttons}
-      </CardActions>
+      <div>
+        <CardHeader
+          title={project.name}
+          subheader={project.summary}
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">{project.description}</Typography>
+        </CardContent>
+        <CardActions className={classes.actions}>
+          <div>
+            {chips}
+          </div>
+          <div className={classes.buttons}>
+            {buttons}
+          </div>
+        </CardActions>
+      </div>
     </Card>
+  )
+
+  return (
+    <>
+      {mobileCard}
+      {desktopCard}
+    </>
   )
 }
 
