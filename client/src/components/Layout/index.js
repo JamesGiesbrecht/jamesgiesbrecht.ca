@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Layout = ({ children }) => {
+const Layout = ({ children, toggleTheme }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
-      <NavBar />
+      <NavBar toggleTheme={toggleTheme} />
       <Toolbar />
       <Container>
         <div className={classes.sections}>

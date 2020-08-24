@@ -24,7 +24,6 @@ const App = () => {
       <CssBaseline />
       {/* <ScreenSize /> */}
       <Layout
-        theme={colorScheme}
         toggleTheme={toggleColorScheme}
       >
         <About />
