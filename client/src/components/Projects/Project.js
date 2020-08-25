@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography } from '@material-ui/core'
 import { Link as LinkIcon, Code as CodeIcon } from '@material-ui/icons'
+import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
 
 const useStyles = makeStyles((theme) => ({
@@ -153,10 +154,10 @@ const Project = ({ project, isOdd }) => {
   )
 
   return (
-    <>
+    <Fade left={!isOdd} right={isOdd}>
       {mobileCard}
       {desktopCard}
-    </>
+    </Fade>
   )
 }
 
