@@ -16,14 +16,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: 0,
     },
   },
-  flipped: {
-    flexDirection: 'row-reverse',
-    marginLeft: 'auto',
-    marginRight: 0,
-  },
-  flippedContent: {
-    marginRight: 'auto',
-  },
   mobile: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
@@ -48,17 +40,26 @@ const useStyles = makeStyles((theme) => ({
   link: {
     marginRight: theme.spacing(1),
   },
-  body: {
+  content: {
+    position: 'relative', //  For expand arrow to position in body
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
-  content: {
+  body: {
     flexGrow: 1,
+  },
+  flipped: {
+    flexDirection: 'row-reverse',
+    marginLeft: 'auto',
+    marginRight: 0,
+  },
+  flippedContent: {
+    marginRight: 'auto',
   },
   actions: {
     flexDirection: 'column',
     '& > *': {
-      margin: 0,
       marginTop: theme.spacing(1),
       marginRight: 'auto',
     },
@@ -120,37 +121,42 @@ const Project = ({ project, isOdd }) => {
 
   const chips = project.stack.map((tech) => <TechChip tech={tech} />)
 
+  const content = (
+    <>
+      <CardContent className={classes.body}>
+        <Typography paragraph>{project.summary}</Typography>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          {project.description}
+        </Collapse>
+      </CardContent>
+      <CardActions className={classes.actions} disableSpacing>
+        <div>
+          {chips}
+        </div>
+        <div>
+          {buttons}
+          <IconButton
+            className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+            onClick={handleExpand}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </div>
+      </CardActions>
+    </>
+  )
+
   const mobileCard = (
     <Card className={[classes.root, classes.mobile].join(' ')}>
       <CardHeader title={project.name} />
-      <div>
-        <CardMedia
-          className={classes.media}
-          image={project.image}
-          title={project.name}
-        />
-        <CardContent className={classes.content}>
-          <Typography variant="body2" color="textSecondary" component="p">{project.summary}</Typography>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-          </Collapse>
-        </CardContent>
-        <CardActions className={classes.actions}>
-          <div>
-            {chips}
-          </div>
-          <div>
-            {buttons}
-            <IconButton
-              className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
-              onClick={handleExpand}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </div>
-        </CardActions>
-      </div>
+      <CardMedia
+        className={classes.media}
+        image={project.image}
+        title={project.name}
+      />
+      {content}
     </Card>
   )
 
@@ -161,29 +167,9 @@ const Project = ({ project, isOdd }) => {
         image={project.image}
         title={project.name}
       />
-      <div className={[classes.body, isOdd ? classes.flippedContent : ''].join(' ')}>
+      <div className={[classes.content, isOdd ? classes.flippedContent : ''].join(' ')}>
         <CardHeader title={project.name} />
-        <CardContent className={classes.content}>
-          <Typography variant="body2" color="textSecondary" component="p">{project.summary}</Typography>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-          </Collapse>
-        </CardContent>
-        <CardActions className={classes.actions} disableSpacing>
-          <div>
-            {buttons}
-            <IconButton
-              className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
-              onClick={handleExpand}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </div>
-          <div>
-            {chips}
-          </div>
-        </CardActions>
+        {content}
       </div>
     </Card>
   )
