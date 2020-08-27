@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography } from '@material-ui/core'
-import { Link as LinkIcon, Code as CodeIcon } from '@material-ui/icons'
+import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton } from '@material-ui/core'
+import { Link as LinkIcon, Code as CodeIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
 
@@ -41,29 +41,49 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
       width: 175,
       minWidth: 175,
-      height: 300,
+      minHeight: 300,
+      height: 'auto',
     },
   },
   link: {
     marginRight: theme.spacing(1),
   },
+  body: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  content: {
+    flexGrow: 1,
+  },
   actions: {
     flexDirection: 'column',
     '& > *': {
+      margin: 0,
       marginTop: theme.spacing(1),
-    },
-    [theme.breakpoints.up('md')]: {
-      position: 'absolute',
-      bottom: 0,
+      marginRight: 'auto',
     },
   },
-  buttons: {
-    marginRight: 'auto',
+  expand: {
+    position: 'absolute',
+    bottom: theme.spacing(1),
+    right: theme.spacing(1),
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
   },
 }))
 
 const Project = ({ project, isOdd }) => {
   const classes = useStyles()
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpand = () => {
+    setExpanded((prevExpanded) => !prevExpanded)
+  }
 
   const getButton = (link, type) => {
     let icon
@@ -109,8 +129,10 @@ const Project = ({ project, isOdd }) => {
           image={project.image}
           title={project.name}
         />
-        <CardContent>
+        <CardContent className={classes.content}>
           <Typography variant="body2" color="textSecondary" component="p">{project.summary}</Typography>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+          </Collapse>
         </CardContent>
         <CardActions className={classes.actions}>
           <div>
@@ -118,6 +140,14 @@ const Project = ({ project, isOdd }) => {
           </div>
           <div>
             {buttons}
+            <IconButton
+              className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+              onClick={handleExpand}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
           </div>
         </CardActions>
       </div>
@@ -131,17 +161,27 @@ const Project = ({ project, isOdd }) => {
         image={project.image}
         title={project.name}
       />
-      <div className={isOdd ? classes.flippedContent : ''}>
+      <div className={[classes.body, isOdd ? classes.flippedContent : ''].join(' ')}>
         <CardHeader title={project.name} />
-        <CardContent>
+        <CardContent className={classes.content}>
           <Typography variant="body2" color="textSecondary" component="p">{project.summary}</Typography>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+          </Collapse>
         </CardContent>
-        <CardActions className={classes.actions}>
+        <CardActions className={classes.actions} disableSpacing>
+          <div>
+            {buttons}
+            <IconButton
+              className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+              onClick={handleExpand}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </div>
           <div>
             {chips}
-          </div>
-          <div className={classes.buttons}>
-            {buttons}
           </div>
         </CardActions>
       </div>
