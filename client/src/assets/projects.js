@@ -66,8 +66,8 @@ const tech = {
 export default [
   {
     name: 'JamesGiesbrecht.ca',
-    summary: 'The website you\'re on right now!',
     description: 'This website',
+    summary: 'The website you\'re on right now! Express backend for personal APIs, React frontend, and an automated build and deploy process utilizing git-hooks.',
     image: jamesGiesbrecht,
     link: '#',
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',

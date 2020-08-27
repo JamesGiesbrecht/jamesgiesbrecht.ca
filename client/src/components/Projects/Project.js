@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       padding: 0,
       width: 175,
+      minWidth: 175,
       height: 300,
     },
   },
@@ -101,10 +102,7 @@ const Project = ({ project, isOdd }) => {
 
   const mobileCard = (
     <Card className={[classes.root, classes.mobile].join(' ')}>
-      <CardHeader
-        title={project.name}
-        subheader={project.summary}
-      />
+      <CardHeader title={project.name} />
       <div>
         <CardMedia
           className={classes.media}
@@ -112,7 +110,7 @@ const Project = ({ project, isOdd }) => {
           title={project.name}
         />
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">{project.description}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">{project.summary}</Typography>
         </CardContent>
         <CardActions className={classes.actions}>
           <div>
@@ -134,12 +132,9 @@ const Project = ({ project, isOdd }) => {
         title={project.name}
       />
       <div className={isOdd ? classes.flippedContent : ''}>
-        <CardHeader
-          title={project.name}
-          subheader={project.summary}
-        />
+        <CardHeader title={project.name} />
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">{project.description}</Typography>
+          <Typography variant="body2" color="textSecondary" component="p">{project.summary}</Typography>
         </CardContent>
         <CardActions className={classes.actions}>
           <div>
