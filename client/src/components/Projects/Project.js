@@ -26,16 +26,28 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  mediaWrapper: {
+    padding: 0,
+    width: 175,
+    minWidth: 175,
+    minHeight: 300,
+    height: 'auto',
+    overflow: 'hidden',
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
     [theme.breakpoints.up('md')]: {
-      padding: 0,
-      width: 175,
-      minWidth: 175,
-      minHeight: 300,
-      height: 'auto',
+      transform: 'scale(1)',
+      width: '100%',
+      height: '100%',
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+      }),
     },
+  },
+  zoom: {
+    transform: 'scale(1.5)',
   },
   link: {
     marginRight: theme.spacing(1),
@@ -162,11 +174,13 @@ const Project = ({ project, isOdd }) => {
 
   const desktopCard = (
     <Card className={[classes.root, classes.desktop, isOdd ? classes.flipped : ''].join(' ')}>
-      <CardMedia
-        className={classes.media}
-        image={project.image}
-        title={project.name}
-      />
+      <div className={classes.mediaWrapper}>
+        <CardMedia
+          className={[classes.media, !expanded ? classes.zoom : ''].join(' ')}
+          image={project.image}
+          title={project.name}
+        />
+      </div>
       <div className={[classes.content, isOdd ? classes.flippedContent : ''].join(' ')}>
         <CardHeader title={project.name} />
         {content}

@@ -8,8 +8,8 @@ import javascript from './img/logos/javascript.png'
 import css from './img/logos/css.png'
 import bootstrap from './img/logos/bootstrap.svg'
 
-import jamesGiesbrecht from './img/projects/james-giesbrecht.png'
-import onesnap from './img/projects/onesnap.png'
+import jamesGiesbrecht from './img/projects/james-giesbrecht.jpg'
+import onesnap from './img/projects/onesnap.jpg'
 import critterCompanion from './img/projects/critter-companion.jpg'
 
 const tech = {
