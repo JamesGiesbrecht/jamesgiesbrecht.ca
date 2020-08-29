@@ -5,7 +5,7 @@ const wrhaRoutes = require('./wrha')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  res.json({ message: 'Hello from API' })
+  res.json({ message: 'Hello from API', env: process.env.NODE_ENV || 'Not set', port: process.env.PORT || 'Not set' })
 })
 
 router.use('/wrha', wrhaRoutes)
