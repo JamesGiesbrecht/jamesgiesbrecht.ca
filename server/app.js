@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const { public } = require('./util/path')
 
 const app = express()
-const PORT = 3001
+const PORT = process.env.NODE_ENV || 3001
 
 const mainRoutes = require('./routes/index')
 const apiRoutes = require('./routes/api/index')
