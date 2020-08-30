@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton, Popper, Paper } from '@material-ui/core'
+import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton, Popper, Paper, List, ListItem, ListItemText } from '@material-ui/core'
 import { Link as LinkIcon, Code as CodeIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
@@ -159,12 +159,29 @@ const Project = ({ project, isOdd }) => {
 
   const chips = project.stack.map((tech) => <TechChip key={tech.name} tech={tech} />)
 
+  const description = project.description.map((section) => {
+    const sectionContent = (
+      <List>
+        {section.content.map((listItem) => (
+          <ListItem><ListItemText>{listItem}</ListItemText></ListItem>
+        ))}
+      </List>
+    )
+
+    return (
+      <>
+        <Typography variant="h6">{section.title}</Typography>
+        {sectionContent}
+      </>
+    )
+  })
+
   const content = (
     <>
       <CardContent className={classes.body}>
         <Typography paragraph>{project.summary}</Typography>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          {project.description}
+          {description}
         </Collapse>
       </CardContent>
       <CardActions className={classes.actions} disableSpacing>
