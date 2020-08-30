@@ -1,10 +1,11 @@
 import React from 'react'
 import { CssBaseline } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import Layout from './components/Layout/Layout'
+import Layout from './components/Layout'
 import About from './components/About'
 import useColorScheme from './hooks/useColorScheme'
-import Projects from './components/Projects'
+import Projects from './components/Projects/Projects'
+// import ScreenSize from './components/ScreenSize'
 
 const App = () => {
   /* THEMING AND STYLES START */
@@ -21,8 +22,8 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {/* <ScreenSize /> */}
       <Layout
-        theme={colorScheme}
         toggleTheme={toggleColorScheme}
       >
         <About />

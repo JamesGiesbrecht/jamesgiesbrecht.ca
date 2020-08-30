@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavBar = () => {
+const NavBar = ({ toggleTheme }) => {
   const classes = useStyles()
   const [isOpen, setIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
@@ -116,6 +116,7 @@ const NavBar = () => {
           JG
         </Typography>
         <div className={classes.grow} />
+        <button type="button" onClick={() => toggleTheme()}>Theme</button>
         <div className={classes.desktopNav}>
           <Tabs value={activeNav} onChange={handleTabChange}>
             {desktopNav}

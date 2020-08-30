@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
   intro: {
     marginTop: '60px',
     display: 'flex',
+    justifyContent: 'center',
     [theme.breakpoints.up('sm')]: {
       alignItems: 'center',
     },

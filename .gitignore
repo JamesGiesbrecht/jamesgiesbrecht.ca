@@ -2,5 +2,6 @@ node_modules
 
 # client
 /client/build
+/client/src/assets/full-res
 
 # server
