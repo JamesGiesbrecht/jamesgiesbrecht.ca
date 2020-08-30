@@ -1,67 +1,7 @@
-import nodeJs from './img/logos/node-js.svg'
-import react from './img/logos/react.svg'
-import nodeHex from './img/logos/node-hex.png'
-import express from './img/logos/express.png'
-import php from './img/logos/php.png'
-import materialUI from './img/logos/material-ui.png'
-import javascript from './img/logos/javascript.png'
-import css from './img/logos/css.png'
-import bootstrap from './img/logos/bootstrap.svg'
-
+import tech from '../consts/tech'
 import jamesGiesbrecht from './img/projects/james-giesbrecht.jpg'
 import onesnap from './img/projects/onesnap.jpg'
 import critterCompanion from './img/projects/critter-companion.jpg'
-
-const tech = {
-  node: {
-    name: 'Node.js',
-    logo: nodeJs,
-    color: '#F5F5F5',
-    fontColor: '#5C9144',
-  },
-  react: {
-    name: 'React',
-    logo: react,
-    color: '#2A2C2E',
-    fontColor: '#78D1F7',
-  },
-  materialUI: {
-    name: 'Material UI',
-    logo: materialUI,
-    color: '#2A2C2E',
-    fontColor: '#00B3FA',
-  },
-  express: {
-    name: 'Express',
-    logo: express,
-    color: '#F5F5F5',
-    fontColor: '#000000',
-  },
-  php: {
-    name: 'PHP',
-    logo: php,
-    color: '#717AAA',
-    fontColor: '#000000',
-  },
-  javascript: {
-    name: 'Javascript',
-    logo: javascript,
-    color: '#F0DB4F',
-    fontColor: '#000000',
-  },
-  css: {
-    name: 'CSS',
-    logo: css,
-    color: '#2965F1',
-    fontColor: '#FFFFFF',
-  },
-  bootstrap: {
-    name: 'Bootstrap',
-    logo: bootstrap,
-    color: '#563D7C',
-    fontColor: '#FFFFFF',
-  },
-}
 
 export default [
   {
