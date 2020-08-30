@@ -9,7 +9,7 @@ export default [
     description: 'This website',
     summary: 'The website you\'re on right now! Express backend for personal APIs, React frontend, and an automated build and deploy process utilizing git-hooks.',
     image: jamesGiesbrecht,
-    link: '#',
+    link: { isPopper: true, content: 'You\'re already here silly' },
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
     stack: [tech.react, tech.materialUI, tech.node, tech.express],
   },

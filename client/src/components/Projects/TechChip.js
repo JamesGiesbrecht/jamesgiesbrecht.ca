@@ -24,7 +24,6 @@ const TechChip = ({ tech }) => {
       }}
       label={tech.name}
       avatar={logo}
-      color={tech.color}
     />
   )
 }

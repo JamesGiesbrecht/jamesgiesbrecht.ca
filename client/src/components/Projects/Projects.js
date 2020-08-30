@@ -19,7 +19,7 @@ const Projects = () => {
   const classes = useStyles()
 
   const projs = projects.map((proj, i) => (
-    <Project project={proj} isOdd={i % 2 === 1} />
+    <Project key={proj.name} project={proj} isOdd={i % 2 === 1} />
   ))
 
   return (

@@ -4,7 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Layout from './components/Layout'
 import About from './components/About'
 import useColorScheme from './hooks/useColorScheme'
-import Projects from './components/Projects/index'
+import Projects from './components/Projects/Projects'
 // import ScreenSize from './components/ScreenSize'
 
 const App = () => {

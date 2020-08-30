@@ -1,5 +1,5 @@
-import React from 'react'
-import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton, Popper, Paper } from '@material-ui/core'
 import { Link as LinkIcon, Code as CodeIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
@@ -88,15 +88,24 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  popper: {
+    padding: theme.spacing(2),
+  },
 }))
 
 const Project = ({ project, isOdd }) => {
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false)
+  const [popperAnchor, setPopperAnchor] = useState(false)
 
   const handleExpand = () => {
     setExpanded((prevExpanded) => !prevExpanded)
   }
+
+  const handlePopperClick = (e) => {
+    setPopperAnchor(popperAnchor ? null : e.currentTarget)
+  }
+  const popperOpen = Boolean(popperAnchor)
 
   const getButton = (link, type) => {
     let icon
@@ -110,9 +119,26 @@ const Project = ({ project, isOdd }) => {
     }
 
     if (link) {
+      if (link.isPopper) {
+        return (
+          <Button
+            onClick={handlePopperClick}
+          >
+            {icon}
+            {type}
+            <Popper
+              open={popperOpen}
+              anchorEl={popperAnchor}
+            >
+              <Paper className={classes.popper}>{link.content}</Paper>
+            </Popper>
+          </Button>
+        )
+      }
       return (
         <Button
           href={link}
+          target="_blank"
         >
           {icon}
           {type}
@@ -131,7 +157,7 @@ const Project = ({ project, isOdd }) => {
     )
     : null
 
-  const chips = project.stack.map((tech) => <TechChip tech={tech} />)
+  const chips = project.stack.map((tech) => <TechChip key={tech.name} tech={tech} />)
 
   const content = (
     <>
