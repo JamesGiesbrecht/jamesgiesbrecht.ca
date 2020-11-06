@@ -1,6 +1,6 @@
 import nodeJs from '../assets/img/logos/node-js.svg'
 import react from '../assets/img/logos/react.svg'
-import nodeHex from '../assets/img/logos/node-hex.png'
+// import nodeHex from '../assets/img/logos/node-hex.png'
 import express from '../assets/img/logos/express.png'
 import php from '../assets/img/logos/php.png'
 import materialUI from '../assets/img/logos/material-ui.png'
