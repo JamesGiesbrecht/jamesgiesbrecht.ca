@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles, Link } from '@material-ui/core'
+import { makeStyles, IconButton } from '@material-ui/core'
 // eslint-disable-next-line no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
 
@@ -9,14 +9,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 'auto',
     paddingTop: theme.spacing(8),
     textAlign: 'center',
-  },
-  icon: {
-    '& :hover': {
-      color: theme.palette.action.hover,
-    },
-    '& +a': {
-      marginLeft: theme.spacing(4),
-    },
   },
 }))
 
@@ -52,14 +44,13 @@ const Footer = () => {
   const classes = useStyles()
 
   const icons = socialMedia.map((social) => (
-    <Link
+    <IconButton
       key={social.name}
-      className={classes.icon}
       href={social.link}
-      color="inherit"
+      target="_blank"
     >
       {social.icon}
-    </Link>
+    </IconButton>
   ))
 
   return (
