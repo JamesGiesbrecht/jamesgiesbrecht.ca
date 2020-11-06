@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography, makeStyles } from '@material-ui/core'
-import james from '../assets/img/james.jpg'
+import james from 'assets/img/james.jpg'
 
 const useStyles = makeStyles((theme) => ({
   intro: {

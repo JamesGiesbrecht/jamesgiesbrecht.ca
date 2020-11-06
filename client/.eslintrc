@@ -11,6 +11,11 @@
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
