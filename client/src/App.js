@@ -10,13 +10,11 @@ import Projects from './components/Projects/Projects'
 const App = () => {
   /* THEMING AND STYLES START */
   const [colorScheme, toggleColorScheme] = useColorScheme()
-  const theme = React.useMemo(() => createMuiTheme({
+  const theme = createMuiTheme({
     palette: {
       type: colorScheme,
     },
-  }),
-  [colorScheme])
-
+  })
   /* THEMING AND STYLES END */
 
   return (
@@ -24,6 +22,7 @@ const App = () => {
       <CssBaseline />
       {/* <ScreenSize /> */}
       <Layout
+        theme={colorScheme}
         toggleTheme={toggleColorScheme}
       >
         <About />

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar } from '@material-ui/core'
-import { Home, Code, Mail, Menu as MenuIcon } from '@material-ui/icons'
+import { Home, Code, Mail, Menu as MenuIcon, Brightness7 as Sun, Brightness3 as Moon } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavBar = ({ toggleTheme }) => {
+const NavBar = ({ theme, toggleTheme }) => {
   const classes = useStyles()
   const [isOpen, setIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
@@ -53,6 +53,12 @@ const NavBar = ({ toggleTheme }) => {
   const handleTabChange = (e, newValue) => {
     setActiveNav(newValue)
   }
+
+  const themeButton = (
+    <IconButton onClick={toggleTheme}>
+      {theme === 'dark' ? <Sun /> : <Moon />}
+    </IconButton>
+  )
 
   const navItems = [
     { name: 'Home', icon: <Home /> },
@@ -116,12 +122,12 @@ const NavBar = ({ toggleTheme }) => {
           JG
         </Typography>
         <div className={classes.grow} />
-        <button type="button" onClick={() => toggleTheme()}>Theme</button>
         <div className={classes.desktopNav}>
           <Tabs value={activeNav} onChange={handleTabChange}>
             {desktopNav}
           </Tabs>
         </div>
+        {themeButton}
         <div className={classes.mobileNav}>
           <IconButton
             onClick={handleToggle}
