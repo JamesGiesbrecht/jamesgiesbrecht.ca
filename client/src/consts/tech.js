@@ -1,12 +1,12 @@
-import nodeJs from '../assets/img/logos/node-js.svg'
-import react from '../assets/img/logos/react.svg'
-// import nodeHex from '../assets/img/logos/node-hex.png'
-import express from '../assets/img/logos/express.png'
-import php from '../assets/img/logos/php.png'
-import materialUI from '../assets/img/logos/material-ui.png'
-import javascript from '../assets/img/logos/javascript.png'
-import css from '../assets/img/logos/css.png'
-import bootstrap from '../assets/img/logos/bootstrap.svg'
+import nodeJs from 'assets/img/logos/node-js.svg'
+import react from 'assets/img/logos/react.svg'
+// import nodeHex from 'assets/img/logos/node-hex.png'
+import express from 'assets/img/logos/express.png'
+import php from 'assets/img/logos/php.png'
+import materialUI from 'assets/img/logos/material-ui.png'
+import javascript from 'assets/img/logos/javascript.png'
+import css from 'assets/img/logos/css.png'
+import bootstrap from 'assets/img/logos/bootstrap.svg'
 
 export default {
   node: {

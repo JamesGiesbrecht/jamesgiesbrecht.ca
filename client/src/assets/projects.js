@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from '@material-ui/core'
-import tech from '../consts/tech'
-import jamesGiesbrecht from './img/projects/james-giesbrecht.jpg'
-import onesnap from './img/projects/onesnap.jpg'
-import critterCompanion from './img/projects/critter-companion.jpg'
+import tech from 'consts/tech'
+import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.jpg'
+import onesnap from 'assets/img/projects/onesnap.jpg'
+import critterCompanion from 'assets/img/projects/critter-companion.jpg'
 
 export default [
   {
