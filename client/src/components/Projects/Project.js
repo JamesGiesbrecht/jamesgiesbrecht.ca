@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton, Popper, Paper, List, ListItem, ListItemText } from '@material-ui/core'
 import { Link as LinkIcon, Code as CodeIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import Fade from 'react-reveal/Fade'
@@ -148,14 +148,12 @@ const Project = ({ project, isOdd }) => {
     return null
   }
 
-  const buttons = (project.link || project.github)
-    ? (
+  const buttons = (project.link || project.github) && (
       <ButtonGroup>
         {getButton(project.link, 'Website')}
         {getButton(project.github, 'Code')}
       </ButtonGroup>
     )
-    : null
 
   const chips = project.stack.map((tech) => <TechChip key={tech.name} tech={tech} />)
 
@@ -163,16 +161,16 @@ const Project = ({ project, isOdd }) => {
     const sectionContent = (
       <List>
         {section.content.map((listItem) => (
-          <ListItem><ListItemText>{listItem}</ListItemText></ListItem>
+          <ListItem key={listItem}><ListItemText>{listItem}</ListItemText></ListItem>
         ))}
       </List>
     )
 
     return (
-      <>
+      <Fragment key={section.title} >
         <Typography variant="h6">{section.title}</Typography>
         {sectionContent}
-      </>
+      </Fragment>
     )
   })
 
