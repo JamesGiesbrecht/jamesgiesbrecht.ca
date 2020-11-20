@@ -13,7 +13,7 @@ export default [
       {
         title: 'Features',
         content: [
-          'Backend Express server to build and learn with RESTful APIs',
+          'Backend NodeJS/Express server to build and learn with RESTful APIs',
           <>
             {'WRHA wait times web scraping for my wife so she can ask her phone for the '}
             <Link target="_blank" href="/api/wrha/grace">current wait times at her workplace</Link>
@@ -47,7 +47,7 @@ export default [
   },
   {
     name: 'Critter Companion',
-    summary: 'Progress tracker for Animal Crossing New Horizons',
+    summary: 'Progress tracker for Animal Crossing New Horizons. Client side app made with React.',
     description: [
       {
         title: 'Description',
@@ -80,7 +80,7 @@ export default [
   },
   {
     name: 'Onesnap',
-    summary: 'Instagram clone for a college final project',
+    summary: 'Instagram clone with user auth, profiles, and posts for a college final project. Aside from Bootstrap, made entirely with vanilla PHP, Javascript, and HTML/CSS.',
     description: [
       {
         title: 'Description',
