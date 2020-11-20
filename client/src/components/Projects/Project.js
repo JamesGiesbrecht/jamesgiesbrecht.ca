@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   zoom: {
     transform: 'scale(1.5)',
   },
-  link: {
+  linkIcon: {
     marginRight: theme.spacing(1),
   },
   content: {
@@ -77,9 +77,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   expand: {
-    position: 'absolute',
-    bottom: theme.spacing(1),
-    right: theme.spacing(1),
+    marginLeft: theme.spacing(1),
     transform: 'rotate(0deg)',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
@@ -111,11 +109,11 @@ const Project = ({ project, isOdd }) => {
     let icon
     switch (type) {
       case 'Code':
-        icon = <CodeIcon className={classes.link} />
+        icon = <CodeIcon className={classes.linkIcon} />
         break
       case 'Website':
       default:
-        icon = <LinkIcon className={classes.link} />
+        icon = <LinkIcon className={classes.linkIcon} />
     }
 
     if (link) {
@@ -188,14 +186,17 @@ const Project = ({ project, isOdd }) => {
         </div>
         <div>
           {buttons}
-          <IconButton
-            className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+          <Button
+            variant="outlined"
             onClick={handleExpand}
             aria-expanded={expanded}
             aria-label="show more"
           >
-            <ExpandMoreIcon />
-          </IconButton>
+            {'More Details '}
+            <ExpandMoreIcon
+              className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+            />
+          </Button>
         </div>
       </CardActions>
     </>
