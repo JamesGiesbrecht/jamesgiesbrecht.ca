@@ -110,6 +110,7 @@ export default [
       },
     ],
     image: onesnap,
+    link: 'https://php.jamesgiesbrecht.ca/onesnap',
     github: 'https://github.com/JamesGiesbrecht/Onesnap',
     stack: [tech.php, tech.javascript, tech.css, tech.bootstrap],
   },
