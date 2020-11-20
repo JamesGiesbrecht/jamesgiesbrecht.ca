@@ -16,17 +16,17 @@ export default [
           'Backend Express server to build and learn with RESTful APIs',
           <>
             {'WRHA wait times web scraping for my wife so she can ask her phone for the '}
-            <Link href="/api/wrha/grace">current wait times at her workplace</Link>
+            <Link target="_blank" href="/api/wrha/grace">current wait times at her workplace</Link>
           </>,
           'Hosted on a Linux Digital Ocean droplet',
           <>
             {'Git-hooks automatically build and deploy the site when master is pushed to webserver, and deploys to '}
-            <Link href="dev.jamesgiesbrecht.ca">dev.jamesgiesbrecht.ca</Link>
+            <Link target="_blank" href="https://dev.jamesgiesbrecht.ca">dev.jamesgiesbrecht.ca</Link>
             {' when any other branch is pushed'}
           </>,
           <>
             {'Subdomain to host my past PHP based projects '}
-            <Link href="php.jamesgiesbrecht.ca/old-portfolio">Example project: Old Portfolio</Link>
+            <Link target="_blank" href="https://php.jamesgiesbrecht.ca/old-portfolio">Example project: Old Portfolio</Link>
           </>,
           'Light/dark mode',
           'Responsive',
