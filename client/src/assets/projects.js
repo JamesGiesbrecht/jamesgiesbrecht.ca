@@ -7,6 +7,7 @@ import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
 import critterCompanion from 'assets/img/projects/critter-companion.png'
 import critterCompanionBg from 'assets/img/projects/critter-companion-bg.jpg'
 import gamePit from 'assets/img/projects/game-pit.png'
+import gamePitBg from 'assets/img/projects/game-pit-bg.jpg'
 
 export default [
   {
@@ -79,7 +80,7 @@ export default [
       },
     ],
     image: gamePit,
-    background: '#1890FF',
+    background: gamePitBg,
     // link: 'https://crittercompanion.app',
     github: 'https://github.com/JamesGiesbrecht/game_pit_react',
     stack: [tech.rubyOnRails, tech.react, tech.antD, tech.sqlite],
