@@ -1,5 +1,6 @@
 import React from 'react'
 import { CssBaseline } from '@material-ui/core'
+import { blue } from '@material-ui/core/colors'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Layout from 'components/Layout'
 import About from 'components/About'
@@ -13,6 +14,13 @@ const App = () => {
   const theme = createMuiTheme({
     palette: {
       type: colorScheme,
+    },
+    overrides: {
+      MuiLink: {
+        root: {
+          color: colorScheme === 'dark' ? blue[300] : blue[900]
+        },
+      },
     },
   })
   /* THEMING AND STYLES END */

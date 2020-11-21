@@ -7,6 +7,7 @@ import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
 import critterCompanion from 'assets/img/projects/critter-companion.png'
 import critterCompanionBg from 'assets/img/projects/critter-companion-bg.jpg'
 import gamePit from 'assets/img/projects/game-pit.png'
+import gamePitBg from 'assets/img/projects/game-pit-bg.jpg'
 
 export default [
   {
@@ -79,7 +80,7 @@ export default [
       },
     ],
     image: gamePit,
-    background: '#1890FF',
+    background: gamePitBg,
     // link: 'https://crittercompanion.app',
     github: 'https://github.com/JamesGiesbrecht/game_pit_react',
     stack: [tech.rubyOnRails, tech.react, tech.antD, tech.sqlite],
@@ -125,7 +126,7 @@ export default [
       {
         title: 'Description',
         content: [
-          'WARNING: Bad code ahead! Onesnap is a Instagram clone made for a final project in a web development class at Red River College. This project taught me a lot about CRUD operations, responsive design, user authentication, integration with 3rd party apis, and input sanitization. It was built entirely with vanilla languages (with the exception of Bootstrap).',
+          'WARNING: Bad code ahead! This is one of my first big projects and a lot of mistakes were made and lessons were learned. Onesnap is a Instagram clone made for a final project in a web development class at Red River College. This project taught me a lot about CRUD operations, responsive design, user authentication, integration with 3rd party apis, and input sanitization. It was built entirely with vanilla languages (with the exception of Bootstrap).',
         ],
       },
       {
