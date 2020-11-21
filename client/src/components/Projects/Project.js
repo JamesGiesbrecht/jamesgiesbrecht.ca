@@ -194,9 +194,11 @@ const Project = ({ project, isOdd }) => {
   const description = project.description.map((section) => {
     const sectionContent = (
       <List>
-        {section.content.map((listItem) => (
-          <ListItem key={listItem}><ListItemText>{listItem}</ListItemText></ListItem>
-        ))}
+        {section.content.map((listItem) => {
+          const key = typeof listItem === 'object' ? listItem.props.children[0] : listItem
+          return <ListItem key={key}><ListItemText>{listItem}</ListItemText></ListItem>
+        }
+        )}
       </List>
     )
 
