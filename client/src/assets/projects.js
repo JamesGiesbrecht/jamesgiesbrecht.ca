@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from '@material-ui/core'
 import tech from 'consts/tech'
-import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.jpg'
-import onesnap from 'assets/img/projects/onesnap.jpg'
-import critterCompanion from 'assets/img/projects/critter-companion.jpg'
+import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
+import onesnap from 'assets/img/projects/onesnap.png'
+import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
+import critterCompanion from 'assets/img/projects/critter-companion.png'
+import critterCompanionBg from 'assets/img/projects/critter-companion-bg.jpg'
+import gamePit from 'assets/img/projects/game-pit.png'
 
 export default [
   {
@@ -13,20 +16,20 @@ export default [
       {
         title: 'Features',
         content: [
-          'Backend Express server to build and learn with RESTful APIs',
+          'Backend NodeJS/Express server to build and learn with RESTful APIs',
           <>
             {'WRHA wait times web scraping for my wife so she can ask her phone for the '}
-            <Link href="/api/wrha/grace">current wait times at her workplace</Link>
+            <Link target="_blank" href="/api/wrha/grace">current wait times at her workplace</Link>
           </>,
           'Hosted on a Linux Digital Ocean droplet',
           <>
             {'Git-hooks automatically build and deploy the site when master is pushed to webserver, and deploys to '}
-            <Link href="dev.jamesgiesbrecht.ca">dev.jamesgiesbrecht.ca</Link>
+            <Link target="_blank" href="https://dev.jamesgiesbrecht.ca">dev.jamesgiesbrecht.ca</Link>
             {' when any other branch is pushed'}
           </>,
           <>
             {'Subdomain to host my past PHP based projects '}
-            <Link href="php.jamesgiesbrecht.ca/old-portfolio">Example project: Old Portfolio</Link>
+            <Link target="_blank" href="https://php.jamesgiesbrecht.ca/old-portfolio">Example project: Old Portfolio</Link>
           </>,
           'Light/dark mode',
           'Responsive',
@@ -41,13 +44,49 @@ export default [
       },
     ],
     image: jamesGiesbrecht,
+    background: '#1D1D1D',
     link: { isPopper: true, content: 'You\'re already here silly' },
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
     stack: [tech.react, tech.materialUI, tech.node, tech.express],
   },
   {
+    name: 'Game Pit',
+    summary: 'Full-featured (kinda) mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end.',
+    description: [
+      {
+        title: 'Description',
+        content: [
+          'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront.',
+        ],
+      },
+      {
+        title: 'Features',
+        content: [
+          'Admin dashboard to manually add or edit properties of products',
+          'Real scraped data from vgchartz.com and bestbuy.ca',
+          'Product browsing, searching, and filtering',
+          'Shopping cart functionality saved to local storage to persist across refreshes and browsing sessions',
+          'Individual product pages for each product',
+        ],
+      },
+      {
+        title: 'Upcoming Features',
+        content: [
+          'Cart checkout with (mock) payment',
+          'Account creation with address and login',
+          'Order creation with pricing and taxes preserved at time of order',
+        ],
+      },
+    ],
+    image: gamePit,
+    background: '#1890FF',
+    // link: 'https://crittercompanion.app',
+    github: 'https://github.com/JamesGiesbrecht/game_pit_react',
+    stack: [tech.rubyOnRails, tech.react, tech.antD, tech.sqlite],
+  },
+  {
     name: 'Critter Companion',
-    summary: 'Progress tracker for Animal Crossing New Horizons',
+    summary: 'Progress tracker for Animal Crossing New Horizons. Client side app made with React.',
     description: [
       {
         title: 'Description',
@@ -74,13 +113,14 @@ export default [
       },
     ],
     image: critterCompanion,
+    background: critterCompanionBg,
     link: 'https://crittercompanion.app',
     github: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
     stack: [tech.react, tech.materialUI],
   },
   {
     name: 'Onesnap',
-    summary: 'Instagram clone for a college final project',
+    summary: 'Instagram clone with user auth, profiles, and posts for a college final project. Aside from Bootstrap, made entirely with vanilla PHP, Javascript, and HTML/CSS.',
     description: [
       {
         title: 'Description',
@@ -105,11 +145,13 @@ export default [
       {
         title: 'Retrospective',
         content: [
-          'Building this app gave me lots of practice in CSS and responsive design. This was also my first venture into AJAX and backend integrations. It\'s not the cleanest code by any stretch and there were definitely compromises made in order to meet deadlines. Building this app really outlined how taking advantages of templating and frameworks could\'ve streamlined the development process.',
+          'Building this app gave me lots of practice in CSS and responsive design. This was also my first venture into AJAX and backend integrations. It\'s not the cleanest code by any stretch and there were definitely compromises made in order to meet deadlines. Building this app really outlined how taking advantages of templating and frameworks that could\'ve really streamlined the development process.',
         ],
       },
     ],
     image: onesnap,
+    background: onesnapBg,
+    link: 'https://php.jamesgiesbrecht.ca/onesnap',
     github: 'https://github.com/JamesGiesbrecht/Onesnap',
     stack: [tech.php, tech.javascript, tech.css, tech.bootstrap],
   },

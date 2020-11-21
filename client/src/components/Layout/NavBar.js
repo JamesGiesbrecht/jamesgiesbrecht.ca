@@ -60,6 +60,7 @@ const NavBar = ({ theme, toggleTheme }) => {
     </IconButton>
   )
 
+  //  TODO: Add functionality
   const navItems = [
     { name: 'Home', icon: <Home /> },
     { name: 'Projects', icon: <Code /> },
@@ -122,13 +123,13 @@ const NavBar = ({ theme, toggleTheme }) => {
           JG
         </Typography>
         <div className={classes.grow} />
-        <div className={classes.desktopNav}>
+        {/* <div className={classes.desktopNav}>
           <Tabs value={activeNav} onChange={handleTabChange}>
             {desktopNav}
           </Tabs>
-        </div>
+        </div> */}
         {themeButton}
-        <div className={classes.mobileNav}>
+        {/* <div className={classes.mobileNav}>
           <IconButton
             onClick={handleToggle}
             color="inherit"
@@ -137,7 +138,7 @@ const NavBar = ({ theme, toggleTheme }) => {
             <MenuIcon />
           </IconButton>
         </div>
-        {mobileMenu}
+        {mobileMenu} */}
       </AppBar>
     </Slide>
   )

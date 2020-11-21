@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react'
-import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton, Popper, Paper, List, ListItem, ListItemText } from '@material-ui/core'
+import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton, Popper, Paper, List, ListItem, ListItemText, useMediaQuery } from '@material-ui/core'
 import { Link as LinkIcon, Code as CodeIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
@@ -35,21 +35,18 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    height: '280px',
+    padding: '15%',
+    backgroundSize: 'contain, cover',
+    backgroundOrigin: 'content-box, padding-box',
     [theme.breakpoints.up('md')]: {
-      transform: 'scale(1)',
-      width: '100%',
       height: '100%',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
     },
   },
   zoom: {
     transform: 'scale(1.5)',
   },
-  link: {
+  linkIcon: {
     marginRight: theme.spacing(1),
   },
   content: {
@@ -77,9 +74,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   expand: {
-    position: 'absolute',
-    bottom: theme.spacing(1),
-    right: theme.spacing(1),
+    marginLeft: theme.spacing(1),
     transform: 'rotate(0deg)',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
@@ -91,12 +86,23 @@ const useStyles = makeStyles((theme) => ({
   popper: {
     padding: theme.spacing(2),
   },
+  buttons: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }))
 
 const Project = ({ project, isOdd }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
   const [popperAnchor, setPopperAnchor] = useState(false)
+
+
+  const cardImage = {
+    backgroundImage: `url(${project.image}), url(${project.background})`,
+    backgroundColor: project.background
+  }
 
   const handleExpand = () => {
     setExpanded((prevExpanded) => !prevExpanded)
@@ -105,17 +111,18 @@ const Project = ({ project, isOdd }) => {
   const handlePopperClick = (e) => {
     setPopperAnchor(popperAnchor ? null : e.currentTarget)
   }
+
   const popperOpen = Boolean(popperAnchor)
 
   const getButton = (link, type) => {
     let icon
     switch (type) {
       case 'Code':
-        icon = <CodeIcon className={classes.link} />
+        icon = <CodeIcon className={classes.linkIcon} />
         break
       case 'Website':
       default:
-        icon = <LinkIcon className={classes.link} />
+        icon = <LinkIcon className={classes.linkIcon} />
     }
 
     if (link) {
@@ -148,12 +155,39 @@ const Project = ({ project, isOdd }) => {
     return null
   }
 
-  const buttons = (project.link || project.github) && (
+  const expandMoreButton = useMediaQuery((theme) => theme.breakpoints.up('sm')) ? (
+    <Button
+      variant="outlined"
+      onClick={handleExpand}
+      aria-expanded={expanded}
+      aria-label="show more"
+    >
+      {'More Details '}
+      <ExpandMoreIcon
+        className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+      />
+    </Button>
+  ) : (
+    <IconButton
+      onClick={handleExpand}
+      aria-expanded={expanded}
+      aria-label="show more"
+    >
+      <ExpandMoreIcon
+        className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+      />
+    </IconButton>
+  )
+
+  const buttons = (
+    <div className={classes.buttons}>
       <ButtonGroup>
         {getButton(project.link, 'Website')}
         {getButton(project.github, 'Code')}
       </ButtonGroup>
-    )
+      {expandMoreButton}
+    </div>
+  )
 
   const chips = project.stack.map((tech) => <TechChip key={tech.name} tech={tech} />)
 
@@ -186,17 +220,7 @@ const Project = ({ project, isOdd }) => {
         <div>
           {chips}
         </div>
-        <div>
-          {buttons}
-          <IconButton
-            className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
-            onClick={handleExpand}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </div>
+        {buttons}
       </CardActions>
     </>
   )
@@ -206,6 +230,7 @@ const Project = ({ project, isOdd }) => {
       <CardHeader title={project.name} />
       <CardMedia
         className={classes.media}
+        style={cardImage}
         image={project.image}
         title={project.name}
       />
@@ -217,7 +242,8 @@ const Project = ({ project, isOdd }) => {
     <Card className={[classes.root, classes.desktop, isOdd ? classes.flipped : ''].join(' ')}>
       <div className={classes.mediaWrapper}>
         <CardMedia
-          className={[classes.media, !expanded ? classes.zoom : ''].join(' ')}
+          className={classes.media}
+          style={cardImage}
           image={project.image}
           title={project.name}
         />
