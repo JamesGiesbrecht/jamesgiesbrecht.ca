@@ -7,12 +7,20 @@ import materialUI from 'assets/img/logos/material-ui.png'
 import javascript from 'assets/img/logos/javascript.png'
 import css from 'assets/img/logos/css.png'
 import bootstrap from 'assets/img/logos/bootstrap.svg'
+import ruby from 'assets/img/logos/ruby.svg'
+import antd from 'assets/img/logos/antd.svg'
+import sqlite from 'assets/img/logos/sqlite.svg'
+
+
+const offWhite = '#F5F5F5'
+const white = '#FFF'
+const black = '#000'
 
 export default {
   node: {
     name: 'Node.js',
     logo: nodeJs,
-    color: '#F5F5F5',
+    color: offWhite,
     fontColor: '#5C9144',
   },
   react: {
@@ -30,31 +38,49 @@ export default {
   express: {
     name: 'Express',
     logo: express,
-    color: '#F5F5F5',
-    fontColor: '#000000',
+    color: offWhite,
+    fontColor: black,
   },
   php: {
     name: 'PHP',
     logo: php,
     color: '#717AAA',
-    fontColor: '#000000',
+    fontColor: black,
   },
   javascript: {
     name: 'Javascript',
     logo: javascript,
     color: '#F0DB4F',
-    fontColor: '#000000',
+    fontColor: black,
   },
   css: {
     name: 'CSS',
     logo: css,
     color: '#2965F1',
-    fontColor: '#FFFFFF',
+    fontColor: white,
   },
   bootstrap: {
     name: 'Bootstrap',
     logo: bootstrap,
     color: '#563D7C',
-    fontColor: '#FFFFFF',
+    fontColor: white,
+  },
+  rubyOnRails: {
+    name: 'Ruby On Rails',
+    logo: ruby,
+    fontColor: offWhite,
+    color: '#CC4444',
+  },
+  antD: {
+    name: 'Ant Design',
+    logo: antd,
+    color: offWhite,
+    fontColor: '#1890ff',
+  },
+  sqlite: {
+    name: 'SQLite',
+    logo: sqlite,
+    color: offWhite,
+    fontColor: '#003B57',
   },
 }

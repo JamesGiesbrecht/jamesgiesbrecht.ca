@@ -6,6 +6,7 @@ import onesnap from 'assets/img/projects/onesnap.png'
 import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
 import critterCompanion from 'assets/img/projects/critter-companion.png'
 import critterCompanionBg from 'assets/img/projects/critter-companion-bg.jpg'
+import gamePit from 'assets/img/projects/game-pit.png'
 
 export default [
   {
@@ -47,6 +48,41 @@ export default [
     link: { isPopper: true, content: 'You\'re already here silly' },
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
     stack: [tech.react, tech.materialUI, tech.node, tech.express],
+  },
+  {
+    name: 'Game Pit',
+    summary: 'Full-featured (kinda) mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end.',
+    description: [
+      {
+        title: 'Description',
+        content: [
+          'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront.',
+        ],
+      },
+      {
+        title: 'Features',
+        content: [
+          'Admin dashboard to manually add or edit properties of products',
+          'Real scraped data from vgchartz.com and bestbuy.ca',
+          'Product browsing, searching, and filtering',
+          'Shopping cart functionality saved to local storage to persist across refreshes and browsing sessions',
+          'Individual product pages for each product',
+        ],
+      },
+      {
+        title: 'Upcoming Features',
+        content: [
+          'Cart checkout with (mock) payment',
+          'Account creation with address and login',
+          'Order creation with pricing and taxes preserved at time of order',
+        ],
+      },
+    ],
+    image: gamePit,
+    background: '#1890FF',
+    // link: 'https://crittercompanion.app',
+    github: 'https://github.com/JamesGiesbrecht/game_pit_react',
+    stack: [tech.rubyOnRails, tech.react, tech.antD, tech.sqlite],
   },
   {
     name: 'Critter Companion',
@@ -109,7 +145,7 @@ export default [
       {
         title: 'Retrospective',
         content: [
-          'Building this app gave me lots of practice in CSS and responsive design. This was also my first venture into AJAX and backend integrations. It\'s not the cleanest code by any stretch and there were definitely compromises made in order to meet deadlines. Building this app really outlined how taking advantages of templating and frameworks could\'ve streamlined the development process.',
+          'Building this app gave me lots of practice in CSS and responsive design. This was also my first venture into AJAX and backend integrations. It\'s not the cleanest code by any stretch and there were definitely compromises made in order to meet deadlines. Building this app really outlined how taking advantages of templating and frameworks that could\'ve really streamlined the development process.',
         ],
       },
     ],
