@@ -57,7 +57,10 @@ export default [
       {
         title: 'Description',
         content: [
-          'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront.',
+          <>
+            {'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront. Code button below links to the front end React code, '}
+            <Link target="_blank" href="https://github.com/JamesGiesbrecht/game_pit">backend code can be found here.</Link>
+          </>,
         ],
       },
       {
