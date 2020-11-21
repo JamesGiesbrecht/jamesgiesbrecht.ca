@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from '@material-ui/core'
 import tech from 'consts/tech'
-import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.jpg'
-import onesnap from 'assets/img/projects/onesnap.jpg'
-import critterCompanion from 'assets/img/projects/critter-companion.jpg'
+import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
+import onesnap from 'assets/img/projects/onesnap.png'
+import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
+import critterCompanion from 'assets/img/projects/critter-companion.png'
+import critterCompanionBg from 'assets/img/projects/critter-companion-bg.jpg'
 
 export default [
   {
@@ -41,6 +43,7 @@ export default [
       },
     ],
     image: jamesGiesbrecht,
+    background: '#1D1D1D',
     link: { isPopper: true, content: 'You\'re already here silly' },
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
     stack: [tech.react, tech.materialUI, tech.node, tech.express],
@@ -74,6 +77,7 @@ export default [
       },
     ],
     image: critterCompanion,
+    background: critterCompanionBg,
     link: 'https://crittercompanion.app',
     github: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
     stack: [tech.react, tech.materialUI],
@@ -110,6 +114,7 @@ export default [
       },
     ],
     image: onesnap,
+    background: onesnapBg,
     link: 'https://php.jamesgiesbrecht.ca/onesnap',
     github: 'https://github.com/JamesGiesbrecht/Onesnap',
     stack: [tech.php, tech.javascript, tech.css, tech.bootstrap],

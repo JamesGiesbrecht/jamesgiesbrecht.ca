@@ -35,15 +35,12 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    height: '280px',
+    padding: '15%',
+    backgroundSize: 'contain, cover',
+    backgroundOrigin: 'content-box, padding-box',
     [theme.breakpoints.up('md')]: {
-      transform: 'scale(1)',
-      width: '100%',
       height: '100%',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
     },
   },
   zoom: {
@@ -101,6 +98,12 @@ const Project = ({ project, isOdd }) => {
   const [expanded, setExpanded] = useState(false)
   const [popperAnchor, setPopperAnchor] = useState(false)
 
+
+  const cardImage = {
+    backgroundImage: `url(${project.image}), url(${project.background})`,
+    backgroundColor: project.background
+  }
+
   const handleExpand = () => {
     setExpanded((prevExpanded) => !prevExpanded)
   }
@@ -108,6 +111,7 @@ const Project = ({ project, isOdd }) => {
   const handlePopperClick = (e) => {
     setPopperAnchor(popperAnchor ? null : e.currentTarget)
   }
+
   const popperOpen = Boolean(popperAnchor)
 
   const getButton = (link, type) => {
@@ -226,6 +230,7 @@ const Project = ({ project, isOdd }) => {
       <CardHeader title={project.name} />
       <CardMedia
         className={classes.media}
+        style={cardImage}
         image={project.image}
         title={project.name}
       />
@@ -237,7 +242,8 @@ const Project = ({ project, isOdd }) => {
     <Card className={[classes.root, classes.desktop, isOdd ? classes.flipped : ''].join(' ')}>
       <div className={classes.mediaWrapper}>
         <CardMedia
-          className={[classes.media, !expanded ? classes.zoom : ''].join(' ')}
+          className={classes.media}
+          style={cardImage}
           image={project.image}
           title={project.name}
         />
