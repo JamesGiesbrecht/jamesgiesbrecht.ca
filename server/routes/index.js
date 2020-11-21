@@ -9,10 +9,6 @@ router.get('/projects/onesnap', (req, res) => {
   res.sendFile(path.join(root, '..', '..', 'projects', 'onesnap', 'index.php'))
 })
 
-router.get('/favicon.ico', (req, res) => {
-  res.sendFile(path.join(public, 'favicon.ico'))
-})
-
 router.get('*', (req, res) => {
   res.sendFile(path.join(public, 'index.html'))
 })
