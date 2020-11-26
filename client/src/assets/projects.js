@@ -52,20 +52,18 @@ export default [
   },
   {
     name: 'Game Pit',
-    summary: 'Full-featured (kinda) mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end.',
+    summary: 'Full-featured (kinda) mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end. Also my first experience with Docker and containerization.',
     description: [
       {
         title: 'Description',
         content: [
-          <>
-            {'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront. Code button below links to the front end React code, '}
-            <Link target="_blank" href="https://github.com/JamesGiesbrecht/game_pit">backend code can be found here.</Link>
-          </>,
+          'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront. The code is contained in a monorepo, the React code can be found in the "client" subdirectory.'
         ],
       },
       {
         title: 'Features',
         content: [
+          'Containerized with Docker to deploy anywhere',
           'Admin dashboard to manually add or edit properties of products',
           'Real scraped data from vgchartz.com and bestbuy.ca',
           'Product browsing, searching, and filtering',
@@ -84,9 +82,9 @@ export default [
     ],
     image: gamePit,
     background: gamePitBg,
-    // link: 'https://crittercompanion.app',
-    github: 'https://github.com/JamesGiesbrecht/game_pit_react',
-    stack: [tech.rubyOnRails, tech.react, tech.antD, tech.sqlite],
+    link: 'https://gamepit.jamesgiesbrecht.ca',
+    github: 'https://github.com/JamesGiesbrecht/game_pit',
+    stack: [tech.rubyOnRails, tech.react, tech.antD, tech.postgres, tech.docker],
   },
   {
     name: 'Critter Companion',
@@ -155,7 +153,7 @@ export default [
     ],
     image: onesnap,
     background: onesnapBg,
-    link: 'https://php.jamesgiesbrecht.ca/onesnap',
+    // link: 'https://php.jamesgiesbrecht.ca/onesnap',
     github: 'https://github.com/JamesGiesbrecht/Onesnap',
     stack: [tech.php, tech.javascript, tech.css, tech.bootstrap],
   },
