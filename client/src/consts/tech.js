@@ -7,9 +7,11 @@ import materialUI from 'assets/img/logos/material-ui.png'
 import javascript from 'assets/img/logos/javascript.png'
 import css from 'assets/img/logos/css.png'
 import bootstrap from 'assets/img/logos/bootstrap.svg'
-import ruby from 'assets/img/logos/ruby.svg'
+import rails from 'assets/img/logos/rails.svg'
 import antd from 'assets/img/logos/antd.svg'
 import sqlite from 'assets/img/logos/sqlite.svg'
+import postgres from 'assets/img/logos/postgres.svg'
+import docker from 'assets/img/logos/docker.svg'
 
 
 const offWhite = '#F5F5F5'
@@ -67,9 +69,9 @@ export default {
   },
   rubyOnRails: {
     name: 'Ruby On Rails',
-    logo: ruby,
-    fontColor: offWhite,
-    color: '#CC4444',
+    logo: rails,
+    fontColor: white,
+    color: '#CC0000',
   },
   antD: {
     name: 'Ant Design',
@@ -82,5 +84,17 @@ export default {
     logo: sqlite,
     color: offWhite,
     fontColor: '#003B57',
+  },
+  postgres: {
+    name: 'PostgreSQL',
+    logo: postgres,
+    color: '#336791',
+    fontColor: white,
+  },
+  docker: {
+    name: 'Docker',
+    logo: docker,
+    color: '#2396ED',
+    fontColor: white,
   },
 }
