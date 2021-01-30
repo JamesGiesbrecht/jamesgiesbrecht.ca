@@ -2,6 +2,13 @@ import React from 'react'
 import { Container, Toolbar, makeStyles } from '@material-ui/core'
 import NavBar from './NavBar'
 import Footer from './Footer'
+import { PaletteOptions } from '@material-ui/core/styles/createPalette'
+
+interface Props {
+  theme: PaletteOptions['type']
+  toggleTheme: () => void
+  children: React.ReactNode
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Layout = ({ children, theme, toggleTheme }) => {
+const Layout: React.FC<Props> = ({ theme, toggleTheme, children }) => {
   const classes = useStyles()
 
   return (

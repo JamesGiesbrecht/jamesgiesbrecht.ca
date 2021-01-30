@@ -40,7 +40,7 @@ const socialMedia = [
   // },
 ]
 
-const Footer = () => {
+const Footer: React.FC = () => {
   const classes = useStyles()
 
   const icons = socialMedia.map((social) => (
