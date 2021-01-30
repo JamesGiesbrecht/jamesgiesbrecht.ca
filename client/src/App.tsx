@@ -22,7 +22,7 @@ const App = () => {
     overrides: {
       MuiLink: {
         root: {
-          color: colorScheme === 'dark' ? blue[300] : blue[900]
+          color: colorScheme === 'dark' ? blue[300] : blue[900],
         },
       },
     },
