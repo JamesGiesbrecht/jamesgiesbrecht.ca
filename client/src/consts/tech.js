@@ -13,7 +13,6 @@ import sqlite from 'assets/img/logos/sqlite.svg'
 import postgres from 'assets/img/logos/postgres.svg'
 import docker from 'assets/img/logos/docker.svg'
 
-
 const offWhite = '#F5F5F5'
 const white = '#FFF'
 const black = '#000'

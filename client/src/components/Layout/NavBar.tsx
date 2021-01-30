@@ -2,6 +2,12 @@ import React, { useState, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar } from '@material-ui/core'
 import { Home, Code, Mail, Menu as MenuIcon, Brightness7 as Sun, Brightness3 as Moon } from '@material-ui/icons'
+import { PaletteOptions } from '@material-ui/core/styles/createPalette'
+
+interface Props {
+  theme: PaletteOptions['type']
+  toggleTheme: () => void
+}
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -32,27 +38,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavBar = ({ theme, toggleTheme }) => {
+const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
   const [isOpen, setIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
-  const anchorRef = useRef(null)
+  const anchorRef = useRef<HTMLAnchorElement>(null)
   const scrollTrigger = useScrollTrigger()
 
-  const handleToggle = () => {
-    setIsOpen((prevOpen) => !prevOpen)
-  }
+  // const handleToggle = () => {
+  //   setIsOpen((prevOpen) => !prevOpen)
+  // }
 
-  const handleClose = (e) => {
-    if (anchorRef.current && anchorRef.current.contains(e.target)) {
+  const handleClose = (e: React.MouseEvent<HTMLLIElement | Document, MouseEvent>) => {
+    if (anchorRef.current && anchorRef.current.contains(e.target as Node)) {
       return
     }
     setIsOpen(false)
   }
 
-  const handleTabChange = (e, newValue) => {
-    setActiveNav(newValue)
-  }
+  // const handleTabChange = (e, newValue) => {
+  //   setActiveNav(newValue)
+  // }
 
   const themeButton = (
     <IconButton onClick={toggleTheme}>
@@ -96,13 +102,13 @@ const NavBar = ({ theme, toggleTheme }) => {
       open={isOpen}
       transition
       disablePortal
+      className={classes.mobileNav}
     >
       {({ TransitionProps, placement }) => (
         <Grow
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...TransitionProps}
           style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-          className={classes.mobileNav}
         >
           <Paper square>
             <ClickAwayListener onClickAway={handleClose}>

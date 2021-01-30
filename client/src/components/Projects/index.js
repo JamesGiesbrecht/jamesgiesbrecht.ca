@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, makeStyles } from '@material-ui/core'
-import Project from './Project'
 import projects from 'assets/projects'
+import Project from './Project'
 
 const useStyles = makeStyles((theme) => ({
   projects: {

@@ -98,10 +98,9 @@ const Project = ({ project, isOdd }) => {
   const [expanded, setExpanded] = useState(false)
   const [popperAnchor, setPopperAnchor] = useState(false)
 
-
   const cardImage = {
     backgroundImage: `url(${project.image}), url(${project.background})`,
-    backgroundColor: project.background
+    backgroundColor: project.background,
   }
 
   const handleExpand = () => {
@@ -197,13 +196,12 @@ const Project = ({ project, isOdd }) => {
         {section.content.map((listItem) => {
           const key = typeof listItem === 'object' ? listItem.props.children[0] : listItem
           return <ListItem key={key}><ListItemText>{listItem}</ListItemText></ListItem>
-        }
-        )}
+        })}
       </List>
     )
 
     return (
-      <Fragment key={section.title} >
+      <Fragment key={section.title}>
         <Typography variant="h6">{section.title}</Typography>
         {sectionContent}
       </Fragment>

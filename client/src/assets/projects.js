@@ -57,7 +57,7 @@ export default [
       {
         title: 'Description',
         content: [
-          'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront. The code is contained in a monorepo, the React code can be found in the "client" subdirectory.'
+          'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront. The code is contained in a monorepo, the React code can be found in the "client" subdirectory.',
         ],
       },
       {
