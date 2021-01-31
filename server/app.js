@@ -19,9 +19,9 @@ app.use('/api', apiRoutes)
 app.use(mainRoutes)
 
 mongoose.connect(MONGODB_URL)
-  .then((result) => {
-    app.listen(PORT)
-    // eslint-disable-next-line no-console
-    console.log(`Server is live on port ${PORT}`)
-  })
+  .then((result) => console.log('Connected to MongoDB'))
   .catch((error) => console.log(error))
+
+// eslint-disable-next-line no-console
+console.log(`Server is live on port ${PORT}`)
+app.listen(PORT)
