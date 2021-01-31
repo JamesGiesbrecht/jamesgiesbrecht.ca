@@ -7,7 +7,20 @@ exports.postGoogleLogin = (req, res) => {
   client.verifyIdToken({ idToken, audience: process.env.GOOGLE_APP_ID })
     .then((response) => {
       const { email_verified, name, email } = response.payload
-      console.log(response.payload)
+      if (email_verified) {
+        // See if user email exists in db
+        // if (user) {
+        //   // user exists
+        // } else {
+        //   // is new user
+        // }
+
+        // create new jwt token
+        // return user data and token
+      } else {
+      //   handle error
+      }
+      res.send(response.payload)
     })
   res.send('<h1>Google Login</h1>')
 }
