@@ -6,6 +6,7 @@ import Layout from 'components/Layout/Layout'
 import About from 'components/About'
 import useColorScheme from 'hooks/useColorScheme'
 import Projects from 'components/Projects'
+import Login from 'components/Login'
 // import ScreenSize from 'components/ScreenSize'
 
 /*
@@ -37,6 +38,7 @@ const App = () => {
         theme={colorScheme}
         toggleTheme={toggleColorScheme}
       >
+        <Login />
         <About />
         <Projects />
       </Layout>
