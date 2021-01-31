@@ -4,25 +4,25 @@ import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 
 const Login: React.FC = () => {
   const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse): void => {
-    console.log(response);
+    console.log(response)
   }
 
   const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline): void => {
-    console.log(response);
+    console.log(response)
   }
 
   return (
     <>
       <h1>LOGIN WITH FACEBOOK AND GOOGLE</h1>
       <FacebookLogin
-        appId="" // APP ID NOT CREATED YET
+        appId={process.env.REACT_APP_FACEBOOK_APP_ID as string}
         fields="name,email,picture"
         callback={responseFacebook}
       />
       <br />
       <br />
       <GoogleLogin
-        clientId="" // CLIENTID NOT CREATED YET
+        clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
         buttonText="LOGIN WITH GOOGLE"
         onSuccess={responseGoogle}
         onFailure={responseGoogle}

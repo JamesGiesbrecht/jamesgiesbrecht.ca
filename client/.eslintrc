@@ -22,6 +22,7 @@
     "rules": {
       "no-unused-vars": "off",
       "no-use-before-define": "off",
+      "max-len": "off",
       "@typescript-eslint/no-use-before-define": ["error"],
       "object-curly-newline": ["error", { "ObjectPattern": { "multiline": true } }],
       "react/prop-types": ["off"],
