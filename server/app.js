@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3001
 const mainRoutes = require('./routes/index')
 const apiRoutes = require('./routes/api/index')
 
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(public))
 
