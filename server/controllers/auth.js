@@ -20,7 +20,7 @@ exports.postGoogleLogin = (req, res) => {
       } else {
       //   handle error
       }
-      res.send(response.payload)
+      return res.send(response.payload)
     })
-  res.send('<h1>Google Login</h1>')
+    .catch((error) => console.log(error))
 }
