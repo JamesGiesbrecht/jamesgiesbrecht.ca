@@ -1,10 +1,35 @@
 import React from 'react'
 import axios from 'axios'
-import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login'
+import FacebookLogin from 'react-facebook-auth'
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
+import { Button, makeStyles, Typography } from '@material-ui/core'
+import { Facebook, Apple, GitHub, Twitter } from '@material-ui/icons'
+import GoogleIcon from 'components/Icons/GoogleIcon'
+
+const useStyles = makeStyles((theme) => ({
+  loginButtons: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '2em',
+    textAlign: 'center',
+    '& button': {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '250px',
+    },
+  },
+  title: {
+    marginBottom: 50,
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+}))
 
 const Login: React.FC = () => {
-  const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse): void => {
+  const classes = useStyles()
+
+  const responseFacebook = (response: any): void => {
     console.log(response)
   }
 
@@ -30,22 +55,63 @@ const Login: React.FC = () => {
   }
 
   return (
-    <>
-      <h1>LOGIN WITH FACEBOOK AND GOOGLE</h1>
+    <div className={classes.loginButtons}>
+      <Typography className={classes.title} variant="h3">Login</Typography>
       <FacebookLogin
-        appId={process.env.REACT_APP_FACEBOOK_APP_ID as string}
-        fields="name,email,picture"
+        appId={process.env.REACT_APP_FACEBOOK_APP_ID}
         callback={responseFacebook}
+        component={(renderProps: any) => (
+          <Button
+            onClick={renderProps.onClick}
+            variant="outlined"
+            startIcon={<Facebook />}
+            className={classes.button}
+          >
+            Login with Facebook
+          </Button>
+        )}
       />
-      <br />
-      <br />
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
-        buttonText="LOGIN WITH GOOGLE"
         onSuccess={responseSuccessGoogle}
         onFailure={responseErrorGoogle}
+        render={(renderProps) => (
+          <Button
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            className={classes.button}
+          >
+            Login with Google
+          </Button>
+        )}
       />
-    </>
+      <Button
+        onClick={() => {}}
+        variant="outlined"
+        startIcon={<Twitter />}
+        className={classes.button}
+      >
+        Login with Twitter
+      </Button>
+      <Button
+        onClick={() => {}}
+        variant="outlined"
+        startIcon={<Apple />}
+        className={classes.button}
+      >
+        Login with Apple
+      </Button>
+      <Button
+        onClick={() => {}}
+        variant="outlined"
+        startIcon={<GitHub />}
+        className={classes.button}
+      >
+        Login with GitHub
+      </Button>
+    </div>
   )
 }
 
