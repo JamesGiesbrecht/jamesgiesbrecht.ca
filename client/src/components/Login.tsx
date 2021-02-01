@@ -8,21 +8,19 @@ import GoogleIcon from 'components/Icons/GoogleIcon'
 
 const useStyles = makeStyles((theme) => ({
   loginButtons: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '2em',
     textAlign: 'center',
     '& button': {
+      minWidth: 230,
+      margin: theme.spacing(2),
       marginLeft: 'auto',
       marginRight: 'auto',
-      width: '250px',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
     },
   },
   title: {
     marginBottom: 50,
-  },
-  button: {
-    margin: theme.spacing(1),
   },
 }))
 
@@ -56,21 +54,21 @@ const Login: React.FC = () => {
 
   return (
     <div className={classes.loginButtons}>
-      <Typography className={classes.title} variant="h3">Login</Typography>
-      <FacebookLogin
-        appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-        callback={responseFacebook}
-        component={(renderProps: any) => (
-          <Button
-            onClick={renderProps.onClick}
-            variant="outlined"
-            startIcon={<Facebook />}
-            className={classes.button}
-          >
-            Login with Facebook
-          </Button>
-        )}
-      />
+      <Typography className={classes.title} variant="h3">Sign In</Typography>
+      <Button
+        onClick={() => {}}
+        variant="outlined"
+        startIcon={<Apple />}
+      >
+        Sign In with Apple
+      </Button>
+      <Button
+        onClick={() => {}}
+        variant="outlined"
+        startIcon={<GitHub />}
+      >
+        Sign In with GitHub
+      </Button>
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
         onSuccess={responseSuccessGoogle}
@@ -81,9 +79,8 @@ const Login: React.FC = () => {
             disabled={renderProps.disabled}
             variant="outlined"
             startIcon={<GoogleIcon />}
-            className={classes.button}
           >
-            Login with Google
+            Sign In with Google
           </Button>
         )}
       />
@@ -91,26 +88,22 @@ const Login: React.FC = () => {
         onClick={() => {}}
         variant="outlined"
         startIcon={<Twitter />}
-        className={classes.button}
       >
-        Login with Twitter
+        Sign In with Twitter
       </Button>
-      <Button
-        onClick={() => {}}
-        variant="outlined"
-        startIcon={<Apple />}
-        className={classes.button}
-      >
-        Login with Apple
-      </Button>
-      <Button
-        onClick={() => {}}
-        variant="outlined"
-        startIcon={<GitHub />}
-        className={classes.button}
-      >
-        Login with GitHub
-      </Button>
+      <FacebookLogin
+        appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+        callback={responseFacebook}
+        component={(renderProps: any) => (
+          <Button
+            onClick={renderProps.onClick}
+            variant="outlined"
+            startIcon={<Facebook />}
+          >
+            Sign In with Facebook
+          </Button>
+        )}
+      />
     </div>
   )
 }
