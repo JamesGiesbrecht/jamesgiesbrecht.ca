@@ -22,5 +22,8 @@ exports.postGoogleLogin = (req, res) => {
       }
       return res.send(response.payload)
     })
-    .catch((error) => console.log(error))
+    .catch((error) => {
+      console.log(error)
+      res.send('Error')
+    })
 }

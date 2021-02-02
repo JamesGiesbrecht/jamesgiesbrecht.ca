@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
+import AuthProvider from 'context/Auth'
 import { CssBaseline } from '@material-ui/core'
 import { blue } from '@material-ui/core/colors'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
@@ -32,24 +33,26 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {/* <ScreenSize /> */}
-        <Layout
-          theme={colorScheme}
-          toggleTheme={toggleColorScheme}
-        >
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Redirect push to="/" />
-          </Switch>
-        </Layout>
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {/* <ScreenSize /> */}
+          <Layout
+            theme={colorScheme}
+            toggleTheme={toggleColorScheme}
+          >
+            <Switch>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Redirect push to="/" />
+            </Switch>
+          </Layout>
+        </ThemeProvider>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

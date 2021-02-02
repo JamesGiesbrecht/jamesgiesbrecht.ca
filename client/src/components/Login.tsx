@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import axios from 'axios'
 import FacebookLogin from 'react-facebook-auth'
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
-import { Button, makeStyles, Typography } from '@material-ui/core'
+import { Button, makeStyles, Typography, Container } from '@material-ui/core'
 import { Facebook, Apple, GitHub, Twitter } from '@material-ui/icons'
 import GoogleIcon from 'components/Icons/GoogleIcon'
+import { AuthContext } from 'context/Auth'
 
 const useStyles = makeStyles((theme) => ({
   loginButtons: {
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login: React.FC = () => {
   const classes = useStyles()
+  const { setProfile } = useContext(AuthContext)
 
   const responseFacebook = (response: any): void => {
     console.log(response)
@@ -38,7 +40,12 @@ const Login: React.FC = () => {
   const responseSuccessGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline): void => {
     console.log(response)
     if (!isGoogleLoginResponse(response)) return
-    console.log(response.tokenId)
+
+    setProfile({
+      info: response.profileObj,
+      token: response.tokenId,
+    })
+
     axios.post('/google-login', {
       idToken: response.tokenId,
     })
@@ -49,11 +56,11 @@ const Login: React.FC = () => {
   }
 
   const responseErrorGoogle = (response: any): void => {
-    console.log(response)
+    console.log('Google sign in unsuccessful', response)
   }
 
   return (
-    <div className={classes.loginButtons}>
+    <Container className={classes.loginButtons}>
       <Typography className={classes.title} variant="h3">Sign In</Typography>
       <Button
         onClick={() => {}}
@@ -73,6 +80,7 @@ const Login: React.FC = () => {
         clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
         onSuccess={responseSuccessGoogle}
         onFailure={responseErrorGoogle}
+        cookiePolicy="single_host_origin"
         render={(renderProps) => (
           <Button
             onClick={renderProps.onClick}
@@ -104,7 +112,7 @@ const Login: React.FC = () => {
           </Button>
         )}
       />
-    </div>
+    </Container>
   )
 }
 

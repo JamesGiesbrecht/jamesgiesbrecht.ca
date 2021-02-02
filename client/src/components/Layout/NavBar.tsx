@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar } from '@material-ui/core'
 import { Home, Code, Mail, Menu as MenuIcon, Brightness7 as Sun, Brightness3 as Moon } from '@material-ui/icons'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
+import { AuthContext } from 'context/Auth'
 
 interface Props {
   theme: PaletteOptions['type']
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
+  const { profile } = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
   const anchorRef = useRef<HTMLAnchorElement>(null)
@@ -145,6 +147,7 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
           </IconButton>
         </div>
         {mobileMenu} */}
+        {profile.info && profile.info.givenName}
       </AppBar>
     </Slide>
   )
