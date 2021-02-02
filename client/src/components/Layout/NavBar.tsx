@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
-  const { profile } = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState('Home')
   const anchorRef = useRef<HTMLAnchorElement>(null)
@@ -124,8 +124,12 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
     </Popper>
   )
 
-  const profileAvatar = profile && (
-    <Avatar alt={profile.name} src={profile.imageUrl} />
+  const profileAvatar = user && (
+    <Avatar alt={user.profile.name} src={user.profile.imageUrl} />
+  )
+
+  const logoutButton = user && (
+    <MenuItem onClick={logout}>Logout</MenuItem>
   )
 
   return (
@@ -152,6 +156,7 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
         </div>
         {mobileMenu} */}
         {profileAvatar}
+        {logoutButton}
       </AppBar>
     </Slide>
   )

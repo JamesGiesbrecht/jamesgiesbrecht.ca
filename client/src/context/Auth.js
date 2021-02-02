@@ -3,29 +3,20 @@ import React, { useState, useEffect, createContext } from 'react'
 export const AuthContext = createContext()
 
 export default ({ children }) => {
-  const [profile, setProfile] = useState(JSON.parse(localStorage.getItem('profile')))
-  const [token, setToken] = useState(JSON.parse(localStorage.getItem('token')))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
 
   useEffect(() => {
-    console.log('Saving Profile to LS', profile)
-    localStorage.setItem('profile', JSON.stringify(profile))
-  }, [profile])
+    console.log('Saving user to LS', user)
+    localStorage.setItem('user', JSON.stringify(user))
+  }, [user])
 
-  useEffect(() => {
-    console.log('Saving Token to LS', token)
-    localStorage.setItem('token', JSON.stringify(profile))
-  }, [token])
+  const logout = () => setUser(null)
 
-  const setUser = (user) => {
-    if (user.profile) setProfile(user.profile)
-    if (user.token) setToken(user.token)
-  }
-
-  // Redirect on sign in
+  // TODO: Redirect on sign in/logout
   const store = {
-    profile,
-    token,
+    user,
     setUser,
+    logout,
   }
 
   return <AuthContext.Provider value={store}>{children}</AuthContext.Provider>
