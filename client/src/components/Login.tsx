@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login: React.FC = () => {
   const classes = useStyles()
-  const { setProfile } = useContext(AuthContext)
+  const { setUser } = useContext(AuthContext)
 
   const responseFacebook = (response: any): void => {
     console.log(response)
@@ -41,8 +41,8 @@ const Login: React.FC = () => {
     console.log(response)
     if (!isGoogleLoginResponse(response)) return
 
-    setProfile({
-      info: response.profileObj,
+    setUser({
+      profile: response.profileObj,
       token: response.tokenId,
     })
 
