@@ -6,6 +6,7 @@ import { Button, makeStyles, Typography, Container } from '@material-ui/core'
 import { Facebook, Apple, GitHub, Twitter } from '@material-ui/icons'
 import GoogleIcon from 'components/Icons/GoogleIcon'
 import { AuthContext } from 'context/Auth'
+import API from 'util/api'
 
 const useStyles = makeStyles((theme) => ({
   loginButtons: {
@@ -46,7 +47,7 @@ const Login: React.FC = () => {
       token: response.tokenId,
     })
 
-    axios.post('/google-login', {
+    API.post('/google-login', {
       idToken: response.tokenId,
     })
       .then((res) => {
