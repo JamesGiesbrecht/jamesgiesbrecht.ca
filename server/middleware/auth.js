@@ -8,8 +8,8 @@ const auth = (req, res, next) => {
       if (token) {
         const decodedData = jwt.decode(token)
         console.log('decoded', decodedData)
+        console.log('User authenticated')
       }
-      console.log('User authenticated')
     }
     next()
   } catch (error) {
