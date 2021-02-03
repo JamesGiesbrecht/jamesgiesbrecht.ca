@@ -10,11 +10,13 @@ const { MONGODB_URL } = process.env
 
 const mainRoutes = require('./routes/index')
 const apiRoutes = require('./routes/api/index')
+const auth = require('./middleware/auth')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(public))
 
+app.use(auth)
 app.use('/api', apiRoutes)
 app.use(mainRoutes)
 
