@@ -4,7 +4,7 @@ const path = require('path')
 const { root, public } = require('../util/path')
 
 const router = express.Router()
-const authRoutes = require('./auth')
+const authRoutes = require('./user')
 
 router.use(authRoutes)
 
