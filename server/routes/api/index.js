@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 })
 
 router.use('/wrha', wrhaRoutes)
-router.use(plexRoutes)
+router.use('/plex', plexRoutes)
 
 router.use((req, res) => {
   res.status(400).json({
