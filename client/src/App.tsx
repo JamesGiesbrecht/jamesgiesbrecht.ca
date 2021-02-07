@@ -1,11 +1,12 @@
 import React from 'react'
+import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
 import { CssBaseline } from '@material-ui/core'
 import { blue } from '@material-ui/core/colors'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import Layout from 'components/Layout/Layout'
-import About from 'components/About'
 import useColorScheme from 'hooks/useColorScheme'
-import Projects from 'components/Projects'
+import Home from 'components/Home'
+import Login from 'components/Login'
 // import ScreenSize from 'components/ScreenSize'
 
 /*
@@ -30,17 +31,26 @@ const App = () => {
   /* THEMING AND STYLES END */
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {/* <ScreenSize /> */}
-      <Layout
-        theme={colorScheme}
-        toggleTheme={toggleColorScheme}
-      >
-        <About />
-        <Projects />
-      </Layout>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {/* <ScreenSize /> */}
+        <Layout
+          theme={colorScheme}
+          toggleTheme={toggleColorScheme}
+        >
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Redirect push to="/" />
+          </Switch>
+        </Layout>
+      </ThemeProvider>
+    </BrowserRouter>
   )
 }
 
