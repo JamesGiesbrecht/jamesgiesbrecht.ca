@@ -4,6 +4,9 @@ const path = require('path')
 const { root, public } = require('../util/path')
 
 const router = express.Router()
+const authRoutes = require('./auth')
+
+router.use(authRoutes)
 
 router.get('/projects/onesnap', (req, res) => {
   res.sendFile(path.join(root, '..', '..', 'projects', 'onesnap', 'index.php'))
