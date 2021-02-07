@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar, Avatar } from '@material-ui/core'
+import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar, Avatar, ListItemIcon } from '@material-ui/core'
 import { Home, Code, ExitToApp, Mail, Menu as MenuIcon, Message, Brightness7 as Sun, Brightness3 as Moon, Person } from '@material-ui/icons'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 import { AuthContext } from 'context/Auth'
@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: 'auto',
     // color: theme.palette.secondary.main,
-  },
-  iconPadding: {
-    paddingLeft: '0',
   },
   avatar: {
     width: theme.spacing(3),
@@ -150,9 +147,9 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
                         handleCloseMobile(e)
                       }}
                     >
-                      <IconButton classes={{ root: classes.iconPadding }} color="inherit">
+                      <ListItemIcon>
                         {nav.icon}
-                      </IconButton>
+                      </ListItemIcon>
                       <p>{nav.name}</p>
                     </MenuItem>
                   ))}
@@ -198,9 +195,9 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
                         if (item.cb) item.cb()
                       }}
                     >
-                      <IconButton classes={{ root: classes.iconPadding }} color="inherit">
+                      <ListItemIcon>
                         {item.icon}
-                      </IconButton>
+                      </ListItemIcon>
                       <p>{item.name}</p>
                     </MenuItem>
                   ))}
