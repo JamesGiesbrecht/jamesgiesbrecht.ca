@@ -41,9 +41,9 @@ const App = () => {
           toggleTheme={toggleColorScheme}
         >
           <Switch>
-            <Route path="/login">
+            {/* <Route path="/login">
               <Login />
-            </Route>
+            </Route> */}
             <Route path="/plex">
               <PlexStatus />
             </Route>
