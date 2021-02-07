@@ -1,5 +1,7 @@
 node_modules
 .eslintcache
+.env
+webpack.txt
 
 # client
 /client/build
