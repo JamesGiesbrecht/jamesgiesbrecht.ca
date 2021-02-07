@@ -10,6 +10,7 @@ import Home from 'components/Home'
 import Login from 'components/Login'
 import Posts from 'components/Posts'
 import Account from 'components/Account'
+import PlexStatus from 'components/PlexStatus'
 // import ScreenSize from 'components/ScreenSize'
 
 /*
@@ -44,6 +45,9 @@ const App = () => {
             toggleTheme={toggleColorScheme}
           >
             <Switch>
+              <Route path="/plex">
+                <PlexStatus />
+              </Route>
               <Route path="/login">
                 <Login />
               </Route>

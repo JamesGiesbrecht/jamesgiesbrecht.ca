@@ -1,5 +1,6 @@
 const express = require('express')
 
+const plexRoutes = require('./plex')
 const wrhaRoutes = require('./wrha')
 
 const router = express.Router()
@@ -9,6 +10,7 @@ router.get('/', (req, res) => {
 })
 
 router.use('/wrha', wrhaRoutes)
+router.use('/plex', plexRoutes)
 
 router.use((req, res) => {
   res.status(400).json({
