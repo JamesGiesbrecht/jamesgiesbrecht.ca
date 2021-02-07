@@ -13,6 +13,12 @@ const apiRoutes = require('./routes/api/index')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(public))
+app.set('trust proxy', true)
+app.use((req, res, next) => {
+  const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
+  req.ip = ip
+  next()
+})
 
 app.use('/api', apiRoutes)
 app.use(mainRoutes)
