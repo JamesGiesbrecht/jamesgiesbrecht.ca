@@ -8,6 +8,8 @@ import Layout from 'components/Layout/Layout'
 import useColorScheme from 'hooks/useColorScheme'
 import Home from 'components/Home'
 import Login from 'components/Login'
+import Posts from 'components/Posts'
+import Account from 'components/Account'
 // import ScreenSize from 'components/ScreenSize'
 
 /*
@@ -44,6 +46,12 @@ const App = () => {
             <Switch>
               <Route path="/login">
                 <Login />
+              </Route>
+              <Route path="/posts">
+                <Posts />
+              </Route>
+              <Route path="/account">
+                <Account />
               </Route>
               <Route exact path="/">
                 <Home />
