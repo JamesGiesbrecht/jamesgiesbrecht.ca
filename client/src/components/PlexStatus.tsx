@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(2),
   },
+  centered: {
+    marginTop: theme.spacing(10),
+    textAlign: 'center',
+  },
   content: {
     maxWidth: 700,
     marginLeft: 'auto',
@@ -45,7 +49,7 @@ const PlexStatus: React.FC = () => {
   let content
 
   if (hasError) {
-    content = <Typography>Something went wrong, try again later.</Typography>
+    content = <Typography variant="h4">Something went wrong, try again later.</Typography>
   } else if (plexStats) {
     let status
     switch (plexStats.streams.external) {
@@ -82,17 +86,6 @@ const PlexStatus: React.FC = () => {
           </Grid>
         </Paper>
         <Typography variant="h5">{status}</Typography>
-      </>
-    )
-  } else {
-    content = <CircularProgress />
-  }
-
-  return (
-    <Container>
-      <Typography variant="h3" gutterBottom>Plex Status</Typography>
-      <Container className={classes.content}>
-        {content}
         <Button
           className={classes.button}
           variant="contained"
@@ -101,6 +94,17 @@ const PlexStatus: React.FC = () => {
         >
           Go to Plex
         </Button>
+      </>
+    )
+  } else {
+    content = <div className={classes.centered}><CircularProgress size={100} /></div>
+  }
+
+  return (
+    <Container>
+      <Typography variant="h3" gutterBottom>Plex Status</Typography>
+      <Container className={classes.content}>
+        {content}
       </Container>
     </Container>
   )
