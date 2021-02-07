@@ -71,7 +71,6 @@ router.get('/sessions', (req, res) => {
             expectedQuality = '144p'
           } else {
             message = 'There are a lot of people trying to use Plex, try again later...'
-            expectedQuality = 'Atari 2600'
           }
           break
         default:
@@ -83,7 +82,8 @@ router.get('/sessions', (req, res) => {
           external: wanStreams,
           internal: lanStreams,
         },
-        expectedQuality,
+        quality: expectedQuality,
+        isWatching: reqIsWatching,
         message,
       })
     })
