@@ -1,19 +1,34 @@
 const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 
 const auth = (req, res, next) => {
   try {
     // authenticate user on each request
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1]
-      if (token) {
-        const decodedData = jwt.decode(token)
-        console.log('decoded', decodedData)
-        console.log('User authenticated')
-      }
+      const decodedData = jwt.decode(token)
+      User.find({ email: decodedData.email })
+        .then((user) => {
+          if (!user) {
+            console.log('User not found', decodedData)
+            next()
+          } else {
+            console.log('User authenticated')
+            req.user = user
+            next()
+          }
+        })
+        .catch((err) => {
+          console.log('Error finding user', err)
+          throw err
+        })
+    } else {
+      console.log('No Authorization token provided')
+      next()
     }
-    next()
   } catch (error) {
     console.error('Error Authenticating', error)
+    res.status(500).send('Something went wrong')
   }
 }
 

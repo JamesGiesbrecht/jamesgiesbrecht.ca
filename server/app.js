@@ -12,13 +12,11 @@ const mainRoutes = require('./routes/main')
 const apiRoutes = require('./routes/api/index')
 const userRoutes = require('./routes/user')
 const postRoutes = require('./routes/post')
-const auth = require('./middleware/auth')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(public))
 
-app.use(auth)
 app.use('/api', apiRoutes)
 app.use(userRoutes)
 app.use('/posts', postRoutes)
