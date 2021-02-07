@@ -10,7 +10,10 @@ export default ({ children }) => {
     localStorage.setItem('user', JSON.stringify(user))
   }, [user])
 
-  const logout = () => setUser(null)
+  const logout = () => {
+    setUser(null)
+    localStorage.removeItem('user')
+  }
 
   // TODO: Redirect on sign in/logout
   const store = {

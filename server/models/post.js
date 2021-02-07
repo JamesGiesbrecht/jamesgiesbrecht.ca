@@ -11,6 +11,7 @@ const postSchema = new Schema({
     type: String,
     required: true,
   },
+  isPublic: Boolean,
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
