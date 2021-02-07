@@ -1,9 +1,10 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar, Avatar } from '@material-ui/core'
-import { Home, Code, Mail, Menu as MenuIcon, Brightness7 as Sun, Brightness3 as Moon } from '@material-ui/icons'
+import { Home, Code, ExitToApp, Mail, Menu as MenuIcon, Message, Brightness7 as Sun, Brightness3 as Moon, Person } from '@material-ui/icons'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 import { AuthContext } from 'context/Auth'
+import { useHistory, useLocation } from 'react-router-dom'
 
 interface Props {
   theme: PaletteOptions['type']
@@ -26,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
   iconPadding: {
     paddingLeft: '0',
   },
+  avatar: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
   desktopNav: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
@@ -42,25 +47,59 @@ const useStyles = makeStyles((theme) => ({
 const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
   const { user, logout } = useContext(AuthContext)
-  const [isOpen, setIsOpen] = useState(false)
-  const [activeNav, setActiveNav] = useState('Home')
-  const anchorRef = useRef<HTMLAnchorElement>(null)
+  const [accountIsOpen, setAccountIsOpen] = useState(false)
+  const [mobileIsOpen, setMobileIsOpen] = useState(false)
+  const [activeNav, setActiveNav] = useState<any>(false)
+  const accountRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLButtonElement>(null)
   const scrollTrigger = useScrollTrigger()
+  const history = useHistory()
+  const location = useLocation()
 
-  // const handleToggle = () => {
-  //   setIsOpen((prevOpen) => !prevOpen)
-  // }
+  //  TODO: Add functionality
+  const navItems = [
+    { name: 'Home', icon: <Home />, path: '/' },
+    // { name: 'Projects', icon: <Code /> },
+    // { name: 'Contact', icon: <Mail /> },
+    { name: 'Posts', icon: <Message />, path: '/posts' },
+  ]
+  if (!user) navItems.push({ name: 'Login', icon: <Person />, path: '/login' })
 
-  const handleClose = (e: React.MouseEvent<HTMLLIElement | Document, MouseEvent>) => {
-    if (anchorRef.current && anchorRef.current.contains(e.target as Node)) {
-      return
+  const accountItems = [
+    { name: 'Account', icon: <Person />, path: '/account' },
+    { name: 'Logout', icon: <ExitToApp />, path: '/logout', cb: logout },
+  ]
+
+  const setActiveNavOverride = (newActiveNav: any) => {
+    if (navItems.find((item) => item.path === newActiveNav)) {
+      setActiveNav(newActiveNav)
+    } else {
+      setActiveNav(false)
     }
-    setIsOpen(false)
   }
 
-  // const handleTabChange = (e, newValue) => {
-  //   setActiveNav(newValue)
-  // }
+  useEffect(() => {
+    setActiveNavOverride(location.pathname)
+  }, [location.pathname])
+
+  const handleMobileToggle = () => setMobileIsOpen((prevOpen) => !prevOpen)
+
+  const handleAccountToggle = () => setAccountIsOpen((prevOpen) => !prevOpen)
+
+  const handleCloseMobile = (e: React.MouseEvent<HTMLLIElement | Document, MouseEvent>) => {
+    if (menuRef.current && menuRef.current.contains(e.target as Node)) return
+    setMobileIsOpen(false)
+  }
+
+  const handleCloseAccount = (e: React.MouseEvent<HTMLLIElement | Document, MouseEvent>) => {
+    if (accountRef.current && accountRef.current.contains(e.target as Node)) return
+    setAccountIsOpen(false)
+  }
+
+  const handleTabChange = (e: React.ChangeEvent<{}>, newValue: string) => {
+    setActiveNavOverride(newValue)
+    history.push(newValue)
+  }
 
   const themeButton = (
     <IconButton onClick={toggleTheme}>
@@ -68,68 +107,110 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
     </IconButton>
   )
 
-  //  TODO: Add functionality
-  const navItems = [
-    { name: 'Home', icon: <Home /> },
-    { name: 'Projects', icon: <Code /> },
-    { name: 'Contact', icon: <Mail /> },
-  ]
-
   const desktopNav = navItems.map((nav) => (
     <Tab
       key={nav.name}
       label={nav.name}
-      value={nav.name}
+      value={nav.path}
     />
   ))
 
-  const mobileNav = navItems.map((nav) => (
-    <MenuItem
-      key={nav.name}
-      onClick={(e) => {
-        setActiveNav(nav.name)
-        handleClose(e)
-      }}
-    >
-      <IconButton classes={{ root: classes.iconPadding }} color="inherit">
-        {nav.icon}
-      </IconButton>
-      <p>{nav.name}</p>
-    </MenuItem>
-  ))
-
   const mobileMenu = (
-    <Popper
-      anchorEl={anchorRef.current}
-      open={isOpen}
-      transition
-      disablePortal
-      className={classes.mobileNav}
-    >
-      {({ TransitionProps, placement }) => (
-        <Grow
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...TransitionProps}
-          style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+    <>
+      <div className={classes.mobileNav}>
+        <IconButton
+          onClick={handleMobileToggle}
+          color="inherit"
+          ref={menuRef}
         >
-          <Paper square>
-            <ClickAwayListener onClickAway={handleClose}>
-              <MenuList autoFocusItem={isOpen}>
-                {mobileNav}
-              </MenuList>
-            </ClickAwayListener>
-          </Paper>
-        </Grow>
-      )}
-    </Popper>
+          <MenuIcon />
+        </IconButton>
+      </div>
+      <Popper
+        anchorEl={menuRef.current}
+        open={mobileIsOpen}
+        transition
+        disablePortal
+        className={classes.mobileNav}
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...TransitionProps}
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+          >
+            <Paper square>
+              <ClickAwayListener onClickAway={handleCloseMobile}>
+                <MenuList autoFocusItem={mobileIsOpen}>
+                  {navItems.map((nav) => (
+                    <MenuItem
+                      key={nav.name}
+                      onClick={(e) => {
+                        handleTabChange(e, nav.path)
+                        handleCloseMobile(e)
+                      }}
+                    >
+                      <IconButton classes={{ root: classes.iconPadding }} color="inherit">
+                        {nav.icon}
+                      </IconButton>
+                      <p>{nav.name}</p>
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </>
   )
 
-  const profileAvatar = user && (
-    <Avatar alt={user.profile.name} src={user.profile.imageUrl} />
-  )
-
-  const logoutButton = user && (
-    <MenuItem onClick={logout}>Logout</MenuItem>
+  const account = user && (
+    <>
+      <IconButton
+        onClick={handleAccountToggle}
+        color="inherit"
+        ref={accountRef}
+      >
+        <Avatar className={classes.avatar} alt={user.profile.name} src={user.profile.imageUrl} />
+      </IconButton>
+      <Popper
+        anchorEl={accountRef.current}
+        open={accountIsOpen}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...TransitionProps}
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+          >
+            <Paper square>
+              <ClickAwayListener onClickAway={handleCloseAccount}>
+                <MenuList autoFocusItem={accountIsOpen}>
+                  {accountItems.map((item) => (
+                    <MenuItem
+                      key={item.name}
+                      onClick={(e) => {
+                        handleTabChange(e, item.path)
+                        handleCloseAccount(e)
+                        if (item.cb) item.cb()
+                      }}
+                    >
+                      <IconButton classes={{ root: classes.iconPadding }} color="inherit">
+                        {item.icon}
+                      </IconButton>
+                      <p>{item.name}</p>
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </>
   )
 
   return (
@@ -139,24 +220,14 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
           JG
         </Typography>
         <div className={classes.grow} />
-        {/* <div className={classes.desktopNav}>
+        <div className={classes.desktopNav}>
           <Tabs value={activeNav} onChange={handleTabChange}>
             {desktopNav}
           </Tabs>
-        </div> */}
-        {themeButton}
-        {/* <div className={classes.mobileNav}>
-          <IconButton
-            onClick={handleToggle}
-            color="inherit"
-            ref={anchorRef}
-          >
-            <MenuIcon />
-          </IconButton>
         </div>
-        {mobileMenu} */}
-        {profileAvatar}
-        {logoutButton}
+        {themeButton}
+        {account}
+        {mobileMenu}
       </AppBar>
     </Slide>
   )

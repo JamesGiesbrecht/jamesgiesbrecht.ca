@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import axios from 'axios'
 import FacebookLogin from 'react-facebook-auth'
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
@@ -7,6 +7,7 @@ import { Facebook, Apple, GitHub, Twitter } from '@material-ui/icons'
 import GoogleIcon from 'components/Icons/GoogleIcon'
 import { AuthContext } from 'context/Auth'
 import API from 'util/api'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   loginButtons: {
@@ -28,7 +29,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Login: React.FC = () => {
   const classes = useStyles()
-  const { setUser } = useContext(AuthContext)
+  const { user, setUser } = useContext(AuthContext)
+  const history = useHistory()
+
+  useEffect(() => {
+    if (user) history.push('/')
+  }, [user])
 
   const responseFacebook = (response: any): void => {
     console.log(response)
