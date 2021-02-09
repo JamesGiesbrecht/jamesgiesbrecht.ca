@@ -12,7 +12,6 @@ const { MONGODB_URL } = process.env
 const mainRoutes = require('./routes/main')
 const apiRoutes = require('./routes/api/index')
 const userRoutes = require('./routes/user')
-const postRoutes = require('./routes/post')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -26,7 +25,6 @@ app.use((req, res, next) => {
 
 app.use('/api', apiRoutes)
 app.use(userRoutes)
-app.use('/posts', postRoutes)
 app.use(mainRoutes)
 
 mongoose.connect(MONGODB_URL)

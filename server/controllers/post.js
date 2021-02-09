@@ -16,11 +16,15 @@ exports.postNewPost = (req, res) => {
 }
 
 exports.getPosts = (req, res) => {
+  console.log('Get posts')
   let query = { isPublic: true }
   if (req.user) {
     query.userId = req.user._id
   }
   Post.find(query)
-    .then((posts) => res.status(200).json(postMessages))
-    .catch((error) => res.status(404).json({ message: error.message }))
+    .then((posts) => res.status(200).json(posts))
+    .catch((error) => {
+      console.log(error)
+      res.status(404).json({ message: error.message })
+    })
 }
