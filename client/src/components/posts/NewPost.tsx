@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Card, TextField, makeStyles, Typography } from '@material-ui/core'
+import API from 'util/api'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -26,7 +27,11 @@ const NewPost: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(e)
+    API.post('/api/posts/new', { title, content, isPublic })
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((error) => console.log(error))
   }
 
   return (

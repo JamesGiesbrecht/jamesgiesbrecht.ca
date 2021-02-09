@@ -19,7 +19,7 @@ exports.getPosts = (req, res) => {
   console.log('Get posts')
   let query = { isPublic: true }
   if (req.user) {
-    query.userId = req.user._id
+    query = { $or: [ { userId: req.user }, query ]}
   }
   Post.find(query)
     .then((posts) => res.status(200).json(posts))

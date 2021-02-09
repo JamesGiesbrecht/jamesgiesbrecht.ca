@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1]
       const decodedData = jwt.decode(token)
-      User.find({ email: decodedData.email })
+      User.findOne({ email: decodedData.email })
         .then((user) => {
           if (!user) {
             console.log('User not found', decodedData)
