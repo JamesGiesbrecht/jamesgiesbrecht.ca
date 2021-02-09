@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
   statsItem: {
     textAlign: 'center',
     '& *': {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
   },
 }))
