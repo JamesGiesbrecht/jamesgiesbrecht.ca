@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button, Container, Typography, CircularProgress, makeStyles, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Grid } from '@material-ui/core'
-import { ChevronRight } from '@material-ui/icons'
+import { ChevronRight, Theaters } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   centered: {
     marginTop: theme.spacing(10),
@@ -23,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
   statsItem: {
     textAlign: 'center',
     '& *': {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
   },
 }))
@@ -73,12 +74,12 @@ const PlexStatus: React.FC = () => {
       <>
         <Paper className={classes.stats}>
           <Grid container spacing={3}>
-            <Grid item className={classes.statsItem} direction="column" xs={12} md={6}>
+            <Grid item className={classes.statsItem} xs={12} md={6}>
               <Typography variant="h4">Active Streams</Typography>
               <Typography variant="h4">{plexStats.streams.external}</Typography>
             </Grid>
             {plexStats && (
-              <Grid item className={classes.statsItem} direction="column" xs={12} md={6}>
+              <Grid item className={classes.statsItem} xs={12} md={6}>
                 <Typography variant="h4">Quality</Typography>
                 <Typography variant="h4">{plexStats.quality}</Typography>
               </Grid>
@@ -93,6 +94,14 @@ const PlexStatus: React.FC = () => {
           startIcon={<ChevronRight fontSize="large" />}
         >
           Go to Plex
+        </Button>
+        <Button
+          className={classes.button}
+          variant="contained"
+          href="https://goose.fans"
+          startIcon={<Theaters fontSize="large" />}
+        >
+          Request Movies/TV on Ombi
         </Button>
       </>
     )
