@@ -23,11 +23,11 @@ const Posts: React.FC = () => {
     <>
       <Typography variant="h3">Posts</Typography>
       <Container>
-        {/* <NewPost /> */}
+        <NewPost setPosts={setPosts} />
         <WaitFor isLoading={posts.length < 0}>
           <Grid container spacing={3}>
             {posts.map((post: any) => (
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid key={post._id} item xs={12} md={6} lg={4}>
                 <Post title={post.title} content={post.content} />
               </Grid>
             ))}

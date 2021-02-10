@@ -6,6 +6,8 @@ import useApi from 'hooks/useApi'
 const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     maxWidth: 500,
   },
   newPostForm: {
@@ -28,7 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NewPost: React.FC = () => {
+interface Props {
+  setPosts: React.Dispatch<any>
+}
+
+const NewPost: React.FC<Props> = ({ setPosts }) => {
   const classes = useStyles()
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
@@ -42,6 +48,10 @@ const NewPost: React.FC = () => {
     api.post('/api/posts/new', { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
         console.log(result)
+        setTitle('')
+        setContent('')
+        setIsPublic(false)
+        setPosts((prev: any) => [result.data, ...prev])
       })
       .catch((error: any) => console.log(error))
       .finally(() => setIsSubmitting(false))
