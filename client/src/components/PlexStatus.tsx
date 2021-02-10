@@ -110,12 +110,12 @@ const PlexStatus: React.FC = () => {
   }
 
   return (
-    <Container>
+    <>
       <Typography variant="h3" gutterBottom>Plex Status</Typography>
       <Container className={classes.content}>
         {content}
       </Container>
-    </Container>
+    </>
   )
 }
 

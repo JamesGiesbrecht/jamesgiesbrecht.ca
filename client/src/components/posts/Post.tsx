@@ -1,16 +1,26 @@
 import React from 'react'
-import { Card, Typography } from '@material-ui/core'
+import { Card, Typography, makeStyles } from '@material-ui/core'
 
 interface Props {
   title: string,
   content: string,
 }
 
-const Post: React.FC<Props> = ({ title, content }) => (
-  <Card>
-    <Typography variant="h5">{title}</Typography>
-    <Typography>{content}</Typography>
-  </Card>
-)
+const useStyles = makeStyles((theme) => ({
+  post: {
+    padding: theme.spacing(2),
+  },
+}))
+
+const Post: React.FC<Props> = ({ title, content }) => {
+  const classes = useStyles()
+
+  return (
+    <Card className={classes.post}>
+      <Typography variant="h5">{title}</Typography>
+      <Typography>{content}</Typography>
+    </Card>
+  )
+}
 
 export default Post

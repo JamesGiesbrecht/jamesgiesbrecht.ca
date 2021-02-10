@@ -19,11 +19,19 @@ const Posts: React.FC = () => {
   }, [])
 
   return (
-    <Container>
+    <>
       <Typography variant="h3">Posts</Typography>
-      <NewPost />
-      {posts.map((post: any) => <Post title={post.title} content={post.content} />)}
-    </Container>
+      <Container>
+        {/* <NewPost /> */}
+        <Grid container spacing={3}>
+          {posts.map((post: any) => (
+            <Grid item xs={12} md={6} lg={4}>
+              <Post title={post.title} content={post.content} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </>
   )
 }
 

@@ -7,7 +7,7 @@ import Footer from 'components/Layout/Footer'
 interface Props {
   theme: PaletteOptions['type']
   toggleTheme: () => void
-  children: React.ReactNode
+  children: any
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -16,10 +16,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     minHeight: '100vh',
   },
-  sections: {
-    '& > *': {
-      marginTop: theme.spacing(13),
-    },
+  content: {
+    paddingTop: theme.spacing(4),
   },
 }))
 
@@ -33,10 +31,8 @@ const Layout: React.FC<Props> = ({ theme, toggleTheme, children }) => {
         toggleTheme={toggleTheme}
       />
       <Toolbar />
-      <Container>
-        <div className={classes.sections}>
-          {children}
-        </div>
+      <Container className={classes.content}>
+        {children}
       </Container>
       <Footer />
     </div>

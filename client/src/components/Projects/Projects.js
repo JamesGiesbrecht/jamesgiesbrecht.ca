@@ -23,12 +23,12 @@ const Projects = () => {
   ))
 
   return (
-    <div>
+    <>
       <Typography variant="h3">Projects</Typography>
       <div className={classes.projects}>
         {projs}
       </div>
-    </div>
+    </>
   )
 }
 
