@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
-import API from 'util/api'
-import { Container, Typography } from '@material-ui/core'
-import { AuthContext } from 'context/Auth'
+import React, { useEffect, useState } from 'react'
+import { AxiosResponse } from 'axios'
+import { Container, Grid, Typography } from '@material-ui/core'
 import Post from 'components/posts/Post'
 import NewPost from 'components/posts/NewPost'
+import useApi from 'hooks/useApi'
 
 const Posts: React.FC = () => {
-  const { user } = useContext(AuthContext)
   const [posts, setPosts] = useState<any>([])
+  const api = useApi()
 
   useEffect(() => {
-    API.get('/api/posts')
-      .then((result) => {
+    api.get('/api/posts')
+      .then((result: AxiosResponse<any>) => {
         console.log(result)
         setPosts(result.data)
       })
-      .catch((error) => console.log(error))
+      .catch((error: any) => console.log(error))
   }, [])
 
   return (

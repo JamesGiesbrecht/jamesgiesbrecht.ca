@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { AxiosResponse } from 'axios'
 import { Button, Card, TextField, makeStyles, Typography } from '@material-ui/core'
-import API from 'util/api'
+import useApi from 'hooks/useApi'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -24,14 +25,15 @@ const NewPost: React.FC = () => {
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
   const [isPublic, setIsPublic] = useState<boolean>(false)
+  const api = useApi()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    API.post('/api/posts/new', { title, content, isPublic })
-      .then((result) => {
+    api.post('/api/posts/new', { title, content, isPublic })
+      .then((result: AxiosResponse<any>) => {
         console.log(result)
       })
-      .catch((error) => console.log(error))
+      .catch((error: any) => console.log(error))
   }
 
   return (

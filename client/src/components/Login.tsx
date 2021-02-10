@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react'
-import axios from 'axios'
+import { AxiosResponse } from 'axios'
 import FacebookLogin from 'react-facebook-auth'
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
 import { Button, makeStyles, Typography, Container } from '@material-ui/core'
 import { Facebook, Apple, GitHub, Twitter } from '@material-ui/icons'
 import GoogleIcon from 'components/Icons/GoogleIcon'
 import { AuthContext } from 'context/Auth'
-import API from 'util/api'
 import { useHistory } from 'react-router-dom'
+import useApi from 'hooks/useApi'
 
 const useStyles = makeStyles((theme) => ({
   loginButtons: {
@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const Login: React.FC = () => {
   const classes = useStyles()
   const { user, setUser } = useContext(AuthContext)
+  const api = useApi()
   const history = useHistory()
 
   useEffect(() => {
@@ -53,13 +54,13 @@ const Login: React.FC = () => {
       token: response.tokenId,
     })
 
-    API.post('/google-login', {
+    api.post('/google-login', {
       idToken: response.tokenId,
     })
-      .then((res) => {
+      .then((res: AxiosResponse<any>) => {
         console.log(res)
       })
-      .catch((err) => console.log(err))
+      .catch((err: any) => console.log(err))
   }
 
   const responseErrorGoogle = (response: any): void => {
