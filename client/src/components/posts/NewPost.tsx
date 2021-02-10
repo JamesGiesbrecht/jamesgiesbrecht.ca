@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Button, Card, TextField, makeStyles, Typography } from '@material-ui/core'
+import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch } from '@material-ui/core'
 import useApi from 'hooks/useApi'
 
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
     '& button': {
       maxWidth: 150,
     },
+  },
+  formBottom: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 }))
 
@@ -56,13 +61,21 @@ const NewPost: React.FC = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
-          Submit
-        </Button>
+        <div className={classes.formBottom}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+          >
+            Submit
+          </Button>
+          <FormControlLabel
+            value={isPublic}
+            control={<Switch color="primary" />}
+            label="Public?"
+            labelPlacement="start"
+          />
+        </div>
       </form>
     </Card>
   )
