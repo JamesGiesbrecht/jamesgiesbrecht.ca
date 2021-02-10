@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch } from '@material-ui/core'
+import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch, CircularProgress } from '@material-ui/core'
 import useApi from 'hooks/useApi'
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  loader: {
+    color: theme.palette.grey[theme.palette.type === 'light' ? 300 : 500],
+  },
 }))
 
 const NewPost: React.FC = () => {
@@ -30,15 +33,18 @@ const NewPost: React.FC = () => {
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
   const [isPublic, setIsPublic] = useState<boolean>(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const api = useApi()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsSubmitting(true)
     api.post('/api/posts/new', { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
         console.log(result)
       })
       .catch((error: any) => console.log(error))
+      .finally(() => setIsSubmitting(false))
   }
 
   return (
@@ -51,6 +57,7 @@ const NewPost: React.FC = () => {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          disabled={isSubmitting}
         />
         <TextField
           variant="filled"
@@ -60,18 +67,27 @@ const NewPost: React.FC = () => {
           rows={4}
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          disabled={isSubmitting}
         />
         <div className={classes.formBottom}>
           <Button
             type="submit"
             variant="contained"
             color="primary"
+            disabled={isSubmitting}
           >
-            Submit
+            {isSubmitting ? <CircularProgress className={classes.loader} /> : 'Submit' }
           </Button>
           <FormControlLabel
-            value={isPublic}
-            control={<Switch color="primary" />}
+            control={(
+              <Switch
+                color="primary"
+                id="isPublic"
+                value={isPublic}
+                onChange={(e) => setIsPublic(e.target.checked)}
+                disabled={isSubmitting}
+              />
+            )}
             label="Public?"
             labelPlacement="start"
           />
