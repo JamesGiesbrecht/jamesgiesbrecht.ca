@@ -12,6 +12,10 @@ const postSchema = new Schema({
     required: true,
   },
   isPublic: Boolean,
+  dateCreated: {
+    type: Date,
+    require: true,
+  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

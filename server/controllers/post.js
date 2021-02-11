@@ -3,7 +3,7 @@ const Post = require('../models/post')
 exports.postNewPost = (req, res) => {
   const { title, content, isPublic } = req.body
 
-  const newPost = new Post({ title, content, isPublic, userId: req.user })
+  const newPost = new Post({ title, content, isPublic, dateCreated: Date.now(), userId: req.user })
   newPost.save()
     .then((result) => {
       console.log('Created post', result)
@@ -22,6 +22,8 @@ exports.getPosts = (req, res) => {
     query = { $or: [ { userId: req.user }, query ]}
   }
   Post.find(query)
+    .sort({ dateCreated: 'desc' })
+    .limit(100)
     .then((posts) => res.status(200).json(posts))
     .catch((error) => {
       console.log(error)
