@@ -20,6 +20,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "no-underscore-dangle": "off",
       "no-unused-vars": "off",
       "no-use-before-define": "off",
       "max-len": "off",

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch, CircularProgress } from '@material-ui/core'
+import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch, CircularProgress, Fab } from '@material-ui/core'
+import { Add } from '@material-ui/icons'
 import useApi from 'hooks/useApi'
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +11,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     maxWidth: 500,
   },
-  newPostForm: {
+  button: {
+    marginRight: theme.spacing(1),
+  },
+  form: {
     display: 'flex',
     flexDirection: 'column',
     '& > *': {
@@ -57,10 +61,17 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
       .finally(() => setIsSubmitting(false))
   }
 
-  return (
+  const newPostButton = (
+    <Fab color="primary" variant="extended" size="medium">
+      <Add className={classes.button} />
+      New Post
+    </Fab>
+  )
+
+  const newPostForm = (
     <Card className={classes.card}>
       <Typography variant="h5">Make a New Post</Typography>
-      <form className={classes.newPostForm} onSubmit={handleSubmit}>
+      <form className={classes.form} onSubmit={handleSubmit}>
         <TextField
           variant="filled"
           id="title"
@@ -105,6 +116,8 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
       </form>
     </Card>
   )
+
+  return newPostButton
 }
 
 export default NewPost

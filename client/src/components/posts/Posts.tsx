@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Container, Grid, Typography } from '@material-ui/core'
+import { Box, Container, Grid, Typography } from '@material-ui/core'
 import Post from 'components/posts/Post'
 import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
@@ -21,9 +21,11 @@ const Posts: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h3">Posts</Typography>
-      <Container>
+      <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mb={2}>
+        <Typography variant="h3">Posts</Typography>
         <NewPost setPosts={setPosts} />
+      </Box>
+      <Container>
         <WaitFor isLoading={posts.length < 0}>
           <Grid container spacing={3}>
             {posts.map((post: any) => (
