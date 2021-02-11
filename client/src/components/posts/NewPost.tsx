@@ -56,7 +56,9 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('')
+  const [titleError, setTitleError] = useState<string>('')
   const [content, setContent] = useState<string>('')
+  const [contentError, setContentError] = useState<string>('')
   const [isPublic, setIsPublic] = useState<boolean>(false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const api = useApi()
@@ -64,24 +66,52 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
 
   const handleModalOpen = () => setModalOpen(true)
 
-  const handleModalClose = () => setModalOpen(false)
+  const handleModalClose = () => {
+    setTitleError('')
+    setContentError('')
+    setModalOpen(false)
+  }
+
+  const handleTitleChange = (e: any) => {
+    setTitle(e.target.value)
+    if (e.target.value.trim()) setTitleError('')
+  }
+
+  const handleContentChange = (e: any) => {
+    setContent(e.target.value)
+    if (e.target.value.trim()) setContentError('')
+  }
+
+  const validateInputEmpty = (input: string, setInputError: React.Dispatch<React.SetStateAction<string>>, inputName: string): boolean => {
+    if (input) {
+      setInputError('')
+      return false
+    }
+    setInputError(`${inputName} must not be empty`)
+    return true
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsSubmitting(true)
-    api.post('/api/posts/new', { title, content, isPublic })
-      .then((result: AxiosResponse<any>) => {
-        console.log(result)
-        setTitle('')
-        setContent('')
-        setIsPublic(false)
-        setPosts((prev: any) => [result.data, ...prev])
-      })
-      .catch((error: any) => console.log(error))
-      .finally(() => {
-        setIsSubmitting(false)
-        handleModalClose()
-      })
+    const hasTitleError = validateInputEmpty(title, setTitleError, 'Title')
+    const hasContentError = validateInputEmpty(content, setContentError, 'Content')
+
+    if (!hasTitleError && !hasContentError) {
+      setIsSubmitting(true)
+      api.post('/api/posts/new', { title, content, isPublic })
+        .then((result: AxiosResponse<any>) => {
+          console.log(result)
+          setTitle('')
+          setContent('')
+          setIsPublic(false)
+          setPosts((prev: any) => [result.data, ...prev])
+        })
+        .catch((error: any) => console.log(error))
+        .finally(() => {
+          setIsSubmitting(false)
+          handleModalClose()
+        })
+    }
   }
 
   const newPostButton = (
@@ -110,18 +140,22 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
           variant="filled"
           id="title"
           placeholder="Title"
+          error={Boolean(titleError)}
+          helperText={titleError}
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleTitleChange}
           disabled={isSubmitting}
         />
         <TextField
           variant="filled"
           id="content"
           placeholder="Content"
+          error={Boolean(contentError)}
+          helperText={contentError}
           multiline
           rows={4}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handleContentChange}
           disabled={isSubmitting}
         />
         <div className={classes.formBottom}>
