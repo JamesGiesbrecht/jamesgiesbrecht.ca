@@ -1,14 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Box, Container, Grid, Typography } from '@material-ui/core'
+import Masonry from 'react-masonry-css'
+import { Box, Container, Grid, Typography, makeStyles, Theme } from '@material-ui/core'
 import Post from 'components/posts/Post'
 import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
 import WaitFor from 'components/utility/WaitFor'
+import { useTheme } from '@material-ui/styles'
+
+const gridGutter = 15
+
+const useStyles = makeStyles((theme) => ({
+  posts: {
+    display: 'flex',
+    marginLeft: -gridGutter,
+    width: 'auto',
+  },
+  postItem: {
+    paddingLeft: gridGutter,
+  },
+  post: {
+    marginBottom: gridGutter,
+  },
+}))
 
 const Posts: React.FC = () => {
+  const classes = useStyles()
+  const theme = useTheme<Theme>()
   const [posts, setPosts] = useState<any>([])
   const api = useApi()
+
+  const columnBreakpoints = {
+    default: 3,
+    [theme.breakpoints.values.lg]: 2,
+    [theme.breakpoints.values.md]: 1,
+  }
 
   useEffect(() => {
     api.get('/api/posts')
@@ -27,13 +53,17 @@ const Posts: React.FC = () => {
       </Box>
       <Container>
         <WaitFor isLoading={posts.length < 0}>
-          <Grid container spacing={3}>
+          {/* <Grid container spacing={3}> */}
+          <Masonry
+            breakpointCols={columnBreakpoints}
+            className={classes.posts}
+            columnClassName={classes.postItem}
+          >
             {posts.map((post: any) => (
-              <Grid key={post._id} item xs={12} md={6} lg={4}>
-                <Post title={post.title} content={post.content} />
-              </Grid>
+              <Post key={post._id} className={classes.post} title={post.title} content={post.content} />
             ))}
-          </Grid>
+          </Masonry>
+          {/* </Grid> */}
         </WaitFor>
       </Container>
     </>
