@@ -48,16 +48,17 @@ const Login: React.FC = () => {
   const responseSuccessGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline): void => {
     console.log(response)
     if (!isGoogleLoginResponse(response)) return
-
-    setUser({
-      profile: response.profileObj,
-      token: response.tokenId,
-    })
+    const token = response.tokenId
 
     api.post('/google-login', {
       idToken: response.tokenId,
     })
       .then((res: AxiosResponse<any>) => {
+        console.log(res)
+        setUser({
+          profile: res.data.user,
+          token,
+        })
         console.log(res)
       })
       .catch((err: any) => console.log(err))

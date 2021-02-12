@@ -169,7 +169,7 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
         color="inherit"
         ref={accountRef}
       >
-        <Avatar className={classes.avatar} alt={user.profile.name} src={user.profile.imageUrl} />
+        <Avatar className={classes.avatar} alt={user.profile.name} src={user.profile.google.picture} />
       </IconButton>
       <Popper
         anchorEl={accountRef.current}

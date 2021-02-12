@@ -11,7 +11,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  googleSub: String,
+  google: Object,
 })
 
 module.exports = mongoose.model('User', userSchema)
