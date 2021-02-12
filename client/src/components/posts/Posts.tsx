@@ -60,7 +60,14 @@ const Posts: React.FC = () => {
             columnClassName={classes.postItem}
           >
             {posts.map((post: any) => (
-              <Post key={post._id} className={classes.post} title={post.title} content={post.content} />
+              <Post
+                key={post._id}
+                className={classes.post}
+                title={post.title}
+                name={post.user.name}
+                date={new Date(post.dateCreated)}
+                content={post.content}
+              />
             ))}
           </Masonry>
           {/* </Grid> */}
