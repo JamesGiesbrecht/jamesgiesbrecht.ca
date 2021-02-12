@@ -62,9 +62,10 @@ const Posts: React.FC = () => {
             {posts.map((post: any) => (
               <Post
                 key={post._id}
+                postId={post._id}
                 className={classes.post}
                 title={post.title}
-                name={post.user.name}
+                postUser={post.user}
                 date={new Date(post.dateCreated)}
                 content={post.content}
               />
