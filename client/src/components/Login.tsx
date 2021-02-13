@@ -71,20 +71,6 @@ const Login: React.FC = () => {
   return (
     <Container className={classes.loginButtons}>
       <Typography className={classes.title} variant="h3">Sign In</Typography>
-      <Button
-        onClick={() => {}}
-        variant="outlined"
-        startIcon={<Apple />}
-      >
-        Sign In with Apple
-      </Button>
-      <Button
-        onClick={() => {}}
-        variant="outlined"
-        startIcon={<GitHub />}
-      >
-        Sign In with GitHub
-      </Button>
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
         onSuccess={responseSuccessGoogle}
@@ -104,9 +90,29 @@ const Login: React.FC = () => {
       <Button
         onClick={() => {}}
         variant="outlined"
-        startIcon={<Twitter />}
+        startIcon={<Apple />}
+        disabled
       >
-        Sign In with Twitter
+        Coming soon...
+        {/* Sign In with Apple */}
+      </Button>
+      <Button
+        onClick={() => {}}
+        variant="outlined"
+        startIcon={<GitHub />}
+        disabled
+      >
+        Coming soon...
+        {/* Sign In with GitHub */}
+      </Button>
+      <Button
+        onClick={() => {}}
+        variant="outlined"
+        startIcon={<Twitter />}
+        disabled
+      >
+        Coming soon...
+        {/* Sign In with Twitter */}
       </Button>
       <FacebookLogin
         appId={process.env.REACT_APP_FACEBOOK_APP_ID}
@@ -116,8 +122,10 @@ const Login: React.FC = () => {
             onClick={renderProps.onClick}
             variant="outlined"
             startIcon={<Facebook />}
+            disabled
           >
-            Sign In with Facebook
+            Coming soon...
+            {/* Sign In with Facebook */}
           </Button>
         )}
       />
