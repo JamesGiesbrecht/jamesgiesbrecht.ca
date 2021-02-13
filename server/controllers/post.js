@@ -19,8 +19,14 @@ exports.deletePost = (req, res) => {
   const { postId } = req.params
   Post.deleteOne({ _id: postId, user: req.user })
     .then((result) => {
-      console.log(`Destroyed product: ${postId}`)
       console.log(result)
+      const { deletedCount } = result
+      if (deletedCount === 0) {
+        res.status(204).json({ message: 'Content not found', deletedCount})
+      } else {
+        console.log(`Destroyed product: ${postId}`)
+        res.status(200).json({ message: 'Post deleted', deletedCount})
+      }
     })
     .catch((error) => {
       console.log(error)

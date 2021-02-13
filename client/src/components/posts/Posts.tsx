@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const Posts: React.FC = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
-  const [posts, setPosts] = useState<any>([])
+  const [posts, setPosts] = useState<Array<any>>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
   const { user } = useContext(AuthContext)
@@ -64,7 +64,7 @@ const Posts: React.FC = () => {
         className={classes.posts}
         columnClassName={classes.postItem}
       >
-        {posts.map((post: any) => (
+        {posts.map((post) => (
           <Post
             key={post._id}
             postId={post._id}
@@ -74,6 +74,7 @@ const Posts: React.FC = () => {
             postUser={post.user}
             date={new Date(post.dateCreated)}
             content={post.content}
+            removePost={() => setPosts((prev) => prev.filter((p) => p._id !== post._id))}
           />
         ))}
       </Masonry>
