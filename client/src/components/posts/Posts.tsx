@@ -9,6 +9,7 @@ import WaitFor from 'components/utility/WaitFor'
 import { useTheme } from '@material-ui/styles'
 import { AuthContext } from 'context/Auth'
 import { Link as RouterLink } from 'react-router-dom'
+import InfoBox from 'components/ui/InfoBox'
 
 const gridGutter = 15
 
@@ -93,6 +94,7 @@ const Posts: React.FC = () => {
 
   return (
     <>
+      <InfoBox title="What is this Page About?" onClose={() => {}}>This page is a page</InfoBox>
       <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h3">Posts</Typography>
         {user && <NewPost setPosts={setPosts} />}

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Box, Card, Typography, makeStyles, IconButton, Modal, Button, CircularProgress } from '@material-ui/core'
+import { Box, Card, Typography, makeStyles, IconButton, Modal, Button, CircularProgress, CardContent, CardActions, CardHeader } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import useApi from 'hooks/useApi'
 import { AxiosResponse } from 'axios'
@@ -17,16 +17,7 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme) => ({
-  post: {
-    padding: theme.spacing(2),
-  },
-  delete: {
-    marginRight: theme.spacing(1),
-  },
   card: {
-    padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
     maxWidth: '90%',
     position: 'absolute',
     top: '50%',
@@ -36,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
   loader: {
     color: theme.palette.grey[theme.palette.type === 'light' ? 300 : 500],
   },
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }))
 
 const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date, removePost, className }) => {
@@ -43,7 +38,8 @@ const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date,
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const api = useApi()
-  const dateFormatted = `${date.toLocaleString('default', { month: 'short' })}  ${date.getDay()}, ${date.getHours()}:${date.getMinutes()}`
+  const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
+  const dateFormatted = `${date.toLocaleString('default', { month: 'short' })}  ${date.getDay()}, ${date.getHours()}:${minutes}`
 
   const handleModalOpen = () => setDeleteOpen(true)
 
@@ -65,21 +61,21 @@ const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date,
 
   const deleteConfirmation = (
     <Card className={classes.card}>
-      <Typography>Do you want to delete this post forever?</Typography>
-      <Box display="flex" justifyContent="flex-end" mt={1}>
-        <Button className={classes.delete} color="primary" variant="contained" onClick={deletePost}>
+      <CardContent>Do you want to delete this post forever?</CardContent>
+      <CardActions className={classes.actions}>
+        <Button color="primary" variant="contained" onClick={deletePost}>
           {isLoading ? <CircularProgress className={classes.loader} /> : 'Delete' }
         </Button>
         <Button color="secondary" variant="contained" onClick={handleModalClose}>Cancel</Button>
-      </Box>
+      </CardActions>
     </Card>
   )
 
   return (
-    <Card className={[classes.post, className].join(' ')}>
-      <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h5">{title}</Typography>
-        {isUser && (
+    <Card className={className}>
+      <CardHeader
+        title={title}
+        action={isUser && (
           <>
             <IconButton onClick={handleModalOpen}>
               <Delete />
@@ -92,12 +88,14 @@ const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date,
             </Modal>
           </>
         )}
-      </Box>
-      <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="subtitle2" color="textSecondary">{dateFormatted}</Typography>
-        <Typography variant="subtitle1" color="textSecondary">{postUser.name}</Typography>
-      </Box>
-      <Typography>{content}</Typography>
+        subheader={(
+          <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
+            <Typography variant="subtitle2" color="textSecondary">{dateFormatted}</Typography>
+            <Typography variant="subtitle1" color="textSecondary">{postUser.name}</Typography>
+          </Box>
+        )}
+      />
+      <CardContent>{content}</CardContent>
     </Card>
   )
 }

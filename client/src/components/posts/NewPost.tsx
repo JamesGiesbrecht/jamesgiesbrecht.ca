@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch, CircularProgress, Fab, Modal, Box, IconButton, useMediaQuery, Theme } from '@material-ui/core'
+import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch, CircularProgress, Fab, Modal, Box, IconButton, useMediaQuery, Theme, CardHeader, CardContent } from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
 import useApi from 'hooks/useApi'
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
     width: 500,
     maxWidth: '90%',
     position: 'absolute',
@@ -129,59 +126,63 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
 
   const newPostForm = (
     <Card className={classes.card}>
-      <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h5">Make a New Post</Typography>
-        <IconButton onClick={handleModalClose}>
-          <Close />
-        </IconButton>
-      </Box>
-      <form className={classes.form} onSubmit={handleSubmit}>
-        <TextField
-          variant="filled"
-          id="title"
-          placeholder="Title"
-          error={Boolean(titleError)}
-          helperText={titleError}
-          value={title}
-          onChange={handleTitleChange}
-          disabled={isSubmitting}
-        />
-        <TextField
-          variant="filled"
-          id="content"
-          placeholder="Content"
-          error={Boolean(contentError)}
-          helperText={contentError}
-          multiline
-          rows={4}
-          value={content}
-          onChange={handleContentChange}
-          disabled={isSubmitting}
-        />
-        <div className={classes.formBottom}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
+      <CardHeader
+        title="Make a New Post"
+        action={(
+          <IconButton onClick={handleModalClose}>
+            <Close />
+          </IconButton>
+        )}
+      />
+      <CardContent>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <TextField
+            variant="filled"
+            id="title"
+            placeholder="Title"
+            error={Boolean(titleError)}
+            helperText={titleError}
+            value={title}
+            onChange={handleTitleChange}
             disabled={isSubmitting}
-          >
-            {isSubmitting ? <CircularProgress className={classes.loader} /> : 'Submit' }
-          </Button>
-          <FormControlLabel
-            control={(
-              <Switch
-                color="primary"
-                id="isPublic"
-                value={isPublic}
-                onChange={(e) => setIsPublic(e.target.checked)}
-                disabled={isSubmitting}
-              />
-            )}
-            label="Public?"
-            labelPlacement="start"
           />
-        </div>
-      </form>
+          <TextField
+            variant="filled"
+            id="content"
+            placeholder="Content"
+            error={Boolean(contentError)}
+            helperText={contentError}
+            multiline
+            rows={4}
+            value={content}
+            onChange={handleContentChange}
+            disabled={isSubmitting}
+          />
+          <div className={classes.formBottom}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? <CircularProgress className={classes.loader} /> : 'Submit' }
+            </Button>
+            <FormControlLabel
+              control={(
+                <Switch
+                  color="primary"
+                  id="isPublic"
+                  value={isPublic}
+                  onChange={(e) => setIsPublic(e.target.checked)}
+                  disabled={isSubmitting}
+                />
+              )}
+              label="Public?"
+              labelPlacement="start"
+            />
+          </div>
+        </form>
+      </CardContent>
     </Card>
   )
 
