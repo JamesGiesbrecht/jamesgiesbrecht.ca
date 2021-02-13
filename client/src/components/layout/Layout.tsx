@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Toolbar, makeStyles } from '@material-ui/core'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
-import NavBar from 'components/Layout/NavBar'
-import Footer from 'components/Layout/Footer'
+import NavBar from 'components/layout/NavBar'
+import Footer from 'components/layout/Footer'
 
 interface Props {
   theme: PaletteOptions['type']

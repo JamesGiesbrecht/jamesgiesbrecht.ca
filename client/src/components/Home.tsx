@@ -1,6 +1,6 @@
 import React from 'react'
 import About from 'components/About'
-import Projects from 'components/Projects/Projects'
+import Projects from 'components/projects/Projects'
 import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
