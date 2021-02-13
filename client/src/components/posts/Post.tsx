@@ -9,6 +9,7 @@ interface Props {
   postId: string,
   title: string,
   content: string,
+  isUser: boolean,
   postUser: any,
   date: Date,
   className?: string,
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Post: React.FC<Props> = ({ postId, title, content, postUser, date, className }) => {
+const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date, className }) => {
   const classes = useStyles()
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const { user } = useContext(AuthContext)
@@ -65,7 +66,7 @@ const Post: React.FC<Props> = ({ postId, title, content, postUser, date, classNa
     <Card className={[classes.post, className].join(' ')}>
       <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h5">{title}</Typography>
-        {user && user.profile.email === postUser.email && (
+        {isUser && (
           <>
             <IconButton onClick={handleModalOpen}>
               <Delete />
