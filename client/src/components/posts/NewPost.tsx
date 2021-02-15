@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   setPosts: React.Dispatch<any>
   isEdit?: {
+    postId: String
     title: String
     content: String
     isPublic: boolean
@@ -66,6 +67,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const api = useApi()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
+  const postId = isEdit ? isEdit.postId : null
 
   const handleModalOpen = () => setModalOpen(true)
 
@@ -94,6 +96,38 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
     return true
   }
 
+  const editPost = () => {
+    api.put(`/api/posts/${postId}`, { title, content, isPublic })
+      .then((result: AxiosResponse<any>) => {
+        console.log(result)
+        setTitle('')
+        setContent('')
+        setIsPublic(false)
+        setPosts((prev: any) => prev.map((p: any) => (p._id === postId ? result.data.post : p)))
+      })
+      .catch((error: any) => console.log(error))
+      .finally(() => {
+        setIsSubmitting(false)
+        handleModalClose()
+      })
+  }
+
+  const submitPost = () => {
+    api.post('/api/posts/new', { title, content, isPublic })
+      .then((result: AxiosResponse<any>) => {
+        console.log(result)
+        setTitle('')
+        setContent('')
+        setIsPublic(false)
+        setPosts((prev: any) => [result.data, ...prev])
+      })
+      .catch((error: any) => console.log(error))
+      .finally(() => {
+        setIsSubmitting(false)
+        handleModalClose()
+      })
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const hasTitleError = validateInputEmpty(title, setTitleError, 'Title')
@@ -101,19 +135,11 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
 
     if (!hasTitleError && !hasContentError) {
       setIsSubmitting(true)
-      api.post('/api/posts/new', { title, content, isPublic })
-        .then((result: AxiosResponse<any>) => {
-          console.log(result)
-          setTitle('')
-          setContent('')
-          setIsPublic(false)
-          setPosts((prev: any) => [result.data, ...prev])
-        })
-        .catch((error: any) => console.log(error))
-        .finally(() => {
-          setIsSubmitting(false)
-          handleModalClose()
-        })
+      if (isEdit) {
+        editPost()
+      } else {
+        submitPost()
+      }
     }
   }
 
