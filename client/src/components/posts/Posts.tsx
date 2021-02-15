@@ -102,7 +102,7 @@ const Posts: React.FC = () => {
             A place on my site to demonstrate and practice basic CRUD operations with my Node/Express/MongoDB backend. Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
           </Typography>
           <Typography>
-            The content here is not frequently moderated and does not represent the views or opinions of James Giesbrecht.
+            The content here is not frequently moderated and does not represent the views or opinions of the owner.
           </Typography>
         </InfoBox>
       )}

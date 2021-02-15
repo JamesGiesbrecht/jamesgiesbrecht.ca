@@ -24,12 +24,18 @@ const useStyles = makeStyles((theme) => ({
 const InfoMessage: React.FC<Props> = ({ title, children, id }) => {
   const classes = useStyles()
   const localMessages = JSON.parse(localStorage.getItem('hiddenMessages') || '[]')
-  const messageIsHidden = localMessages.includes(title)
-  const [doNotShow, setDoNotShow] = useState<boolean>(messageIsHidden)
-  const [showMessage, setShowMessage] = useState<boolean>(true)
+  const messageIsHidden = localMessages.includes(id)
+  const [doNotShow, setDoNotShow] = useState<Boolean>(false)
+  const [showMessage, setShowMessage] = useState<Boolean>(!messageIsHidden)
+
+  const setLS = (hiddenMessages: Array<String>) => localStorage.setItem('hiddenMessages', JSON.stringify(hiddenMessages))
 
   const handleClose = () => {
     setShowMessage(false)
+    if (doNotShow && !messageIsHidden) {
+      localMessages.push(id)
+      setLS(localMessages)
+    }
   }
 
   return showMessage ? (
