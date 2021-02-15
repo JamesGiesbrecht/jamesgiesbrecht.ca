@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { Box, Card, Typography, makeStyles, IconButton, Modal, Button, CircularProgress, CardContent, CardActions, CardHeader } from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
+import { Box, Card, Typography, makeStyles, IconButton, Modal, Button, CircularProgress, CardContent, CardActions, CardHeader, Menu, MenuItem, ListItemIcon } from '@material-ui/core'
+import { Delete, Edit, MoreHoriz } from '@material-ui/icons'
 import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
 import { AxiosResponse } from 'axios'
@@ -39,15 +39,22 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
   const classes = useStyles()
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const openMenu = Boolean(anchorEl)
   const api = useApi()
   const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
   const dateFormatted = `${date.toLocaleString('default', { month: 'short' })}  ${date.getDay()}, ${date.getHours()}:${minutes}`
+
+  const handleMenuOpen = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => setAnchorEl(e.currentTarget)
+
+  const handleMenuClose = () => setAnchorEl(null)
 
   const handleModalOpen = () => setDeleteOpen(true)
 
   const handleModalClose = () => {
     setDeleteOpen(false)
     setIsLoading(false)
+    handleMenuClose()
   }
 
   const deletePost = () => {
@@ -79,20 +86,48 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
         title={title}
         action={isUser && (
           <>
-            <NewPost
-              setPosts={setPosts}
-              // eslint-disable-next-line react/button-has-type
-              isEdit={{ postId, title, content, isPublic, render: (onClick) => <button onClick={onClick}>edit</button> }}
-            />
-            <IconButton onClick={handleModalOpen}>
-              <Delete />
+            <IconButton onClick={handleMenuOpen}>
+              <MoreHoriz />
             </IconButton>
-            <Modal
-              open={deleteOpen}
-              onClose={handleModalClose}
+            <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={openMenu}
+              onClose={handleMenuClose}
             >
-              {deleteConfirmation}
-            </Modal>
+              <NewPost
+                setPosts={setPosts}
+                isEdit={{ postId, title, content, isPublic }}
+                render={(onClick) => (
+                  <MenuItem onClick={onClick}>
+                    <ListItemIcon>
+                      <Edit fontSize="small" />
+                    </ListItemIcon>
+                    Edit
+                  </MenuItem>
+                )}
+                onClose={handleMenuClose}
+              />
+              <MenuItem onClick={handleModalOpen}>
+                <ListItemIcon>
+                  <Delete fontSize="small" />
+                </ListItemIcon>
+                Delete
+                <Modal
+                  open={deleteOpen}
+                  onClose={handleModalClose}
+                >
+                  {deleteConfirmation}
+                </Modal>
+              </MenuItem>
+            </Menu>
           </>
         )}
         subheader={(

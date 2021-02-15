@@ -52,11 +52,12 @@ interface Props {
     title: String
     content: String
     isPublic: boolean
-    render: (onClick: () => void) => JSX.Element
   }
+  render?: (onClick: () => void) => JSX.Element
+  onClose?: () => void
 }
 
-const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
+const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [title, setTitle] = useState<String>(isEdit ? isEdit.title : '')
@@ -75,6 +76,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
     setTitleError('')
     setContentError('')
     setModalOpen(false)
+    if (onClose) onClose()
   }
 
   const handleTitleChange = (e: any) => {
@@ -222,7 +224,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
 
   return (
     <>
-      {isEdit ? isEdit.render(handleModalOpen) : newPostButton}
+      {render ? render(handleModalOpen) : newPostButton}
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
