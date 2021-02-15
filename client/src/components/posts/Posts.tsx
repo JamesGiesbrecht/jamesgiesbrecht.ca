@@ -31,6 +31,8 @@ const Posts: React.FC = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [posts, setPosts] = useState<Array<any>>([])
+  const [doNotShow, setDoNotShow] = useState<boolean>(false)
+  const [showMessage, setShowMessage] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
   const { user } = useContext(AuthContext)
@@ -94,7 +96,16 @@ const Posts: React.FC = () => {
 
   return (
     <>
-      <InfoBox title="What is this Page About?" onClose={() => {}}>This page is a page</InfoBox>
+      {showMessage && (
+        <InfoBox title="What is this Page About?" id="postsAbout">
+          <Typography>
+            A place on my site to demonstrate and practice basic CRUD operations with my Node/Express/MongoDB backend. Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
+          </Typography>
+          <Typography>
+            The content here is not frequently moderated and does not represent the views or opinions of James Giesbrecht.
+          </Typography>
+        </InfoBox>
+      )}
       <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h3">Posts</Typography>
         {user && <NewPost setPosts={setPosts} />}

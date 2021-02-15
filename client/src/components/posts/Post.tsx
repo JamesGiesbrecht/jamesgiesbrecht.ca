@@ -95,7 +95,7 @@ const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date,
           </Box>
         )}
       />
-      <CardContent>{content}</CardContent>
+      <CardContent><Typography>{content}</Typography></CardContent>
     </Card>
   )
 }
