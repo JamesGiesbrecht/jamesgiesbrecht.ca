@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import Fade from 'react-reveal/Fade'
 import { Box, Card, Typography, makeStyles, IconButton, Modal, Button, CircularProgress, CardContent, CardActions, CardHeader, Menu, MenuItem, ListItemIcon } from '@material-ui/core'
 import { Delete, Edit, MoreHoriz } from '@material-ui/icons'
 import NewPost from 'components/posts/NewPost'
@@ -81,64 +82,66 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
   )
 
   return (
-    <Card className={className}>
-      <CardHeader
-        title={title}
-        action={isUser && (
-          <>
-            <IconButton onClick={handleMenuOpen}>
-              <MoreHoriz />
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={openMenu}
-              onClose={handleMenuClose}
-            >
-              <NewPost
-                setPosts={setPosts}
-                isEdit={{ postId, title, content, isPublic }}
-                render={(onClick) => (
-                  <MenuItem onClick={onClick}>
-                    <ListItemIcon>
-                      <Edit fontSize="small" />
-                    </ListItemIcon>
-                    Edit
-                  </MenuItem>
-                )}
+    <Fade up>
+      <Card className={className}>
+        <CardHeader
+          title={title}
+          action={isUser && (
+            <>
+              <IconButton onClick={handleMenuOpen}>
+                <MoreHoriz />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={openMenu}
                 onClose={handleMenuClose}
-              />
-              <MenuItem onClick={handleModalOpen}>
-                <ListItemIcon>
-                  <Delete fontSize="small" />
-                </ListItemIcon>
-                Delete
-                <Modal
-                  open={deleteOpen}
-                  onClose={handleModalClose}
-                >
-                  {deleteConfirmation}
-                </Modal>
-              </MenuItem>
-            </Menu>
-          </>
-        )}
-        subheader={(
-          <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="subtitle2" color="textSecondary">{dateFormatted}</Typography>
-            <Typography variant="subtitle1" color="textSecondary">{postUser.name}</Typography>
-          </Box>
-        )}
-      />
-      <CardContent><Typography>{content}</Typography></CardContent>
-    </Card>
+              >
+                <NewPost
+                  setPosts={setPosts}
+                  isEdit={{ postId, title, content, isPublic }}
+                  render={(onClick) => (
+                    <MenuItem onClick={onClick}>
+                      <ListItemIcon>
+                        <Edit fontSize="small" />
+                      </ListItemIcon>
+                      Edit
+                    </MenuItem>
+                  )}
+                  onClose={handleMenuClose}
+                />
+                <MenuItem onClick={handleModalOpen}>
+                  <ListItemIcon>
+                    <Delete fontSize="small" />
+                  </ListItemIcon>
+                  Delete
+                  <Modal
+                    open={deleteOpen}
+                    onClose={handleModalClose}
+                  >
+                    {deleteConfirmation}
+                  </Modal>
+                </MenuItem>
+              </Menu>
+            </>
+          )}
+          subheader={(
+            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
+              <Typography variant="subtitle2" color="textSecondary">{dateFormatted}</Typography>
+              <Typography variant="subtitle1" color="textSecondary">{postUser.name}</Typography>
+            </Box>
+          )}
+        />
+        <CardContent><Typography>{content}</Typography></CardContent>
+      </Card>
+    </Fade>
   )
 }
 
