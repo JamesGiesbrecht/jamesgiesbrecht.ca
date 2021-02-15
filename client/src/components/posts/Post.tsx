@@ -79,6 +79,7 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
         title={title}
         action={isUser && (
           <>
+            {/* eslint-disable-next-line react/button-has-type */}
             <NewPost setPosts={setPosts} isEdit={{ title, content, isPublic, render: (onClick) => <button onClick={onClick}>edit</button> }} />
             <IconButton onClick={handleModalOpen}>
               <Delete />
