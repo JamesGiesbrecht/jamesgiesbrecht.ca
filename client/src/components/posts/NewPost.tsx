@@ -47,16 +47,22 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   setPosts: React.Dispatch<any>
+  isEdit?: {
+    title: String
+    content: String
+    isPublic: boolean
+    render: (onClick: () => void) => JSX.Element
+  }
 }
 
-const NewPost: React.FC<Props> = ({ setPosts }) => {
+const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const [title, setTitle] = useState<string>('')
-  const [titleError, setTitleError] = useState<string>('')
-  const [content, setContent] = useState<string>('')
-  const [contentError, setContentError] = useState<string>('')
-  const [isPublic, setIsPublic] = useState<boolean>(false)
+  const [title, setTitle] = useState<String>(isEdit ? isEdit.title : '')
+  const [titleError, setTitleError] = useState<String>('')
+  const [content, setContent] = useState<String>(isEdit ? isEdit.content : '')
+  const [contentError, setContentError] = useState<String>('')
+  const [isPublic, setIsPublic] = useState<boolean>(isEdit ? isEdit.isPublic : false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const api = useApi()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
@@ -79,7 +85,7 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
     if (e.target.value.trim()) setContentError('')
   }
 
-  const validateInputEmpty = (input: string, setInputError: React.Dispatch<React.SetStateAction<string>>, inputName: string): boolean => {
+  const validateInputEmpty = (input: String, setInputError: React.Dispatch<React.SetStateAction<String>>, inputName: String): boolean => {
     if (input) {
       setInputError('')
       return false
@@ -124,10 +130,12 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
     </Fab>
   )
 
+  const submitText = isEdit ? 'Edit' : 'Submit'
+
   const newPostForm = (
     <Card className={classes.card}>
       <CardHeader
-        title="Make a New Post"
+        title={isEdit ? 'Edit Post' : 'Make a New Post'}
         action={(
           <IconButton onClick={handleModalClose}>
             <Close />
@@ -158,14 +166,14 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
             onChange={handleContentChange}
             disabled={isSubmitting}
           />
-          <div className={classes.formBottom}>
+          <Box display="flex" flexDirection="row" justifyContent="space-between">
             <Button
               type="submit"
               variant="contained"
               color="primary"
               disabled={isSubmitting}
             >
-              {isSubmitting ? <CircularProgress className={classes.loader} /> : 'Submit' }
+              {isSubmitting ? <CircularProgress className={classes.loader} /> : submitText }
             </Button>
             <FormControlLabel
               control={(
@@ -180,7 +188,7 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
               label="Public?"
               labelPlacement="start"
             />
-          </div>
+          </Box>
         </form>
       </CardContent>
     </Card>
@@ -188,7 +196,7 @@ const NewPost: React.FC<Props> = ({ setPosts }) => {
 
   return (
     <>
-      {newPostButton}
+      {isEdit ? isEdit.render(handleModalOpen) : newPostButton}
       <Modal
         open={modalOpen}
         onClose={handleModalClose}

@@ -1,19 +1,21 @@
 import React, { useState, useContext } from 'react'
 import { Box, Card, Typography, makeStyles, IconButton, Modal, Button, CircularProgress, CardContent, CardActions, CardHeader } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
+import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
 import { AxiosResponse } from 'axios'
-import { truncateSync } from 'fs'
 
 interface Props {
-  postId: string,
-  title: string,
-  content: string,
-  isUser: boolean,
-  postUser: any,
-  date: Date,
-  removePost: () => void,
-  className?: string,
+  postId: string
+  title: string
+  content: string
+  isPublic: boolean
+  isUser: boolean
+  postUser: any
+  date: Date
+  removePost: () => void
+  setPosts: React.Dispatch<any>
+  className?: string
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date, removePost, className }) => {
+const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postUser, date, removePost, setPosts, className }) => {
   const classes = useStyles()
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -77,6 +79,7 @@ const Post: React.FC<Props> = ({ postId, title, content, isUser, postUser, date,
         title={title}
         action={isUser && (
           <>
+            <NewPost setPosts={setPosts} isEdit={{ title, content, isPublic, render: (onClick) => <button onClick={onClick}>edit</button> }} />
             <IconButton onClick={handleModalOpen}>
               <Delete />
             </IconButton>

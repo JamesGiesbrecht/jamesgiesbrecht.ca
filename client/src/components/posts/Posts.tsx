@@ -73,11 +73,13 @@ const Posts: React.FC = () => {
             postId={post._id}
             className={classes.post}
             title={post.title}
+            content={post.content}
+            isPublic={post.isPublic}
             isUser={user && user.profile.email === post.user.email}
             postUser={post.user}
             date={new Date(post.dateCreated)}
-            content={post.content}
             removePost={() => setPosts((prev) => prev.filter((p) => p._id !== post._id))}
+            setPosts={setPosts}
           />
         ))}
       </Masonry>
