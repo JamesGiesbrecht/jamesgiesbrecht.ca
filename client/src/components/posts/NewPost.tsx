@@ -180,7 +180,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit }) => {
                 <Switch
                   color="primary"
                   id="isPublic"
-                  value={isPublic}
+                  checked={isPublic}
                   onChange={(e) => setIsPublic(e.target.checked)}
                   disabled={isSubmitting}
                 />
