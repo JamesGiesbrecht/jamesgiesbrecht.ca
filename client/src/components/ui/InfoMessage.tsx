@@ -10,7 +10,6 @@ interface Props {
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
     maxWidth: 700,
     marginLeft: 'auto',

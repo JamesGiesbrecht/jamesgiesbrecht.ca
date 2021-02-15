@@ -9,7 +9,7 @@ import WaitFor from 'components/utility/WaitFor'
 import { useTheme } from '@material-ui/styles'
 import { AuthContext } from 'context/Auth'
 import { Link as RouterLink } from 'react-router-dom'
-import InfoBox from 'components/ui/InfoBox'
+import InfoMessage from 'components/ui/InfoMessage'
 
 const gridGutter = 15
 
@@ -97,14 +97,14 @@ const Posts: React.FC = () => {
   return (
     <>
       {showMessage && (
-        <InfoBox title="What is this Page About?" id="postsAbout">
+        <InfoMessage title="What is this Page About?" id="postsAbout">
           <Typography>
             A place on my site to demonstrate and practice basic CRUD operations with my Node/Express/MongoDB backend. Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
           </Typography>
           <Typography>
             The content here is not frequently moderated and does not represent the views or opinions of the owner.
           </Typography>
-        </InfoBox>
+        </InfoMessage>
       )}
       <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h3">Posts</Typography>

@@ -6,6 +6,7 @@ import { Button, makeStyles, Typography, Container } from '@material-ui/core'
 import { Facebook, Apple, GitHub, Twitter } from '@material-ui/icons'
 import GoogleIcon from 'components/icons/GoogleIcon'
 import WaitFor from 'components/utility/WaitFor'
+import InfoMessage from 'components/ui/InfoMessage'
 import { AuthContext } from 'context/Auth'
 import { useHistory } from 'react-router-dom'
 import useApi from 'hooks/useApi'
@@ -71,70 +72,44 @@ const Login: React.FC = () => {
     console.log('Google sign in unsuccessful', response)
   }
 
+  const getLoginButton = (onClick: () => void, disabled: boolean | undefined, icon: JSX.Element, text: String) => (
+    <Button
+      onClick={onClick}
+      disabled={disabled}
+      variant="outlined"
+      startIcon={icon}
+    >
+      {text}
+    </Button>
+  )
+
   return (
-    <Container className={classes.loginButtons}>
-      <Typography className={classes.title} variant="h3">Sign In</Typography>
-      <WaitFor isLoading={isLoading}>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
-          onSuccess={responseSuccessGoogle}
-          onFailure={responseErrorGoogle}
-          cookiePolicy="single_host_origin"
-          render={(renderProps) => (
-            <Button
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-              variant="outlined"
-              startIcon={<GoogleIcon />}
-            >
-              Sign In with Google
-            </Button>
-          )}
-        />
-        <Button
-          onClick={() => {}}
-          variant="outlined"
-          startIcon={<Apple />}
-          disabled
-        >
-          Coming soon...
-          {/* Sign In with Apple */}
-        </Button>
-        <Button
-          onClick={() => {}}
-          variant="outlined"
-          startIcon={<GitHub />}
-          disabled
-        >
-          Coming soon...
-          {/* Sign In with GitHub */}
-        </Button>
-        <Button
-          onClick={() => {}}
-          variant="outlined"
-          startIcon={<Twitter />}
-          disabled
-        >
-          Coming soon...
-          {/* Sign In with Twitter */}
-        </Button>
-        <FacebookLogin
-          appId={process.env.REACT_APP_FACEBOOK_APP_ID}
-          callback={responseFacebook}
-          component={(renderProps: any) => (
-            <Button
-              onClick={renderProps.onClick}
-              variant="outlined"
-              startIcon={<Facebook />}
-              disabled
-            >
-              Coming soon...
-              {/* Sign In with Facebook */}
-            </Button>
-          )}
-        />
-      </WaitFor>
-    </Container>
+    <>
+      <InfoMessage title="What is this Page About?" id="loginAbout">
+        <Typography>This app utilizes OAuth and JWT to create accounts with the MongoDB, Express, Node, and React (MERN) stack. Authenticated users will be able to make, edit, and delete posts on the posts page.</Typography>
+        <Typography>Minimum permissions are used when requesting account information with identity providers and it is never sold or given away.</Typography>
+      </InfoMessage>
+      <Container className={classes.loginButtons}>
+        <Typography className={classes.title} variant="h3">Sign In</Typography>
+        <WaitFor isLoading={isLoading}>
+          <GoogleLogin
+            clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
+            onSuccess={responseSuccessGoogle}
+            onFailure={responseErrorGoogle}
+            cookiePolicy="single_host_origin"
+            render={(renderProps) => getLoginButton(renderProps.onClick, renderProps.disabled, <GoogleIcon />, 'Sign In with Google')}
+          />
+          {getLoginButton(() => {}, true, <Apple />, 'Coming soon, maybe...')}
+          {getLoginButton(() => {}, true, <GitHub />, 'Coming soon, maybe...')}
+          {getLoginButton(() => {}, true, <Twitter />, 'Coming soon, maybe...')}
+          <FacebookLogin
+            appId={process.env.REACT_APP_FACEBOOK_APP_ID}
+            callback={responseFacebook}
+            component={(renderProps: any) => getLoginButton(renderProps.onClick, true, <Facebook />, 'Coming soon, maybe...')}
+          />
+        </WaitFor>
+      </Container>
+    </>
   )
 }
 
