@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
 import { Button, Card, TextField, makeStyles, FormControlLabel, Switch, CircularProgress, Fab, Modal, Box, IconButton, useMediaQuery, Theme, CardHeader, CardContent } from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
@@ -16,10 +16,15 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     [theme.breakpoints.down('xs')]: {
-      position: 'sticky',
+      position: 'fixed',
       bottom: theme.spacing(2),
-      marginLeft: '85%',
+      right: theme.spacing(2),
       zIndex: 999,
+    },
+  },
+  buttonBottom: {
+    [theme.breakpoints.down('xs')]: {
+      bottom: theme.spacing(10),
     },
   },
   buttonIcon: {
@@ -68,10 +73,22 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const [contentError, setContentError] = useState<String>('')
   const [isPublic, setIsPublic] = useState<boolean>(isEdit ? isEdit.isPublic : false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+  const [isBottom, setIsBottom] = useState<boolean>(false)
   const notify = useNotification()
   const api = useApi()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
   const postId = isEdit ? isEdit.postId : null
+
+  const handleScroll = () => {
+    const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 30
+    setIsBottom(bottom)
+  }
+
+  useEffect(() => {
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const handleModalOpen = () => setModalOpen(true)
 
@@ -160,7 +177,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
 
   const newPostButton = (
     <Fab
-      className={classes.button}
+      className={`${classes.button}${isBottom ? ` ${classes.buttonBottom}` : ''}`}
       color="primary"
       variant={isMobile ? 'round' : 'extended'}
       size={isMobile ? 'large' : 'medium'}
