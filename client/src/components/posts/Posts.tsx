@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
 import Masonry from 'react-masonry-css'
-import { Box, Container, Typography, makeStyles, Theme, Link } from '@material-ui/core'
+import { Box, Container, Typography, makeStyles, Theme, Link, useMediaQuery } from '@material-ui/core'
 import Post from 'components/posts/Post'
 import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
@@ -31,12 +31,11 @@ const Posts: React.FC = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [posts, setPosts] = useState<Array<any>>([])
-  const [doNotShow, setDoNotShow] = useState<boolean>(false)
-  const [showMessage, setShowMessage] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
   const { user } = useContext(AuthContext)
   const api = useApi()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   const columnBreakpoints = {
     default: 3,
@@ -96,27 +95,28 @@ const Posts: React.FC = () => {
     content = <Typography variant="h6">{message}</Typography>
   }
 
+  const newPost = user && <NewPost setPosts={setPosts} />
+
   return (
     <>
-      {showMessage && (
-        <InfoMessage title="What is this Page About?" id="postsAbout">
-          <Typography>
-            I wanted to learn basic CRUD operations (create, read, update, delete) in NodeJS and MongoDB, so here we are!
-          </Typography>
-          <Typography>
-            Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
-          </Typography>
-        </InfoMessage>
-      )}
+      <InfoMessage title="What is this Page About?" id="postsAbout">
+        <Typography>
+          I wanted to learn basic CRUD operations (create, read, update, delete) in NodeJS and MongoDB, so here we are!
+        </Typography>
+        <Typography>
+          Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
+        </Typography>
+      </InfoMessage>
       <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h3">Posts</Typography>
-        {user && <NewPost setPosts={setPosts} />}
+        {!isMobile && newPost}
       </Box>
       <Container>
         <WaitFor isLoading={isLoading}>
           {content}
         </WaitFor>
       </Container>
+      {isMobile && newPost}
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch, CircularProgress, Fab, Modal, Box, IconButton, useMediaQuery, Theme, CardHeader, CardContent } from '@material-ui/core'
+import { Button, Card, TextField, makeStyles, FormControlLabel, Switch, CircularProgress, Fab, Modal, Box, IconButton, useMediaQuery, Theme, CardHeader, CardContent } from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
 import useApi from 'hooks/useApi'
 import useNotification from 'hooks/useNotification'
@@ -16,9 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     [theme.breakpoints.down('xs')]: {
-      position: 'fixed',
+      position: 'sticky',
       bottom: theme.spacing(2),
-      right: theme.spacing(2),
+      marginLeft: '85%',
+      zIndex: 999,
     },
   },
   buttonIcon: {
@@ -137,6 +138,8 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
       .finally(() => {
         setIsSubmitting(false)
         handleModalClose()
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
       })
   }
 

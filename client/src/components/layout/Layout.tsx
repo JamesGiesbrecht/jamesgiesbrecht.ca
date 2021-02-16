@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
+    position: 'relative',
   },
   content: {
     paddingTop: theme.spacing(4),
