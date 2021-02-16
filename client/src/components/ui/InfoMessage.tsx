@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Card, CardHeader, CardContent, IconButton, Typography, makeStyles, CardActions, FormControlLabel, Checkbox } from '@material-ui/core'
+import { Card, CardHeader, CardContent, IconButton, Typography, makeStyles, CardActions, FormControlLabel, Checkbox } from '@material-ui/core'
 import { Close } from '@material-ui/icons'
 
 interface Props {

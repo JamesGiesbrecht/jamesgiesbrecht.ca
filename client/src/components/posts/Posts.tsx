@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
 import Masonry from 'react-masonry-css'
-import { Box, Container, Grid, Typography, makeStyles, Theme, Link } from '@material-ui/core'
+import { Box, Container, Typography, makeStyles, Theme, Link } from '@material-ui/core'
 import Post from 'components/posts/Post'
 import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
@@ -101,10 +101,10 @@ const Posts: React.FC = () => {
       {showMessage && (
         <InfoMessage title="What is this Page About?" id="postsAbout">
           <Typography>
-            A place on my site to demonstrate and practice basic CRUD operations with my Node/Express/MongoDB backend. Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
+            I wanted to learn basic CRUD operations (create, read, update, delete) in NodeJS and MongoDB, so here we are!
           </Typography>
           <Typography>
-            The content here is not frequently moderated and does not represent the views or opinions of the owner.
+            Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
           </Typography>
         </InfoMessage>
       )}

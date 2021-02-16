@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios'
 import { Button, Card, TextField, makeStyles, Typography, FormControlLabel, Switch, CircularProgress, Fab, Modal, Box, IconButton, useMediaQuery, Theme, CardHeader, CardContent } from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
 import useApi from 'hooks/useApi'
+import useNotification from 'hooks/useNotification'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -66,6 +67,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const [contentError, setContentError] = useState<String>('')
   const [isPublic, setIsPublic] = useState<boolean>(isEdit ? isEdit.isPublic : false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+  const notify = useNotification()
   const api = useApi()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
   const postId = isEdit ? isEdit.postId : null
@@ -105,9 +107,13 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setTitle('')
         setContent('')
         setIsPublic(false)
+        notify('Post Updated', 'success')
         setPosts((prev: any) => prev.map((p: any) => (p._id === postId ? result.data.post : p)))
       })
-      .catch((error: any) => console.log(error))
+      .catch((error: any) => {
+        console.log(error)
+        notify('Error Updating Post', 'error')
+      })
       .finally(() => {
         setIsSubmitting(false)
         handleModalClose()
@@ -121,9 +127,13 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setTitle('')
         setContent('')
         setIsPublic(false)
+        notify('Post Submitted', 'success')
         setPosts((prev: any) => [result.data, ...prev])
       })
-      .catch((error: any) => console.log(error))
+      .catch((error: any) => {
+        console.log(error)
+        notify('Error Submitting Post', 'error')
+      })
       .finally(() => {
         setIsSubmitting(false)
         handleModalClose()
