@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from '@material-ui/core'
 import tech from 'consts/tech'
 import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
+import wrha from 'assets/img/projects/wrha-wait-times.png'
+import wrhaBg from 'assets/img/projects/wrha-wait-times-bg.jpg'
 import onesnap from 'assets/img/projects/onesnap.png'
 import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
 import critterCompanion from 'assets/img/projects/critter-companion.png'
@@ -26,7 +28,7 @@ export default [
           <>
             {'Git-hooks automatically build and deploy the site when master is pushed to webserver, and deploys to '}
             <Link target="_blank" href="https://dev.jamesgiesbrecht.ca">dev.jamesgiesbrecht.ca</Link>
-            {' when any other branch is pushed'}
+            {' when any other branch is pushed. Visit the dev site to view the most current version of the site.'}
           </>,
           <>
             {'Subdomain to host my past PHP based projects '}
@@ -51,8 +53,25 @@ export default [
     stack: [tech.react, tech.materialUI, tech.node, tech.express],
   },
   {
+    name: 'WRHA Wait Times Alexa Skill',
+    summary: 'An Alexa Skill to get the current wait times for any hospital in Winnipeg.',
+    description: [
+      {
+        title: 'Description',
+        content: [
+          'My wife works in health care and frequently would check the WRHA website to see the wait times for her shift. I saw a problem and I decided to fix it for her.',
+          'The skill contacts an API I made to scrape the official WRHA website for wait times, this API is also utilized in a iOS widget to allow quick access on her phone home screen.',
+        ],
+      },
+    ],
+    image: wrha,
+    background: wrhaBg,
+    link: 'https://www.amazon.ca/dp/B08RJ8NKBC',
+    stack: [tech.aws, tech.node],
+  },
+  {
     name: 'Game Pit',
-    summary: 'Full-featured (kinda) mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end. Also my first experience with Docker and containerization.',
+    summary: 'A mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end. Also my first experience with Docker and containerization. This app was part of a school project and is no longer getting updates.',
     description: [
       {
         title: 'Description',

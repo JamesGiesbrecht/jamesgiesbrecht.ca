@@ -12,6 +12,7 @@ import antd from 'assets/img/logos/antd.svg'
 import sqlite from 'assets/img/logos/sqlite.svg'
 import postgres from 'assets/img/logos/postgres.svg'
 import docker from 'assets/img/logos/docker.svg'
+import aws from 'assets/img/logos/aws.png'
 
 const offWhite = '#F5F5F5'
 const white = '#FFF'
@@ -94,6 +95,12 @@ export default {
     name: 'Docker',
     logo: docker,
     color: '#2396ED',
+    fontColor: white,
+  },
+  aws: {
+    name: 'AWS',
+    logo: aws,
+    color: '#252F3D',
     fontColor: white,
   },
 }

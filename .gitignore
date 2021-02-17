@@ -5,6 +5,6 @@ webpack.txt
 
 # client
 /client/build
-# /client/src/assets/full-res
+/client/src/assets/full-res
 
 # server
