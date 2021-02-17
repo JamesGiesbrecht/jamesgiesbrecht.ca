@@ -101,6 +101,9 @@ const Posts: React.FC = () => {
           I wanted to learn basic CRUD operations (create, read, update, delete) in NodeJS and MongoDB, so here we are!
         </Typography>
         <Typography>
+          This page is just meant as a demo and not to provide any production level functionality.
+        </Typography>
+        <Typography>
           Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
         </Typography>
       </InfoMessage>
