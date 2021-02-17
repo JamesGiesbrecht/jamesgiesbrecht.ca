@@ -11,6 +11,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  google: Object,
 })
 
 module.exports = mongoose.model('User', userSchema)

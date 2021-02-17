@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles, IconButton } from '@material-ui/core'
+import { makeStyles, IconButton, Button } from '@material-ui/core'
 // eslint-disable-next-line no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
 
@@ -43,6 +43,8 @@ const socialMedia = [
 const Footer: React.FC = () => {
   const classes = useStyles()
 
+  const resetPrompts = () => localStorage.removeItem('hiddenMessages')
+
   const icons = socialMedia.map((social) => (
     <IconButton
       key={social.name}
@@ -56,6 +58,7 @@ const Footer: React.FC = () => {
   return (
     <footer className={classes.footer}>
       {icons}
+      <Button size="small" onClick={resetPrompts}>Reset Prompts</Button>
     </footer>
   )
 }

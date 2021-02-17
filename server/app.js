@@ -9,8 +9,9 @@ const app = express()
 const PORT = process.env.PORT || 3001
 const { MONGODB_URL } = process.env
 
-const mainRoutes = require('./routes/index')
+const mainRoutes = require('./routes/main')
 const apiRoutes = require('./routes/api/index')
+const userRoutes = require('./routes/user')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/api', apiRoutes)
+app.use(userRoutes)
 app.use(mainRoutes)
 
 mongoose.connect(MONGODB_URL)

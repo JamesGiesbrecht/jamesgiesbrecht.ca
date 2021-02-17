@@ -1,12 +1,15 @@
 import React from 'react'
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
+import AuthProvider from 'context/Auth'
 import { CssBaseline } from '@material-ui/core'
 import { blue } from '@material-ui/core/colors'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import Layout from 'components/Layout/Layout'
+import Layout from 'components/layout/Layout'
 import useColorScheme from 'hooks/useColorScheme'
 import Home from 'components/Home'
 import Login from 'components/Login'
+import Posts from 'components/posts/Posts'
+import Account from 'components/Account'
 import PlexStatus from 'components/PlexStatus'
 // import ScreenSize from 'components/ScreenSize'
 
@@ -33,27 +36,35 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {/* <ScreenSize /> */}
-        <Layout
-          theme={colorScheme}
-          toggleTheme={toggleColorScheme}
-        >
-          <Switch>
-            {/* <Route path="/login">
-              <Login />
-            </Route> */}
-            <Route path="/plex">
-              <PlexStatus />
-            </Route>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Redirect push to="/" />
-          </Switch>
-        </Layout>
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {/* <ScreenSize /> */}
+          <Layout
+            theme={colorScheme}
+            toggleTheme={toggleColorScheme}
+          >
+            <Switch>
+              <Route path="/plex">
+                <PlexStatus />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/posts">
+                <Posts />
+              </Route>
+              <Route path="/account">
+                <Account />
+              </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Redirect push to="/" />
+            </Switch>
+          </Layout>
+        </ThemeProvider>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

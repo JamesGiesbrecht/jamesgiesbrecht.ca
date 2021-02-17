@@ -1,13 +1,13 @@
 import React from 'react'
 import { Container, Toolbar, makeStyles } from '@material-ui/core'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
-import NavBar from 'components/Layout/NavBar'
-import Footer from 'components/Layout/Footer'
+import NavBar from 'components/layout/NavBar'
+import Footer from 'components/layout/Footer'
 
 interface Props {
   theme: PaletteOptions['type']
   toggleTheme: () => void
-  children: React.ReactNode
+  children: any
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -15,11 +15,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
+    position: 'relative',
   },
-  sections: {
-    '& > *': {
-      marginTop: theme.spacing(13),
-    },
+  content: {
+    paddingTop: theme.spacing(4),
   },
 }))
 
@@ -33,10 +32,8 @@ const Layout: React.FC<Props> = ({ theme, toggleTheme, children }) => {
         toggleTheme={toggleTheme}
       />
       <Toolbar />
-      <Container>
-        <div className={classes.sections}>
-          {children}
-        </div>
+      <Container className={classes.content}>
+        {children}
       </Container>
       <Footer />
     </div>

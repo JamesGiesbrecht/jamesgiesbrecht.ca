@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Button, Container, Typography, CircularProgress, makeStyles, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Grid } from '@material-ui/core'
+import { Button, Container, Typography, makeStyles, Paper, Grid } from '@material-ui/core'
 import { ChevronRight, Theaters } from '@material-ui/icons'
+import WaitFor from 'components/utility/WaitFor'
 
 const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(2),
     marginRight: theme.spacing(2),
-  },
-  centered: {
-    marginTop: theme.spacing(10),
-    textAlign: 'center',
   },
   content: {
     maxWidth: 700,
@@ -38,7 +35,7 @@ const PlexStatus: React.FC = () => {
   useEffect(() => {
     axios.get('/api/plex/sessions')
       .then((result) => {
-        console.log(result.data)
+        // console.log(result.data)
         setPlexStats(result.data)
       })
       .catch((error) => {
@@ -105,17 +102,17 @@ const PlexStatus: React.FC = () => {
         </Button>
       </>
     )
-  } else {
-    content = <div className={classes.centered}><CircularProgress size={100} /></div>
   }
 
   return (
-    <Container>
+    <>
       <Typography variant="h3" gutterBottom>Plex Status</Typography>
       <Container className={classes.content}>
-        {content}
+        <WaitFor isLoading={!plexStats}>
+          {content}
+        </WaitFor>
       </Container>
-    </Container>
+    </>
   )
 }
 
