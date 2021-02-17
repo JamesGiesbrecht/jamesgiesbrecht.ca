@@ -33,6 +33,7 @@ const Login: React.FC = () => {
   const classes = useStyles()
   const { user, setUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [hasError, setHasError] = useState<boolean>(false)
   const api = useApi()
   const history = useHistory()
 
@@ -63,12 +64,16 @@ const Login: React.FC = () => {
           token,
         })
       })
-      .catch((err: any) => console.log(err))
+      .catch((err: any) => {
+        setHasError(true)
+        console.log(err)
+      })
       .finally(() => setIsLoading(false))
   }
 
   const responseErrorGoogle = (response: any): void => {
     console.log('Google sign in unsuccessful', response)
+    setHasError(true)
   }
 
   const getLoginButton = (onClick: () => void, disabled: boolean | undefined, icon: JSX.Element, text: String) => (
@@ -85,12 +90,14 @@ const Login: React.FC = () => {
   return (
     <>
       <InfoMessage title="What is this Page About?" id="loginAbout">
+        <Typography paragraph>ATTENTION: The app is currently pending approval from Google, sign in functionality is not available at this moment. If you would like to be added to the test group in order to sign in, please contact me.</Typography>
         <Typography>This app utilizes OAuth and JWT to create accounts with the MongoDB, Express, Node, and React (MERN) stack. Authenticated users will be able to make, edit, and delete posts on the posts page.</Typography>
         <Typography>Minimum permissions are used when requesting account information with identity providers and it is never sold or given away.</Typography>
       </InfoMessage>
       <Container className={classes.loginButtons}>
         <Typography className={classes.title} variant="h3">Sign In</Typography>
         <WaitFor isLoading={isLoading}>
+          {hasError && <Typography color="error">Something went wrong, Sign In with Google is pending approval and is not available at this time.</Typography>}
           <GoogleLogin
             clientId={process.env.REACT_APP_GOOGLE_APP_ID as string}
             onSuccess={responseSuccessGoogle}
