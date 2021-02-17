@@ -35,7 +35,7 @@ const PlexStatus: React.FC = () => {
   useEffect(() => {
     axios.get('/api/plex/sessions')
       .then((result) => {
-        console.log(result.data)
+        // console.log(result.data)
         setPlexStats(result.data)
       })
       .catch((error) => {

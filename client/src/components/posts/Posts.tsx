@@ -45,7 +45,7 @@ const Posts: React.FC = () => {
   useEffect(() => {
     api.get('/api/posts')
       .then((result: AxiosResponse<any>) => {
-        console.log(result)
+        // console.log(result)
         setPosts(result.data)
       })
       .catch((error: any) => {

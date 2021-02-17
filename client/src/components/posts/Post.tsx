@@ -62,7 +62,7 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
     setIsLoading(true)
     api.delete(`/api/posts/${postId}`)
       .then((result: AxiosResponse<any>) => {
-        console.log(result)
+        // console.log(result)
         removePost()
       })
       .catch((error: any) => console.log(error))

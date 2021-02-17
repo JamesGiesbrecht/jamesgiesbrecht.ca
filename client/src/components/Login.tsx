@@ -49,7 +49,7 @@ const Login: React.FC = () => {
   )
 
   const responseSuccessGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline): void => {
-    console.log(response)
+    // console.log(response)
     if (!isGoogleLoginResponse(response)) return
     const token = response.tokenId
     setIsLoading(true)
@@ -57,12 +57,11 @@ const Login: React.FC = () => {
       idToken: response.tokenId,
     })
       .then((res: AxiosResponse<any>) => {
-        console.log(res)
+        // console.log(res)
         setUser({
           profile: res.data.user,
           token,
         })
-        console.log(res)
       })
       .catch((err: any) => console.log(err))
       .finally(() => setIsLoading(false))

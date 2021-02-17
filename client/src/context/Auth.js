@@ -6,7 +6,7 @@ export default ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
 
   useEffect(() => {
-    console.log('Saving user to LS', user)
+    // console.log('Saving user to LS', user)
     localStorage.setItem('user', JSON.stringify(user))
   }, [user])
 

@@ -121,7 +121,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const editPost = () => {
     api.put(`/api/posts/${postId}`, { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
-        console.log(result)
+        // console.log(result)
         setTitle('')
         setContent('')
         setIsPublic(false)
@@ -141,7 +141,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const submitPost = () => {
     api.post('/api/posts/new', { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
-        console.log(result)
+        // console.log(result)
         setTitle('')
         setContent('')
         setIsPublic(false)
