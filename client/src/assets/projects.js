@@ -20,6 +20,8 @@ export default [
         title: 'Features',
         content: [
           'Backend NodeJS/Express server to build and learn with RESTful APIs',
+          'Login and Authentication with Google OAuth and JWT',
+          'CRUD operations in the Posts tab. Authenticated users can create, view, edit, and delete posts.',
           <>
             {'WRHA wait times web scraping for my wife so she can ask her phone for the '}
             <Link target="_blank" href="/api/wrha/grace">current wait times at her workplace</Link>
@@ -29,10 +31,6 @@ export default [
             {'Git-hooks automatically build and deploy the site when master is pushed to webserver, and deploys to '}
             <Link target="_blank" href="https://dev.jamesgiesbrecht.ca">dev.jamesgiesbrecht.ca</Link>
             {' when any other branch is pushed. Visit the dev site to view the most current version of the site.'}
-          </>,
-          <>
-            {'Subdomain to host my past PHP based projects '}
-            <Link target="_blank" href="https://php.jamesgiesbrecht.ca/old-portfolio">Example project: Old Portfolio</Link>
           </>,
           'Light/dark mode',
           'Responsive',
@@ -50,7 +48,7 @@ export default [
     background: '#1D1D1D',
     link: { isPopper: true, content: 'You\'re already here silly' },
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
-    stack: [tech.react, tech.materialUI, tech.node, tech.express],
+    stack: [tech.react, tech.materialUI, tech.node, tech.express, tech.jwt, tech.oAuth, tech.mongoDB],
   },
   {
     name: 'WRHA Wait Times Alexa Skill',
@@ -76,7 +74,7 @@ export default [
       {
         title: 'Description',
         content: [
-          'A (WIP) e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront. The code is contained in a monorepo, the React code can be found in the "client" subdirectory.',
+          'A e-commerce project from my Full Stack Web Development class final project. Meant to emulate a small business requesting a online storefront. The code is contained in a monorepo, the React code can be found in the "client" subdirectory.',
         ],
       },
       {
@@ -88,14 +86,6 @@ export default [
           'Product browsing, searching, and filtering',
           'Shopping cart functionality saved to local storage to persist across refreshes and browsing sessions',
           'Individual product pages for each product',
-        ],
-      },
-      {
-        title: 'Upcoming Features',
-        content: [
-          'Cart checkout with (mock) payment',
-          'Account creation with address and login',
-          'Order creation with pricing and taxes preserved at time of order',
         ],
       },
     ],

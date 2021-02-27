@@ -13,6 +13,9 @@ import sqlite from 'assets/img/logos/sqlite.svg'
 import postgres from 'assets/img/logos/postgres.svg'
 import docker from 'assets/img/logos/docker.svg'
 import aws from 'assets/img/logos/aws.png'
+import padlock from 'assets/img/logos/padlock.png'
+import mongoDB from 'assets/img/logos/mongoDB.png'
+import jwt from 'assets/img/logos/jwt.png'
 
 const offWhite = '#F5F5F5'
 const white = '#FFF'
@@ -101,6 +104,24 @@ export default {
     name: 'AWS',
     logo: aws,
     color: '#252F3D',
+    fontColor: white,
+  },
+  oAuth: {
+    name: 'OAuth',
+    logo: padlock,
+    color: '#91D051',
+    fontColor: white,
+  },
+  mongoDB: {
+    name: 'mongoDB',
+    logo: mongoDB,
+    color: offWhite,
+    fontColor: black,
+  },
+  jwt: {
+    name: 'JWT',
+    logo: jwt,
+    color: black,
     fontColor: white,
   },
 }
