@@ -12,6 +12,7 @@ import Posts from 'components/posts/Posts'
 import Account from 'components/Account'
 import PlexStatus from 'components/PlexStatus'
 import Privacy from 'components/Privacy'
+import ScrollToTop from 'components/utility/ScrollToTop'
 // import ScreenSize from 'components/ScreenSize'
 
 /*
@@ -37,6 +38,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
