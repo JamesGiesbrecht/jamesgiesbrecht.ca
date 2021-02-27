@@ -11,6 +11,7 @@ import Login from 'components/Login'
 import Posts from 'components/posts/Posts'
 import Account from 'components/Account'
 import PlexStatus from 'components/PlexStatus'
+import Privacy from 'components/Privacy'
 // import ScreenSize from 'components/ScreenSize'
 
 /*
@@ -56,6 +57,9 @@ const App = () => {
               </Route>
               <Route path="/account">
                 <Account />
+              </Route>
+              <Route path="/privacy">
+                <Privacy />
               </Route>
               <Route exact path="/">
                 <Home />
