@@ -1,10 +1,10 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar, Avatar, ListItemIcon } from '@material-ui/core'
+import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar, Avatar, ListItemIcon, Button } from '@material-ui/core'
 import { Home, Code, ExitToApp, Mail, Menu as MenuIcon, Message, Brightness7 as Sun, Brightness3 as Moon, Person } from '@material-ui/icons'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 import { AuthContext } from 'context/Auth'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
 
 interface Props {
   theme: PaletteOptions['type']
@@ -213,9 +213,11 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   return (
     <Slide appear={false} direction="down" in={!scrollTrigger}>
       <AppBar className={classes.navBar} color="inherit">
-        <Typography variant="h6" className={classes.title}>
-          JG
-        </Typography>
+        <Button component={RouterLink} to="/">
+          <Typography variant="h6" className={classes.title}>
+            JG
+          </Typography>
+        </Button>
         <div className={classes.grow} />
         <div className={classes.desktopNav}>
           <Tabs value={activeNav} onChange={handleTabChange}>
