@@ -4,6 +4,8 @@ import tech from 'consts/tech'
 import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
 import wrha from 'assets/img/projects/wrha-wait-times.png'
 import wrhaBg from 'assets/img/projects/wrha-wait-times-bg.jpg'
+import craTemplate from 'assets/img/projects/react.png'
+import craTemplateBg from 'assets/img/projects/cra-template-bg.jpg'
 import onesnap from 'assets/img/projects/onesnap.png'
 import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
 import critterCompanion from 'assets/img/projects/critter-companion.png'
@@ -66,6 +68,22 @@ export default [
     background: wrhaBg,
     link: 'https://www.amazon.ca/dp/B08RJ8NKBC',
     stack: [tech.aws, tech.node],
+  },
+  {
+    name: 'Custom Create React App Template',
+    summary: 'A Create React App template with React Router, Material UI, Eslint, Prettier, and Typescript with a basic layout and routes configured.',
+    description: [
+      {
+        title: 'Description',
+        content: [
+          'Try it out: npx create-react-app my-app --template goose',
+        ],
+      },
+    ],
+    image: craTemplate,
+    background: craTemplateBg,
+    github: 'https://github.com/JamesGiesbrecht/cra-template-goose',
+    stack: [tech.react, tech.materialUI],
   },
   {
     name: 'Game Pit',
