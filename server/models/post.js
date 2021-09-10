@@ -17,10 +17,11 @@ const postSchema = new Schema({
     require: true,
   },
   user: {
-    type: Schema.Types.ObjectId,
+    // type: Schema.Types.ObjectId,
+    type: String,
     ref: 'User',
     required: true,
   },
 })
 
-module.exports = mongoose.model(process.env.POST || 'Post', postSchema)
+module.exports = mongoose.model('Post', postSchema)

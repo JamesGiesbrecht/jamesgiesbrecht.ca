@@ -4,7 +4,8 @@ exports.postNewPost = (req, res) => {
   const { title, content, isPublic } = req.body
 
   const newPost = new Post({ title, content, isPublic, dateCreated: Date.now(), user: req.user })
-  newPost.save()
+  newPost
+    .save()
     .then((result) => {
       console.log('Created post', result)
       res.status(201).json(newPost)
@@ -17,12 +18,12 @@ exports.postNewPost = (req, res) => {
 
 exports.getPosts = (req, res) => {
   console.log('Get posts')
-  let query = { isPublic: true }
-  if (req.user) {
-    query = { $or: [ { user: req.user }, query ]}
-  }
+  const query = { isPublic: true }
+  // if (req.user) {
+  //   query = { $or: [ { user: req.user }, query ]}
+  // }
   Post.find(query)
-    .populate('user')
+    // .populate('user')
     .sort({ dateCreated: 'desc' })
     .limit(100)
     .then((posts) => res.status(200).json(posts))
@@ -60,10 +61,10 @@ exports.deletePost = (req, res) => {
       console.log(result)
       const { deletedCount } = result
       if (deletedCount === 0) {
-        res.status(204).json({ message: 'Content not found', deletedCount})
+        res.status(204).json({ message: 'Content not found', deletedCount })
       } else {
         console.log(`Destroyed product: ${postId}`)
-        res.status(200).json({ message: 'Post deleted', deletedCount})
+        res.status(200).json({ message: 'Post deleted', deletedCount })
       }
     })
     .catch((error) => {

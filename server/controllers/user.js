@@ -12,7 +12,8 @@ exports.postGoogleLogin = (req, res) => {
   let email
   let sub
   let currentUser
-  client.verifyIdToken({ idToken, audience: process.env.GOOGLE_APP_ID })
+  client
+    .verifyIdToken({ idToken, audience: process.env.GOOGLE_APP_ID })
     .then((response) => {
       payload = response.payload
       email = response.payload.email
