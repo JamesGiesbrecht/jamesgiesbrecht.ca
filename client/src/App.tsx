@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
 import AuthProvider from 'context/Auth'
 import { CssBaseline } from '@material-ui/core'

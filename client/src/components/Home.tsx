@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import About from 'components/About'
 import Projects from 'components/projects/Projects'
 import { makeStyles } from '@material-ui/core'
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Home: React.FC = () => {
+const Home: FC = () => {
   const classes = useStyles()
 
   return (

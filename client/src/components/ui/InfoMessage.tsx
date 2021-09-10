@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 import {
   Card,
   CardHeader,
   CardContent,
   IconButton,
-  Typography,
   makeStyles,
   CardActions,
   FormControlLabel,
@@ -30,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InfoMessage: React.FC<Props> = ({ title, children, id }) => {
+const InfoMessage: FC<Props> = ({ title, children, id }) => {
   const classes = useStyles()
   const localMessages = JSON.parse(localStorage.getItem('hiddenMessages') || '[]')
   const messageIsHidden = localMessages.includes(id)

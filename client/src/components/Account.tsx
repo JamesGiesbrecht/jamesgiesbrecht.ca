@@ -1,15 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import { FC, useContext, useEffect } from 'react'
 import { Container, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from 'context/Auth'
 
-const Account: React.FC = () => {
+const Account: FC = () => {
   const { user } = useContext(AuthContext)
   const history = useHistory()
 
   useEffect(() => {
     if (!user) history.push('/login')
-  }, [user])
+  }, [user, history])
 
   return (
     <Container>

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { Container, Toolbar, makeStyles } from '@material-ui/core'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 import NavBar from 'components/layout/NavBar'
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Layout: React.FC<Props> = ({ theme, toggleTheme, children }) => {
+const Layout: FC<Props> = ({ theme, toggleTheme, children }) => {
   const classes = useStyles()
 
   return (

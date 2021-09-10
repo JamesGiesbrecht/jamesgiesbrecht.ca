@@ -1,7 +1,7 @@
-import React from 'react'
+import { FC } from 'react'
 import { makeStyles, IconButton, Button } from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +41,7 @@ const socialMedia = [
   // },
 ]
 
-const Footer: React.FC = () => {
+const Footer: FC = () => {
   const classes = useStyles()
 
   const resetPrompts = () => localStorage.removeItem('hiddenMessages')

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from '@material-ui/core'
 import tech from 'consts/tech'
 import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'

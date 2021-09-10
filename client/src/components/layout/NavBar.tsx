@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from 'react'
+import { useState, useRef, useContext, useEffect, FC, MouseEvent, ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Typography,
@@ -20,9 +20,7 @@ import {
 } from '@material-ui/core'
 import {
   Home,
-  Code,
   ExitToApp,
-  Mail,
   Menu as MenuIcon,
   Message,
   Brightness7 as Sun,
@@ -68,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
+const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
   const { user, logout } = useContext(AuthContext)
   const [accountIsOpen, setAccountIsOpen] = useState(false)
@@ -104,23 +102,28 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
 
   useEffect(() => {
     setActiveNavOverride(location.pathname)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
   const handleMobileToggle = () => setMobileIsOpen((prevOpen) => !prevOpen)
 
   const handleAccountToggle = () => setAccountIsOpen((prevOpen) => !prevOpen)
 
-  const handleCloseMobile = (e: React.MouseEvent<HTMLLIElement | Document, MouseEvent>) => {
+  const handleCloseMobile = (
+    e: MouseEvent<HTMLLIElement | Document> | MouseEvent<Element, MouseEvent>,
+  ) => {
     if (menuRef.current && menuRef.current.contains(e.target as Node)) return
     setMobileIsOpen(false)
   }
 
-  const handleCloseAccount = (e: React.MouseEvent<HTMLLIElement | Document, MouseEvent>) => {
+  const handleCloseAccount = (
+    e: MouseEvent<HTMLLIElement | Document> | MouseEvent<Element, MouseEvent>,
+  ) => {
     if (accountRef.current && accountRef.current.contains(e.target as Node)) return
     setAccountIsOpen(false)
   }
 
-  const handleTabChange = (e: React.ChangeEvent<{}>, newValue: string) => {
+  const handleTabChange = (e: ChangeEvent<{}>, newValue: string) => {
     setActiveNavOverride(newValue)
     history.push(newValue)
   }
@@ -143,12 +146,14 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
         open={mobileIsOpen}
         transition
         disablePortal
-        className={classes.mobileNav}>
+        className={classes.mobileNav}
+      >
         {({ TransitionProps, placement }) => (
           <Grow
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+          >
             <Paper square>
               <ClickAwayListener onClickAway={handleCloseMobile}>
                 <MenuList autoFocusItem={mobileIsOpen}>
@@ -158,7 +163,8 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
                       onClick={(e) => {
                         handleTabChange(e, nav.path)
                         handleCloseMobile(e)
-                      }}>
+                      }}
+                    >
                       <ListItemIcon>{nav.icon}</ListItemIcon>
                       <p>{nav.name}</p>
                     </MenuItem>
@@ -186,7 +192,8 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
           <Grow
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+          >
             <Paper square>
               <ClickAwayListener onClickAway={handleCloseAccount}>
                 <MenuList autoFocusItem={accountIsOpen}>
@@ -197,7 +204,8 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
                         handleTabChange(e, item.path)
                         handleCloseAccount(e)
                         if (item.cb) item.cb()
-                      }}>
+                      }}
+                    >
                       <ListItemIcon>{item.icon}</ListItemIcon>
                       <p>{item.name}</p>
                     </MenuItem>

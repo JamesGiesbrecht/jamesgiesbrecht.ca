@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import { useState, Fragment } from 'react'
 import {
   Card,
   CardHeader,
@@ -173,7 +173,8 @@ const Project = ({ project, isOdd }) => {
       variant="outlined"
       onClick={handleExpand}
       aria-expanded={expanded}
-      aria-label="show more">
+      aria-label="show more"
+    >
       {'More Details '}
       <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </Button>

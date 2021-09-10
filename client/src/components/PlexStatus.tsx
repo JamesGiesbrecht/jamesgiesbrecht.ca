@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button, Container, Typography, makeStyles, Paper, Grid } from '@material-ui/core'
 import { ChevronRight, Theaters } from '@material-ui/icons'
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const PlexStatus: React.FC = () => {
+const PlexStatus: FC = () => {
   const classes = useStyles()
   const [plexStats, setPlexStats] = useState<any>()
   const [hasError, setHasError] = useState<Boolean>(false)
@@ -36,10 +36,10 @@ const PlexStatus: React.FC = () => {
     axios
       .get('/api/plex/sessions')
       .then((result) => {
-        // console.log(result.data)
         setPlexStats(result.data)
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error.message)
         setHasError(true)
       })
@@ -95,14 +95,16 @@ const PlexStatus: React.FC = () => {
           className={classes.button}
           variant="contained"
           href="https://app.plex.tv"
-          startIcon={<ChevronRight fontSize="large" />}>
+          startIcon={<ChevronRight fontSize="large" />}
+        >
           Go to Plex
         </Button>
         <Button
           className={classes.button}
           variant="contained"
           href="https://goose.fans"
-          startIcon={<Theaters fontSize="large" />}>
+          startIcon={<Theaters fontSize="large" />}
+        >
           Request Movies/TV on Ombi
         </Button>
       </>

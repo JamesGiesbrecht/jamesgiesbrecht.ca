@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
 import Masonry from 'react-masonry-css'
 import { Box, Container, Typography, makeStyles, Theme, Link } from '@material-ui/core'
@@ -7,13 +7,13 @@ import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
 import WaitFor from 'components/utility/WaitFor'
 import { useTheme } from '@material-ui/styles'
-import { AuthContext } from 'context/AuthOld'
+import { AuthContext } from 'context/Auth'
 import { Link as RouterLink } from 'react-router-dom'
 import InfoMessage from 'components/ui/InfoMessage'
 
 const gridGutter = 15
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   posts: {
     display: 'flex',
     marginLeft: -gridGutter,
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Posts: React.FC = () => {
+const Posts: FC = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [posts, setPosts] = useState<Array<any>>([])
@@ -46,15 +46,15 @@ const Posts: React.FC = () => {
     api
       .get('/api/posts')
       .then((result: AxiosResponse<any>) => {
-        // console.log(result)
         setPosts(result.data)
       })
       .catch((error: any) => {
+        // eslint-disable-next-line no-console
         console.log(error)
         setHasError(true)
       })
       .finally(() => setIsLoading(false))
-  }, [])
+  }, [api])
 
   let content
   let message: string | Array<any> = ''
@@ -64,7 +64,8 @@ const Posts: React.FC = () => {
       <Masonry
         breakpointCols={columnBreakpoints}
         className={classes.posts}
-        columnClassName={classes.postItem}>
+        columnClassName={classes.postItem}
+      >
         {posts.map((post) => (
           <Post
             key={post._id}
@@ -120,7 +121,8 @@ const Posts: React.FC = () => {
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
-        mb={2}>
+        mb={2}
+      >
         <Typography variant="h3">Posts</Typography>
         {user && <NewPost setPosts={setPosts} />}
       </Box>

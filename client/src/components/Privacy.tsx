@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react'
 import { Container, Typography, Link, Box, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +31,8 @@ const Privacy = () => {
         <Link
           href="https://www.freeprivacypolicy.com/free-privacy-policy-generator/"
           target="_blank"
-          rel="noreferrer">
+          rel="noreferrer"
+        >
           Privacy Policy Generator.
         </Link>
       </Typography>
@@ -236,7 +235,8 @@ const Privacy = () => {
             <Link
               href="https://www.freeprivacypolicy.com/blog/cookies/"
               target="_blank"
-              rel="noreferrer">
+              rel="noreferrer"
+            >
               Cookies: What Do They Do?
             </Link>
             .

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
 import {
   Button,
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface Props {
-  setPosts: React.Dispatch<any>
+  setPosts: Dispatch<any>
   isEdit?: {
     postId: String
     title: String
@@ -80,7 +80,7 @@ interface Props {
   onClose?: () => void
 }
 
-const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
+const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [title, setTitle] = useState<String>(isEdit ? isEdit.title : '')
@@ -128,7 +128,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
 
   const validateInputEmpty = (
     input: String,
-    setInputError: React.Dispatch<React.SetStateAction<String>>,
+    setInputError: Dispatch<SetStateAction<String>>,
     inputName: String,
   ): boolean => {
     if (input) {
@@ -151,6 +151,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setPosts((prev: any) => prev.map((p: any) => (p._id === postId ? result.data.post : p)))
       })
       .catch((error: any) => {
+        // eslint-disable-next-line no-console
         console.log(error)
         notify('Error Updating Post', 'error')
       })
@@ -172,6 +173,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setPosts((prev: any) => [result.data, ...prev])
       })
       .catch((error: any) => {
+        // eslint-disable-next-line no-console
         console.log(error)
         notify('Error Submitting Post', 'error')
       })
@@ -183,7 +185,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
       })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const hasTitleError = validateInputEmpty(title, setTitleError, 'Title')
     const hasContentError = validateInputEmpty(content, setContentError, 'Content')
@@ -204,7 +206,8 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
       color="primary"
       variant={isMobile ? 'round' : 'extended'}
       size={isMobile ? 'large' : 'medium'}
-      onClick={handleModalOpen}>
+      onClick={handleModalOpen}
+    >
       <Add className={classes.buttonIcon} />
       {!isMobile && 'New Post'}
     </Fab>

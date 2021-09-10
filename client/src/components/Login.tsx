@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+/* eslint-disable no-console */
+import { FC, useContext, useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
 import FacebookLogin from 'react-facebook-auth'
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Login: React.FC = () => {
+const Login: FC = () => {
   const classes = useStyles()
   const { user, setUser } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -39,7 +40,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (user) history.push('/')
-  }, [user])
+  }, [user, history])
 
   const responseFacebook = (response: any): void => {
     console.log(response)

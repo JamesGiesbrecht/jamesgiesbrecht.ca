@@ -1,4 +1,3 @@
-import React from 'react'
 import { makeStyles, useMediaQuery } from '@material-ui/core'
 
 const useStyles = makeStyles({

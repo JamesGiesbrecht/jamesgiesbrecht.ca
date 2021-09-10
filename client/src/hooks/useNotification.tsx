@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
@@ -12,7 +12,7 @@ const useNotification = (): any => {
   const theme = useTheme()
   const notificationDiv = document.getElementById('notification')
 
-  const handleClose = (event: React.SyntheticEvent<Element, Event>, reason?: string) => {
+  const handleClose = (event: SyntheticEvent<Element, Event>, reason?: string) => {
     if (reason === 'clickaway') return
     setOpen(false)
   }

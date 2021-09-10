@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { Dispatch, FC, MouseEvent, useState } from 'react'
 import Fade from 'react-reveal/Fade'
 import {
   Box,
@@ -30,7 +30,7 @@ interface Props {
   postUser: any
   date: Date
   removePost: () => void
-  setPosts: React.Dispatch<any>
+  setPosts: Dispatch<any>
   className?: string
 }
 
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Post: React.FC<Props> = ({
+const Post: FC<Props> = ({
   postId,
   title,
   content,
@@ -74,8 +74,7 @@ const Post: React.FC<Props> = ({
     month: 'short',
   })}  ${date.getDay()}, ${date.getHours()}:${minutes}`
 
-  const handleMenuOpen = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-    setAnchorEl(e.currentTarget)
+  const handleMenuOpen = (e: MouseEvent<HTMLButtonElement>) => setAnchorEl(e.currentTarget)
 
   const handleMenuClose = () => setAnchorEl(null)
 
@@ -91,10 +90,11 @@ const Post: React.FC<Props> = ({
     setIsLoading(true)
     api
       .delete(`/api/posts/${postId}`)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((result: AxiosResponse<any>) => {
-        // console.log(result)
         removePost()
       })
+      // eslint-disable-next-line no-console
       .catch((error: any) => console.log(error))
       .finally(() => handleModalClose())
   }
@@ -135,7 +135,8 @@ const Post: React.FC<Props> = ({
                     horizontal: 'right',
                   }}
                   open={openMenu}
-                  onClose={handleMenuClose}>
+                  onClose={handleMenuClose}
+                >
                   <NewPost
                     setPosts={setPosts}
                     isEdit={{ postId, title, content, isPublic }}
@@ -167,7 +168,8 @@ const Post: React.FC<Props> = ({
               display="flex"
               flexDirection="row"
               justifyContent="space-between"
-              alignItems="center">
+              alignItems="center"
+            >
               <Typography variant="subtitle2" color="textSecondary">
                 {dateFormatted}
               </Typography>

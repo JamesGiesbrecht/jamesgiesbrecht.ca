@@ -38,14 +38,13 @@ module.exports = {
     'no-case-declarations': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.tsx'] }],
+    'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js', '.tsx'] }],
     'react/jsx-props-no-spreading': 'off',
     'react/no-unescaped-entities': 'off',
     'react/react-in-jsx-scope': 'off',
     'prettier/prettier': [
       'warn',
       {
-        jsxBracketSameLine: true,
         singleQuote: true,
         trailingComma: 'all',
         printWidth: 100,
