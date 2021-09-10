@@ -7,7 +7,7 @@ const { public } = require('./util/path')
 
 const app = express()
 const PORT = process.env.PORT || 3001
-const { MONGODB_URL } = process.env
+const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_URL, MONGODB_PARAMS } = process.env
 
 const mainRoutes = require('./routes/main')
 const apiRoutes = require('./routes/api/index')
@@ -27,7 +27,9 @@ app.use('/api', apiRoutes)
 app.use(userRoutes)
 app.use(mainRoutes)
 
-mongoose.connect(MONGODB_URL)
+const mongoDbUrl = MONGODB_URL.replace('USER', MONGODB_USER).replace('PASSWORD', MONGODB_PASSWORD) + MONGODB_PARAMS
+
+mongoose.connect(mongoDbUrl)
   .then((result) => console.log('Connected to MongoDB'))
   .catch((error) => console.log(error))
 
