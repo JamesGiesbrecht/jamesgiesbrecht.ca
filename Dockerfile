@@ -3,20 +3,20 @@ FROM node:14
 WORKDIR /app/client
 
 COPY /client/package.json .
-COPY /client/package-lock.json .
+COPY /client/yarn.lock .
 
-RUN npm install
+RUN yarn install
 
 COPY /client .
 
-RUN npm run build
+RUN yarn build
 
 WORKDIR /app/server
 
 COPY /server/package.json .
-COPY /server/package-lock.json .
+COPY /server/yarn.lock .
 
-RUN npm install
+RUN yarn install
 
 COPY /server .
 

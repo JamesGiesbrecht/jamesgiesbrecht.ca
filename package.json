@@ -4,6 +4,7 @@
   "description": "jamesgiesbrecht.ca",
   "scripts": {
     "build": "docker build -t jamesgiesbrecht/james-giesbrecht-ca .",
+    "deploy": "docker push jamesgiesbrecht/james-giesbrecht-ca",
     "deploy:local": "npm run install:client && npm run install:server && npm run build && npm run start:server:dev",
     "deploy:dev": "npm run install:prod:client && npm run install:prod:server && npm run build && npm run start:dev",
     "deploy:prod": "npm run install:prod:client && npm run install:prod:server && npm run build && npm run start:prod",
