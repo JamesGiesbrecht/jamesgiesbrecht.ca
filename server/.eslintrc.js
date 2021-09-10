@@ -4,12 +4,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: [
-    'airbnb-base',
-    'plugin:node/recommended',
-    'plugin:security/recommended',
-    'prettier',
-  ],
+  extends: ['airbnb-base', 'plugin:node/recommended', 'plugin:security/recommended', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -20,6 +15,8 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'import/extensions': 'off',
+    'no-console': 'off',
+    'no-unused-vars': 'warn',
     'object-curly-newline': ['error', { ObjectPattern: { multiline: true } }],
     'node/file-extension-in-import': ['error', 'always'],
     'node/prefer-global/buffer': ['error', 'always'],
@@ -39,4 +36,4 @@ module.exports = {
       },
     ],
   },
-};
+}

@@ -27,10 +27,12 @@ app.use('/api', apiRoutes)
 app.use(userRoutes)
 app.use(mainRoutes)
 
-const mongoDbUrl = MONGODB_URL.replace('USER', MONGODB_USER).replace('PASSWORD', MONGODB_PASSWORD) + MONGODB_PARAMS
+const mongoDbUrl =
+  MONGODB_URL.replace('USER', MONGODB_USER).replace('PASSWORD', MONGODB_PASSWORD) + MONGODB_PARAMS
 
-mongoose.connect(mongoDbUrl)
-  .then((result) => console.log('Connected to MongoDB'))
+mongoose
+  .connect(mongoDbUrl)
+  .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.log(error))
 
 // eslint-disable-next-line no-console

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { OAuth2Client } = require('google-auth-library')
 const jwt = require('jsonwebtoken')
 
@@ -20,6 +21,7 @@ exports.postGoogleLogin = (req, res) => {
       console.log('payload', response.payload)
       return User.findOne({ email })
     })
+    // eslint-disable-next-line consistent-return
     .then((user) => {
       if (!user) {
         console.log('First time user')

@@ -18,12 +18,12 @@ exports.postNewPost = (req, res) => {
 
 exports.getPosts = (req, res) => {
   console.log('Get posts')
-  const query = { isPublic: true }
-  // if (req.user) {
-  //   query = { $or: [ { user: req.user }, query ]}
-  // }
+  let query = { isPublic: true }
+  if (req.user) {
+    query = { $or: [{ user: req.user }, query] }
+  }
   Post.find(query)
-    // .populate('user')
+    .populate('user')
     .sort({ dateCreated: 'desc' })
     .limit(100)
     .then((posts) => res.status(200).json(posts))
@@ -40,9 +40,11 @@ exports.updatePost = (req, res) => {
   Post.findOne({ _id: postId, user: req.user })
     .populate('user')
     .then((post) => {
+      /* eslint-disable no-param-reassign */
       post.title = title
       post.content = content
       post.isPublic = isPublic
+      /* eslint-enable no-param-reassign */
       return post.save()
     })
     .then((post) => {
