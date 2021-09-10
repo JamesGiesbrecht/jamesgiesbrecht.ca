@@ -7,7 +7,7 @@ import NewPost from 'components/posts/NewPost'
 import useApi from 'hooks/useApi'
 import WaitFor from 'components/utility/WaitFor'
 import { useTheme } from '@material-ui/styles'
-import { AuthContext } from 'context/Auth'
+import { AuthContext } from 'context/AuthOld'
 import { Link as RouterLink } from 'react-router-dom'
 import InfoMessage from 'components/ui/InfoMessage'
 
@@ -43,7 +43,8 @@ const Posts: React.FC = () => {
   }
 
   useEffect(() => {
-    api.get('/api/posts')
+    api
+      .get('/api/posts')
       .then((result: AxiosResponse<any>) => {
         // console.log(result)
         setPosts(result.data)
@@ -63,8 +64,7 @@ const Posts: React.FC = () => {
       <Masonry
         breakpointCols={columnBreakpoints}
         className={classes.posts}
-        columnClassName={classes.postItem}
-      >
+        columnClassName={classes.postItem}>
         {posts.map((post) => (
           <Post
             key={post._id}
@@ -86,10 +86,16 @@ const Posts: React.FC = () => {
     if (hasError) {
       message = 'Uh oh, something went wrong.'
     } else if (user) {
-      message = 'No posts to show, why don\'t you try making one?'
+      message = "No posts to show, why don't you try making one?"
     } else {
       // eslint-disable-next-line react/jsx-one-expression-per-line
-      message = ['No posts to show, why don\'t you ', <Link component={RouterLink} to="/login">sign-up and try making one</Link>, '?']
+      message = [
+        "No posts to show, why don't you ",
+        <Link component={RouterLink} to="/login">
+          sign-up and try making one
+        </Link>,
+        '?',
+      ]
     }
     content = <Typography variant="h6">{message}</Typography>
   }
@@ -98,23 +104,28 @@ const Posts: React.FC = () => {
     <>
       <InfoMessage title="What is this Page About?" id="postsAbout">
         <Typography>
-          I wanted to learn basic CRUD operations (create, read, update, delete) in NodeJS and MongoDB, so here we are!
+          I wanted to learn basic CRUD operations (create, read, update, delete) in NodeJS and
+          MongoDB, so here we are!
         </Typography>
         <Typography>
           This page is just meant as a demo and not to provide any production level functionality.
         </Typography>
         <Typography>
-          Authenticated users can create, edit, or delete posts to be shown here. Users will be able to see their own posts, along with all other posts made public by other users.
+          Authenticated users can create, edit, or delete posts to be shown here. Users will be able
+          to see their own posts, along with all other posts made public by other users.
         </Typography>
       </InfoMessage>
-      <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" mb={2}>
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}>
         <Typography variant="h3">Posts</Typography>
         {user && <NewPost setPosts={setPosts} />}
       </Box>
       <Container>
-        <WaitFor isLoading={isLoading}>
-          {content}
-        </WaitFor>
+        <WaitFor isLoading={isLoading}>{content}</WaitFor>
       </Container>
     </>
   )

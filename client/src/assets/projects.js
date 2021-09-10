@@ -16,7 +16,8 @@ import gamePitBg from 'assets/img/projects/game-pit-bg.jpg'
 export default [
   {
     name: 'JamesGiesbrecht.ca',
-    summary: 'The website you\'re on right now! Express backend for personal APIs, React frontend, and an automated build and deploy process utilizing git-hooks.',
+    summary:
+      "The website you're on right now! Express backend for personal APIs, React frontend, and an automated build and deploy process utilizing git-hooks.",
     description: [
       {
         title: 'Features',
@@ -26,13 +27,21 @@ export default [
           'CRUD operations in the Posts tab. Authenticated users can create, view, edit, and delete posts.',
           <>
             {'WRHA wait times web scraping for my wife so she can ask her phone for the '}
-            <Link target="_blank" href="/api/wrha/grace">current wait times at her workplace</Link>
+            <Link target="_blank" href="/api/wrha/grace">
+              current wait times at her workplace
+            </Link>
           </>,
           'Hosted on a Linux Digital Ocean droplet',
           <>
-            {'Git-hooks automatically build and deploy the site when master is pushed to webserver, and deploys to '}
-            <Link target="_blank" href="https://dev.jamesgiesbrecht.ca">dev.jamesgiesbrecht.ca</Link>
-            {' when any other branch is pushed. Visit the dev site to view the most current version of the site.'}
+            {
+              'Git-hooks automatically build and deploy the site when master is pushed to webserver, and deploys to '
+            }
+            <Link target="_blank" href="https://dev.jamesgiesbrecht.ca">
+              dev.jamesgiesbrecht.ca
+            </Link>
+            {
+              ' when any other branch is pushed. Visit the dev site to view the most current version of the site.'
+            }
           </>,
           'Light/dark mode',
           'Responsive',
@@ -48,9 +57,17 @@ export default [
     ],
     image: jamesGiesbrecht,
     background: '#1D1D1D',
-    link: { isPopper: true, content: 'You\'re already here silly' },
+    link: { isPopper: true, content: "You're already here silly" },
     github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
-    stack: [tech.react, tech.materialUI, tech.node, tech.express, tech.jwt, tech.oAuth, tech.mongoDB],
+    stack: [
+      tech.react,
+      tech.materialUI,
+      tech.node,
+      tech.express,
+      tech.jwt,
+      tech.oAuth,
+      tech.mongoDB,
+    ],
   },
   {
     name: 'WRHA Wait Times Alexa Skill',
@@ -71,13 +88,12 @@ export default [
   },
   {
     name: 'Custom Create React App Template',
-    summary: 'A Create React App template with React Router, Material UI, Eslint, Prettier, and Typescript with a basic layout and routes configured.',
+    summary:
+      'A Create React App template with React Router, Material UI, Eslint, Prettier, and Typescript with a basic layout and routes configured.',
     description: [
       {
         title: 'Description',
-        content: [
-          'Try it out: npx create-react-app my-app --template goose',
-        ],
+        content: ['Try it out: npx create-react-app my-app --template goose'],
       },
     ],
     image: craTemplate,
@@ -87,7 +103,8 @@ export default [
   },
   {
     name: 'Game Pit',
-    summary: 'A mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end. Also my first experience with Docker and containerization. This app was part of a school project and is no longer getting updates.',
+    summary:
+      'A mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end. Also my first experience with Docker and containerization. This app was part of a school project and is no longer getting updates.',
     description: [
       {
         title: 'Description',
@@ -149,7 +166,8 @@ export default [
   },
   {
     name: 'Onesnap',
-    summary: 'Instagram clone with user auth, profiles, and posts for a college final project. Aside from Bootstrap, made entirely with vanilla PHP, Javascript, and HTML/CSS.',
+    summary:
+      'Instagram clone with user auth, profiles, and posts for a college final project. Aside from Bootstrap, made entirely with vanilla PHP, Javascript, and HTML/CSS.',
     description: [
       {
         title: 'Description',
@@ -167,14 +185,14 @@ export default [
           'Hashed and salted passwords',
           'Guarded routes and functionality only available to admin users',
           'Sanitized DB entries',
-          'Random image retrieval through the Unsplash API (Note the app doesn\'t actively reach out to the API due to rate limits encountered in development, so multiple requests were made in advance and stored in the app)',
+          "Random image retrieval through the Unsplash API (Note the app doesn't actively reach out to the API due to rate limits encountered in development, so multiple requests were made in advance and stored in the app)",
           'Responsive design',
         ],
       },
       {
         title: 'Retrospective',
         content: [
-          'Building this app gave me lots of practice in CSS and responsive design. This was also my first venture into AJAX and backend integrations. It\'s not the cleanest code by any stretch and there were definitely compromises made in order to meet deadlines. Building this app really outlined how taking advantages of templating and frameworks that could\'ve really streamlined the development process.',
+          "Building this app gave me lots of practice in CSS and responsive design. This was also my first venture into AJAX and backend integrations. It's not the cleanest code by any stretch and there were definitely compromises made in order to meet deadlines. Building this app really outlined how taking advantages of templating and frameworks that could've really streamlined the development process.",
         ],
       },
     ],

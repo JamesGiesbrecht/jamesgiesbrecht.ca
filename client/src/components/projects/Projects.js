@@ -25,9 +25,7 @@ const Projects = () => {
   return (
     <>
       <Typography variant="h3">Projects</Typography>
-      <div className={classes.projects}>
-        {projs}
-      </div>
+      <div className={classes.projects}>{projs}</div>
     </>
   )
 }

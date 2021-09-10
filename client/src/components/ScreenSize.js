@@ -29,9 +29,7 @@ const ScreenSize = () => {
   if (useMediaQuery((theme) => theme.breakpoints.up('lg'))) screenSize = 'LG'
   if (useMediaQuery((theme) => theme.breakpoints.up('xl'))) screenSize = 'XL'
 
-  return (
-    <span className={classes.breakpoint}>{screenSize}</span>
-  )
+  return <span className={classes.breakpoint}>{screenSize}</span>
 }
 
 export default ScreenSize

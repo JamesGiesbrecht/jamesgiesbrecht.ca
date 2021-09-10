@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import axios, { AxiosInstance } from 'axios'
+import axios from 'axios'
 import { AuthContext } from 'context/Auth'
 
 const useApi: any = () => {

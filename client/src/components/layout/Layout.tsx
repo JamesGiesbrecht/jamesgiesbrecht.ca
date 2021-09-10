@@ -27,14 +27,9 @@ const Layout: React.FC<Props> = ({ theme, toggleTheme, children }) => {
 
   return (
     <div className={classes.root}>
-      <NavBar
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
+      <NavBar theme={theme} toggleTheme={toggleTheme} />
       <Toolbar />
-      <Container className={classes.content}>
-        {children}
-      </Container>
+      <Container className={classes.content}>{children}</Container>
       <Footer />
     </div>
   )

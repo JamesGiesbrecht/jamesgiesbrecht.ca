@@ -1,7 +1,34 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, IconButton, Popper, MenuItem, Tabs, Tab, Paper, Grow, MenuList, ClickAwayListener, Slide, useScrollTrigger, AppBar, Avatar, ListItemIcon, Button } from '@material-ui/core'
-import { Home, Code, ExitToApp, Mail, Menu as MenuIcon, Message, Brightness7 as Sun, Brightness3 as Moon, Person } from '@material-ui/icons'
+import {
+  Typography,
+  IconButton,
+  Popper,
+  MenuItem,
+  Tabs,
+  Tab,
+  Paper,
+  Grow,
+  MenuList,
+  ClickAwayListener,
+  Slide,
+  useScrollTrigger,
+  AppBar,
+  Avatar,
+  ListItemIcon,
+  Button,
+} from '@material-ui/core'
+import {
+  Home,
+  Code,
+  ExitToApp,
+  Mail,
+  Menu as MenuIcon,
+  Message,
+  Brightness7 as Sun,
+  Brightness3 as Moon,
+  Person,
+} from '@material-ui/icons'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 import { AuthContext } from 'context/Auth'
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
@@ -99,27 +126,15 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   }
 
   const themeButton = (
-    <IconButton onClick={toggleTheme}>
-      {theme === 'dark' ? <Sun /> : <Moon />}
-    </IconButton>
+    <IconButton onClick={toggleTheme}>{theme === 'dark' ? <Sun /> : <Moon />}</IconButton>
   )
 
-  const desktopNav = navItems.map((nav) => (
-    <Tab
-      key={nav.name}
-      label={nav.name}
-      value={nav.path}
-    />
-  ))
+  const desktopNav = navItems.map((nav) => <Tab key={nav.name} label={nav.name} value={nav.path} />)
 
   const mobileMenu = (
     <>
       <div className={classes.mobileNav}>
-        <IconButton
-          onClick={handleMobileToggle}
-          color="inherit"
-          ref={menuRef}
-        >
+        <IconButton onClick={handleMobileToggle} color="inherit" ref={menuRef}>
           <MenuIcon />
         </IconButton>
       </div>
@@ -128,14 +143,12 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
         open={mobileIsOpen}
         transition
         disablePortal
-        className={classes.mobileNav}
-      >
+        className={classes.mobileNav}>
         {({ TransitionProps, placement }) => (
           <Grow
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-          >
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
             <Paper square>
               <ClickAwayListener onClickAway={handleCloseMobile}>
                 <MenuList autoFocusItem={mobileIsOpen}>
@@ -145,11 +158,8 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
                       onClick={(e) => {
                         handleTabChange(e, nav.path)
                         handleCloseMobile(e)
-                      }}
-                    >
-                      <ListItemIcon>
-                        {nav.icon}
-                      </ListItemIcon>
+                      }}>
+                      <ListItemIcon>{nav.icon}</ListItemIcon>
                       <p>{nav.name}</p>
                     </MenuItem>
                   ))}
@@ -164,25 +174,19 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
 
   const account = user && (
     <>
-      <IconButton
-        onClick={handleAccountToggle}
-        color="inherit"
-        ref={accountRef}
-      >
-        <Avatar className={classes.avatar} alt={user.profile.name} src={user.profile.google.picture} />
+      <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef}>
+        <Avatar
+          className={classes.avatar}
+          alt={user.profile.name}
+          src={user.profile.google.picture}
+        />
       </IconButton>
-      <Popper
-        anchorEl={accountRef.current}
-        open={accountIsOpen}
-        transition
-        disablePortal
-      >
+      <Popper anchorEl={accountRef.current} open={accountIsOpen} transition disablePortal>
         {({ TransitionProps, placement }) => (
           <Grow
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...TransitionProps}
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-          >
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
             <Paper square>
               <ClickAwayListener onClickAway={handleCloseAccount}>
                 <MenuList autoFocusItem={accountIsOpen}>
@@ -193,11 +197,8 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
                         handleTabChange(e, item.path)
                         handleCloseAccount(e)
                         if (item.cb) item.cb()
-                      }}
-                    >
-                      <ListItemIcon>
-                        {item.icon}
-                      </ListItemIcon>
+                      }}>
+                      <ListItemIcon>{item.icon}</ListItemIcon>
                       <p>{item.name}</p>
                     </MenuItem>
                   ))}

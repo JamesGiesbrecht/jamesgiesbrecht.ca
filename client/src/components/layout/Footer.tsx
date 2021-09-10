@@ -47,11 +47,7 @@ const Footer: React.FC = () => {
   const resetPrompts = () => localStorage.removeItem('hiddenMessages')
 
   const icons = socialMedia.map((social) => (
-    <IconButton
-      key={social.name}
-      href={social.link}
-      target="_blank"
-    >
+    <IconButton key={social.name} href={social.link} target="_blank">
       {social.icon}
     </IconButton>
   ))
@@ -62,7 +58,9 @@ const Footer: React.FC = () => {
       <Button size="small" component={RouterLink} to="/privacy">
         Privacy
       </Button>
-      <Button size="small" onClick={resetPrompts}>Reset Prompts</Button>
+      <Button size="small" onClick={resetPrompts}>
+        Reset Prompts
+      </Button>
     </footer>
   )
 }

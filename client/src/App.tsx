@@ -43,10 +43,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {/* <ScreenSize /> */}
-          <Layout
-            theme={colorScheme}
-            toggleTheme={toggleColorScheme}
-          >
+          <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
             <Switch>
               <Route path="/plex">
                 <PlexStatus />

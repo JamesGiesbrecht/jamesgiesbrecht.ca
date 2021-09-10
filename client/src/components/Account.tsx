@@ -13,7 +13,9 @@ const Account: React.FC = () => {
 
   return (
     <Container>
-      <Typography variant="h3" gutterBottom>My Account</Typography>
+      <Typography variant="h3" gutterBottom>
+        My Account
+      </Typography>
       <Typography>{`Welcome to the account page ${user.profile.name}.`}</Typography>
       <Typography>More features coming soon...</Typography>
     </Container>

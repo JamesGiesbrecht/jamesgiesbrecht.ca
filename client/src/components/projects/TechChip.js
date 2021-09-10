@@ -15,9 +15,11 @@ const TechChip = ({ tech }) => {
 
   const classes = useStyles()
 
-  const logo = tech.logo
-    ? <Avatar alt={tech.name} src={tech.logo} />
-    : <Avatar>{tech.name.substring(0, 1)}</Avatar>
+  const logo = tech.logo ? (
+    <Avatar alt={tech.name} src={tech.logo} />
+  ) : (
+    <Avatar>{tech.name.substring(0, 1)}</Avatar>
+  )
 
   return (
     <Chip
