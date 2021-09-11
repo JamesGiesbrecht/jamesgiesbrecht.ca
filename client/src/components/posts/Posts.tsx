@@ -54,7 +54,8 @@ const Posts: FC = () => {
         setHasError(true)
       })
       .finally(() => setIsLoading(false))
-  }, [api])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   let content
   let message: string | Array<any> = ''
@@ -74,7 +75,7 @@ const Posts: FC = () => {
             title={post.title}
             content={post.content}
             isPublic={post.isPublic}
-            isUser={user && user.profile.email === post.user.email}
+            isUser={user ? user.email === post.user.email : false}
             postUser={post.user}
             date={new Date(post.dateCreated)}
             removePost={() => setPosts((prev) => prev.filter((p) => p._id !== post._id))}

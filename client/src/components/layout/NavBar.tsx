@@ -47,11 +47,12 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     margin: 'auto',
-    // color: theme.palette.secondary.main,
   },
   avatar: {
     width: theme.spacing(3),
     height: theme.spacing(3),
+    backgroundColor: theme.palette.secondary.main,
+    color: 'white',
   },
   desktopNav: {
     display: 'none',
@@ -181,11 +182,17 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const account = user && (
     <>
       <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef}>
-        <Avatar
-          className={classes.avatar}
-          alt={user.profile.name}
-          src={user.profile.google.picture}
-        />
+        {user.displayName && user.photoURL ? (
+          <Avatar
+            className={classes.avatar}
+            alt={user.displayName || user.email || ''}
+            src={user.photoURL}
+          />
+        ) : (
+          <Avatar className={classes.avatar}>
+            {(user.displayName || user.email)?.slice(0, 1).toUpperCase()}
+          </Avatar>
+        )}
       </IconButton>
       <Popper anchorEl={accountRef.current} open={accountIsOpen} transition disablePortal>
         {({ TransitionProps, placement }) => (

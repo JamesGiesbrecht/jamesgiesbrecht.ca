@@ -1,12 +1,22 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import axios from 'axios'
 import { AuthContext } from 'context/Auth'
 
+const api = axios.create()
+
 const useApi: any = () => {
-  const api = axios.create()
   const { user } = useContext(AuthContext)
 
-  api.defaults.headers.common.Authorization = user ? `Bearer ${user.token}` : ''
+  useEffect(() => {
+    if (user) {
+      const getToken = async () => {
+        api.defaults.headers.common.Authorization = `Bearer ${await user.getIdToken()}`
+      }
+      getToken()
+    } else {
+      api.defaults.headers.common.Authorization = null
+    }
+  }, [user])
 
   return api
 }

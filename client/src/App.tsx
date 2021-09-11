@@ -1,8 +1,8 @@
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
-import AuthProvider from 'context/Auth'
+import { AuthContextProvider } from 'context/Auth'
 import { CssBaseline } from '@material-ui/core'
 import { blue } from '@material-ui/core/colors'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Layout from 'components/layout/Layout'
 import useColorScheme from 'hooks/useColorScheme'
 import Home from 'components/Home'
@@ -21,7 +21,7 @@ TODO: Add bio, contact section, multiple links for code button
 const App = () => {
   /* THEMING AND STYLES START */
   const [colorScheme, toggleColorScheme] = useColorScheme()
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       type: colorScheme,
     },
@@ -38,7 +38,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <AuthProvider>
+      <AuthContextProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {/* <ScreenSize /> */}
@@ -66,7 +66,7 @@ const App = () => {
             </Switch>
           </Layout>
         </ThemeProvider>
-      </AuthProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   )
 }
