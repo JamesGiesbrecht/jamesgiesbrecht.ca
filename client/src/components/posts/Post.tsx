@@ -18,8 +18,8 @@ import {
 } from '@material-ui/core'
 import { Delete, Edit, MoreHoriz } from '@material-ui/icons'
 import NewPost from 'components/posts/NewPost'
-import useApi from 'hooks/useApi'
 import { AxiosResponse } from 'axios'
+import { useAuth } from 'context/Auth'
 
 interface Props {
   postId: string
@@ -68,7 +68,7 @@ const Post: FC<Props> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const openMenu = Boolean(anchorEl)
-  const api = useApi()
+  const { api } = useAuth()
   const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
   const dateFormatted = `${date.toLocaleString('default', {
     month: 'short',

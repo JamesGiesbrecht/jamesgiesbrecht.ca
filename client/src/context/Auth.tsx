@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext, createContext, FC } from 'react'
+import axios, { AxiosInstance } from 'axios'
 import { signInWithPopup, OAuthProvider, User, UserCredential } from 'firebase/auth'
 
 import { firebaseAuth } from 'firebase/config'
 
 interface AuthContextType {
   user: User | null | undefined
+  api: AxiosInstance
   authInitialized: boolean
   logout: typeof firebaseAuth.signOut
   signInWithGoogle: () => Promise<UserCredential>
@@ -14,8 +16,11 @@ const noAuthProvider = () => {
   throw new Error('This component should be wrapper with a Auth Context Provider.')
 }
 
+const api = axios.create()
+
 export const AuthContext = createContext<AuthContextType>({
   user: null,
+  api,
   authInitialized: false,
   logout: noAuthProvider,
   signInWithGoogle: noAuthProvider,
@@ -27,7 +32,12 @@ export const AuthContextProvider: FC = ({ children }) => {
   const googleAuthProvider = new OAuthProvider('google.com')
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((authUser) => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(async (authUser) => {
+      if (authUser) {
+        api.defaults.headers.common.Authorization = `Bearer ${await authUser.getIdToken()}`
+      } else {
+        api.defaults.headers.common.Authorization = ''
+      }
       setAuthInitialized(true)
       setUser(authUser)
     })
@@ -38,6 +48,7 @@ export const AuthContextProvider: FC = ({ children }) => {
 
   const store = {
     user,
+    api,
     authInitialized,
     logout: firebaseAuth.signOut.bind(firebaseAuth),
     signInWithGoogle: async () => signInWithPopup(firebaseAuth, googleAuthProvider),

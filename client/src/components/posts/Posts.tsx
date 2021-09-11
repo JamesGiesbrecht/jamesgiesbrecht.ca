@@ -4,7 +4,6 @@ import Masonry from 'react-masonry-css'
 import { Box, Container, Typography, makeStyles, Theme, Link } from '@material-ui/core'
 import Post from 'components/posts/Post'
 import NewPost from 'components/posts/NewPost'
-import useApi from 'hooks/useApi'
 import WaitFor from 'components/utility/WaitFor'
 import { useTheme } from '@material-ui/styles'
 import { AuthContext } from 'context/Auth'
@@ -33,8 +32,7 @@ const Posts: FC = () => {
   const [posts, setPosts] = useState<Array<any>>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
-  const { authInitialized, user } = useContext(AuthContext)
-  const api = useApi()
+  const { api, authInitialized, user } = useContext(AuthContext)
 
   const columnBreakpoints = {
     default: 3,
@@ -44,6 +42,7 @@ const Posts: FC = () => {
 
   useEffect(() => {
     if (authInitialized) {
+      setIsLoading(true)
       api
         .get('/api/posts')
         .then((result: AxiosResponse<any>) => {
@@ -56,8 +55,7 @@ const Posts: FC = () => {
         })
         .finally(() => setIsLoading(false))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authInitialized])
+  }, [authInitialized, api])
 
   let content
   let message: string | Array<any> = ''

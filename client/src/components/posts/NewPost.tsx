@@ -18,8 +18,8 @@ import {
   CardContent,
 } from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
-import useApi from 'hooks/useApi'
 import useNotification from 'hooks/useNotification'
+import { useAuth } from 'context/Auth'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -91,7 +91,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [isBottom, setIsBottom] = useState<boolean>(false)
   const notify = useNotification()
-  const api = useApi()
+  const { api } = useAuth()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
   const postId = isEdit ? isEdit.postId : null
 
