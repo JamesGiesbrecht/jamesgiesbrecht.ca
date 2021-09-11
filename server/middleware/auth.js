@@ -5,17 +5,17 @@ const auth = (req, res, next) => {
     // authenticate user on each request
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1]
-      console.log(req.headers.authorization)
       adminAuth
         .verifyIdToken(token)
         .then((decodedToken) => {
-          console.log(decodedToken)
+          const { uid, email } = decodedToken
+          req.user = { uid, username: email.split('@')[0] }
+          next()
         })
         .catch((err) => {
           console.log('Error decoding token', err)
           throw err
         })
-      next()
     } else {
       console.log('No Authorization token provided')
       next()

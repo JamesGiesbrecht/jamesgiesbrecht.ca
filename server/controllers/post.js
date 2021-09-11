@@ -2,8 +2,15 @@ const Post = require('../models/post')
 
 exports.postNewPost = (req, res) => {
   const { title, content, isPublic } = req.body
-
-  const newPost = new Post({ title, content, isPublic, dateCreated: Date.now(), user: req.user })
+  const { uid, username } = req.user
+  const newPost = new Post({
+    title,
+    content,
+    isPublic,
+    dateCreated: Date.now(),
+    uid,
+    username,
+  })
   newPost
     .save()
     .then((result) => {
@@ -19,11 +26,10 @@ exports.postNewPost = (req, res) => {
 exports.getPosts = (req, res) => {
   console.log('Get posts')
   let query = { isPublic: true }
-  if (req.user) {
-    query = { $or: [{ user: req.user }, query] }
+  if (req.user && req.user.uid) {
+    query = { $or: [{ uid: req.user.uid }, query] }
   }
   Post.find(query)
-    .populate('user')
     .sort({ dateCreated: 'desc' })
     .limit(100)
     .then((posts) => res.status(200).json(posts))
@@ -37,8 +43,7 @@ exports.updatePost = (req, res) => {
   const { title, content, isPublic } = req.body
   const { postId } = req.params
 
-  Post.findOne({ _id: postId, user: req.user })
-    .populate('user')
+  Post.findOne({ _id: postId, uid: req.user.uid })
     .then((post) => {
       /* eslint-disable no-param-reassign */
       post.title = title
@@ -58,7 +63,7 @@ exports.updatePost = (req, res) => {
 
 exports.deletePost = (req, res) => {
   const { postId } = req.params
-  Post.deleteOne({ _id: postId, user: req.user })
+  Post.deleteOne({ _id: postId, uid: req.user.uid })
     .then((result) => {
       console.log(result)
       const { deletedCount } = result

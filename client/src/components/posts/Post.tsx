@@ -27,7 +27,7 @@ interface Props {
   content: string
   isPublic: boolean
   isUser: boolean
-  postUser: any
+  name: string
   date: Date
   removePost: () => void
   setPosts: Dispatch<any>
@@ -57,7 +57,7 @@ const Post: FC<Props> = ({
   content,
   isPublic,
   isUser,
-  postUser,
+  name,
   date,
   removePost,
   setPosts,
@@ -174,7 +174,7 @@ const Post: FC<Props> = ({
                 {dateFormatted}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                {postUser.name}
+                {name}
               </Typography>
             </Box>
           }

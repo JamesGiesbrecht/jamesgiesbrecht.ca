@@ -75,8 +75,8 @@ const Posts: FC = () => {
             title={post.title}
             content={post.content}
             isPublic={post.isPublic}
-            isUser={user ? user.email === post.user.email : false}
-            postUser={post.user}
+            isUser={user ? user.uid === post.uid : false}
+            name={post.username}
             date={new Date(post.dateCreated)}
             removePost={() => setPosts((prev) => prev.filter((p) => p._id !== post._id))}
             setPosts={setPosts}
