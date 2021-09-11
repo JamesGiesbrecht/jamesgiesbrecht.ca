@@ -1,25 +1,18 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/user')
+const { adminAuth } = require('../firebase/config')
 
 const auth = (req, res, next) => {
   try {
     // authenticate user on each request
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1]
-      const decodedData = jwt.decode(token)
-      User.findOne({ email: decodedData.email })
-        .then((user) => {
-          if (!user) {
-            console.log('User not found', decodedData)
-            next()
-          } else {
-            console.log('User authenticated')
-            req.user = user
-            next()
-          }
+      console.log(req.headers.authorization)
+      adminAuth
+        .verifyIdToken(token)
+        .then((decodedToken) => {
+          console.log(decodedToken)
         })
         .catch((err) => {
-          console.log('Error finding user', err)
+          console.log('Error decoding token', err)
           throw err
         })
       next()
