@@ -1,4 +1,14 @@
-import { useState, useRef, useContext, useEffect, FC, MouseEvent, ChangeEvent } from 'react'
+import {
+  useState,
+  useRef,
+  useContext,
+  useEffect,
+  FC,
+  MouseEvent,
+  ChangeEvent,
+  useCallback,
+  ReactNode,
+} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Typography,
@@ -67,44 +77,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+type NavItem = {
+  name: string
+  icon: ReactNode
+  path?: string
+}
+
+const initialMenuItems = [
+  { name: 'Home', icon: <Home />, path: '/' },
+  // { name: 'Projects', icon: <Code /> },
+  // { name: 'Contact', icon: <Mail /> },
+  { name: 'Posts', icon: <Message />, path: '/posts' },
+]
+
+const loginMenuItem = { name: 'Login', icon: <Person />, path: '/login' }
+
 const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
-  const { user, logout } = useContext(AuthContext)
+  const { authInitialized, user, logout } = useContext(AuthContext)
   const [accountIsOpen, setAccountIsOpen] = useState(false)
   const [mobileIsOpen, setMobileIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState<any>(false)
+  const [navItems, setNavItems] = useState<NavItem[]>(initialMenuItems)
   const accountRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLButtonElement>(null)
   const scrollTrigger = useScrollTrigger()
   const history = useHistory()
   const location = useLocation()
 
-  //  TODO: Add functionality
-  const navItems = [
-    { name: 'Home', icon: <Home />, path: '/' },
-    // { name: 'Projects', icon: <Code /> },
-    // { name: 'Contact', icon: <Mail /> },
-    { name: 'Posts', icon: <Message />, path: '/posts' },
-  ]
-  if (!user) navItems.push({ name: 'Login', icon: <Person />, path: '/login' })
+  useEffect(() => {
+    setNavItems(user || !authInitialized ? initialMenuItems : [...initialMenuItems, loginMenuItem])
+  }, [user, authInitialized])
 
   const accountItems = [
     { name: 'Account', icon: <Person />, path: '/account' },
     { name: 'Logout', icon: <ExitToApp />, path: '/logout', cb: logout },
   ]
 
-  const setActiveNavOverride = (newActiveNav: any) => {
-    if (navItems.find((item) => item.path === newActiveNav)) {
-      setActiveNav(newActiveNav)
-    } else {
-      setActiveNav(false)
-    }
-  }
+  const setActiveNavOverride = useCallback(
+    (newActiveNav: any) => {
+      if (navItems.find((item) => item.path === newActiveNav)) {
+        setActiveNav(newActiveNav)
+      } else {
+        setActiveNav(false)
+      }
+    },
+    [navItems],
+  )
 
   useEffect(() => {
     setActiveNavOverride(location.pathname)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname])
+  }, [location.pathname, setActiveNavOverride])
 
   const handleMobileToggle = () => setMobileIsOpen((prevOpen) => !prevOpen)
 
@@ -124,9 +147,9 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
     setAccountIsOpen(false)
   }
 
-  const handleTabChange = (e: ChangeEvent<{}>, newValue: string) => {
+  const handleTabChange = (e: ChangeEvent<{}>, newValue?: string) => {
     setActiveNavOverride(newValue)
-    history.push(newValue)
+    history.push(newValue || '')
   }
 
   const themeButton = (

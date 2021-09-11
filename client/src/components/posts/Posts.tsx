@@ -33,7 +33,7 @@ const Posts: FC = () => {
   const [posts, setPosts] = useState<Array<any>>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
-  const { user } = useContext(AuthContext)
+  const { authInitialized, user } = useContext(AuthContext)
   const api = useApi()
 
   const columnBreakpoints = {
@@ -43,19 +43,21 @@ const Posts: FC = () => {
   }
 
   useEffect(() => {
-    api
-      .get('/api/posts')
-      .then((result: AxiosResponse<any>) => {
-        setPosts(result.data)
-      })
-      .catch((error: any) => {
-        // eslint-disable-next-line no-console
-        console.log(error)
-        setHasError(true)
-      })
-      .finally(() => setIsLoading(false))
+    if (authInitialized) {
+      api
+        .get('/api/posts')
+        .then((result: AxiosResponse<any>) => {
+          setPosts(result.data)
+        })
+        .catch((error: any) => {
+          // eslint-disable-next-line no-console
+          console.log(error)
+          setHasError(true)
+        })
+        .finally(() => setIsLoading(false))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [authInitialized])
 
   let content
   let message: string | Array<any> = ''
@@ -128,7 +130,7 @@ const Posts: FC = () => {
         {user && <NewPost setPosts={setPosts} />}
       </Box>
       <Container>
-        <WaitFor isLoading={isLoading}>{content}</WaitFor>
+        <WaitFor isLoading={isLoading || !authInitialized}>{content}</WaitFor>
       </Container>
     </>
   )

@@ -5,6 +5,7 @@ import { firebaseAuth } from 'firebase/config'
 
 interface AuthContextType {
   user: User | null | undefined
+  authInitialized: boolean
   logout: typeof firebaseAuth.signOut
   signInWithGoogle: () => Promise<UserCredential>
 }
@@ -15,16 +16,21 @@ const noAuthProvider = () => {
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
+  authInitialized: false,
   logout: noAuthProvider,
   signInWithGoogle: noAuthProvider,
 })
 
 export const AuthContextProvider: FC = ({ children }) => {
   const [user, setUser] = useState<AuthContextType['user']>()
+  const [authInitialized, setAuthInitialized] = useState<AuthContextType['authInitialized']>(false)
   const googleAuthProvider = new OAuthProvider('google.com')
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((authUser) => setUser(authUser))
+    const unsubscribe = firebaseAuth.onAuthStateChanged((authUser) => {
+      setAuthInitialized(true)
+      setUser(authUser)
+    })
     return () => {
       unsubscribe()
     }
@@ -32,6 +38,7 @@ export const AuthContextProvider: FC = ({ children }) => {
 
   const store = {
     user,
+    authInitialized,
     logout: firebaseAuth.signOut.bind(firebaseAuth),
     signInWithGoogle: async () => signInWithPopup(firebaseAuth, googleAuthProvider),
   }

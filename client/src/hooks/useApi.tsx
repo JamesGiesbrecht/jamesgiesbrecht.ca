@@ -14,7 +14,7 @@ const useApi: any = () => {
       }
       getToken()
     } else {
-      api.defaults.headers.common.Authorization = null
+      api.defaults.headers.common.Authorization = ''
     }
   }, [user])
 
