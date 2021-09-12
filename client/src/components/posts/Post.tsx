@@ -72,7 +72,7 @@ const Post: FC<Props> = ({
   const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
   const dateFormatted = `${date.toLocaleString('default', {
     month: 'short',
-  })}  ${date.getDay()}, ${date.getHours()}:${minutes}`
+  })}  ${date.getDate()}, ${date.getHours()}:${minutes}`
 
   const handleMenuOpen = (e: MouseEvent<HTMLButtonElement>) => setAnchorEl(e.currentTarget)
 
