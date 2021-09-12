@@ -2,7 +2,7 @@
   "name": "james-giesbrecht-frontend",
   "version": "0.1.0",
   "description": "Frontend for jamesgiesbrecht.ca",
-  "proxy": "http://localhost:3001",
+  "proxy": "http://server:3001",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",

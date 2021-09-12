@@ -5,9 +5,9 @@
   "scripts": {
     "start:docker": "docker-compose up --build ",
     "stop": "docker-compose down",
-    "restart": "yarn stop:docker && yarn start:docker",
+    "restart": "yarn stop && yarn start:docker",
     "build:docker": "docker build -t jamesgiesbrecht/james-giesbrecht-ca .",
-    "deploy": "docker push jamesgiesbrecht/james-giesbrecht-ca",
+    "deploy": "yarn build:docker && docker push jamesgiesbrecht/james-giesbrecht-ca",
     "deploy:local": "yarn run install:client && yarn run install:server && yarn run build && yarn run start:server:dev",
     "deploy:dev": "yarn run install:prod:client && yarn run install:prod:server && yarn run build && yarn run start:dev",
     "deploy:prod": "yarn run install:prod:client && yarn run install:prod:server && yarn run build && yarn run start:prod",
