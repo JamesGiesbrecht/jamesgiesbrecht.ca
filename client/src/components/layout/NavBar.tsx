@@ -205,7 +205,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const account = user && (
     <>
       <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef}>
-        {user.displayName && user.photoURL ? (
+        {user.photoURL ? (
           <Avatar
             className={classes.avatar}
             alt={user.displayName || user.email || ''}

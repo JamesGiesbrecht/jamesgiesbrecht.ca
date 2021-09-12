@@ -52,19 +52,9 @@ const Login: FC = () => {
   return (
     <>
       <InfoMessage title="What is this Page About?" id="loginAbout">
-        <Typography paragraph>
-          ATTENTION: The app is currently pending approval from Google, sign in functionality is not
-          available at this moment. If you would like to be added to the test group in order to sign
-          in, please contact me.
-        </Typography>
         <Typography>
-          This app utilizes OAuth and JWT to create accounts with the MongoDB, Express, Node, and
-          React (MERN) stack. Authenticated users will be able to make, edit, and delete posts on
-          the posts page.
-        </Typography>
-        <Typography>
-          Minimum permissions are used when requesting account information with identity providers
-          and it is never sold or given away.
+          This app utilizes Firebase authentication to create accounts so they can create posts in
+          the "Posts" tab.
         </Typography>
       </InfoMessage>
       <Container className={classes.loginButtons}>
@@ -73,9 +63,9 @@ const Login: FC = () => {
         </Typography>
         <WaitFor isLoading={isLoading}>
           {getLoginButton(handleSignInWithGoogle, <GoogleIcon />, 'Sign In with Google')}
-          {getLoginButton(() => {}, <Apple />, 'Coming soon, maybe...')}
+          {/* {getLoginButton(() => {}, <Apple />, 'Coming soon, maybe...')}
           {getLoginButton(() => {}, <GitHub />, 'Coming soon, maybe...')}
-          {getLoginButton(() => {}, <Twitter />, 'Coming soon, maybe...')}
+          {getLoginButton(() => {}, <Twitter />, 'Coming soon, maybe...')} */}
         </WaitFor>
       </Container>
     </>
