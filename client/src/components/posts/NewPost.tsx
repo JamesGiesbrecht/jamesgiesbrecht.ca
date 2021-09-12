@@ -143,7 +143,6 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     api
       .put(`/api/posts/${postId}`, { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
-        // console.log(result)
         setTitle('')
         setContent('')
         setIsPublic(false)
@@ -165,7 +164,6 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     api
       .post('/api/posts/new', { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
-        // console.log(result)
         setTitle('')
         setContent('')
         setIsPublic(false)
@@ -204,7 +202,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     <Fab
       className={`${classes.button}${isBottom ? ` ${classes.buttonBottom}` : ''}`}
       color="primary"
-      variant={isMobile ? 'round' : 'extended'}
+      variant={isMobile ? 'circular' : 'extended'}
       size={isMobile ? 'large' : 'medium'}
       onClick={handleModalOpen}
     >

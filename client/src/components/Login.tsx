@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
 import { FC, useContext, useState } from 'react'
 import { Button, makeStyles, Typography, Container } from '@material-ui/core'
-import { Apple, GitHub, Twitter } from '@material-ui/icons'
+// import { Apple, GitHub, Twitter } from '@material-ui/icons'
 import GoogleIcon from 'components/icons/GoogleIcon'
 import WaitFor from 'components/utility/WaitFor'
 import InfoMessage from 'components/ui/InfoMessage'

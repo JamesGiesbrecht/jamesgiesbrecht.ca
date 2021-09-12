@@ -90,10 +90,9 @@ const Posts: FC = () => {
     } else if (user) {
       message = "No posts to show, why don't you try making one?"
     } else {
-      // eslint-disable-next-line react/jsx-one-expression-per-line
       message = [
         "No posts to show, why don't you ",
-        <Link component={RouterLink} to="/login">
+        <Link key="link" component={RouterLink} to="/login">
           sign-up and try making one
         </Link>,
         '?',

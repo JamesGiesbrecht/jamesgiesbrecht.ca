@@ -174,7 +174,6 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
       >
         {({ TransitionProps, placement }) => (
           <Grow
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...TransitionProps}
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
@@ -220,7 +219,6 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
       <Popper anchorEl={accountRef.current} open={accountIsOpen} transition disablePortal>
         {({ TransitionProps, placement }) => (
           <Grow
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...TransitionProps}
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
