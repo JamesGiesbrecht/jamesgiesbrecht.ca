@@ -111,6 +111,8 @@ const Posts: FC = () => {
         </Typography>
         <Typography>
           This page is just meant as a demo and not to provide any production level functionality.
+          If you choose to make a post, the first part of your email will be display, everything
+          before the "@".
         </Typography>
         <Typography>
           Authenticated users can create, edit, or delete posts to be shown here. Users will be able
@@ -125,7 +127,13 @@ const Posts: FC = () => {
         mb={2}
       >
         <Typography variant="h3">Posts</Typography>
-        {user && <NewPost setPosts={setPosts} />}
+        {user ? (
+          <NewPost setPosts={setPosts} />
+        ) : (
+          <Link component={RouterLink} to="/login">
+            Login to submit a post
+          </Link>
+        )}
       </Box>
       <Container>
         <WaitFor isLoading={isLoading || !authInitialized}>{content}</WaitFor>

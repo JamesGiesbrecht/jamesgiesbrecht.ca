@@ -5,6 +5,7 @@ import express from 'assets/img/logos/express.png'
 import php from 'assets/img/logos/php.png'
 import materialUI from 'assets/img/logos/material-ui.png'
 import javascript from 'assets/img/logos/javascript.png'
+import typescript from 'assets/img/logos/typescript.png'
 import css from 'assets/img/logos/css.png'
 import bootstrap from 'assets/img/logos/bootstrap.svg'
 import rails from 'assets/img/logos/rails.svg'
@@ -16,6 +17,7 @@ import aws from 'assets/img/logos/aws.png'
 import padlock from 'assets/img/logos/padlock.png'
 import mongoDB from 'assets/img/logos/mongoDB.png'
 import jwt from 'assets/img/logos/jwt.png'
+import firebase from 'assets/img/logos/firebase.png'
 
 const offWhite = '#F5F5F5'
 const white = '#FFF'
@@ -57,6 +59,12 @@ export default {
     logo: javascript,
     color: '#F0DB4F',
     fontColor: black,
+  },
+  typescript: {
+    name: 'Typescript',
+    logo: typescript,
+    color: '#2D78C7',
+    fontColor: white,
   },
   css: {
     name: 'CSS',
@@ -122,6 +130,12 @@ export default {
     name: 'JWT',
     logo: jwt,
     color: black,
+    fontColor: white,
+  },
+  firebase: {
+    name: 'Firebase',
+    logo: firebase,
+    color: '#071D34',
     fontColor: white,
   },
 }

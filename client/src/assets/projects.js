@@ -16,14 +16,15 @@ export default [
   {
     name: 'JamesGiesbrecht.ca',
     summary:
-      "The website you're on right now! Express backend for personal APIs, React frontend, and an automated build and deploy process utilizing git-hooks.",
+      "The website you're on right now! Express backend and MongoDB for personal APIs, React frontend, all containerized through Docker.",
     description: [
       {
         title: 'Features',
         content: [
           'Backend NodeJS/Express server to build and learn with RESTful APIs',
-          'Login and Authentication with Google OAuth and JWT',
+          'Login and Authentication with Firebase and JWT',
           'CRUD operations in the Posts tab. Authenticated users can create, view, edit, and delete posts.',
+          'Dockerized for straightforward and reliable deployments and updates.',
           <>
             {'WRHA wait times web scraping for my wife so she can ask her phone for the '}
             <Link target="_blank" href="/api/wrha/grace">
@@ -31,19 +32,8 @@ export default [
             </Link>
           </>,
           'Hosted on a Linux Digital Ocean droplet',
-          <>
-            {
-              'Git-hooks automatically build and deploy the site when master is pushed to webserver, and deploys to '
-            }
-            <Link target="_blank" href="https://dev.jamesgiesbrecht.ca">
-              dev.jamesgiesbrecht.ca
-            </Link>
-            {
-              ' when any other branch is pushed. Visit the dev site to view the most current version of the site.'
-            }
-          </>,
           'Light/dark mode',
-          'Responsive',
+          'Mobile Responsive',
         ],
       },
       {
@@ -61,12 +51,41 @@ export default [
     stack: [
       tech.react,
       tech.materialUI,
+      tech.typescript,
+      tech.docker,
+      tech.firebase,
       tech.node,
       tech.express,
       tech.jwt,
-      tech.oAuth,
       tech.mongoDB,
     ],
+  },
+  {
+    name: 'Critter Companion',
+    summary:
+      'Progress tracker for Animal Crossing New Horizons. Client side app made with React. Native mobile version of the app under development.',
+    description: [
+      {
+        title: 'Description',
+        content: [
+          'A way for users to track their collections of critters in Animal Crossing New Horizons. Users are able to log in and their configurations are saved and synced.',
+        ],
+      },
+      {
+        title: 'Features',
+        content: [
+          'Dynamic filtering of critters',
+          'Authentication and saving of selected critters through Firebase.',
+          'Search functionality',
+          'Light/dark mode',
+        ],
+      },
+    ],
+    image: critterCompanion,
+    background: critterCompanionBg,
+    link: 'https://crittercompanion.app',
+    github: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
+    stack: [tech.react, tech.materialUI, tech.typescript, tech.firebase],
   },
   {
     name: 'WRHA Wait Times Alexa Skill',
@@ -98,7 +117,7 @@ export default [
     image: craTemplate,
     background: craTemplateBg,
     github: 'https://github.com/JamesGiesbrecht/cra-template-goose',
-    stack: [tech.react, tech.materialUI],
+    stack: [tech.react, tech.materialUI, tech.typescript],
   },
   {
     name: 'Game Pit',
@@ -128,40 +147,6 @@ export default [
     link: 'https://gamepit.jamesgiesbrecht.ca',
     github: 'https://github.com/JamesGiesbrecht/game_pit',
     stack: [tech.rubyOnRails, tech.react, tech.antD, tech.postgres, tech.docker],
-  },
-  {
-    name: 'Critter Companion',
-    summary: 'Progress tracker for Animal Crossing New Horizons. Client side app made with React.',
-    description: [
-      {
-        title: 'Description',
-        content: [
-          'A way for users to track their collections of critters in Animal Crossing New Horizons.',
-        ],
-      },
-      {
-        title: 'Features',
-        content: [
-          'Dynamic filtering of critters',
-          'Saving to local storage of selected critters',
-          'Search functionality',
-          'Light/dark mode',
-        ],
-      },
-      {
-        title: 'Upcoming Features',
-        content: [
-          'Persistent filter/settings between visits',
-          'OAuth based login for cloud sync of users critters/setting',
-          'Support for other items in the game such as fossils and furniture',
-        ],
-      },
-    ],
-    image: critterCompanion,
-    background: critterCompanionBg,
-    link: 'https://crittercompanion.app',
-    github: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
-    stack: [tech.react, tech.materialUI],
   },
   {
     name: 'Onesnap',

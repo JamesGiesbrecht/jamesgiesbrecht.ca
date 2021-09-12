@@ -90,8 +90,7 @@ const Post: FC<Props> = ({
     setIsLoading(true)
     api
       .delete(`/api/posts/${postId}`)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .then((result: AxiosResponse<any>) => {
+      .then(() => {
         removePost()
       })
       // eslint-disable-next-line no-console
