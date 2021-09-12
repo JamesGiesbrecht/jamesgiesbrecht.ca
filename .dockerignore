@@ -2,3 +2,5 @@
 **/.git
 package.json
 package-lock.json
+server/.env
+**/Dockerfile

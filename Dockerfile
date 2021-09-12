@@ -11,6 +11,8 @@ COPY /client .
 
 RUN yarn build
 
+RUN rm -r node_modules public src
+
 WORKDIR /app/server
 
 COPY /server/package.json .
