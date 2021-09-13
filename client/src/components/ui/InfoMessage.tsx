@@ -1,5 +1,14 @@
-import React, { useState } from 'react'
-import { Card, CardHeader, CardContent, IconButton, Typography, makeStyles, CardActions, FormControlLabel, Checkbox } from '@material-ui/core'
+import { FC, useState } from 'react'
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  IconButton,
+  makeStyles,
+  CardActions,
+  FormControlLabel,
+  Checkbox,
+} from '@material-ui/core'
 import { Close } from '@material-ui/icons'
 
 interface Props {
@@ -20,14 +29,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InfoMessage: React.FC<Props> = ({ title, children, id }) => {
+const InfoMessage: FC<Props> = ({ title, children, id }) => {
   const classes = useStyles()
   const localMessages = JSON.parse(localStorage.getItem('hiddenMessages') || '[]')
   const messageIsHidden = localMessages.includes(id)
   const [doNotShow, setDoNotShow] = useState<Boolean>(false)
   const [showMessage, setShowMessage] = useState<Boolean>(!messageIsHidden)
 
-  const setLS = (hiddenMessages: Array<String>) => localStorage.setItem('hiddenMessages', JSON.stringify(hiddenMessages))
+  const setLS = (hiddenMessages: Array<String>) =>
+    localStorage.setItem('hiddenMessages', JSON.stringify(hiddenMessages))
 
   const handleClose = () => {
     setShowMessage(false)
@@ -41,26 +51,24 @@ const InfoMessage: React.FC<Props> = ({ title, children, id }) => {
     <Card className={classes.card}>
       <CardHeader
         title={title}
-        action={(
+        action={
           <IconButton onClick={handleClose}>
             <Close />
           </IconButton>
-        )}
+        }
       />
-      <CardContent>
-        {children}
-      </CardContent>
+      <CardContent>{children}</CardContent>
       <CardActions>
         <FormControlLabel
           className={classes.doNotShow}
           value={doNotShow}
-          control={(
+          control={
             <Checkbox
               value={doNotShow}
               onChange={(e) => setDoNotShow(e.target.checked)}
               color="primary"
             />
-          )}
+          }
           label="Do not show again"
           labelPlacement="start"
         />

@@ -16,11 +16,14 @@ const postSchema = new Schema({
     type: Date,
     require: true,
   },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+  uid: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
     required: true,
   },
 })
 
-module.exports = mongoose.model(process.env.POST || 'Post', postSchema)
+module.exports = mongoose.model('Post', postSchema)

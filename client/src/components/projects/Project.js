@@ -1,6 +1,28 @@
-import React, { useState, Fragment } from 'react'
-import { Card, CardHeader, CardMedia, CardContent, CardActions, ButtonGroup, Button, makeStyles, Typography, Collapse, IconButton, Popper, Paper, List, ListItem, ListItemText, useMediaQuery } from '@material-ui/core'
-import { Link as LinkIcon, Code as CodeIcon, ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
+import { useState, Fragment } from 'react'
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  ButtonGroup,
+  Button,
+  makeStyles,
+  Typography,
+  Collapse,
+  IconButton,
+  Popper,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+  useMediaQuery,
+} from '@material-ui/core'
+import {
+  Link as LinkIcon,
+  Code as CodeIcon,
+  ExpandMore as ExpandMoreIcon,
+} from '@material-ui/icons'
 import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
 
@@ -127,25 +149,17 @@ const Project = ({ project, isOdd }) => {
     if (link) {
       if (link.isPopper) {
         return (
-          <Button
-            onClick={handlePopperClick}
-          >
+          <Button onClick={handlePopperClick}>
             {icon}
             {type}
-            <Popper
-              open={popperOpen}
-              anchorEl={popperAnchor}
-            >
+            <Popper open={popperOpen} anchorEl={popperAnchor}>
               <Paper className={classes.popper}>{link.content}</Paper>
             </Popper>
           </Button>
         )
       }
       return (
-        <Button
-          href={link}
-          target="_blank"
-        >
+        <Button href={link} target="_blank">
           {icon}
           {type}
         </Button>
@@ -162,19 +176,11 @@ const Project = ({ project, isOdd }) => {
       aria-label="show more"
     >
       {'More Details '}
-      <ExpandMoreIcon
-        className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
-      />
+      <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </Button>
   ) : (
-    <IconButton
-      onClick={handleExpand}
-      aria-expanded={expanded}
-      aria-label="show more"
-    >
-      <ExpandMoreIcon
-        className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
-      />
+    <IconButton onClick={handleExpand} aria-expanded={expanded} aria-label="show more">
+      <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </IconButton>
   )
 
@@ -195,7 +201,11 @@ const Project = ({ project, isOdd }) => {
       <List>
         {section.content.map((listItem) => {
           const key = typeof listItem === 'object' ? listItem.props.children[0] : listItem
-          return <ListItem key={key}><ListItemText>{listItem}</ListItemText></ListItem>
+          return (
+            <ListItem key={key}>
+              <ListItemText>{listItem}</ListItemText>
+            </ListItem>
+          )
         })}
       </List>
     )
@@ -217,9 +227,7 @@ const Project = ({ project, isOdd }) => {
         </Collapse>
       </CardContent>
       <CardActions className={classes.actions} disableSpacing>
-        <div>
-          {chips}
-        </div>
+        <div>{chips}</div>
         {buttons}
       </CardActions>
     </>

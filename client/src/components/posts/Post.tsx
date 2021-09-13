@@ -1,10 +1,25 @@
-import React, { useState } from 'react'
+import { Dispatch, FC, MouseEvent, useState } from 'react'
 import Fade from 'react-reveal/Fade'
-import { Box, Card, Typography, makeStyles, IconButton, Modal, Button, CircularProgress, CardContent, CardActions, CardHeader, Menu, MenuItem, ListItemIcon } from '@material-ui/core'
+import {
+  Box,
+  Card,
+  Typography,
+  makeStyles,
+  IconButton,
+  Modal,
+  Button,
+  CircularProgress,
+  CardContent,
+  CardActions,
+  CardHeader,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+} from '@material-ui/core'
 import { Delete, Edit, MoreHoriz } from '@material-ui/icons'
 import NewPost from 'components/posts/NewPost'
-import useApi from 'hooks/useApi'
 import { AxiosResponse } from 'axios'
+import { useAuth } from 'context/Auth'
 
 interface Props {
   postId: string
@@ -12,10 +27,10 @@ interface Props {
   content: string
   isPublic: boolean
   isUser: boolean
-  postUser: any
+  name: string
   date: Date
   removePost: () => void
-  setPosts: React.Dispatch<any>
+  setPosts: Dispatch<any>
   className?: string
 }
 
@@ -36,17 +51,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postUser, date, removePost, setPosts, className }) => {
+const Post: FC<Props> = ({
+  postId,
+  title,
+  content,
+  isPublic,
+  isUser,
+  name,
+  date,
+  removePost,
+  setPosts,
+  className,
+}) => {
   const classes = useStyles()
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const openMenu = Boolean(anchorEl)
-  const api = useApi()
+  const { api } = useAuth()
   const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
-  const dateFormatted = `${date.toLocaleString('default', { month: 'short' })}  ${date.getDay()}, ${date.getHours()}:${minutes}`
+  const dateFormatted = `${date.toLocaleString('default', {
+    month: 'short',
+  })}  ${date.getDate()}, ${date.getHours()}:${minutes}`
 
-  const handleMenuOpen = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => setAnchorEl(e.currentTarget)
+  const handleMenuOpen = (e: MouseEvent<HTMLButtonElement>) => setAnchorEl(e.currentTarget)
 
   const handleMenuClose = () => setAnchorEl(null)
 
@@ -60,11 +88,12 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
 
   const deletePost = () => {
     setIsLoading(true)
-    api.delete(`/api/posts/${postId}`)
-      .then((result: AxiosResponse<any>) => {
-        // console.log(result)
+    api
+      .delete(`/api/posts/${postId}`)
+      .then(() => {
         removePost()
       })
+      // eslint-disable-next-line no-console
       .catch((error: any) => console.log(error))
       .finally(() => handleModalClose())
   }
@@ -74,9 +103,11 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
       <CardContent>Do you want to delete this post forever?</CardContent>
       <CardActions className={classes.actions}>
         <Button color="primary" variant="contained" onClick={deletePost}>
-          {isLoading ? <CircularProgress className={classes.loader} /> : 'Delete' }
+          {isLoading ? <CircularProgress className={classes.loader} /> : 'Delete'}
         </Button>
-        <Button color="secondary" variant="contained" onClick={handleModalClose}>Cancel</Button>
+        <Button color="secondary" variant="contained" onClick={handleModalClose}>
+          Cancel
+        </Button>
       </CardActions>
     </Card>
   )
@@ -86,60 +117,70 @@ const Post: React.FC<Props> = ({ postId, title, content, isPublic, isUser, postU
       <Card className={className}>
         <CardHeader
           title={title}
-          action={isUser && (
-            <>
-              <IconButton onClick={handleMenuOpen}>
-                <MoreHoriz />
-              </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={openMenu}
-                onClose={handleMenuClose}
-              >
-                <NewPost
-                  setPosts={setPosts}
-                  isEdit={{ postId, title, content, isPublic }}
-                  render={(onClick) => (
-                    <MenuItem onClick={onClick}>
-                      <ListItemIcon>
-                        <Edit fontSize="small" />
-                      </ListItemIcon>
-                      Edit
-                    </MenuItem>
-                  )}
+          action={
+            isUser && (
+              <>
+                <IconButton onClick={handleMenuOpen}>
+                  <MoreHoriz />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={openMenu}
                   onClose={handleMenuClose}
-                />
-                <MenuItem onClick={handleModalOpen}>
-                  <ListItemIcon>
-                    <Delete fontSize="small" />
-                  </ListItemIcon>
-                  Delete
-                  <Modal
-                    open={deleteOpen}
-                    onClose={handleModalClose}
-                  >
-                    {deleteConfirmation}
-                  </Modal>
-                </MenuItem>
-              </Menu>
-            </>
-          )}
-          subheader={(
-            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center">
-              <Typography variant="subtitle2" color="textSecondary">{dateFormatted}</Typography>
-              <Typography variant="subtitle1" color="textSecondary">{postUser.name}</Typography>
+                >
+                  <NewPost
+                    setPosts={setPosts}
+                    isEdit={{ postId, title, content, isPublic }}
+                    render={(onClick) => (
+                      <MenuItem onClick={onClick}>
+                        <ListItemIcon>
+                          <Edit fontSize="small" />
+                        </ListItemIcon>
+                        Edit
+                      </MenuItem>
+                    )}
+                    onClose={handleMenuClose}
+                  />
+                  <MenuItem onClick={handleModalOpen}>
+                    <ListItemIcon>
+                      <Delete fontSize="small" />
+                    </ListItemIcon>
+                    Delete
+                    <Modal open={deleteOpen} onClose={handleModalClose}>
+                      {deleteConfirmation}
+                    </Modal>
+                  </MenuItem>
+                </Menu>
+              </>
+            )
+          }
+          subheader={
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="subtitle2" color="textSecondary">
+                {dateFormatted}
+              </Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {name}
+              </Typography>
             </Box>
-          )}
+          }
         />
-        <CardContent><Typography>{content}</Typography></CardContent>
+        <CardContent>
+          <Typography>{content}</Typography>
+        </CardContent>
       </Card>
     </Fade>
   )

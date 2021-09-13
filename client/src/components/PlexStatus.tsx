@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button, Container, Typography, makeStyles, Paper, Grid } from '@material-ui/core'
 import { ChevronRight, Theaters } from '@material-ui/icons'
@@ -27,18 +27,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const PlexStatus: React.FC = () => {
+const PlexStatus: FC = () => {
   const classes = useStyles()
   const [plexStats, setPlexStats] = useState<any>()
   const [hasError, setHasError] = useState<Boolean>(false)
 
   useEffect(() => {
-    axios.get('/api/plex/sessions')
+    axios
+      .get('/api/plex/sessions')
       .then((result) => {
-        // console.log(result.data)
         setPlexStats(result.data)
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log(error.message)
         setHasError(true)
       })
@@ -55,13 +56,19 @@ const PlexStatus: React.FC = () => {
         status = 'There is no one watching Plex right now.'
         break
       case 1:
-        status = plexStats.isWatching ? 'You are the only user streaming on Plex right now.' : 'There is one user streaming Plex right now.'
+        status = plexStats.isWatching
+          ? 'You are the only user streaming on Plex right now.'
+          : 'There is one user streaming Plex right now.'
         break
       case 2:
-        status = plexStats.isWatching ? 'There is one other user streaming on Plex right now.' : 'There are two users streaming on Plex right now.'
+        status = plexStats.isWatching
+          ? 'There is one other user streaming on Plex right now.'
+          : 'There are two users streaming on Plex right now.'
         break
       case 3:
-        status = plexStats.isWatching ? 'There are two other users streaming on Plex right now, expect a low quality stream.' : 'There are three users streaming on Plex right now, your stream may be unusable.'
+        status = plexStats.isWatching
+          ? 'There are two other users streaming on Plex right now, expect a low quality stream.'
+          : 'There are three users streaming on Plex right now, your stream may be unusable.'
         break
       default:
         status = 'The network is near saturation, streaming may be unavailable.'
@@ -106,11 +113,11 @@ const PlexStatus: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h3" gutterBottom>Plex Status</Typography>
+      <Typography variant="h3" gutterBottom>
+        Plex Status
+      </Typography>
       <Container className={classes.content}>
-        <WaitFor isLoading={!plexStats}>
-          {content}
-        </WaitFor>
+        <WaitFor isLoading={!plexStats}>{content}</WaitFor>
       </Container>
     </>
   )

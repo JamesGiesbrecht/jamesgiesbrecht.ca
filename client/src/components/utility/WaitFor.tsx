@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { CircularProgress, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -13,9 +13,13 @@ interface Props {
   children: any
 }
 
-const WaitFor: React.FC<Props> = ({ isLoading, children }) => {
+const WaitFor: FC<Props> = ({ isLoading, children }) => {
   const classes = useStyles()
-  const loader = <div className={classes.centered}><CircularProgress size={100} /></div>
+  const loader = (
+    <div className={classes.centered}>
+      <CircularProgress size={100} />
+    </div>
+  )
   return isLoading ? loader : children
 }
 

@@ -1,9 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
-import { Button, Card, TextField, makeStyles, FormControlLabel, Switch, CircularProgress, Fab, Modal, Box, IconButton, useMediaQuery, Theme, CardHeader, CardContent } from '@material-ui/core'
+import {
+  Button,
+  Card,
+  TextField,
+  makeStyles,
+  FormControlLabel,
+  Switch,
+  CircularProgress,
+  Fab,
+  Modal,
+  Box,
+  IconButton,
+  useMediaQuery,
+  Theme,
+  CardHeader,
+  CardContent,
+} from '@material-ui/core'
 import { Add, Close } from '@material-ui/icons'
-import useApi from 'hooks/useApi'
 import useNotification from 'hooks/useNotification'
+import { useAuth } from 'context/Auth'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -53,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface Props {
-  setPosts: React.Dispatch<any>
+  setPosts: Dispatch<any>
   isEdit?: {
     postId: String
     title: String
@@ -64,7 +80,7 @@ interface Props {
   onClose?: () => void
 }
 
-const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
+const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [title, setTitle] = useState<String>(isEdit ? isEdit.title : '')
@@ -75,12 +91,13 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [isBottom, setIsBottom] = useState<boolean>(false)
   const notify = useNotification()
-  const api = useApi()
+  const { api } = useAuth()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
   const postId = isEdit ? isEdit.postId : null
 
   const handleScroll = () => {
-    const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 30
+    const bottom =
+      Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 30
     setIsBottom(bottom)
   }
 
@@ -109,7 +126,11 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     if (e.target.value.trim()) setContentError('')
   }
 
-  const validateInputEmpty = (input: String, setInputError: React.Dispatch<React.SetStateAction<String>>, inputName: String): boolean => {
+  const validateInputEmpty = (
+    input: String,
+    setInputError: Dispatch<SetStateAction<String>>,
+    inputName: String,
+  ): boolean => {
     if (input) {
       setInputError('')
       return false
@@ -119,9 +140,9 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   }
 
   const editPost = () => {
-    api.put(`/api/posts/${postId}`, { title, content, isPublic })
+    api
+      .put(`/api/posts/${postId}`, { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
-        // console.log(result)
         setTitle('')
         setContent('')
         setIsPublic(false)
@@ -129,6 +150,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setPosts((prev: any) => prev.map((p: any) => (p._id === postId ? result.data.post : p)))
       })
       .catch((error: any) => {
+        // eslint-disable-next-line no-console
         console.log(error)
         notify('Error Updating Post', 'error')
       })
@@ -139,9 +161,9 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   }
 
   const submitPost = () => {
-    api.post('/api/posts/new', { title, content, isPublic })
+    api
+      .post('/api/posts/new', { title, content, isPublic })
       .then((result: AxiosResponse<any>) => {
-        // console.log(result)
         setTitle('')
         setContent('')
         setIsPublic(false)
@@ -149,6 +171,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setPosts((prev: any) => [result.data, ...prev])
       })
       .catch((error: any) => {
+        // eslint-disable-next-line no-console
         console.log(error)
         notify('Error Submitting Post', 'error')
       })
@@ -160,7 +183,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
       })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const hasTitleError = validateInputEmpty(title, setTitleError, 'Title')
     const hasContentError = validateInputEmpty(content, setContentError, 'Content')
@@ -179,7 +202,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     <Fab
       className={`${classes.button}${isBottom ? ` ${classes.buttonBottom}` : ''}`}
       color="primary"
-      variant={isMobile ? 'round' : 'extended'}
+      variant={isMobile ? 'circular' : 'extended'}
       size={isMobile ? 'large' : 'medium'}
       onClick={handleModalOpen}
     >
@@ -194,11 +217,11 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     <Card className={classes.card}>
       <CardHeader
         title={isEdit ? 'Edit Post' : 'Make a New Post'}
-        action={(
+        action={
           <IconButton onClick={handleModalClose}>
             <Close />
           </IconButton>
-        )}
+        }
       />
       <CardContent>
         <form className={classes.form} onSubmit={handleSubmit}>
@@ -225,16 +248,11 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
             disabled={isSubmitting}
           />
           <Box display="flex" flexDirection="row" justifyContent="space-between">
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? <CircularProgress className={classes.loader} /> : submitText }
+            <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+              {isSubmitting ? <CircularProgress className={classes.loader} /> : submitText}
             </Button>
             <FormControlLabel
-              control={(
+              control={
                 <Switch
                   color="primary"
                   id="isPublic"
@@ -242,7 +260,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
                   onChange={(e) => setIsPublic(e.target.checked)}
                   disabled={isSubmitting}
                 />
-              )}
+              }
               label="Public?"
               labelPlacement="start"
             />
@@ -255,10 +273,7 @@ const NewPost: React.FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   return (
     <>
       {render ? render(handleModalOpen) : newPostButton}
-      <Modal
-        open={modalOpen}
-        onClose={handleModalClose}
-      >
+      <Modal open={modalOpen} onClose={handleModalClose}>
         {newPostForm}
       </Modal>
     </>
