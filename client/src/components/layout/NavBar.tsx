@@ -9,8 +9,8 @@ import {
   useCallback,
   ReactNode,
 } from 'react'
-import { PaletteOptions } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { PaletteOptions } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import {
   Typography,
   IconButton,
@@ -153,7 +153,9 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   }
 
   const themeButton = (
-    <IconButton onClick={toggleTheme} size="large">{theme === 'dark' ? <Sun /> : <Moon />}</IconButton>
+    <IconButton onClick={toggleTheme} size="large">
+      {theme === 'dark' ? <Sun /> : <Moon />}
+    </IconButton>
   )
 
   const desktopNav = navItems.map((nav) => <Tab key={nav.name} label={nav.name} value={nav.path} />)
@@ -203,11 +205,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
 
   const account = user && (
     <>
-      <IconButton
-        onClick={handleAccountToggle}
-        color="inherit"
-        ref={accountRef}
-        size="large">
+      <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef} size="large">
         {user.photoURL ? (
           <Avatar
             className={classes.avatar}

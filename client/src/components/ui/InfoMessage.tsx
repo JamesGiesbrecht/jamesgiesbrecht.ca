@@ -7,8 +7,8 @@ import {
   CardActions,
   FormControlLabel,
   Checkbox,
-} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { Close } from '@mui/icons-material'
 
 interface Props {
@@ -74,7 +74,7 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
         />
       </CardActions>
     </Card>
-  ) : null;
+  ) : null
 }
 
 export default InfoMessage

@@ -16,8 +16,8 @@ import {
   ListItem,
   ListItemText,
   useMediaQuery,
-} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import {
   Link as LinkIcon,
   Code as CodeIcon,
@@ -179,11 +179,7 @@ const Project = ({ project, isOdd }) => {
       <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </Button>
   ) : (
-    <IconButton
-      onClick={handleExpand}
-      aria-expanded={expanded}
-      aria-label="show more"
-      size="large">
+    <IconButton onClick={handleExpand} aria-expanded={expanded} aria-label="show more" size="large">
       <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </IconButton>
   )

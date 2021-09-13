@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { IconButton, Button } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { IconButton, Button } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { Link as RouterLink } from 'react-router-dom'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@mui/icons-material'

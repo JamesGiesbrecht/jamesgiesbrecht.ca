@@ -14,8 +14,8 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
-} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { Delete, Edit, MoreHoriz } from '@mui/icons-material'
 import NewPost from 'components/posts/NewPost'
 import { useAuth } from 'context/Auth'
@@ -182,7 +182,7 @@ const Post: FC<Props> = ({
         </CardContent>
       </Card>
     </Fade>
-  );
+  )
 }
 
 export default Post

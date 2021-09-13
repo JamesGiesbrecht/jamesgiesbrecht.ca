@@ -15,8 +15,8 @@ import {
   Theme,
   CardHeader,
   CardContent,
-} from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+} from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import { Add, Close } from '@mui/icons-material'
 import useNotification from 'hooks/useNotification'
 import { useAuth } from 'context/Auth'

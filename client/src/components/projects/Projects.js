@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import projects from 'assets/projects'
 import Project from './Project'
 

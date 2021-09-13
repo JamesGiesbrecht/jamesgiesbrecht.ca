@@ -1,8 +1,8 @@
 import { FC, useContext, useEffect, useState } from 'react'
 import { AxiosResponse } from 'axios'
 import Masonry from 'react-masonry-css'
-import { Box, Container, Typography, Theme, Link } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
+import { Box, Container, Typography, Theme, Link } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import Post from 'components/posts/Post'
 import NewPost from 'components/posts/NewPost'
 import WaitFor from 'components/utility/WaitFor'
