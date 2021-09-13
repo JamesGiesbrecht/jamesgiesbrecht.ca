@@ -15,6 +15,8 @@ RUN rm -r node_modules public src
 
 WORKDIR /app/server
 
+ENV NODE_ENV=production
+
 COPY /server/package.json .
 COPY /server/yarn.lock .
 

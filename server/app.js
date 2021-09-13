@@ -1,6 +1,7 @@
 const path = require('path')
 require('dotenv').config({ path: path.join(__dirname, '.env') })
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const { public } = require('./util/path')
@@ -11,6 +12,10 @@ const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_URL, MONGODB_PARAMS } = process.
 
 const mainRoutes = require('./routes/main')
 const apiRoutes = require('./routes/api/index')
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(cors())
+}
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

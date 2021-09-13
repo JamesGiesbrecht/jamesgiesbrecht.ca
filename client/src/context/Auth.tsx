@@ -17,6 +17,10 @@ const noAuthProvider = () => {
 }
 
 const api = axios.create()
+const { REACT_APP_PROXY } = process.env
+if (REACT_APP_PROXY) {
+  api.defaults.baseURL = REACT_APP_PROXY
+}
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
