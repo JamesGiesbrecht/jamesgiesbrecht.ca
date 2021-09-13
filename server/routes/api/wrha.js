@@ -16,7 +16,7 @@ const hospitals = {
   },
   childrens: {
     url: 'hsc-childrens',
-    friendlyName: 'Children\'s Hospital',
+    friendlyName: "Children's Hospital",
   },
   'st-boniface': {
     url: 'st-boniface-hospital',
@@ -36,9 +36,8 @@ const hospitals = {
   },
 }
 
-const getMessage = (waitTimes, hospitalName) => (
+const getMessage = (waitTimes, hospitalName) =>
   `At ${hospitalName}, there are currently ${waitTimes.waiting} waiting, ${waitTimes.treating} treating, and an average wait time of ${waitTimes.wait_time} hours.`
-)
 
 const getWaitTimes = async (hospital) => {
   const siteUrl = `https://wrha.mb.ca/wait-times/${hospitals[hospital].url}`

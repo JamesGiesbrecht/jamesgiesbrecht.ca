@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useMediaQuery } from '@material-ui/core'
 import { PaletteOptions } from '@material-ui/core/styles/createPalette'
 
-const useColorScheme = ():[PaletteOptions['type'], () => void] => {
+const useColorScheme = (): [PaletteOptions['type'], () => void] => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [theme, setTheme] = useState<PaletteOptions['type']>('dark')
 
@@ -18,7 +18,9 @@ const useColorScheme = ():[PaletteOptions['type'], () => void] => {
 
   useEffect(() => {
     if (Object.prototype.hasOwnProperty.call(window.localStorage, 'theme')) {
-      const localTheme: PaletteOptions['type'] = window.localStorage.getItem('theme') as PaletteOptions['type']
+      const localTheme: PaletteOptions['type'] = window.localStorage.getItem(
+        'theme',
+      ) as PaletteOptions['type']
       if (localTheme) setTheme(localTheme)
     } else if (prefersDarkMode) {
       setTheme('dark')

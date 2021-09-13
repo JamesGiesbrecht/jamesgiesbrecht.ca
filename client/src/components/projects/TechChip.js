@@ -1,8 +1,7 @@
-import React from 'react'
 import { Chip, Avatar, makeStyles } from '@material-ui/core'
 
 const TechChip = ({ tech }) => {
-  const classes = makeStyles((theme) => ({
+  const useStyles = makeStyles((theme) => ({
     chip: {
       backgroundColor: tech.color,
       color: tech.fontColor,
@@ -11,11 +10,16 @@ const TechChip = ({ tech }) => {
     chipImg: {
       padding: '2px',
     },
-  }))()
+  }))
 
-  const logo = tech.logo
-    ? <Avatar alt={tech.name} src={tech.logo} />
-    : <Avatar>{tech.name.substring(0, 1)}</Avatar>
+  const classes = useStyles()
+
+  const logo = tech.logo ? (
+    <Avatar alt={tech.name} src={tech.logo} />
+  ) : (
+    <Avatar>{tech.name.substring(0, 1)}</Avatar>
+  )
+
   return (
     <Chip
       classes={{
@@ -24,6 +28,7 @@ const TechChip = ({ tech }) => {
       }}
       label={tech.name}
       avatar={logo}
+      size="small"
     />
   )
 }

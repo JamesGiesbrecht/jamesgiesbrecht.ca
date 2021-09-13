@@ -1,6 +1,7 @@
-import React from 'react'
-import { makeStyles, IconButton } from '@material-ui/core'
-// eslint-disable-next-line no-unused-vars
+import { FC } from 'react'
+import { makeStyles, IconButton, Button } from '@material-ui/core'
+import { Link as RouterLink } from 'react-router-dom'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,15 +41,13 @@ const socialMedia = [
   // },
 ]
 
-const Footer: React.FC = () => {
+const Footer: FC = () => {
   const classes = useStyles()
 
+  const resetPrompts = () => localStorage.removeItem('hiddenMessages')
+
   const icons = socialMedia.map((social) => (
-    <IconButton
-      key={social.name}
-      href={social.link}
-      target="_blank"
-    >
+    <IconButton key={social.name} href={social.link} target="_blank">
       {social.icon}
     </IconButton>
   ))
@@ -56,6 +55,12 @@ const Footer: React.FC = () => {
   return (
     <footer className={classes.footer}>
       {icons}
+      <Button size="small" component={RouterLink} to="/privacy">
+        Privacy
+      </Button>
+      <Button size="small" onClick={resetPrompts}>
+        Reset Prompts
+      </Button>
     </footer>
   )
 }

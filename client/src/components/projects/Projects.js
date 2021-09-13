@@ -1,4 +1,3 @@
-import React from 'react'
 import { Typography, makeStyles } from '@material-ui/core'
 import projects from 'assets/projects'
 import Project from './Project'
@@ -23,12 +22,10 @@ const Projects = () => {
   ))
 
   return (
-    <div>
+    <>
       <Typography variant="h3">Projects</Typography>
-      <div className={classes.projects}>
-        {projs}
-      </div>
-    </div>
+      <div className={classes.projects}>{projs}</div>
+    </>
   )
 }
 
