@@ -4,12 +4,12 @@ import {
   CardHeader,
   CardContent,
   IconButton,
-  makeStyles,
   CardActions,
   FormControlLabel,
   Checkbox,
-} from '@material-ui/core'
-import { Close } from '@material-ui/icons'
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Close } from '@mui/icons-material'
 
 interface Props {
   title: string
@@ -52,7 +52,7 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
       <CardHeader
         title={title}
         action={
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={handleClose} size="large">
             <Close />
           </IconButton>
         }
@@ -74,7 +74,7 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
         />
       </CardActions>
     </Card>
-  ) : null
+  ) : null;
 }
 
 export default InfoMessage

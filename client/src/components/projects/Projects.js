@@ -1,4 +1,5 @@
-import { Typography, makeStyles } from '@material-ui/core'
+import { Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import projects from 'assets/projects'
 import Project from './Project'
 
@@ -8,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     maxWidth: 900,
     margin: '0 auto',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       maxWidth: 500,
     },
   },

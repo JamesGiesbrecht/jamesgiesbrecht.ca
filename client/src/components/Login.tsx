@@ -1,6 +1,7 @@
 import { FC, useContext, useState } from 'react'
-import { Button, makeStyles, Typography, Container } from '@material-ui/core'
-// import { Apple, GitHub, Twitter } from '@material-ui/icons'
+import { Button, Typography, Container } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+// import { Apple, GitHub, Twitter } from '@mui/icons-material'
 import GoogleIcon from 'components/icons/GoogleIcon'
 import WaitFor from 'components/utility/WaitFor'
 import InfoMessage from 'components/ui/InfoMessage'

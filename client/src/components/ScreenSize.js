@@ -1,4 +1,6 @@
-import { makeStyles, useMediaQuery } from '@material-ui/core'
+import { useMediaQuery } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles({
   breakpoint: {

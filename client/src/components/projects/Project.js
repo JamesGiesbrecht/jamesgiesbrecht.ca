@@ -7,7 +7,6 @@ import {
   CardActions,
   ButtonGroup,
   Button,
-  makeStyles,
   Typography,
   Collapse,
   IconButton,
@@ -17,12 +16,13 @@ import {
   ListItem,
   ListItemText,
   useMediaQuery,
-} from '@material-ui/core'
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   Link as LinkIcon,
   Code as CodeIcon,
   ExpandMore as ExpandMoreIcon,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
 
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   desktop: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },
@@ -179,7 +179,11 @@ const Project = ({ project, isOdd }) => {
       <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </Button>
   ) : (
-    <IconButton onClick={handleExpand} aria-expanded={expanded} aria-label="show more">
+    <IconButton
+      onClick={handleExpand}
+      aria-expanded={expanded}
+      aria-label="show more"
+      size="large">
       <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </IconButton>
   )

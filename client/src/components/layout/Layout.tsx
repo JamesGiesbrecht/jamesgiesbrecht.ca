@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import { Container, Toolbar, makeStyles } from '@material-ui/core'
-import { PaletteOptions } from '@material-ui/core/styles/createPalette'
+import { Container, Toolbar } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { PaletteOptions } from '@mui/material/styles';
 import NavBar from 'components/layout/NavBar'
 import Footer from 'components/layout/Footer'
 

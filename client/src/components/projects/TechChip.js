@@ -1,4 +1,6 @@
-import { Chip, Avatar, makeStyles } from '@material-ui/core'
+import { Chip, Avatar } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const TechChip = ({ tech }) => {
   const useStyles = makeStyles((theme) => ({

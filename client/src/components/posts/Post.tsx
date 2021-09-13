@@ -4,7 +4,6 @@ import {
   Box,
   Card,
   Typography,
-  makeStyles,
   IconButton,
   Modal,
   Button,
@@ -15,8 +14,9 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
-} from '@material-ui/core'
-import { Delete, Edit, MoreHoriz } from '@material-ui/icons'
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Delete, Edit, MoreHoriz } from '@mui/icons-material'
 import NewPost from 'components/posts/NewPost'
 import { useAuth } from 'context/Auth'
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(-50%, -50%)',
   },
   loader: {
-    color: theme.palette.grey[theme.palette.type === 'light' ? 300 : 500],
+    color: theme.palette.grey[theme.palette.mode === 'light' ? 300 : 500],
   },
   actions: {
     display: 'flex',
@@ -119,7 +119,7 @@ const Post: FC<Props> = ({
           action={
             isUser && (
               <>
-                <IconButton onClick={handleMenuOpen}>
+                <IconButton onClick={handleMenuOpen} size="large">
                   <MoreHoriz />
                 </IconButton>
                 <Menu
@@ -182,7 +182,7 @@ const Post: FC<Props> = ({
         </CardContent>
       </Card>
     </Fade>
-  )
+  );
 }
 
 export default Post

@@ -1,9 +1,16 @@
 import { SyntheticEvent, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Snackbar } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
-import { ThemeProvider } from '@material-ui/core/styles'
-import { useTheme } from '@material-ui/styles'
+import { Snackbar } from '@mui/material'
+import { Alert } from '@mui/material';
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles';
+import { useTheme } from '@mui/styles'
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 const useNotification = (): any => {
   const [open, setOpen] = useState<boolean>(false)
@@ -18,13 +25,15 @@ const useNotification = (): any => {
   }
 
   const notification = (
-    <ThemeProvider theme={theme}>
-      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-        <Alert variant="filled" onClose={handleClose} severity={severity}>
-          {text}
-        </Alert>
-      </Snackbar>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert variant="filled" onClose={handleClose} severity={severity}>
+            {text}
+          </Alert>
+        </Snackbar>
+      </ThemeProvider>
+    </StyledEngineProvider>
   )
 
   ReactDOM.render(notification, notificationDiv)

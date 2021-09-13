@@ -1,5 +1,7 @@
 import { FC } from 'react'
-import { CircularProgress, makeStyles } from '@material-ui/core'
+import { CircularProgress } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   centered: {

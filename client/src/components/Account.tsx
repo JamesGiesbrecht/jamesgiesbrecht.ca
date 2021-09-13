@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react'
-import { Container, Typography } from '@material-ui/core'
+import { Container, Typography } from '@mui/material'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from 'context/Auth'
 

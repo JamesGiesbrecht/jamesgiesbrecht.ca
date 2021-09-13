@@ -1,4 +1,5 @@
-import { Typography, makeStyles } from '@material-ui/core'
+import { Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import james from 'assets/img/james.jpg'
 
 const useStyles = makeStyles((theme) => ({
@@ -9,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       alignItems: 'center',
     },
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       flexDirection: 'column-reverse',
     },
   },

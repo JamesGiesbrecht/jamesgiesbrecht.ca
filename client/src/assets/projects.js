@@ -1,4 +1,4 @@
-import { Link } from '@material-ui/core'
+import { Link } from '@mui/material'
 import tech from 'consts/tech'
 import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
 import wrha from 'assets/img/projects/wrha-wait-times.png'

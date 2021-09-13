@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   TextField,
-  makeStyles,
   FormControlLabel,
   Switch,
   CircularProgress,
@@ -16,8 +15,9 @@ import {
   Theme,
   CardHeader,
   CardContent,
-} from '@material-ui/core'
-import { Add, Close } from '@material-ui/icons'
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Add, Close } from '@mui/icons-material'
 import useNotification from 'hooks/useNotification'
 import { useAuth } from 'context/Auth'
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(-50%, -50%)',
   },
   button: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       position: 'fixed',
       bottom: theme.spacing(2),
       right: theme.spacing(2),
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttonBottom: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       bottom: theme.spacing(10),
     },
   },
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   loader: {
-    color: theme.palette.grey[theme.palette.type === 'light' ? 300 : 500],
+    color: theme.palette.grey[theme.palette.mode === 'light' ? 300 : 500],
   },
 }))
 
@@ -92,7 +92,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const [isBottom, setIsBottom] = useState<boolean>(false)
   const notify = useNotification()
   const { api } = useAuth()
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
   const postId = isEdit ? isEdit.postId : null
 
   const handleScroll = () => {
@@ -218,7 +218,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
       <CardHeader
         title={isEdit ? 'Edit Post' : 'Make a New Post'}
         action={
-          <IconButton onClick={handleModalClose}>
+          <IconButton onClick={handleModalClose} size="large">
             <Close />
           </IconButton>
         }

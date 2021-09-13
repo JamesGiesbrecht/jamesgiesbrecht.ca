@@ -9,7 +9,8 @@ import {
   useCallback,
   ReactNode,
 } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { PaletteOptions } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   Typography,
   IconButton,
@@ -27,7 +28,7 @@ import {
   Avatar,
   ListItemIcon,
   Button,
-} from '@material-ui/core'
+} from '@mui/material'
 import {
   Home,
   ExitToApp,
@@ -36,8 +37,7 @@ import {
   Brightness7 as Sun,
   Brightness3 as Moon,
   Person,
-} from '@material-ui/icons'
-import { PaletteOptions } from '@material-ui/core/styles/createPalette'
+} from '@mui/icons-material'
 import { AuthContext } from 'context/Auth'
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
 
@@ -153,7 +153,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   }
 
   const themeButton = (
-    <IconButton onClick={toggleTheme}>{theme === 'dark' ? <Sun /> : <Moon />}</IconButton>
+    <IconButton onClick={toggleTheme} size="large">{theme === 'dark' ? <Sun /> : <Moon />}</IconButton>
   )
 
   const desktopNav = navItems.map((nav) => <Tab key={nav.name} label={nav.name} value={nav.path} />)
@@ -161,7 +161,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const mobileMenu = (
     <>
       <div className={classes.mobileNav}>
-        <IconButton onClick={handleMobileToggle} color="inherit" ref={menuRef}>
+        <IconButton onClick={handleMobileToggle} color="inherit" ref={menuRef} size="large">
           <MenuIcon />
         </IconButton>
       </div>
@@ -203,7 +203,11 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
 
   const account = user && (
     <>
-      <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef}>
+      <IconButton
+        onClick={handleAccountToggle}
+        color="inherit"
+        ref={accountRef}
+        size="large">
         {user.photoURL ? (
           <Avatar
             className={classes.avatar}

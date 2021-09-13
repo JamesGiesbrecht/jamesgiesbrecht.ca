@@ -1,5 +1,5 @@
 import { ReactComponent as Google } from 'assets/img/logos/google.svg'
-import { SvgIcon } from '@material-ui/core'
+import { SvgIcon } from '@mui/material'
 
 const GoogleIcon = (props) => (
   <SvgIcon {...props}>
