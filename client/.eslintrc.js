@@ -12,6 +12,7 @@ module.exports = {
   ],
   globals: {
     Atomics: 'readonly',
+    globalThis: 'readonly',
     SharedArrayBuffer: 'readonly',
     JSX: true,
   },

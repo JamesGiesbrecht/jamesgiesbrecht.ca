@@ -6,7 +6,7 @@ import NavBar from 'components/layout/NavBar'
 import Footer from 'components/layout/Footer'
 
 interface Props {
-  theme: PaletteOptions['type']
+  theme: PaletteOptions['mode']
   toggleTheme: () => void
   children: any
 }

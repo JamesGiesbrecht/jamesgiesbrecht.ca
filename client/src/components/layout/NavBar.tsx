@@ -42,7 +42,7 @@ import { AuthContext } from 'context/Auth'
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
 
 interface Props {
-  theme: PaletteOptions['type']
+  theme: PaletteOptions['mode']
   toggleTheme: () => void
 }
 
@@ -134,14 +134,14 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const handleAccountToggle = () => setAccountIsOpen((prevOpen) => !prevOpen)
 
   const handleCloseMobile = (
-    e: MouseEvent<HTMLLIElement | Document> | MouseEvent<Element, MouseEvent>,
+    e: globalThis.MouseEvent | MouseEvent<HTMLLIElement, globalThis.MouseEvent> | TouchEvent,
   ) => {
     if (menuRef.current && menuRef.current.contains(e.target as Node)) return
     setMobileIsOpen(false)
   }
 
   const handleCloseAccount = (
-    e: MouseEvent<HTMLLIElement | Document> | MouseEvent<Element, MouseEvent>,
+    e: globalThis.MouseEvent | MouseEvent<HTMLLIElement, globalThis.MouseEvent> | TouchEvent,
   ) => {
     if (accountRef.current && accountRef.current.contains(e.target as Node)) return
     setAccountIsOpen(false)
