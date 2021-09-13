@@ -38,7 +38,7 @@ const Login: FC = () => {
   }
 
   const getLoginButton = (onClick: () => void, icon: JSX.Element, text: String) => (
-    <Button onClick={onClick} variant="outlined" startIcon={icon}>
+    <Button onClick={onClick} variant="outlined" color="inherit" startIcon={icon}>
       {text}
     </Button>
   )

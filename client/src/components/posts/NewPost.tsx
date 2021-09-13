@@ -214,7 +214,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const submitText = isEdit ? 'Edit' : 'Submit'
 
   const newPostForm = (
-    <Card className={classes.card}>
+    <Card raised className={classes.card}>
       <CardHeader
         title={isEdit ? 'Edit Post' : 'Make a New Post'}
         action={

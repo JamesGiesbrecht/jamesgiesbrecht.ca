@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: 'auto',
   },
+  tab: {
+    minWidth: 150,
+  },
   avatar: {
     width: theme.spacing(3),
     height: theme.spacing(3),
@@ -158,7 +161,9 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
     </IconButton>
   )
 
-  const desktopNav = navItems.map((nav) => <Tab key={nav.name} label={nav.name} value={nav.path} />)
+  const desktopNav = navItems.map((nav) => (
+    <Tab key={nav.name} className={classes.tab} label={nav.name} value={nav.path} />
+  ))
 
   const mobileMenu = (
     <>

@@ -171,6 +171,7 @@ const Project = ({ project, isOdd }) => {
   const expandMoreButton = useMediaQuery((theme) => theme.breakpoints.up('sm')) ? (
     <Button
       variant="outlined"
+      color="inherit"
       onClick={handleExpand}
       aria-expanded={expanded}
       aria-label="show more"
@@ -186,7 +187,7 @@ const Project = ({ project, isOdd }) => {
 
   const buttons = (
     <div className={classes.buttons}>
-      <ButtonGroup>
+      <ButtonGroup variant="outlined" color="inherit">
         {getButton(project.link, 'Website')}
         {getButton(project.github, 'Code')}
       </ButtonGroup>
@@ -234,7 +235,7 @@ const Project = ({ project, isOdd }) => {
   )
 
   const mobileCard = (
-    <Card className={[classes.root, classes.mobile].join(' ')}>
+    <Card raised className={[classes.root, classes.mobile].join(' ')}>
       <CardHeader title={project.name} />
       <CardMedia
         className={classes.media}
@@ -247,7 +248,10 @@ const Project = ({ project, isOdd }) => {
   )
 
   const desktopCard = (
-    <Card className={[classes.root, classes.desktop, isOdd ? classes.flipped : ''].join(' ')}>
+    <Card
+      raised
+      className={[classes.root, classes.desktop, isOdd ? classes.flipped : ''].join(' ')}
+    >
       <div className={classes.mediaWrapper}>
         <CardMedia
           className={classes.media}

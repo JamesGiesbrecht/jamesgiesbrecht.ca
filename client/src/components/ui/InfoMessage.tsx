@@ -48,7 +48,7 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
   }
 
   return showMessage ? (
-    <Card className={classes.card}>
+    <Card raised className={classes.card}>
       <CardHeader
         title={title}
         action={

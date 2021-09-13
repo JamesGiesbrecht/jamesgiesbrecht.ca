@@ -98,7 +98,7 @@ const Post: FC<Props> = ({
   }
 
   const deleteConfirmation = (
-    <Card className={classes.card}>
+    <Card raised className={classes.card}>
       <CardContent>Do you want to delete this post forever?</CardContent>
       <CardActions className={classes.actions}>
         <Button color="primary" variant="contained" onClick={deletePost}>
@@ -113,7 +113,7 @@ const Post: FC<Props> = ({
 
   return (
     <Fade up>
-      <Card className={className}>
+      <Card raised className={className}>
         <CardHeader
           title={title}
           action={

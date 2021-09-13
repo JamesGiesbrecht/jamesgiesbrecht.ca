@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
 import { AuthContextProvider } from 'context/Auth'
 import { CssBaseline } from '@mui/material'
-import { blue } from '@mui/material/colors'
+import { blue, cyan } from '@mui/material/colors'
 import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
 import Layout from 'components/layout/Layout'
 import useColorScheme from 'hooks/useColorScheme'
@@ -30,6 +30,7 @@ const App = () => {
   const theme = createTheme({
     palette: {
       mode: colorScheme,
+      primary: cyan,
     },
     components: {
       MuiLink: {

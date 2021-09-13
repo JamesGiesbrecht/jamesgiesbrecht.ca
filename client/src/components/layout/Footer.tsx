@@ -56,10 +56,10 @@ const Footer: FC = () => {
   return (
     <footer className={classes.footer}>
       {icons}
-      <Button size="small" component={RouterLink} to="/privacy">
+      <Button size="small" color="inherit" component={RouterLink} to="/privacy">
         Privacy
       </Button>
-      <Button size="small" onClick={resetPrompts}>
+      <Button size="small" color="inherit" onClick={resetPrompts}>
         Reset Prompts
       </Button>
     </footer>
