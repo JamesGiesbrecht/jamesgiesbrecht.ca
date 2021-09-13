@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
 import { AuthContextProvider } from 'context/Auth'
-import { CssBaseline, adaptV4Theme } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 import { blue } from '@mui/material/colors'
 import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
 import Layout from 'components/layout/Layout'
@@ -27,20 +27,20 @@ TODO: Add bio, contact section, multiple links for code button
 const App = () => {
   /* THEMING AND STYLES START */
   const [colorScheme, toggleColorScheme] = useColorScheme()
-  const theme = createTheme(
-    adaptV4Theme({
-      palette: {
-        mode: colorScheme,
-      },
-      overrides: {
-        MuiLink: {
+  const theme = createTheme({
+    palette: {
+      mode: colorScheme,
+    },
+    components: {
+      MuiLink: {
+        styleOverrides: {
           root: {
             color: colorScheme === 'dark' ? blue[300] : blue[900],
           },
         },
       },
-    }),
-  )
+    },
+  })
   /* THEMING AND STYLES END */
 
   return (
