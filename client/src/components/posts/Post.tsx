@@ -18,7 +18,6 @@ import {
 } from '@material-ui/core'
 import { Delete, Edit, MoreHoriz } from '@material-ui/icons'
 import NewPost from 'components/posts/NewPost'
-import { AxiosResponse } from 'axios'
 import { useAuth } from 'context/Auth'
 
 interface Props {
