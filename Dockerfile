@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:14 as build
 
 WORKDIR /app/client
 
@@ -11,7 +11,7 @@ COPY /client .
 
 RUN yarn build
 
-RUN rm -r node_modules public src
+FROM node:14
 
 WORKDIR /app/server
 
@@ -23,6 +23,8 @@ COPY /server/yarn.lock .
 RUN yarn install
 
 COPY /server .
+
+COPY --from=build /app/client/build/ /app/client/build/
 
 EXPOSE 3001
 
