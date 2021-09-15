@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     fontSize: '48px',
     borderRadius: '10px',
     opacity: '80%',
-    zIndex: '9999',
+    zIndex: 9999,
   },
 })
 
