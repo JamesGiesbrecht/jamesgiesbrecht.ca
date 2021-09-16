@@ -12,13 +12,12 @@ import Account from 'components/Account'
 import PlexStatus from 'components/PlexStatus'
 import Privacy from 'components/Privacy'
 import ScrollToTop from 'components/utility/ScrollToTop'
+import ScreenSize from 'components/ScreenSize'
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
-// import ScreenSize from 'components/ScreenSize'
 
 /*
 TODO: Add bio, contact section, multiple links for code button
@@ -51,7 +50,7 @@ const App = () => {
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {/* <ScreenSize /> */}
+            {process.env.NODE_ENV === 'development' && <ScreenSize />}
             <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
               <Switch>
                 <Route path="/plex">

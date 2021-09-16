@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react'
+import { useState, Fragment, FC, MouseEvent } from 'react'
 import {
   Card,
   CardHeader,
@@ -16,6 +16,7 @@ import {
   ListItem,
   ListItemText,
   useMediaQuery,
+  Theme,
 } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import {
@@ -25,6 +26,11 @@ import {
 } from '@mui/icons-material'
 import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
+
+interface Props {
+  project: any
+  isOdd: boolean
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,10 +121,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Project = ({ project, isOdd }) => {
+const Project: FC<Props> = ({ project, isOdd }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
-  const [popperAnchor, setPopperAnchor] = useState(false)
+  const [popperAnchor, setPopperAnchor] = useState<HTMLButtonElement | null>(null)
 
   const cardImage = {
     backgroundImage: `url(${project.image}), url(${project.background})`,
@@ -129,13 +135,13 @@ const Project = ({ project, isOdd }) => {
     setExpanded((prevExpanded) => !prevExpanded)
   }
 
-  const handlePopperClick = (e) => {
+  const handlePopperClick = (e: MouseEvent<HTMLButtonElement>) => {
     setPopperAnchor(popperAnchor ? null : e.currentTarget)
   }
 
   const popperOpen = Boolean(popperAnchor)
 
-  const getButton = (link, type) => {
+  const getButton = (link: any, type: 'Code' | 'Website') => {
     let icon
     switch (type) {
       case 'Code':
@@ -168,7 +174,7 @@ const Project = ({ project, isOdd }) => {
     return null
   }
 
-  const expandMoreButton = useMediaQuery((theme) => theme.breakpoints.up('sm')) ? (
+  const expandMoreButton = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm')) ? (
     <Button
       variant="outlined"
       color="inherit"
@@ -195,12 +201,12 @@ const Project = ({ project, isOdd }) => {
     </div>
   )
 
-  const chips = project.stack.map((tech) => <TechChip key={tech.name} tech={tech} />)
+  const chips = project.stack.map((tech: any) => <TechChip key={tech.name} tech={tech} />)
 
-  const description = project.description.map((section) => {
+  const description = project.description.map((section: any) => {
     const sectionContent = (
       <List>
-        {section.content.map((listItem) => {
+        {section.content.map((listItem: any) => {
           const key = typeof listItem === 'object' ? listItem.props.children[0] : listItem
           return (
             <ListItem key={key}>

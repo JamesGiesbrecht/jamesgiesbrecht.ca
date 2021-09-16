@@ -1,8 +1,13 @@
+import { FC } from 'react'
 import { Chip, Avatar } from '@mui/material'
 
 import makeStyles from '@mui/styles/makeStyles'
 
-const TechChip = ({ tech }) => {
+interface Props {
+  tech: any
+}
+
+const TechChip: FC<Props> = ({ tech }) => {
   const useStyles = makeStyles((theme) => ({
     chip: {
       backgroundColor: tech.color,
