@@ -29,6 +29,7 @@ interface Props {
   name: string
   date: Date
   removePost: () => void
+  // FIXME
   setPosts: Dispatch<any>
   className?: string
 }
@@ -92,6 +93,7 @@ const Post: FC<Props> = ({
       .then(() => {
         removePost()
       })
+      // FIXME
       // eslint-disable-next-line no-console
       .catch((error: any) => console.log(error))
       .finally(() => handleModalClose())

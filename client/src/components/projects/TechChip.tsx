@@ -4,6 +4,7 @@ import { Chip, Avatar } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 
 interface Props {
+  // FIXME
   tech: any
 }
 

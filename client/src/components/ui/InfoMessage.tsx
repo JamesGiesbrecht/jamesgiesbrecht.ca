@@ -13,6 +13,7 @@ import { Close } from '@mui/icons-material'
 
 interface Props {
   title: string
+  // FIXME
   children: any
   id: string
 }

@@ -45,7 +45,7 @@ const App = () => {
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            {process.env.NODE_ENV === 'development' && <ScreenSize />}
+            {process.env.REACT_APP_ENV === 'development' && <ScreenSize />}
             <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
               <Switch>
                 <Route path="/plex">

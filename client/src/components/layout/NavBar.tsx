@@ -100,6 +100,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const { authInitialized, user, logout } = useContext(AuthContext)
   const [accountIsOpen, setAccountIsOpen] = useState(false)
   const [mobileIsOpen, setMobileIsOpen] = useState(false)
+  // FIXME
   const [activeNav, setActiveNav] = useState<any>(false)
   const [navItems, setNavItems] = useState<NavItem[]>(initialMenuItems)
   const accountRef = useRef<HTMLButtonElement>(null)
@@ -118,6 +119,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   ]
 
   const setActiveNavOverride = useCallback(
+    // FIXME
     (newActiveNav: any) => {
       if (navItems.find((item) => item.path === newActiveNav)) {
         setActiveNav(newActiveNav)

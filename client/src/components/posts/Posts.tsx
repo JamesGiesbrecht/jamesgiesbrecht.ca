@@ -30,6 +30,7 @@ const useStyles = makeStyles(() => ({
 const Posts: FC = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
+  // FIXME
   const [posts, setPosts] = useState<Array<any>>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
@@ -46,9 +47,11 @@ const Posts: FC = () => {
       setIsLoading(true)
       api
         .get('/api/posts')
+        // FIXME
         .then((result: AxiosResponse<any>) => {
           setPosts(result.data)
         })
+        // FIXME
         .catch((error: any) => {
           // eslint-disable-next-line no-console
           console.log(error)
@@ -59,6 +62,7 @@ const Posts: FC = () => {
   }, [authInitialized, api])
 
   let content
+  // FIXME
   let message: string | Array<any> = ''
 
   if (posts.length > 0) {

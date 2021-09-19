@@ -28,6 +28,7 @@ import Fade from 'react-reveal/Fade'
 import TechChip from './TechChip'
 
 interface Props {
+  // FIXME
   project: any
   isOdd: boolean
 }
@@ -141,6 +142,7 @@ const Project: FC<Props> = ({ project, isOdd }) => {
 
   const popperOpen = Boolean(popperAnchor)
 
+  // FIXME
   const getButton = (link: any, type: 'Code' | 'Website') => {
     let icon
     switch (type) {
@@ -201,11 +203,14 @@ const Project: FC<Props> = ({ project, isOdd }) => {
     </div>
   )
 
+  // FIXME
   const chips = project.stack.map((tech: any) => <TechChip key={tech.name} tech={tech} />)
 
+  // FIXME
   const description = project.description.map((section: any) => {
     const sectionContent = (
       <List>
+        {/* FIXME */}
         {section.content.map((listItem: any) => {
           const key = typeof listItem === 'object' ? listItem.props.children[0] : listItem
           return (

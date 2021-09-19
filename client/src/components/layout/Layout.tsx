@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { Container, Toolbar } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import { PaletteOptions } from '@mui/material/styles'
@@ -8,7 +8,7 @@ import Footer from 'components/layout/Footer'
 interface Props {
   theme: PaletteOptions['mode']
   toggleTheme: () => void
-  children: any
+  children: ReactNode
 }
 
 const useStyles = makeStyles((theme) => ({

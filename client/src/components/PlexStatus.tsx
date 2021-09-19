@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PlexStatus: FC = () => {
   const classes = useStyles()
+  // FIXME
   const [plexStats, setPlexStats] = useState<any>()
   const [hasError, setHasError] = useState<Boolean>(false)
 

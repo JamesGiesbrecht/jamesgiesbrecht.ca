@@ -4,9 +4,12 @@ import { Snackbar, Alert } from '@mui/material'
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
 import { useTheme } from '@mui/styles'
 
+// FIXME
 const useNotification = (): any => {
   const [open, setOpen] = useState<boolean>(false)
+  // FIXME
   const [text, setText] = useState<any>()
+  // FIXME
   const [severity, setSeverity] = useState<any>()
   const theme = useTheme()
   const notificationDiv = document.getElementById('notification')
@@ -30,6 +33,7 @@ const useNotification = (): any => {
 
   ReactDOM.render(notification, notificationDiv)
 
+  // FIXME
   return (notificationText: any, notificationSeverity?: any) => {
     setText(notificationText)
     setSeverity(notificationSeverity)

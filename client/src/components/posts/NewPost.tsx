@@ -69,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface Props {
+  // FIXME
   setPosts: Dispatch<any>
   isEdit?: {
     postId: String
@@ -116,11 +117,13 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     if (onClose) onClose()
   }
 
+  // FIXME
   const handleTitleChange = (e: any) => {
     setTitle(e.target.value)
     if (e.target.value.trim()) setTitleError('')
   }
 
+  // FIXME
   const handleContentChange = (e: any) => {
     setContent(e.target.value)
     if (e.target.value.trim()) setContentError('')
@@ -142,13 +145,16 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const editPost = () => {
     api
       .put(`/api/posts/${postId}`, { title, content, isPublic })
+      // FIXME
       .then((result: AxiosResponse<any>) => {
         setTitle('')
         setContent('')
         setIsPublic(false)
         notify('Post Updated', 'success')
+        // FIXME
         setPosts((prev: any) => prev.map((p: any) => (p._id === postId ? result.data.post : p)))
       })
+      // FIXME
       .catch((error: any) => {
         // eslint-disable-next-line no-console
         console.log(error)
@@ -163,13 +169,16 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const submitPost = () => {
     api
       .post('/api/posts/new', { title, content, isPublic })
+      // FIXME
       .then((result: AxiosResponse<any>) => {
         setTitle('')
         setContent('')
         setIsPublic(false)
         notify('Post Submitted', 'success')
+        // FIXME
         setPosts((prev: any) => [result.data, ...prev])
       })
+      // FIXME
       .catch((error: any) => {
         // eslint-disable-next-line no-console
         console.log(error)
