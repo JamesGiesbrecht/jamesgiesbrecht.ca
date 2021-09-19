@@ -1,5 +1,9 @@
 import { Link } from '@mui/material'
+import { Link as LinkIcon, Code as CodeIcon } from '@mui/icons-material'
+
 import tech from 'consts/tech'
+import { Project } from 'ts/app/types'
+
 import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
 import wrha from 'assets/img/projects/wrha-wait-times.png'
 import wrhaBg from 'assets/img/projects/wrha-wait-times-bg.jpg'
@@ -12,7 +16,7 @@ import critterCompanionBg from 'assets/img/projects/critter-companion-bg.jpg'
 import gamePit from 'assets/img/projects/game-pit.png'
 import gamePitBg from 'assets/img/projects/game-pit-bg.jpg'
 
-export default [
+const projects: Project[] = [
   {
     name: 'JamesGiesbrecht.ca',
     summary:
@@ -46,8 +50,13 @@ export default [
     ],
     image: jamesGiesbrecht,
     background: '#1D1D1D',
-    link: { isPopper: true, content: "You're already here silly" },
-    github: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
+    buttons: [
+      {
+        name: 'Code',
+        icon: <CodeIcon />,
+        link: 'https://github.com/JamesGiesbrecht/james-giesbrecht',
+      },
+    ],
     stack: [
       tech.react,
       tech.materialUI,
@@ -83,8 +92,14 @@ export default [
     ],
     image: critterCompanion,
     background: critterCompanionBg,
-    link: 'https://crittercompanion.app',
-    github: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
+    buttons: [
+      { name: 'Website', icon: <LinkIcon />, link: 'https://crittercompanion.app' },
+      {
+        name: 'Code',
+        icon: <CodeIcon />,
+        link: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
+      },
+    ],
     stack: [tech.react, tech.materialUI, tech.typescript, tech.firebase],
   },
   {
@@ -101,7 +116,7 @@ export default [
     ],
     image: wrha,
     background: wrhaBg,
-    link: 'https://www.amazon.ca/dp/B08RJ8NKBC',
+    buttons: [{ name: 'Website', icon: <LinkIcon />, link: 'https://www.amazon.ca/dp/B08RJ8NKBC' }],
     stack: [tech.aws, tech.node],
   },
   {
@@ -116,11 +131,18 @@ export default [
     ],
     image: craTemplate,
     background: craTemplateBg,
-    github: 'https://github.com/JamesGiesbrecht/cra-template-goose',
+    buttons: [
+      {
+        name: 'Code',
+        icon: <CodeIcon />,
+        link: 'https://github.com/JamesGiesbrecht/cra-template-goose',
+      },
+    ],
     stack: [tech.react, tech.materialUI, tech.typescript],
   },
   {
     name: 'Game Pit',
+    hidden: true,
     summary:
       'A mock e-commerce site specializing in video game and console sales. Powered by a Ruby on Rails backend that providing a RESTful JSON API being consumed by a React front end. Also my first experience with Docker and containerization. This app was part of a school project and is no longer getting updates.',
     description: [
@@ -144,12 +166,19 @@ export default [
     ],
     image: gamePit,
     background: gamePitBg,
-    link: 'https://gamepit.jamesgiesbrecht.ca',
-    github: 'https://github.com/JamesGiesbrecht/game_pit',
+    buttons: [
+      { name: 'Website', icon: <LinkIcon />, link: 'https://gamepit.jamesgiesbrecht.ca' },
+      {
+        name: 'Code',
+        icon: <CodeIcon />,
+        link: 'https://github.com/JamesGiesbrecht/game_pit',
+      },
+    ],
     stack: [tech.rubyOnRails, tech.react, tech.antD, tech.postgres, tech.docker],
   },
   {
     name: 'Onesnap',
+    hidden: true,
     summary:
       'Instagram clone with user auth, profiles, and posts for a college final project. Aside from Bootstrap, made entirely with vanilla PHP, Javascript, and HTML/CSS.',
     description: [
@@ -182,8 +211,15 @@ export default [
     ],
     image: onesnap,
     background: onesnapBg,
-    // link: 'https://php.jamesgiesbrecht.ca/onesnap',
-    github: 'https://github.com/JamesGiesbrecht/Onesnap',
+    buttons: [
+      {
+        name: 'Code',
+        icon: <CodeIcon />,
+        link: 'https://github.com/JamesGiesbrecht/Onesnap',
+      },
+    ],
     stack: [tech.php, tech.javascript, tech.css, tech.bootstrap],
   },
 ]
+
+export default projects

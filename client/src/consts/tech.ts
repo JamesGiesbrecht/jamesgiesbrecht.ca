@@ -18,12 +18,13 @@ import padlock from 'assets/img/logos/padlock.png'
 import mongoDB from 'assets/img/logos/mongoDB.png'
 import jwt from 'assets/img/logos/jwt.png'
 import firebase from 'assets/img/logos/firebase.png'
+import { Tech } from 'ts/app/types'
 
 const offWhite = '#F5F5F5'
 const white = '#FFF'
 const black = '#000'
 
-export default {
+const tech: { [name: string]: Tech } = {
   node: {
     name: 'Node.js',
     logo: nodeJs,
@@ -139,3 +140,5 @@ export default {
     fontColor: white,
   },
 }
+
+export default tech

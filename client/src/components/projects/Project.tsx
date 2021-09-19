@@ -1,4 +1,4 @@
-import { useState, Fragment, FC, MouseEvent } from 'react'
+import { useState, Fragment, FC, MouseEvent, ReactNode } from 'react'
 import {
   Card,
   CardHeader,
@@ -19,17 +19,13 @@ import {
   Theme,
 } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import {
-  Link as LinkIcon,
-  Code as CodeIcon,
-  ExpandMore as ExpandMoreIcon,
-} from '@mui/icons-material'
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material'
 import Fade from 'react-reveal/Fade'
+import { Project as ProjectType, ProjectLinkButton, Tech } from 'ts/app/types'
 import TechChip from './TechChip'
 
 interface Props {
-  // FIXME
-  project: any
+  project: ProjectType
   isOdd: boolean
 }
 
@@ -103,7 +99,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   expand: {
-    marginLeft: theme.spacing(1),
     transform: 'rotate(0deg)',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
@@ -142,36 +137,17 @@ const Project: FC<Props> = ({ project, isOdd }) => {
 
   const popperOpen = Boolean(popperAnchor)
 
-  // FIXME
-  const getButton = (link: any, type: 'Code' | 'Website') => {
-    let icon
-    switch (type) {
-      case 'Code':
-        icon = <CodeIcon className={classes.linkIcon} />
-        break
-      case 'Website':
-      default:
-        icon = <LinkIcon className={classes.linkIcon} />
-    }
-
+  const getButton = (button: ProjectLinkButton): ReactNode | null => {
+    const { name, icon, link, items } = button
     if (link) {
-      if (link.isPopper) {
-        return (
-          <Button onClick={handlePopperClick}>
-            {icon}
-            {type}
-            <Popper open={popperOpen} anchorEl={popperAnchor}>
-              <Paper className={classes.popper}>{link.content}</Paper>
-            </Popper>
-          </Button>
-        )
-      }
       return (
-        <Button href={link} target="_blank">
-          {icon}
-          {type}
+        <Button key={name} href={link} startIcon={icon} target="_blank">
+          {name}
         </Button>
       )
+    }
+    if (items) {
+      return items.map((item) => getButton(item))
     }
     return null
   }
@@ -183,9 +159,13 @@ const Project: FC<Props> = ({ project, isOdd }) => {
       onClick={handleExpand}
       aria-expanded={expanded}
       aria-label="show more"
+      endIcon={
+        <ExpandMoreIcon
+          className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')}
+        />
+      }
     >
       {'More Details '}
-      <ExpandMoreIcon className={[classes.expand, expanded ? classes.expandOpen : ''].join(' ')} />
     </Button>
   ) : (
     <IconButton onClick={handleExpand} aria-expanded={expanded} aria-label="show more" size="large">
@@ -193,32 +173,28 @@ const Project: FC<Props> = ({ project, isOdd }) => {
     </IconButton>
   )
 
-  const buttons = (
+  const buttons = project.buttons.map((button) => getButton(button))
+
+  const buttonGroup = (
     <div className={classes.buttons}>
       <ButtonGroup variant="outlined" color="inherit">
-        {getButton(project.link, 'Website')}
-        {getButton(project.github, 'Code')}
+        {buttons}
       </ButtonGroup>
       {expandMoreButton}
     </div>
   )
 
-  // FIXME
-  const chips = project.stack.map((tech: any) => <TechChip key={tech.name} tech={tech} />)
+  const chips = project.stack.map((tech) => <TechChip key={tech.name} tech={tech} />)
 
-  // FIXME
-  const description = project.description.map((section: any) => {
+  const description = project.description.map((section) => {
     const sectionContent = (
       <List>
-        {/* FIXME */}
-        {section.content.map((listItem: any) => {
-          const key = typeof listItem === 'object' ? listItem.props.children[0] : listItem
-          return (
-            <ListItem key={key}>
-              <ListItemText>{listItem}</ListItemText>
-            </ListItem>
-          )
-        })}
+        {section.content.map((listItem: string | ReactNode, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ListItem key={i}>
+            <ListItemText>{listItem}</ListItemText>
+          </ListItem>
+        ))}
       </List>
     )
 
@@ -240,7 +216,7 @@ const Project: FC<Props> = ({ project, isOdd }) => {
       </CardContent>
       <CardActions className={classes.actions} disableSpacing>
         <div>{chips}</div>
-        {buttons}
+        {buttonGroup}
       </CardActions>
     </>
   )
@@ -277,6 +253,8 @@ const Project: FC<Props> = ({ project, isOdd }) => {
       </div>
     </Card>
   )
+
+  if (project.hidden) return null
 
   return (
     <Fade left={!isOdd} right={isOdd}>
