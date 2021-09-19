@@ -23,6 +23,7 @@ import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material'
 import Fade from 'react-reveal/Fade'
 import { Project as ProjectType, ProjectLinkButton, Tech } from 'ts/app/types'
 import TechChip from './TechChip'
+import ProjectButton from './ProjectButton'
 
 interface Props {
   project: ProjectType
@@ -137,21 +138,6 @@ const Project: FC<Props> = ({ project, isOdd }) => {
 
   const popperOpen = Boolean(popperAnchor)
 
-  const getButton = (button: ProjectLinkButton): ReactNode | null => {
-    const { name, icon, link, items } = button
-    if (link) {
-      return (
-        <Button key={name} href={link} startIcon={icon} target="_blank">
-          {name}
-        </Button>
-      )
-    }
-    if (items) {
-      return items.map((item) => getButton(item))
-    }
-    return null
-  }
-
   const expandMoreButton = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm')) ? (
     <Button
       variant="outlined"
@@ -173,7 +159,9 @@ const Project: FC<Props> = ({ project, isOdd }) => {
     </IconButton>
   )
 
-  const buttons = project.buttons.map((button) => getButton(button))
+  const buttons = project.buttons.map((button) => (
+    <ProjectButton key={button.name} button={button} />
+  ))
 
   const buttonGroup = (
     <div className={classes.buttons}>

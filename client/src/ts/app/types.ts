@@ -14,7 +14,7 @@ type ProjectSection = {
 
 export type ProjectLinkButton = {
   name: string
-  icon: ReactNode
+  icon?: ReactNode
   link?: string
   items?: ProjectLinkButton[]
 }

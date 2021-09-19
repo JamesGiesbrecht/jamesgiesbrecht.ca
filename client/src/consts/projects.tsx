@@ -97,7 +97,20 @@ const projects: Project[] = [
       {
         name: 'Code',
         icon: <CodeIcon />,
-        link: 'https://github.com/JamesGiesbrecht/acnh-critter-companion',
+        items: [
+          {
+            name: 'Web',
+            link: 'https://github.com/JamesGiesbrecht/critter-companion-web',
+          },
+          {
+            name: 'Mobile',
+            link: 'https://github.com/JamesGiesbrecht/critter-companion-mobile',
+          },
+          {
+            name: 'Utility',
+            link: 'https://github.com/JamesGiesbrecht/critter-companion-utility',
+          },
+        ],
       },
     ],
     stack: [tech.react, tech.materialUI, tech.typescript, tech.firebase],
