@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
 import { AuthContextProvider } from 'context/Auth'
 import { CssBaseline } from '@mui/material'
 import { blue, cyan } from '@mui/material/colors'
-import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
+import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
 import Layout from 'components/layout/Layout'
 import useColorScheme from 'hooks/useColorScheme'
 import Home from 'components/Home'
@@ -13,11 +13,6 @@ import PlexStatus from 'components/PlexStatus'
 import Privacy from 'components/Privacy'
 import ScrollToTop from 'components/utility/ScrollToTop'
 import ScreenSize from 'components/ScreenSize'
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
 
 /*
 TODO: Add bio, contact section, multiple links for code button
