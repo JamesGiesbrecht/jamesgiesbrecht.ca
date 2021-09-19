@@ -1,4 +1,4 @@
-import { useState, Fragment, FC, MouseEvent, ReactNode } from 'react'
+import { useState, Fragment, FC, ReactNode } from 'react'
 import {
   Card,
   CardHeader,
@@ -10,8 +10,6 @@ import {
   Typography,
   Collapse,
   IconButton,
-  Popper,
-  Paper,
   List,
   ListItem,
   ListItemText,
@@ -21,7 +19,7 @@ import {
 import makeStyles from '@mui/styles/makeStyles'
 import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material'
 import Fade from 'react-reveal/Fade'
-import { Project as ProjectType, ProjectLinkButton, Tech } from 'ts/app/types'
+import { Project as ProjectType } from 'ts/app/types'
 import TechChip from './TechChip'
 import ProjectButton from './ProjectButton'
 
@@ -121,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
 const Project: FC<Props> = ({ project, isOdd }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
-  const [popperAnchor, setPopperAnchor] = useState<HTMLButtonElement | null>(null)
 
   const cardImage = {
     backgroundImage: `url(${project.image}), url(${project.background})`,
@@ -131,12 +128,6 @@ const Project: FC<Props> = ({ project, isOdd }) => {
   const handleExpand = () => {
     setExpanded((prevExpanded) => !prevExpanded)
   }
-
-  const handlePopperClick = (e: MouseEvent<HTMLButtonElement>) => {
-    setPopperAnchor(popperAnchor ? null : e.currentTarget)
-  }
-
-  const popperOpen = Boolean(popperAnchor)
 
   const expandMoreButton = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm')) ? (
     <Button

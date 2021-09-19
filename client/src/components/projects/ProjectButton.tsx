@@ -6,11 +6,12 @@ interface Props {
   button: ProjectLinkButton
 }
 
-const ProjectButton: FC<Props> = ({ button }) => {
+const ProjectButton: FC<Props> = ({ button, ...other }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const popperOpen = Boolean(anchorEl)
 
   const handlePopperClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     setAnchorEl(e.currentTarget)
   }
 
@@ -22,7 +23,7 @@ const ProjectButton: FC<Props> = ({ button }) => {
 
   if (link) {
     return (
-      <Button key={name} href={link} startIcon={icon} target="_blank">
+      <Button href={link} startIcon={icon} target="_blank" {...other}>
         {name}
       </Button>
     )
@@ -32,9 +33,11 @@ const ProjectButton: FC<Props> = ({ button }) => {
     return (
       <>
         <Button
+          href="#"
           aria-expanded={popperOpen ? 'true' : undefined}
           onClick={handlePopperClick}
           startIcon={icon}
+          {...other}
         >
           {name}
         </Button>
