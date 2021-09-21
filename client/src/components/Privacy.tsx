@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { Container, Typography, Link, Box } from '@mui/material'
 
 import makeStyles from '@mui/styles/makeStyles'
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Privacy = () => {
+const Privacy: FC = () => {
   const classes = useStyles()
 
   return (

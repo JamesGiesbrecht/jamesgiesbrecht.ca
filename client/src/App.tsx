@@ -5,14 +5,9 @@ import { blue, cyan } from '@mui/material/colors'
 import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
 import Layout from 'components/layout/Layout'
 import useColorScheme from 'hooks/useColorScheme'
-import Home from 'components/Home'
-import Login from 'components/Login'
-import Posts from 'components/posts/Posts'
-import Account from 'components/Account'
-import PlexStatus from 'components/PlexStatus'
-import Privacy from 'components/Privacy'
 import ScrollToTop from 'components/utility/ScrollToTop'
 import ScreenSize from 'components/ScreenSize'
+import routes from 'consts/routes'
 
 /*
 TODO: Add bio, contact section, multiple links for code button
@@ -38,6 +33,16 @@ const App = () => {
   })
   /* THEMING AND STYLES END */
 
+  const appRoutes = Object.keys(routes).map((routeName) => {
+    const route = routes[routeName]
+    const { Component, path, props } = route
+    return (
+      <Route key={path} path={path} {...props}>
+        <Component />
+      </Route>
+    )
+  })
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -48,24 +53,7 @@ const App = () => {
             {process.env.REACT_APP_ENV === 'development' && <ScreenSize />}
             <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
               <Switch>
-                <Route path="/plex">
-                  <PlexStatus />
-                </Route>
-                <Route path="/login">
-                  <Login />
-                </Route>
-                <Route path="/posts">
-                  <Posts />
-                </Route>
-                <Route path="/account">
-                  <Account />
-                </Route>
-                <Route path="/privacy">
-                  <Privacy />
-                </Route>
-                <Route exact path="/">
-                  <Home />
-                </Route>
+                {appRoutes}
                 <Redirect push to="/" />
               </Switch>
             </Layout>
