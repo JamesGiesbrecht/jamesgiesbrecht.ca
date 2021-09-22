@@ -30,16 +30,15 @@ import {
   Button,
 } from '@mui/material'
 import {
-  Home,
   ExitToApp,
   Menu as MenuIcon,
-  Message,
   Brightness7 as Sun,
   Brightness3 as Moon,
   Person,
 } from '@mui/icons-material'
 import { AuthContext } from 'context/Auth'
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
+import routes from 'consts/routes'
 
 interface Props {
   theme: PaletteOptions['mode']
@@ -81,19 +80,21 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type NavItem = {
-  name: string
+  name?: string
   icon: ReactNode
   path?: string
 }
 
+const { home, posts, login, account } = routes
+
 const initialMenuItems = [
-  { name: 'Home', icon: <Home />, path: '/' },
+  { name: home?.nav?.name, icon: home?.nav?.icon, path: home?.path },
   // { name: 'Projects', icon: <Code /> },
   // { name: 'Contact', icon: <Mail /> },
-  { name: 'Posts', icon: <Message />, path: '/posts' },
+  { name: posts?.nav?.name, icon: posts?.nav?.icon, path: posts?.path },
 ]
 
-const loginMenuItem = { name: 'Login', icon: <Person />, path: '/login' }
+const loginMenuItem = { name: login?.nav?.name, icon: login?.nav?.icon, path: login?.path }
 
 const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
@@ -114,7 +115,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   }, [user, authInitialized])
 
   const accountItems = [
-    { name: 'Account', icon: <Person />, path: '/account' },
+    { name: account?.nav?.name, icon: account?.nav?.icon, path: account?.path },
     { name: 'Logout', icon: <ExitToApp />, path: '/logout', cb: logout },
   ]
 
@@ -164,7 +165,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   )
 
   const desktopNav = navItems.map((nav) => (
-    <Tab key={nav.name} className={classes.tab} label={nav.name} value={nav.path} />
+    <Tab key={nav.path} className={classes.tab} label={nav.name} value={nav.path} />
   ))
 
   const mobileMenu = (
@@ -210,7 +211,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
     </>
   )
 
-  const account = user && (
+  const accountButton = user && (
     <>
       <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef} size="large">
         {user.photoURL ? (
@@ -271,7 +272,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
           </Tabs>
         </div>
         {themeButton}
-        {account}
+        {accountButton}
         {mobileMenu}
       </AppBar>
     </Slide>

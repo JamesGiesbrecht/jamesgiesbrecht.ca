@@ -14,7 +14,7 @@ export type Route = {
   props?: RouteProps
   nav?: {
     name: string
-    Icon?: ReactNode
+    icon?: ReactNode
   }
 }
 
@@ -28,7 +28,7 @@ const routes: { [name: string]: Route } = {
     path: '/login',
     nav: {
       name: 'Login',
-      Icon: PersonIcon,
+      icon: <PersonIcon />,
     },
   },
   posts: {
@@ -36,7 +36,7 @@ const routes: { [name: string]: Route } = {
     path: '/posts',
     nav: {
       name: 'Posts',
-      Icon: MessageIcon,
+      icon: <MessageIcon />,
     },
   },
   account: {
@@ -44,7 +44,7 @@ const routes: { [name: string]: Route } = {
     path: '/account',
     nav: {
       name: 'Account',
-      Icon: HomeIcon,
+      icon: <HomeIcon />,
     },
   },
   privacy: {
