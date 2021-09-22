@@ -33,10 +33,22 @@ app.use(mainRoutes)
 const mongoDbUrl =
   MONGODB_URL.replace('USER', MONGODB_USER).replace('PASSWORD', MONGODB_PASSWORD) + MONGODB_PARAMS
 
-mongoose
-  .connect(mongoDbUrl)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.log(error))
+const connectToMongoDb = () =>
+  mongoose
+    .connect(mongoDbUrl)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((error) => console.error(error))
 
+mongoose.connection.on('disconnected', (error) => {
+  console.warn('Mongoose disconnect event', error)
+  connectToMongoDb()
+})
+
+mongoose.connection.on('error', (error) => {
+  console.warn('Mongoose error event', error)
+  connectToMongoDb()
+})
+
+connectToMongoDb()
 console.log(`Server is live on port ${PORT}`)
 app.listen(PORT)
