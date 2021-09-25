@@ -1,5 +1,5 @@
 import { Dispatch, FC, FormEvent, SetStateAction, useEffect, useState } from 'react'
-import { AxiosResponse } from 'axios'
+import { Add, Close } from '@mui/icons-material'
 import {
   Button,
   Card,
@@ -16,10 +16,11 @@ import {
   CardHeader,
   CardContent,
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import { Add, Close } from '@mui/icons-material'
-import useNotification from 'hooks/useNotification'
+import { makeStyles } from '@mui/styles'
+import { AxiosResponse } from 'axios'
+
 import { useAuth } from 'context/Auth'
+import useNotification from 'hooks/useNotification'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -72,9 +73,9 @@ interface Props {
   // FIXME
   setPosts: Dispatch<any>
   isEdit?: {
-    postId: String
-    title: String
-    content: String
+    postId: string
+    title: string
+    content: string
     isPublic: boolean
   }
   render?: (onClick: () => void) => JSX.Element
@@ -84,10 +85,10 @@ interface Props {
 const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const [title, setTitle] = useState<String>(isEdit ? isEdit.title : '')
-  const [titleError, setTitleError] = useState<String>('')
-  const [content, setContent] = useState<String>(isEdit ? isEdit.content : '')
-  const [contentError, setContentError] = useState<String>('')
+  const [title, setTitle] = useState<string>(isEdit ? isEdit.title : '')
+  const [titleError, setTitleError] = useState<string>('')
+  const [content, setContent] = useState<string>(isEdit ? isEdit.content : '')
+  const [contentError, setContentError] = useState<string>('')
   const [isPublic, setIsPublic] = useState<boolean>(isEdit ? isEdit.isPublic : false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [isBottom, setIsBottom] = useState<boolean>(false)
@@ -130,9 +131,9 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   }
 
   const validateInputEmpty = (
-    input: String,
-    setInputError: Dispatch<SetStateAction<String>>,
-    inputName: String,
+    input: string,
+    setInputError: Dispatch<SetStateAction<string>>,
+    inputName: string,
   ): boolean => {
     if (input) {
       setInputError('')

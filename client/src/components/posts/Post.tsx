@@ -1,5 +1,4 @@
 import { Dispatch, FC, MouseEvent, useState } from 'react'
-import Fade from 'react-reveal/Fade'
 import {
   Box,
   Card,
@@ -15,8 +14,10 @@ import {
   MenuItem,
   ListItemIcon,
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import { Delete, Edit, MoreHoriz } from '@mui/icons-material'
+import { makeStyles } from '@mui/styles'
+import Fade from 'react-reveal/Fade'
+
 import NewPost from 'components/posts/NewPost'
 import { useAuth } from 'context/Auth'
 
@@ -93,9 +94,8 @@ const Post: FC<Props> = ({
       .then(() => {
         removePost()
       })
-      // FIXME
       // eslint-disable-next-line no-console
-      .catch((error: any) => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => handleModalClose())
   }
 

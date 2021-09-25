@@ -1,15 +1,16 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import { Box, Container, Typography, Theme, Link } from '@mui/material'
+import { useTheme, makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
 import Masonry from 'react-masonry-css'
-import { Box, Container, Typography, Theme, Link } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import Post from 'components/posts/Post'
-import NewPost from 'components/posts/NewPost'
-import WaitFor from 'components/utility/WaitFor'
-import { useTheme } from '@mui/styles'
-import { AuthContext } from 'context/Auth'
 import { Link as RouterLink } from 'react-router-dom'
+
+import { AuthContext } from 'context/Auth'
+import NewPost from 'components/posts/NewPost'
+import Post from 'components/posts/Post'
 import InfoMessage from 'components/ui/InfoMessage'
+import WaitFor from 'components/utility/WaitFor'
+import { PostType } from 'ts/app/types'
 
 const gridGutter = 15
 
@@ -30,8 +31,7 @@ const useStyles = makeStyles(() => ({
 const Posts: FC = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
-  // FIXME
-  const [posts, setPosts] = useState<Array<any>>([])
+  const [posts, setPosts] = useState<PostType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
   const { api, authInitialized, user } = useContext(AuthContext)
@@ -47,12 +47,10 @@ const Posts: FC = () => {
       setIsLoading(true)
       api
         .get('/api/posts')
-        // FIXME
-        .then((result: AxiosResponse<any>) => {
+        .then((result: AxiosResponse<PostType[]>) => {
           setPosts(result.data)
         })
-        // FIXME
-        .catch((error: any) => {
+        .catch((error) => {
           // eslint-disable-next-line no-console
           console.log(error)
           setHasError(true)
@@ -62,8 +60,6 @@ const Posts: FC = () => {
   }, [authInitialized, api])
 
   let content
-  // FIXME
-  let message: string | Array<any> = ''
 
   if (posts.length > 0) {
     content = (
@@ -90,6 +86,7 @@ const Posts: FC = () => {
       </Masonry>
     )
   } else {
+    let message: ReactNode = ''
     if (hasError) {
       message = 'Uh oh, something went wrong.'
     } else if (user) {
@@ -115,7 +112,7 @@ const Posts: FC = () => {
         </Typography>
         <Typography>
           This page is just meant as a demo and not to provide any production level functionality.
-          If you choose to make a post, the first part of your email will be display, everything
+          If you choose to make a post, the first part of your email will be displayed, everything
           before the "@".
         </Typography>
         <Typography>
