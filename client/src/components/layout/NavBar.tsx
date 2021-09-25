@@ -9,9 +9,8 @@ import {
   useCallback,
   ReactNode,
 } from 'react'
-import { PaletteOptions } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
 import {
+  PaletteOptions,
   Typography,
   IconButton,
   Popper,
@@ -34,10 +33,11 @@ import {
   Menu as MenuIcon,
   Brightness7 as Sun,
   Brightness3 as Moon,
-  Person,
 } from '@mui/icons-material'
-import { AuthContext } from 'context/Auth'
+import { makeStyles } from '@mui/styles'
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
+
+import { AuthContext } from 'context/Auth'
 import routes from 'consts/routes'
 
 interface Props {
@@ -87,22 +87,21 @@ type NavItem = {
 
 const { home, posts, login, account } = routes
 
-const initialMenuItems = [
+const initialMenuItems: NavItem[] = [
   { name: home?.nav?.name, icon: home?.nav?.icon, path: home?.path },
   // { name: 'Projects', icon: <Code /> },
   // { name: 'Contact', icon: <Mail /> },
   { name: posts?.nav?.name, icon: posts?.nav?.icon, path: posts?.path },
 ]
 
-const loginMenuItem = { name: login?.nav?.name, icon: login?.nav?.icon, path: login?.path }
+const loginMenuItem: NavItem = { name: login?.nav?.name, icon: login?.nav?.icon, path: login?.path }
 
 const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
   const { authInitialized, user, logout } = useContext(AuthContext)
   const [accountIsOpen, setAccountIsOpen] = useState(false)
   const [mobileIsOpen, setMobileIsOpen] = useState(false)
-  // FIXME
-  const [activeNav, setActiveNav] = useState<any>(false)
+  const [activeNav, setActiveNav] = useState<NavItem['path']>()
   const [navItems, setNavItems] = useState<NavItem[]>(initialMenuItems)
   const accountRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLButtonElement>(null)
@@ -120,12 +119,11 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   ]
 
   const setActiveNavOverride = useCallback(
-    // FIXME
-    (newActiveNav: any) => {
+    (newActiveNav: NavItem['path']) => {
       if (navItems.find((item) => item.path === newActiveNav)) {
         setActiveNav(newActiveNav)
       } else {
-        setActiveNav(false)
+        setActiveNav(undefined)
       }
     },
     [navItems],
@@ -154,7 +152,6 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   }
 
   const handleTabChange = (e: ChangeEvent<{}>, newValue?: string) => {
-    setActiveNavOverride(newValue)
     history.push(newValue || '')
   }
 
