@@ -11,6 +11,7 @@ import Post from 'components/posts/Post'
 import InfoMessage from 'components/ui/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
 import { PostType } from 'ts/app/types'
+import { GetPostsResponse } from 'ts/api/types'
 
 const gridGutter = 15
 
@@ -51,7 +52,7 @@ const Posts: FC = () => {
       setIsLoading(true)
       api
         .get('/api/posts')
-        .then((result: AxiosResponse<PostType[]>) => {
+        .then((result: AxiosResponse<GetPostsResponse>) => {
           setPosts(result.data)
         })
         .catch(() => {

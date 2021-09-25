@@ -16,10 +16,12 @@ import {
 } from '@mui/material'
 import { Delete, Edit, MoreHoriz } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
+import { AxiosResponse } from 'axios'
 import Fade from 'react-reveal/Fade'
 
 import NewPost from 'components/posts/NewPost'
 import { useAuth } from 'context/Auth'
+import { DeletePostResponse } from 'ts/api/types'
 
 interface Props {
   postId: string
@@ -93,7 +95,8 @@ const Post: FC<Props> = ({
     setIsLoading(true)
     api
       .delete(`/api/posts/${postId}`)
-      .then(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      .then((response: AxiosResponse<DeletePostResponse>) => {
         onRemove(postId)
       })
       .catch(() => {})

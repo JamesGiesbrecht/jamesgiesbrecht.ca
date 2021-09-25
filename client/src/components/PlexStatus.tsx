@@ -2,9 +2,10 @@ import { FC, useEffect, useState } from 'react'
 import { ChevronRight, Theaters } from '@mui/icons-material'
 import { Button, Container, Typography, Paper, Grid } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 import WaitFor from 'components/utility/WaitFor'
+import { GetPlexStatusResponse } from 'ts/api/types'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -38,7 +39,7 @@ const PlexStatus: FC = () => {
   useEffect(() => {
     axios
       .get('/api/plex/sessions')
-      .then((result) => {
+      .then((result: AxiosResponse<GetPlexStatusResponse>) => {
         setPlexStats(result.data)
       })
       .catch(() => {

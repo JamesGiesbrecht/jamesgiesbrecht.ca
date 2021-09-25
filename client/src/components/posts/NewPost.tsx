@@ -21,6 +21,7 @@ import { AxiosResponse } from 'axios'
 
 import { useAuth } from 'context/Auth'
 import useNotification from 'hooks/useNotification'
+import { NewPostResponse, UpdatePostResponse } from 'ts/api/types'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -147,7 +148,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     api
       .put(`/api/posts/${postId}`, { title, content, isPublic })
       // FIXME
-      .then((result: AxiosResponse<any>) => {
+      .then((result: AxiosResponse<UpdatePostResponse>) => {
         setTitle('')
         setContent('')
         setIsPublic(false)
@@ -169,7 +170,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
     api
       .post('/api/posts/new', { title, content, isPublic })
       // FIXME
-      .then((result: AxiosResponse<any>) => {
+      .then((result: AxiosResponse<NewPostResponse>) => {
         setTitle('')
         setContent('')
         setIsPublic(false)
