@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import { makeStyles } from '@mui/styles'
+
 import projects from 'consts/projects'
-import Project from './Project'
+import Project from 'components/projects/Project'
 
 const useStyles = makeStyles((theme) => ({
   projects: {

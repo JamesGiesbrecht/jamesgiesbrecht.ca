@@ -1,12 +1,13 @@
 import { FC, useContext, useState } from 'react'
-import { Button, Typography, Container } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 // import { Apple, GitHub, Twitter } from '@mui/icons-material'
-import GoogleIcon from 'components/icons/GoogleIcon'
-import WaitFor from 'components/utility/WaitFor'
-import InfoMessage from 'components/ui/InfoMessage'
-import { AuthContext } from 'context/Auth'
+import { Button, Typography, Container } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { useHistory } from 'react-router-dom'
+
+import { AuthContext } from 'context/Auth'
+import GoogleIcon from 'components/icons/GoogleIcon'
+import InfoMessage from 'components/ui/InfoMessage'
+import WaitFor from 'components/utility/WaitFor'
 
 const useStyles = makeStyles((theme) => ({
   loginButtons: {

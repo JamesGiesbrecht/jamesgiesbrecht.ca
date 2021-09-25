@@ -1,13 +1,14 @@
-import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
-import { AuthContextProvider } from 'context/Auth'
 import { CssBaseline } from '@mui/material'
 import { blue, cyan } from '@mui/material/colors'
 import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
-import Layout from 'components/layout/Layout'
-import useColorScheme from 'hooks/useColorScheme'
-import ScrollToTop from 'components/utility/ScrollToTop'
-import ScreenSize from 'components/ScreenSize'
+import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
+
 import routes from 'consts/routes'
+import { AuthContextProvider } from 'context/Auth'
+import Layout from 'components/layout/Layout'
+import ScreenSize from 'components/ScreenSize'
+import ScrollToTop from 'components/utility/ScrollToTop'
+import useColorScheme from 'hooks/useColorScheme'
 
 /*
 TODO: Add bio, contact section, multiple links for code button

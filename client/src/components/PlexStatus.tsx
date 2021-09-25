@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from 'react'
-import axios from 'axios'
-import { Button, Container, Typography, Paper, Grid } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import { ChevronRight, Theaters } from '@mui/icons-material'
+import { Button, Container, Typography, Paper, Grid } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import axios from 'axios'
+
 import WaitFor from 'components/utility/WaitFor'
 
 const useStyles = makeStyles((theme) => ({

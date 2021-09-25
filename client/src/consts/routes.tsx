@@ -1,12 +1,13 @@
 import { FC, ReactNode } from 'react'
+import { Home as HomeIcon, Message as MessageIcon, Person as PersonIcon } from '@mui/icons-material'
 import { RouteProps } from 'react-router-dom'
+
+import Account from 'components/Account'
+import Home from 'components/Home'
 import PlexStatus from 'components/PlexStatus'
 import Login from 'components/Login'
-import { Home as HomeIcon, Message as MessageIcon, Person as PersonIcon } from '@mui/icons-material'
 import Posts from 'components/posts/Posts'
-import Account from 'components/Account'
 import Privacy from 'components/Privacy'
-import Home from 'components/Home'
 
 export type Route = {
   Component: FC

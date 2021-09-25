@@ -1,4 +1,5 @@
 import { useState, Fragment, FC, ReactNode } from 'react'
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material'
 import {
   Card,
   CardHeader,
@@ -16,12 +17,12 @@ import {
   useMediaQuery,
   Theme,
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material'
+import { makeStyles } from '@mui/styles'
 import Fade from 'react-reveal/Fade'
+
+import ProjectButton from 'components/projects/ProjectButton'
+import TechChip from 'components/projects/TechChip'
 import { Project as ProjectType } from 'ts/app/types'
-import TechChip from './TechChip'
-import ProjectButton from './ProjectButton'
 
 interface Props {
   project: ProjectType

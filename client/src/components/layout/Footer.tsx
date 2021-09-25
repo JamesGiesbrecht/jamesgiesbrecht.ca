@@ -2,7 +2,7 @@ import { FC } from 'react'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@mui/icons-material'
 import { IconButton, Button } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import { makeStyles } from '@mui/styles'
 import { Link as RouterLink } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({

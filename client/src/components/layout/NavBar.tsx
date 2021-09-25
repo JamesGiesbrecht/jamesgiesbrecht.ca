@@ -37,8 +37,8 @@ import {
 import { makeStyles } from '@mui/styles'
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
 
-import { AuthContext } from 'context/Auth'
 import routes from 'consts/routes'
+import { AuthContext } from 'context/Auth'
 
 interface Props {
   theme: PaletteOptions['mode']

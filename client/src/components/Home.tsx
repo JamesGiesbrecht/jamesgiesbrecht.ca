@@ -1,7 +1,8 @@
 import { FC } from 'react'
+import { makeStyles } from '@mui/styles'
+
 import About from 'components/About'
 import Projects from 'components/projects/Projects'
-import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles((theme) => ({
   sections: {

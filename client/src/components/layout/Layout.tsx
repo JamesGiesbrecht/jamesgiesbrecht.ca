@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react'
 import { Container, PaletteOptions, Toolbar } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import { makeStyles } from '@mui/styles'
 
 import Footer from 'components/layout/Footer'
 import NavBar from 'components/layout/NavBar'

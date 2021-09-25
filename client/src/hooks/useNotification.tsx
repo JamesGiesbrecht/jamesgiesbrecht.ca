@@ -1,7 +1,6 @@
 import { SyntheticEvent, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Snackbar, Alert } from '@mui/material'
-import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
+import { Snackbar, Alert, ThemeProvider, StyledEngineProvider } from '@mui/material'
 import { useTheme } from '@mui/styles'
 
 // FIXME

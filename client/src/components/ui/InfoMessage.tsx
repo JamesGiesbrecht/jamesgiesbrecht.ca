@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import { Close } from '@mui/icons-material'
 import {
   Card,
   CardHeader,
@@ -8,8 +9,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import { Close } from '@mui/icons-material'
+import { makeStyles } from '@mui/styles'
 
 interface Props {
   title: string

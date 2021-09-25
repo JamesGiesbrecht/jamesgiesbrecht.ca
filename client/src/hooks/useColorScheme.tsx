@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useMediaQuery } from '@mui/material'
-import { PaletteOptions } from '@mui/material/styles'
+import { useMediaQuery, PaletteOptions } from '@mui/material'
 
 const useColorScheme = (): [PaletteOptions['mode'], () => void] => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')

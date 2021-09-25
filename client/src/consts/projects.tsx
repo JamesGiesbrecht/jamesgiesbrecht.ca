@@ -1,20 +1,20 @@
-import { Link } from '@mui/material'
 import { Link as LinkIcon, Code as CodeIcon } from '@mui/icons-material'
+import { Link } from '@mui/material'
 
 import tech from 'consts/tech'
 import { Project } from 'ts/app/types'
 
-import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
-import wrha from 'assets/img/projects/wrha-wait-times.png'
-import wrhaBg from 'assets/img/projects/wrha-wait-times-bg.jpg'
 import craTemplate from 'assets/img/projects/react.png'
 import craTemplateBg from 'assets/img/projects/cra-template-bg.jpg'
-import onesnap from 'assets/img/projects/onesnap.png'
-import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
 import critterCompanion from 'assets/img/projects/critter-companion.png'
 import critterCompanionBg from 'assets/img/projects/critter-companion-bg.jpg'
 import gamePit from 'assets/img/projects/game-pit.png'
 import gamePitBg from 'assets/img/projects/game-pit-bg.jpg'
+import jamesGiesbrecht from 'assets/img/projects/james-giesbrecht.png'
+import onesnap from 'assets/img/projects/onesnap.png'
+import onesnapBg from 'assets/img/projects/onesnap-bg.jpg'
+import wrha from 'assets/img/projects/wrha-wait-times.png'
+import wrhaBg from 'assets/img/projects/wrha-wait-times-bg.jpg'
 
 const projects: Project[] = [
   {
