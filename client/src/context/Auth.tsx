@@ -4,6 +4,8 @@ import { signInWithPopup, OAuthProvider, User, UserCredential } from 'firebase/a
 
 import { firebaseAuth } from 'firebase/config'
 
+const { REACT_APP_PROXY, REACT_APP_ENV } = process.env
+
 interface AuthContextType {
   user: User | null | undefined
   api: AxiosInstance
@@ -17,7 +19,22 @@ const noAuthProvider = () => {
 }
 
 const api = axios.create()
-const { REACT_APP_PROXY } = process.env
+
+if (REACT_APP_ENV === 'development') {
+  api.interceptors.response.use(
+    (response) => {
+      // eslint-disable-next-line no-console
+      console.log(response.config.url, response)
+      return response
+    },
+    (error) => {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      return Promise.reject(error)
+    },
+  )
+}
+
 if (REACT_APP_PROXY) {
   api.defaults.baseURL = REACT_APP_PROXY
 }

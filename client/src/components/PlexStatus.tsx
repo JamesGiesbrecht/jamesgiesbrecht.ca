@@ -41,9 +41,7 @@ const PlexStatus: FC = () => {
       .then((result) => {
         setPlexStats(result.data)
       })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error.message)
+      .catch(() => {
         setHasError(true)
       })
   }, [])

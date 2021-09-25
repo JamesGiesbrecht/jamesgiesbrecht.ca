@@ -29,9 +29,10 @@ interface Props {
   isUser: boolean
   name: string
   date: Date
-  removePost: () => void
+  onRemove: (id: string) => void
   // FIXME
   setPosts: Dispatch<any>
+  onUpdate: () => void
   className?: string
 }
 
@@ -60,7 +61,8 @@ const Post: FC<Props> = ({
   isUser,
   name,
   date,
-  removePost,
+  onRemove,
+  onUpdate,
   setPosts,
   className,
 }) => {
@@ -92,10 +94,9 @@ const Post: FC<Props> = ({
     api
       .delete(`/api/posts/${postId}`)
       .then(() => {
-        removePost()
+        onRemove(postId)
       })
-      // eslint-disable-next-line no-console
-      .catch((error) => console.log(error))
+      .catch(() => {})
       .finally(() => handleModalClose())
   }
 

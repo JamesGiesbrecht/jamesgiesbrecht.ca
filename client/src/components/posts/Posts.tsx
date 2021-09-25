@@ -42,6 +42,10 @@ const Posts: FC = () => {
     [theme.breakpoints.values.md]: 1,
   }
 
+  const handleRemovePost = (id: string) => setPosts((prev) => prev.filter((p) => p._id !== id))
+
+  const handleUpdatePost = () => {}
+
   useEffect(() => {
     if (authInitialized) {
       setIsLoading(true)
@@ -50,9 +54,7 @@ const Posts: FC = () => {
         .then((result: AxiosResponse<PostType[]>) => {
           setPosts(result.data)
         })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error)
+        .catch(() => {
           setHasError(true)
         })
         .finally(() => setIsLoading(false))
@@ -79,8 +81,9 @@ const Posts: FC = () => {
             isUser={user ? user.uid === post.uid : false}
             name={post.username}
             date={new Date(post.dateCreated)}
-            removePost={() => setPosts((prev) => prev.filter((p) => p._id !== post._id))}
+            onRemove={handleRemovePost}
             setPosts={setPosts}
+            onUpdate={handleUpdatePost}
           />
         ))}
       </Masonry>

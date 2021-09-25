@@ -156,9 +156,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setPosts((prev: any) => prev.map((p: any) => (p._id === postId ? result.data.post : p)))
       })
       // FIXME
-      .catch((error: any) => {
-        // eslint-disable-next-line no-console
-        console.log(error)
+      .catch(() => {
         notify('Error Updating Post', 'error')
       })
       .finally(() => {
@@ -180,9 +178,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setPosts((prev: any) => [result.data, ...prev])
       })
       // FIXME
-      .catch((error: any) => {
-        // eslint-disable-next-line no-console
-        console.log(error)
+      .catch(() => {
         notify('Error Submitting Post', 'error')
       })
       .finally(() => {
