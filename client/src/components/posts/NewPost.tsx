@@ -22,6 +22,7 @@ import { AxiosResponse } from 'axios'
 import { useAuth } from 'context/Auth'
 import useNotification from 'hooks/useNotification'
 import { NewPostResponse, UpdatePostResponse } from 'ts/api/types'
+import { PostType } from 'ts/app/types'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -73,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   // FIXME
   setPosts: Dispatch<any>
+  onUpdate?: (postId: string, post: PostType) => void
   isEdit?: {
     postId: string
     title: string
@@ -83,7 +85,7 @@ interface Props {
   onClose?: () => void
 }
 
-const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
+const NewPost: FC<Props> = ({ setPosts, onUpdate, isEdit, render, onClose }) => {
   const classes = useStyles()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [title, setTitle] = useState<string>(isEdit ? isEdit.title : '')
@@ -96,7 +98,7 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const notify = useNotification()
   const { api } = useAuth()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
-  const postId = isEdit ? isEdit.postId : null
+  const postId = isEdit ? isEdit.postId : ''
 
   const handleScroll = () => {
     const bottom =
@@ -152,9 +154,8 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
         setTitle('')
         setContent('')
         setIsPublic(false)
+        if (onUpdate) onUpdate(postId, result.data.post)
         notify('Post Updated', 'success')
-        // FIXME
-        setPosts((prev: any) => prev.map((p: any) => (p._id === postId ? result.data.post : p)))
       })
       // FIXME
       .catch(() => {
@@ -169,7 +170,6 @@ const NewPost: FC<Props> = ({ setPosts, isEdit, render, onClose }) => {
   const submitPost = () => {
     api
       .post('/api/posts/new', { title, content, isPublic })
-      // FIXME
       .then((result: AxiosResponse<NewPostResponse>) => {
         setTitle('')
         setContent('')

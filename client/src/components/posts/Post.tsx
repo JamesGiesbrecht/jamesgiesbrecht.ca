@@ -22,6 +22,7 @@ import Fade from 'react-reveal/Fade'
 import NewPost from 'components/posts/NewPost'
 import { useAuth } from 'context/Auth'
 import { DeletePostResponse } from 'ts/api/types'
+import { PostType } from 'ts/app/types'
 
 interface Props {
   postId: string
@@ -34,7 +35,7 @@ interface Props {
   onRemove: (id: string) => void
   // FIXME
   setPosts: Dispatch<any>
-  onUpdate: () => void
+  onUpdate: (postId: string, post: PostType) => void
   className?: string
 }
 
@@ -143,6 +144,7 @@ const Post: FC<Props> = ({
                 >
                   <NewPost
                     setPosts={setPosts}
+                    onUpdate={onUpdate}
                     isEdit={{ postId, title, content, isPublic }}
                     render={(onClick) => (
                       <MenuItem onClick={onClick}>

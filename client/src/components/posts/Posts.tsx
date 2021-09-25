@@ -45,7 +45,8 @@ const Posts: FC = () => {
 
   const handleRemovePost = (id: string) => setPosts((prev) => prev.filter((p) => p._id !== id))
 
-  const handleUpdatePost = () => {}
+  const handleUpdatePost = (postId: string, post: PostType) =>
+    setPosts((prev) => prev.map((p) => (p._id === postId ? post : p)))
 
   useEffect(() => {
     if (authInitialized) {
