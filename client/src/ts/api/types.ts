@@ -1,6 +1,6 @@
 import { PostType } from 'ts/app/types'
 
-type PostContent = {
+export type PostContent = {
   title: string
   content: string
   isPublic: boolean
@@ -8,7 +8,7 @@ type PostContent = {
 
 export type NewPostRequest = PostContent
 
-export type UpdatePostRequest = PostContent
+export type UpdatePostRequest = PostContent & { postId?: string }
 
 export type GetPostsResponse = PostType[]
 

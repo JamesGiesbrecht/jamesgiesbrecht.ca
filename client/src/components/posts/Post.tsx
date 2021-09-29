@@ -1,4 +1,4 @@
-import { Dispatch, FC, MouseEvent, useState } from 'react'
+import { FC, MouseEvent, useState } from 'react'
 import {
   Box,
   Card,
@@ -19,10 +19,9 @@ import { makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
 import Fade from 'react-reveal/Fade'
 
-import NewPost from 'components/posts/NewPost'
+import PostModal from 'components/posts/PostModal'
 import { useAuth } from 'context/Auth'
-import { DeletePostResponse } from 'ts/api/types'
-import { PostType } from 'ts/app/types'
+import { DeletePostResponse, UpdatePostRequest } from 'ts/api/types'
 
 interface Props {
   postId: string
@@ -33,9 +32,7 @@ interface Props {
   name: string
   date: Date
   onRemove: (id: string) => void
-  // FIXME
-  setPosts: Dispatch<any>
-  onUpdate: (postId: string, post: PostType) => void
+  onUpdate: (post: UpdatePostRequest) => Promise<void>
   className?: string
 }
 
@@ -66,12 +63,12 @@ const Post: FC<Props> = ({
   date,
   onRemove,
   onUpdate,
-  setPosts,
   className,
 }) => {
   const classes = useStyles()
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [updateOpen, setUpdateOpen] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const openMenu = Boolean(anchorEl)
   const { api } = useAuth()
@@ -84,9 +81,16 @@ const Post: FC<Props> = ({
 
   const handleMenuClose = () => setAnchorEl(null)
 
-  const handleModalOpen = () => setDeleteOpen(true)
+  const handleOpenUpdateModal = () => setUpdateOpen(true)
 
-  const handleModalClose = () => {
+  const handleCloseUpdateModal = () => {
+    setUpdateOpen(false)
+    handleMenuClose()
+  }
+
+  const handleOpenDeleteModal = () => setDeleteOpen(true)
+
+  const handleCloseDeleteModal = () => {
     setDeleteOpen(false)
     setIsLoading(false)
     handleMenuClose()
@@ -101,7 +105,7 @@ const Post: FC<Props> = ({
         onRemove(postId)
       })
       .catch(() => {})
-      .finally(() => handleModalClose())
+      .finally(() => handleCloseDeleteModal())
   }
 
   const deleteConfirmation = (
@@ -111,7 +115,7 @@ const Post: FC<Props> = ({
         <Button color="primary" variant="contained" onClick={deletePost}>
           {isLoading ? <CircularProgress className={classes.loader} /> : 'Delete'}
         </Button>
-        <Button color="secondary" variant="contained" onClick={handleModalClose}>
+        <Button color="secondary" variant="contained" onClick={handleCloseDeleteModal}>
           Cancel
         </Button>
       </CardActions>
@@ -142,26 +146,18 @@ const Post: FC<Props> = ({
                   open={openMenu}
                   onClose={handleMenuClose}
                 >
-                  <NewPost
-                    setPosts={setPosts}
-                    onUpdate={onUpdate}
-                    isEdit={{ postId, title, content, isPublic }}
-                    render={(onClick) => (
-                      <MenuItem onClick={onClick}>
-                        <ListItemIcon>
-                          <Edit fontSize="small" />
-                        </ListItemIcon>
-                        Edit
-                      </MenuItem>
-                    )}
-                    onClose={handleMenuClose}
-                  />
-                  <MenuItem onClick={handleModalOpen}>
+                  <MenuItem onClick={handleOpenUpdateModal}>
+                    <ListItemIcon>
+                      <Edit fontSize="small" />
+                    </ListItemIcon>
+                    Edit
+                  </MenuItem>
+                  <MenuItem onClick={handleOpenDeleteModal}>
                     <ListItemIcon>
                       <Delete fontSize="small" />
                     </ListItemIcon>
                     Delete
-                    <Modal open={deleteOpen} onClose={handleModalClose}>
+                    <Modal open={deleteOpen} onClose={handleCloseDeleteModal}>
                       {deleteConfirmation}
                     </Modal>
                   </MenuItem>
@@ -189,6 +185,12 @@ const Post: FC<Props> = ({
           <Typography>{content}</Typography>
         </CardContent>
       </Card>
+      <PostModal
+        open={updateOpen}
+        postContent={{ postId, title, content, isPublic }}
+        onSubmit={onUpdate}
+        onClose={handleCloseUpdateModal}
+      />
     </Fade>
   )
 }

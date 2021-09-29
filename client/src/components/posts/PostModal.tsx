@@ -16,7 +16,6 @@ import {
 import { makeStyles } from '@mui/styles'
 
 import { NewPostRequest, UpdatePostRequest } from 'ts/api/types'
-import { PostType } from 'ts/app/types'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -67,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   open: boolean
-  postContent?: PostType
+  postContent?: UpdatePostRequest
   onClose: () => void
   onSubmit: (post: NewPostRequest | UpdatePostRequest) => Promise<void>
 }
@@ -84,6 +83,7 @@ const NewPost: FC<Props> = ({ open, postContent, onSubmit, onClose }) => {
   const handleModalClose = () => {
     setTitleError('')
     setContentError('')
+    setIsPublic(false)
     onClose()
   }
 
@@ -110,14 +110,16 @@ const NewPost: FC<Props> = ({ open, postContent, onSubmit, onClose }) => {
     return true
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const hasTitleError = validateInputEmpty(title, setTitleError, 'Title')
     const hasContentError = validateInputEmpty(content, setContentError, 'Content')
 
     if (!hasTitleError && !hasContentError) {
       setIsSubmitting(true)
-      onSubmit({ title, content, isPublic })
+      await onSubmit({ title, content, isPublic, postId: postContent?.postId })
+      setIsSubmitting(false)
+      handleModalClose()
     }
   }
 

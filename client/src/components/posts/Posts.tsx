@@ -11,8 +11,15 @@ import Post from 'components/posts/Post'
 import PostModal from 'components/posts/PostModal'
 import InfoMessage from 'components/ui/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
-import { GetPostsResponse, NewPostRequest } from 'ts/api/types'
+import {
+  GetPostsResponse,
+  NewPostRequest,
+  NewPostResponse,
+  UpdatePostRequest,
+  UpdatePostResponse,
+} from 'ts/api/types'
 import { PostType } from 'ts/app/types'
+import useNotification from 'hooks/useNotification'
 
 const gridGutter = 15
 
@@ -52,6 +59,7 @@ const Posts: FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { api, authInitialized, user } = useContext(AuthContext)
   const isMobile = useMediaQuery(() => theme.breakpoints.down('sm'))
+  const notify = useNotification()
 
   const columnBreakpoints = {
     default: 3,
@@ -65,13 +73,31 @@ const Posts: FC = () => {
 
   const handleRemovePost = (id: string) => setPosts((prev) => prev.filter((p) => p._id !== id))
 
-  const handleUpdatePost = (postId: string, post: PostType) =>
-    setPosts((prev) => prev.map((p) => (p._id === postId ? post : p)))
+  const handleUpdatePost = ({ title, content, isPublic, postId }: UpdatePostRequest) =>
+    api
+      .put(`/api/posts/${postId}`, { title, content, isPublic })
+      .then((result: AxiosResponse<UpdatePostResponse>) => {
+        setPosts((prev) => prev.map((p) => (p._id === postId ? result.data.post : p)))
+        notify('Post Updated', 'success')
+      })
+      .catch(() => {
+        notify('Error Updating Post', 'error')
+      })
 
-  const handleSubmitNewPost = async (post: NewPostRequest) => {
-    console.log('submitting')
-    return new Promise<void>((resolve, reject) => {})
-  }
+  const handleSubmitNewPost = async (post: NewPostRequest) =>
+    api
+      .post('/api/posts/new', post)
+      .then((result: AxiosResponse<NewPostResponse>) => {
+        notify('Post Submitted', 'success')
+        setPosts((prev) => [result.data, ...prev])
+      })
+      .catch(() => {
+        notify('Error Submitting Post', 'error')
+      })
+      .finally(() => {
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
+      })
 
   useEffect(() => {
     if (authInitialized) {
@@ -109,7 +135,6 @@ const Posts: FC = () => {
             name={post.username}
             date={new Date(post.dateCreated)}
             onRemove={handleRemovePost}
-            setPosts={setPosts}
             onUpdate={handleUpdatePost}
           />
         ))}
