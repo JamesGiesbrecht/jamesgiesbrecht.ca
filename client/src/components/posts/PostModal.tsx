@@ -66,18 +66,18 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   open: boolean
-  editPost?: PostType
+  postContent?: PostType
   onClose: () => void
   onSubmit: (title: string, content: string, isPublic: boolean) => Promise<void>
 }
 
-const NewPost: FC<Props> = ({ open, editPost, onSubmit, onClose }) => {
+const NewPost: FC<Props> = ({ open, postContent, onSubmit, onClose }) => {
   const classes = useStyles()
-  const [title, setTitle] = useState<string>(editPost ? editPost.title : '')
+  const [title, setTitle] = useState<string>(postContent ? postContent.title : '')
   const [titleError, setTitleError] = useState<string>('')
-  const [content, setContent] = useState<string>(editPost ? editPost.content : '')
+  const [content, setContent] = useState<string>(postContent ? postContent.content : '')
   const [contentError, setContentError] = useState<string>('')
-  const [isPublic, setIsPublic] = useState<boolean>(editPost ? editPost.isPublic : false)
+  const [isPublic, setIsPublic] = useState<boolean>(postContent ? postContent.isPublic : false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const handleModalClose = () => {
@@ -120,13 +120,13 @@ const NewPost: FC<Props> = ({ open, editPost, onSubmit, onClose }) => {
     }
   }
 
-  const submitText = editPost ? 'Update' : 'Submit'
+  const submitText = postContent ? 'Update' : 'Submit'
 
   return (
     <Modal open={open} onClose={handleModalClose}>
       <Card raised className={classes.card}>
         <CardHeader
-          title={editPost ? 'Edit Post' : 'Make a New Post'}
+          title={postContent ? 'Edit Post' : 'Make a New Post'}
           action={
             <IconButton onClick={handleModalClose} size="large">
               <Close />
