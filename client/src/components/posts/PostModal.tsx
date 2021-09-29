@@ -15,6 +15,7 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
+import { NewPostRequest, UpdatePostRequest } from 'ts/api/types'
 import { PostType } from 'ts/app/types'
 
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +69,7 @@ interface Props {
   open: boolean
   postContent?: PostType
   onClose: () => void
-  onSubmit: (title: string, content: string, isPublic: boolean) => Promise<void>
+  onSubmit: (post: NewPostRequest | UpdatePostRequest) => Promise<void>
 }
 
 const NewPost: FC<Props> = ({ open, postContent, onSubmit, onClose }) => {
@@ -116,7 +117,7 @@ const NewPost: FC<Props> = ({ open, postContent, onSubmit, onClose }) => {
 
     if (!hasTitleError && !hasContentError) {
       setIsSubmitting(true)
-      onSubmit(title, content, isPublic)
+      onSubmit({ title, content, isPublic })
     }
   }
 

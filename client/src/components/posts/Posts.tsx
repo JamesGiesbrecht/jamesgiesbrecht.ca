@@ -1,21 +1,22 @@
 import { FC, ReactNode, useContext, useEffect, useState } from 'react'
-import { Box, Container, Typography, Theme, Link } from '@mui/material'
+import { Add } from '@mui/icons-material'
+import { Box, Container, Typography, Theme, Link, Fab, useMediaQuery } from '@mui/material'
 import { useTheme, makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
 import Masonry from 'react-masonry-css'
 import { Link as RouterLink } from 'react-router-dom'
 
 import { AuthContext } from 'context/Auth'
-import NewPost from 'components/posts/NewPost'
 import Post from 'components/posts/Post'
+import PostModal from 'components/posts/PostModal'
 import InfoMessage from 'components/ui/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
+import { GetPostsResponse, NewPostRequest } from 'ts/api/types'
 import { PostType } from 'ts/app/types'
-import { GetPostsResponse } from 'ts/api/types'
 
 const gridGutter = 15
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   posts: {
     display: 'flex',
     marginLeft: -gridGutter,
@@ -27,6 +28,19 @@ const useStyles = makeStyles(() => ({
   post: {
     marginBottom: gridGutter,
   },
+  button: {
+    [theme.breakpoints.down('sm')]: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+      zIndex: 999,
+    },
+  },
+  buttonIcon: {
+    [theme.breakpoints.up('sm')]: {
+      marginRight: theme.spacing(1),
+    },
+  },
 }))
 
 const Posts: FC = () => {
@@ -35,7 +49,9 @@ const Posts: FC = () => {
   const [posts, setPosts] = useState<PostType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { api, authInitialized, user } = useContext(AuthContext)
+  const isMobile = useMediaQuery(() => theme.breakpoints.down('sm'))
 
   const columnBreakpoints = {
     default: 3,
@@ -43,10 +59,19 @@ const Posts: FC = () => {
     [theme.breakpoints.values.md]: 1,
   }
 
+  const handleModalOpen = () => setModalOpen(true)
+
+  const handleModalClose = () => setModalOpen(false)
+
   const handleRemovePost = (id: string) => setPosts((prev) => prev.filter((p) => p._id !== id))
 
   const handleUpdatePost = (postId: string, post: PostType) =>
     setPosts((prev) => prev.map((p) => (p._id === postId ? post : p)))
+
+  const handleSubmitNewPost = async (post: NewPostRequest) => {
+    console.log('submitting')
+    return new Promise<void>((resolve, reject) => {})
+  }
 
   useEffect(() => {
     if (authInitialized) {
@@ -134,13 +159,23 @@ const Posts: FC = () => {
       >
         <Typography variant="h3">Posts</Typography>
         {user ? (
-          <NewPost setPosts={setPosts} />
+          <Fab
+            className={classes.button}
+            color="primary"
+            variant={isMobile ? 'circular' : 'extended'}
+            size={isMobile ? 'large' : 'medium'}
+            onClick={handleModalOpen}
+          >
+            <Add className={classes.buttonIcon} />
+            {!isMobile && 'New Post'}
+          </Fab>
         ) : (
           <Link component={RouterLink} to="/login">
             Login to submit a post
           </Link>
         )}
       </Box>
+      <PostModal open={modalOpen} onSubmit={handleSubmitNewPost} onClose={handleModalClose} />
       <Container>
         <WaitFor isLoading={isLoading || !authInitialized}>{content}</WaitFor>
       </Container>
