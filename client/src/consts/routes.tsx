@@ -45,7 +45,7 @@ const routes: { [name: string]: Route } = {
     path: '/account',
     nav: {
       name: 'Account',
-      icon: <HomeIcon />,
+      icon: <PersonIcon />,
     },
   },
   privacy: {
@@ -53,6 +53,14 @@ const routes: { [name: string]: Route } = {
     path: '/privacy',
   },
   home: {
+    Component: Home,
+    path: '/',
+    nav: {
+      name: 'Home',
+      icon: <HomeIcon />,
+    },
+  },
+  default: {
     Component: Home,
     path: '*',
   },
