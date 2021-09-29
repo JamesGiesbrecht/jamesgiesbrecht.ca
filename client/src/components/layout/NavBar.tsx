@@ -101,7 +101,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const { authInitialized, user, logout } = useContext(AuthContext)
   const [accountIsOpen, setAccountIsOpen] = useState(false)
   const [mobileIsOpen, setMobileIsOpen] = useState(false)
-  const [activeNav, setActiveNav] = useState<NavItem['path']>()
+  const [activeNav, setActiveNav] = useState<NavItem['path'] | false>(false)
   const [navItems, setNavItems] = useState<NavItem[]>(initialMenuItems)
   const accountRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLButtonElement>(null)
@@ -123,7 +123,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
       if (navItems.find((item) => item.path === newActiveNav)) {
         setActiveNav(newActiveNav)
       } else {
-        setActiveNav(undefined)
+        setActiveNav(false)
       }
     },
     [navItems],

@@ -55,14 +55,13 @@ const routes: { [name: string]: Route } = {
   home: {
     Component: Home,
     path: '/',
+    props: {
+      exact: true,
+    },
     nav: {
       name: 'Home',
       icon: <HomeIcon />,
     },
-  },
-  default: {
-    Component: Home,
-    path: '*',
   },
 }
 
