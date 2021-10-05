@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
-import projects from 'consts/projects'
+import projectData from 'consts/projects'
 import Project from 'components/projects/Project'
 
 const useStyles = makeStyles((theme) => ({
@@ -19,14 +19,14 @@ const useStyles = makeStyles((theme) => ({
 const Projects = () => {
   const classes = useStyles()
 
-  const projs = projects.map((proj, i) => (
-    <Project key={proj.name} project={proj} isOdd={i % 2 === 1} />
-  ))
-
   return (
     <>
       <Typography variant="h3">Projects</Typography>
-      <div className={classes.projects}>{projs}</div>
+      <div className={classes.projects}>
+        {projectData.map((proj, i) => (
+          <Project key={proj.name} project={proj} isOdd={i % 2 === 1} />
+        ))}
+      </div>
     </>
   )
 }

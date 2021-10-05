@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { Chip, Avatar } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { Tech } from 'ts/app/types'
 
 interface Props {
-  // FIXME
-  tech: any
+  tech: Tech
 }
 
 const TechChip: FC<Props> = ({ tech }) => {

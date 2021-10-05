@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, ReactNode, useState } from 'react'
 import { Close } from '@mui/icons-material'
 import {
   Card,
@@ -13,9 +13,8 @@ import { makeStyles } from '@mui/styles'
 
 interface Props {
   title: string
-  // FIXME
-  children: any
   id: string
+  children: ReactNode
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -30,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InfoMessage: FC<Props> = ({ title, children, id }) => {
+const InfoMessage: FC<Props> = ({ title, id, children }) => {
   const classes = useStyles()
   const localMessages = JSON.parse(localStorage.getItem('hiddenMessages') || '[]')
   const messageIsHidden = localMessages.includes(id)
-  const [doNotShow, setDoNotShow] = useState<Boolean>(false)
-  const [showMessage, setShowMessage] = useState<Boolean>(!messageIsHidden)
+  const [doNotShow, setDoNotShow] = useState<boolean>(false)
+  const [showMessage, setShowMessage] = useState<boolean>(!messageIsHidden)
 
-  const setLS = (hiddenMessages: Array<String>) =>
+  const setLS = (hiddenMessages: string[]) =>
     localStorage.setItem('hiddenMessages', JSON.stringify(hiddenMessages))
 
   const handleClose = () => {
@@ -48,7 +47,9 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
     }
   }
 
-  return showMessage ? (
+  if (!showMessage) return null
+
+  return (
     <Card raised className={classes.card}>
       <CardHeader
         title={title}
@@ -75,7 +76,7 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
         />
       </CardActions>
     </Card>
-  ) : null
+  )
 }
 
 export default InfoMessage
