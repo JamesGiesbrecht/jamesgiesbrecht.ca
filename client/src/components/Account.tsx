@@ -19,7 +19,7 @@ const Account: FC = () => {
         My Account
       </Typography>
       <Typography>{`Welcome to the account page ${user.displayName || user.email}.`}</Typography>
-      <Typography>More features coming soon...</Typography>
+      <Typography>More features coming soon, maybe...</Typography>
     </Container>
   )
 }

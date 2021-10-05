@@ -1,15 +1,12 @@
-import { SyntheticEvent, useState } from 'react'
+import { ReactNode, SyntheticEvent, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Snackbar, Alert, ThemeProvider, StyledEngineProvider } from '@mui/material'
+import { Snackbar, Alert, ThemeProvider, StyledEngineProvider, AlertProps } from '@mui/material'
 import { useTheme } from '@mui/styles'
 
-// FIXME
-const useNotification = (): any => {
+const useNotification = () => {
   const [open, setOpen] = useState<boolean>(false)
-  // FIXME
-  const [text, setText] = useState<any>()
-  // FIXME
-  const [severity, setSeverity] = useState<any>()
+  const [text, setText] = useState<ReactNode>()
+  const [severity, setSeverity] = useState<AlertProps['severity']>()
   const theme = useTheme()
   const notificationDiv = document.getElementById('notification')
 
@@ -32,8 +29,7 @@ const useNotification = (): any => {
 
   ReactDOM.render(notification, notificationDiv)
 
-  // FIXME
-  return (notificationText: any, notificationSeverity?: any) => {
+  return (notificationText: ReactNode, notificationSeverity?: AlertProps['severity']) => {
     setText(notificationText)
     setSeverity(notificationSeverity)
     setOpen(true)

@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react'
+import { FC, ReactNode, useContext, useState } from 'react'
 // import { Apple, GitHub, Twitter } from '@mui/icons-material'
 import { Button, Typography, Container } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -38,7 +38,7 @@ const Login: FC = () => {
     return null
   }
 
-  const getLoginButton = (onClick: () => void, icon: JSX.Element, text: String) => (
+  const getLoginButton = (onClick: () => void, icon: ReactNode, text: string) => (
     <Button onClick={onClick} variant="outlined" color="inherit" startIcon={icon}>
       {text}
     </Button>
@@ -64,6 +64,7 @@ const Login: FC = () => {
         </Typography>
         <WaitFor isLoading={isLoading}>
           {getLoginButton(handleSignInWithGoogle, <GoogleIcon />, 'Sign In with Google')}
+          {/* When adding providers update privacy policy */}
           {/* {getLoginButton(() => {}, <Apple />, 'Coming soon, maybe...')}
           {getLoginButton(() => {}, <GitHub />, 'Coming soon, maybe...')}
           {getLoginButton(() => {}, <Twitter />, 'Coming soon, maybe...')} */}
