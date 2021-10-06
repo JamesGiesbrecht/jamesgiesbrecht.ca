@@ -1,5 +1,5 @@
-const express = require('express')
-const auth = require('../../middleware/auth')
+import expres from 'express'
+import auth from '../../middleware/auth'
 
 const router = express.Router()
 const postController = require('../../controllers/post')

@@ -1,7 +1,7 @@
 /* eslint-disable security/detect-object-injection */
-const express = require('express')
+import express from 'express'
 
-const { scrapeSite } = require('../../util/scraper')
+import { scrapeSite } from '../../util/scraper'
 
 const router = express.Router()
 
@@ -65,4 +65,4 @@ router.get('/:hospital', async (req, res) => {
   return res.json(waitTimes)
 })
 
-module.exports = router
+export default router

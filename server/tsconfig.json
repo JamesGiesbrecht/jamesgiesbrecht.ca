@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "baseUrl": "./src",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
+    "baseUrl": "./src",
     "typeRoots": [ "src/ts/@types", "node_modules/@types" ],
     "sourceMap": true,
     "outDir": "./dist",

@@ -1,7 +1,8 @@
-const express = require('express')
-const path = require('path')
+import express from 'express'
+import path from 'path'
 
-const { root, public } = require('../util/path')
+// ./util/path.ts
+import { root, publicDir } from './util/path.js'
 
 const router = express.Router()
 
@@ -10,11 +11,11 @@ router.get('/projects/onesnap', (req, res) => {
 })
 
 router.get('*', (req, res) => {
-  res.sendFile(path.join(public, 'index.html'))
+  res.sendFile(path.join(publicDir, 'index.html'))
 })
 
 router.use((req, res) => {
   res.status(404).sendFile(path.join(root, 'views', '404.html'))
 })
 
-module.exports = router
+export default router

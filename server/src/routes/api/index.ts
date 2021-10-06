@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 
 const plexRoutes = require('./plex')
 const wrhaRoutes = require('./wrha')
@@ -24,4 +24,4 @@ router.use((req, res) => {
   })
 })
 
-module.exports = router
+export default router

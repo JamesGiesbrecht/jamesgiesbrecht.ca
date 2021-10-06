@@ -1,7 +1,7 @@
-const axios = require('axios')
-const cheerio = require('cheerio')
+import axios from 'axios'
+import cheerio from 'cheerio'
 
-exports.scrapeSite = async (siteUrl) => {
+export const scrapeSite = async (siteUrl) => {
   const result = await axios.get(siteUrl)
   return cheerio.load(result.data)
 }

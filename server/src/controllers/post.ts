@@ -1,6 +1,6 @@
-const Post = require('../models/post')
+import Post from '../models/post'
 
-exports.postNewPost = (req, res) => {
+export const postNewPost = (req, res) => {
   const { title, content, isPublic } = req.body
   const { uid, username } = req.user
   const newPost = new Post({
@@ -23,7 +23,7 @@ exports.postNewPost = (req, res) => {
     })
 }
 
-exports.getPosts = (req, res) => {
+export const getPosts = (req, res) => {
   console.log('Get posts')
   let query = { isPublic: true }
   if (req.user && req.user.uid) {
@@ -39,7 +39,7 @@ exports.getPosts = (req, res) => {
     })
 }
 
-exports.updatePost = (req, res) => {
+export const updatePost = (req, res) => {
   const { title, content, isPublic } = req.body
   const { postId } = req.params
 
@@ -61,7 +61,7 @@ exports.updatePost = (req, res) => {
     })
 }
 
-exports.deletePost = (req, res) => {
+export const deletePost = (req, res) => {
   const { postId } = req.params
   Post.deleteOne({ _id: postId, uid: req.user.uid })
     .then((result) => {

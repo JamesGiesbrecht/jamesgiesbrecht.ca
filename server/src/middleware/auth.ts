@@ -1,4 +1,4 @@
-const { adminAuth } = require('../firebase/config')
+import { adminAuth } from '../firebase/config'
 
 const auth = (req, res, next) => {
   try {
@@ -26,4 +26,4 @@ const auth = (req, res, next) => {
   }
 }
 
-module.exports = auth
+export default auth

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   env: {
     commonjs: true,
     es6: true,
@@ -15,10 +15,16 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
+    'import/extensions': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    "node/no-missing-import": ["error", {
+        "allowModules": [],
+        "resolvePaths": ["/src"],
+        "tryExtensions": [".js", ".ts", ".json", ".node"]
+    }],
     'object-curly-newline': ['error', { ObjectPattern: { multiline: true } }],
     semi: ['error', 'never'],
     'prettier/prettier': [
