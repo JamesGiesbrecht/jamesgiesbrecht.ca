@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "commonjs",
     "baseUrl": "./src",
+    "moduleResolution": "node",
     "typeRoots": [ "src/ts/@types", "node_modules/@types" ],
     "sourceMap": true,
     "outDir": "./dist",
@@ -11,5 +12,8 @@
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "src"
+  ]
 }
