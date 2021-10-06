@@ -9,3 +9,4 @@ webpack.txt
 /client/src/assets/full-res
 
 # server
+/server/dist
