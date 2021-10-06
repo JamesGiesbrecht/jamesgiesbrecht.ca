@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const router = express.Router()
 
-router.get('/sessions', (req, res) => {
+router.get('/sessions', (req: any, res: any) => {
   axios
     .get(`${process.env.PLEX_SERVER_URL}/status/sessions?X-Plex-Token=${process.env.PLEX_TOKEN}`, {
       headers: {
@@ -17,7 +17,7 @@ router.get('/sessions', (req, res) => {
       let expectedQuality
       let message
       if (result.data.MediaContainer && result.data.MediaContainer.Metadata) {
-        result.data.MediaContainer.Metadata.forEach((stream) => {
+        result.data.MediaContainer.Metadata.forEach((stream: any) => {
           if (stream.Player.remotePublicAddress === req.ip) reqIsWatching = true
           if (stream.Session.location === 'lan') {
             lanStreams += 1

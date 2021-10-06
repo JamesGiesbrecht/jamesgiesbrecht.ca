@@ -1,6 +1,7 @@
-import Post from '../models/post'
+// ../models/post.ts
+import Post from '../models/post.js'
 
-export const postNewPost = (req, res) => {
+export const postNewPost = (req: any, res: any) => {
   const { title, content, isPublic } = req.body
   const { uid, username } = req.user
   const newPost = new Post({
@@ -13,38 +14,38 @@ export const postNewPost = (req, res) => {
   })
   newPost
     .save()
-    .then((result) => {
+    .then((result: any) => {
       console.log('Created post', result)
       res.status(201).json(newPost)
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log('Error creating post', error)
       res.status(409).json({ message: error.message })
     })
 }
 
-export const getPosts = (req, res) => {
+export const getPosts = (req: any, res: any) => {
   console.log('Get posts')
-  let query = { isPublic: true }
+  let query: any = { isPublic: true }
   if (req.user && req.user.uid) {
     query = { $or: [{ uid: req.user.uid }, query] }
   }
   Post.find(query)
     .sort({ dateCreated: 'desc' })
     .limit(100)
-    .then((posts) => res.status(200).json(posts))
-    .catch((error) => {
+    .then((posts: any) => res.status(200).json(posts))
+    .catch((error: any) => {
       console.log(error)
       res.status(404).json({ message: error.message })
     })
 }
 
-export const updatePost = (req, res) => {
+export const updatePost = (req: any, res: any) => {
   const { title, content, isPublic } = req.body
   const { postId } = req.params
 
   Post.findOne({ _id: postId, uid: req.user.uid })
-    .then((post) => {
+    .then((post: any) => {
       /* eslint-disable no-param-reassign */
       post.title = title
       post.content = content
@@ -52,19 +53,19 @@ export const updatePost = (req, res) => {
       /* eslint-enable no-param-reassign */
       return post.save()
     })
-    .then((post) => {
+    .then((post: any) => {
       res.status(200).json({ message: 'Post updated', post })
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error)
       res.status(405).json({ message: error.message })
     })
 }
 
-export const deletePost = (req, res) => {
+export const deletePost = (req: any, res: any) => {
   const { postId } = req.params
   Post.deleteOne({ _id: postId, uid: req.user.uid })
-    .then((result) => {
+    .then((result: any) => {
       console.log(result)
       const { deletedCount } = result
       if (deletedCount === 0) {
@@ -74,7 +75,7 @@ export const deletePost = (req, res) => {
         res.status(200).json({ message: 'Post deleted', deletedCount })
       }
     })
-    .catch((error) => {
+    .catch((error: any) => {
       console.log(error)
       res.status(500).json({ message: error.message })
     })

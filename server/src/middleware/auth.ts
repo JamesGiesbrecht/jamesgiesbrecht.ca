@@ -1,18 +1,19 @@
-import { adminAuth } from '../firebase/config'
+// ../firebase/config.ts
+import { adminAuth } from '../firebase/config.js'
 
-const auth = (req, res, next) => {
+const auth = (req: any, res: any, next: any) => {
   try {
     // authenticate user on each request
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1]
       adminAuth
         .verifyIdToken(token)
-        .then((decodedToken) => {
+        .then((decodedToken: any) => {
           const { uid, email } = decodedToken
-          req.user = { uid, username: email.split('@')[0] }
+          req.user = { uid, username: email?.split('@')[0] }
           next()
         })
-        .catch((err) => {
+        .catch((err: any) => {
           console.log('Error decoding token', err)
           throw err
         })

@@ -5,12 +5,14 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 
+// ./util/path.ts
 import { publicDir } from './util/path.js'
+// ./routes/main.ts
 import mainRoutes from './routes/main.js'
+// ./routes/api/index.ts
 import apiRoutes from './routes/api/index.js'
 
-// eslint-disable-next-line no-undef
-dotenv.config({ path: path.join(__dirname, '.env') })
+dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -24,7 +26,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(publicDir))
 app.set('trust proxy', true)
-app.use((req, res, next) => {
+app.use((req: any, res: any, next: any) => {
   const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
   if (ip) req.ip = ip
   next()
@@ -34,9 +36,13 @@ app.use('/api', apiRoutes)
 app.use(mainRoutes)
 
 if (!MONGODB_URL) {
-  throw new Error('No MongoDB url provided. You must supply an environment variable MONGODB_URL with following format.\nmongodb://USER:PASSWORD@{server-uri}/{database-name}')
+  throw new Error(
+    'No MongoDB url provided. You must supply an environment variable MONGODB_URL with following format.\nmongodb://USER:PASSWORD@{server-uri}/{database-name}',
+  )
 } else if (!MONGODB_USER || !MONGODB_PASSWORD) {
-  throw new Error('Insufficient MongoDB credentials provided. Provide the username and password in MONGODB_USER and MONGODB_PASSWORD.')
+  throw new Error(
+    'Insufficient MongoDB credentials provided. Provide the username and password in MONGODB_USER and MONGODB_PASSWORD.',
+  )
 }
 const mongoDbUrl =
   MONGODB_URL.replace('USER', MONGODB_USER).replace('PASSWORD', MONGODB_PASSWORD) + MONGODB_PARAMS
@@ -45,14 +51,14 @@ const connectToMongoDb = () =>
   mongoose
     .connect(mongoDbUrl)
     .then(() => console.log('Connected to MongoDB'))
-    .catch((error) => console.error(error))
+    .catch((error: any) => console.error(error))
 
-mongoose.connection.on('disconnected', (error) => {
+mongoose.connection.on('disconnected', (error: any) => {
   console.warn('Mongoose disconnect event', error)
   connectToMongoDb()
 })
 
-mongoose.connection.on('error', (error) => {
+mongoose.connection.on('error', (error: any) => {
   console.warn('Mongoose error event', error)
   connectToMongoDb()
 })
@@ -60,3 +66,5 @@ mongoose.connection.on('error', (error) => {
 connectToMongoDb()
 console.log(`Server is live on port ${PORT}`)
 app.listen(PORT)
+
+export {}

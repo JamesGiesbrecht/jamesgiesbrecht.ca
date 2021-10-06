@@ -1,15 +1,18 @@
-import expres from 'express'
-import auth from '../../middleware/auth'
+import express from 'express'
+
+// ../../middleware/auth.ts
+import auth from '../../middleware/auth.js'
+// ../../controllers/post.ts
+import {postNewPost, deletePost, updatePost, getPosts} from '../../controllers/post.js'
 
 const router = express.Router()
-const postController = require('../../controllers/post')
 
-router.post('/new', auth, postController.postNewPost)
+router.post('/new', auth, postNewPost)
 
-router.delete('/:postId', auth, postController.deletePost)
+router.delete('/:postId', auth, deletePost)
 
-router.put('/:postId', auth, postController.updatePost)
+router.put('/:postId', auth, updatePost)
 
-router.get('/', auth, postController.getPosts)
+router.get('/', auth, getPosts)
 
-module.exports = router
+export default router

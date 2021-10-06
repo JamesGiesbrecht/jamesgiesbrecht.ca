@@ -1,7 +1,8 @@
 /* eslint-disable security/detect-object-injection */
 import express from 'express'
 
-import { scrapeSite } from '../../util/scraper'
+// ../../util/scraper.ts
+import { scrapeSite } from '../../util/scraper.js'
 
 const router = express.Router()
 
@@ -36,11 +37,13 @@ const hospitals = {
   },
 }
 
-const getMessage = (waitTimes, hospitalName) =>
+const getMessage = (waitTimes: any, hospitalName: any) =>
   `At ${hospitalName}, there are currently ${waitTimes.waiting} waiting, ${waitTimes.treating} treating, and an average wait time of ${waitTimes.wait_time} hours.`
 
-const getWaitTimes = async (hospital) => {
-  const siteUrl = `https://wrha.mb.ca/wait-times/${hospitals[hospital].url}`
+const getWaitTimes = async (hospital: any) => {
+  // @ts-ignore
+  const selectedHospital = hospitals[hospital]
+  const siteUrl = `https://wrha.mb.ca/wait-times/${selectedHospital.url}`
   const $ = await scrapeSite(siteUrl)
   let waitTime = $('.table-wait-times-data[data-label="Wait Time"]').text()
   waitTime = waitTime.substring(0, waitTime.indexOf(' '))
@@ -49,15 +52,16 @@ const getWaitTimes = async (hospital) => {
     treating: $('.table-wait-times-data[data-label="Treating"]').text(),
     wait_time: waitTime,
   }
-  const message = getMessage(waitTimes, hospitals[hospital].friendlyName)
+  const message = getMessage(waitTimes, selectedHospital.friendlyName)
   return {
     ...waitTimes,
     message,
   }
 }
 
-router.get('/:hospital', async (req, res) => {
+router.get('/:hospital', async (req: any, res: any) => {
   const hospital = req.params.hospital.toLowerCase()
+  // @ts-ignore
   if (!hospitals[hospital]) {
     return res.status(400).json({ error: 'Hospital not found' })
   }
