@@ -27,7 +27,7 @@ app.use(express.static(publicDir))
 app.set('trust proxy', true)
 app.use((req: any, res: any, next: any) => {
   const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
-  if (ip) req.ip = ip
+  if (ip) req.endUserIp = ip
   next()
 })
 
