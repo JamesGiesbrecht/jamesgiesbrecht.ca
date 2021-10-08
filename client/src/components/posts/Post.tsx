@@ -21,7 +21,7 @@ import Fade from 'react-reveal/Fade'
 
 import PostModal from 'components/posts/PostModal'
 import { useAuth } from 'context/Auth'
-import { DeletePostResponse, UpdatePostRequest } from 'ts/api/types'
+import { DeletePostResponse, UpdatePostRequest } from '../../../../@types/james-giesbrecht'
 
 interface Props {
   postId: string

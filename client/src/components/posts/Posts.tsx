@@ -11,15 +11,15 @@ import Post from 'components/posts/Post'
 import PostModal from 'components/posts/PostModal'
 import InfoMessage from 'components/ui/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
+import useNotification from 'hooks/useNotification'
 import {
   GetPostsResponse,
   NewPostRequest,
   NewPostResponse,
+  PostType,
   UpdatePostRequest,
   UpdatePostResponse,
-} from 'ts/api/types'
-import { PostType } from 'ts/app/types'
-import useNotification from 'hooks/useNotification'
+} from '../../../../@types/james-giesbrecht'
 
 const gridGutter = 15
 

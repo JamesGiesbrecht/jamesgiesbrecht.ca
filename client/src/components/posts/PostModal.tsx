@@ -15,7 +15,7 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
-import { NewPostRequest, UpdatePostRequest } from 'ts/api/types'
+import { NewPostRequest, UpdatePostRequest } from '../../../../@types/james-giesbrecht'
 
 const useStyles = makeStyles((theme) => ({
   card: {

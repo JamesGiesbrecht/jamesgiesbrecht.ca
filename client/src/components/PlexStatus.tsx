@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles'
 import axios, { AxiosResponse } from 'axios'
 
 import WaitFor from 'components/utility/WaitFor'
-import { GetPlexStatusResponse } from 'ts/api/types'
+import { GetPlexStatusResponse } from '../../../@types/james-giesbrecht'
 
 const useStyles = makeStyles((theme) => ({
   button: {

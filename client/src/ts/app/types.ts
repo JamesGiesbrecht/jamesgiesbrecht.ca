@@ -29,13 +29,3 @@ export type Project = {
   buttons: ProjectLinkButton[]
   stack: Tech[]
 }
-
-export type PostType = {
-  _id: string
-  content: string
-  dateCreated: Date
-  isPublic: boolean
-  title: string
-  uid: string
-  username: string
-}
