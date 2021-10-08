@@ -10,9 +10,6 @@ import mainRoutes from './routes/main.js'
 // ./routes/api/index.ts
 import apiRoutes from './routes/api/index.js'
 
-
-// console.log(process.env.ADMIN_SERVICE_ACCOUNT_JSON_CONFIG)
-
 const app = express()
 const PORT = process.env.PORT || 3001
 const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_URL, MONGODB_PARAMS } = process.env

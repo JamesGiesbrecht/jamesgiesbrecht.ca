@@ -24,8 +24,10 @@ RUN yarn install
 
 COPY /server .
 
+RUN yarn build
+
 COPY --from=build /app/client/build/ /app/client/build/
 
 EXPOSE 3001
 
-CMD ["node", "app.js"]
+CMD ["node", "dist/index.js"]
