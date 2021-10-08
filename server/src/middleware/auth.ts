@@ -1,19 +1,21 @@
+import { RequestHandler } from 'express'
+
 // ../firebase/config.ts
 import { adminAuth } from '../firebase/config.js'
 
-const auth = (req: any, res: any, next: any) => {
+const auth: RequestHandler = (req, res, next) => {
   try {
     // authenticate user on each request
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1]
       adminAuth
         .verifyIdToken(token)
-        .then((decodedToken: any) => {
+        .then((decodedToken) => {
           const { uid, email } = decodedToken
           req.user = { uid, username: email?.split('@')[0] }
           next()
         })
-        .catch((err: any) => {
+        .catch((err) => {
           console.log('Error decoding token', err)
           throw err
         })

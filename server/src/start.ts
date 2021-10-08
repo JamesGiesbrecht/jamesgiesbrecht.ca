@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(publicDir))
 app.set('trust proxy', true)
-app.use((req: any, res: any, next: any) => {
+app.use((req, res, next) => {
   const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
   if (ip) req.endUserIp = ip
   next()
@@ -47,14 +47,14 @@ const connectToMongoDb = () =>
   mongoose
     .connect(mongoDbUrl)
     .then(() => console.log('Connected to MongoDB'))
-    .catch((error: any) => console.error(error))
+    .catch((error) => console.error(error))
 
-mongoose.connection.on('disconnected', (error: any) => {
+mongoose.connection.on('disconnected', (error) => {
   console.warn('Mongoose disconnect event', error)
   connectToMongoDb()
 })
 
-mongoose.connection.on('error', (error: any) => {
+mongoose.connection.on('error', (error) => {
   console.warn('Mongoose error event', error)
   connectToMongoDb()
 })

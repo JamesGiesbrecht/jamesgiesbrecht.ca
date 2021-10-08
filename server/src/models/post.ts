@@ -1,8 +1,10 @@
 import mongoose from 'mongoose'
 
+import { PostType } from '../../../@types/james-giesbrecht'
+
 const { Schema } = mongoose
 
-const postSchema = new Schema({
+const postSchema = new Schema<PostType>({
   title: {
     type: String,
     required: true,

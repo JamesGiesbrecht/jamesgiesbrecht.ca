@@ -9,7 +9,7 @@ import postsRoutes from './post.js'
 
 const router = express.Router()
 
-router.get('/', (req: any, res: any) => {
+router.get('/', (req, res) => {
   res.json({
     message: 'Hello from API',
     env: process.env.NODE_ENV || 'Not set',
@@ -21,7 +21,7 @@ router.use('/posts', postsRoutes)
 router.use('/wrha', wrhaRoutes)
 router.use('/plex', plexRoutes)
 
-router.use((req: any, res: any) => {
+router.use((req, res) => {
   res.status(400).json({
     error: 'API does not exist',
   })
