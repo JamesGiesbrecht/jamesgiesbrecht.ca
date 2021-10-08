@@ -2,12 +2,13 @@ FROM node:14 as build
 
 WORKDIR /app/client
 
-COPY /client/package.json .
-COPY /client/yarn.lock .
+COPY client/package.json .
+COPY client/yarn.lock .
 
 RUN yarn install
 
-COPY /client .
+COPY @types/ /app/@types/
+COPY client/. .
 
 RUN yarn build
 
@@ -23,6 +24,7 @@ COPY /server/yarn.lock .
 RUN yarn install
 
 COPY /server .
+COPY @types/ /app/@types/
 
 RUN yarn build
 

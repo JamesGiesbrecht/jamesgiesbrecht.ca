@@ -21,11 +21,14 @@ services:
     depends_on:
       - mongodb
   client:
-    build: ./client
+    build:
+      context: ./
+      dockerfile: ./client/Dockerfile
     ports:
       - '3000:3000'
     volumes:
-      - ./client:/app
+      - ./client:/app/client
+      - ./@types:/app/@types
       - /app/node_modules
 volumes:
   data:
