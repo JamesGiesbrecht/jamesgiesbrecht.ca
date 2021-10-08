@@ -18,13 +18,13 @@ WORKDIR /app/server
 
 ENV NODE_ENV=production
 
-COPY /server/package.json .
-COPY /server/yarn.lock .
+COPY server/package.json .
+COPY server/yarn.lock .
 
 RUN yarn install
 
-COPY /server .
 COPY @types/ /app/@types/
+COPY server/ .
 
 RUN yarn build
 
