@@ -19,7 +19,7 @@ router.get('/sessions', (req, res) => {
       let expectedQuality
       let message
       if (result.data.MediaContainer && result.data.MediaContainer.Metadata) {
-        result.data.MediaContainer.Metadata.forEach((stream: any) => {
+        result.data.MediaContainer.Metadata.forEach((stream) => {
           if (stream.Player.remotePublicAddress === req.endUserIp) reqIsWatching = true
           if (stream.Session.location === 'lan') {
             lanStreams += 1
