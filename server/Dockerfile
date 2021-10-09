@@ -9,6 +9,7 @@ RUN yarn install
 
 COPY @types/ /app/@types/
 COPY server/. .
+COPY client/build/ /app/client/build/
 
 EXPOSE 3001
 
