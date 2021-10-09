@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express'
 
-// ../firebase/config.ts
-import { adminAuth } from '../firebase/config.js'
+import { adminAuth } from '../firebase/config'
 
 const auth: RequestHandler = (req, res, next) => {
   try {

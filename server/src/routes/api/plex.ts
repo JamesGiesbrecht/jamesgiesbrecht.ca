@@ -7,11 +7,14 @@ const router = express.Router()
 
 router.get('/sessions', (req, res) => {
   axios
-    .get<PlexResponse>(`${process.env.PLEX_SERVER_URL}/status/sessions?X-Plex-Token=${process.env.PLEX_TOKEN}`, {
-      headers: {
-        'Content-Type': 'application/json',
+    .get<PlexResponse>(
+      `${process.env.PLEX_SERVER_URL}/status/sessions?X-Plex-Token=${process.env.PLEX_TOKEN}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
     .then((result) => {
       let reqIsWatching = false
       let wanStreams = 0

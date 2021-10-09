@@ -1,8 +1,8 @@
+/* eslint-disable security/detect-object-injection */
 import express from 'express'
-import { WaitTime, WinnipegHospitals } from '../../ts/app/types.js'
 
-// ../../util/scraper.ts
-import { scrapeSite } from '../../util/scraper.js'
+import { WaitTime, WinnipegHospitals } from '../../ts/app/types'
+import { scrapeSite } from '../../util/scraper'
 
 const router = express.Router()
 

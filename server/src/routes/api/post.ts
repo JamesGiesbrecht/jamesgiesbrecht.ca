@@ -1,9 +1,7 @@
 import express from 'express'
 
-// ../../middleware/auth.ts
-import auth from '../../middleware/auth.js'
-// ../../controllers/post.ts
-import {postNewPost, deletePost, updatePost, getPosts} from '../../controllers/post.js'
+import { postNewPost, deletePost, updatePost, getPosts } from '../../controllers/post'
+import auth from '../../middleware/auth'
 
 const router = express.Router()
 

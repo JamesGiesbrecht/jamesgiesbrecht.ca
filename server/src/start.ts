@@ -3,12 +3,9 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 
-// ./util/path.ts
-import { root, publicDir } from './util/path.js'
-// ./routes/main.ts
-import mainRoutes from './routes/main.js'
-// ./routes/api/index.ts
-import apiRoutes from './routes/api/index.js'
+import mainRoutes from './routes/main'
+import apiRoutes from './routes/api/index'
+import { publicDir } from './util/path'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -22,7 +19,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(publicDir))
 app.set('trust proxy', true)
-app.use((req, res, next) => {
+app.use((req, _res, next) => {
   const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
   if (ip) req.endUserIp = ip
   next()
@@ -62,3 +59,14 @@ mongoose.connection.on('error', (error) => {
 connectToMongoDb()
 console.log(`Server is live on port ${PORT}`)
 app.listen(PORT)
+
+// FIXME Nodemon EADDRINUSE
+// process.on('SIGINT', () => {
+//   console.log('exiting…')
+//   process.exit()
+// })
+
+// process.on('exit', () => {
+//   console.log('exiting…')
+//   process.exit()
+// })

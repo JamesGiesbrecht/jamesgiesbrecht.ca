@@ -1,15 +1,12 @@
 import express from 'express'
 
-// ./plex.ts
-import plexRoutes from './plex.js'
-// ./wrha.ts
-import wrhaRoutes from './wrha.js'
-// ./post.ts
-import postsRoutes from './post.js'
+import plexRoutes from './plex'
+import postsRoutes from './post'
+import wrhaRoutes from './wrha'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   res.json({
     message: 'Hello from API',
     env: process.env.NODE_ENV || 'Not set',
@@ -21,7 +18,7 @@ router.use('/posts', postsRoutes)
 router.use('/wrha', wrhaRoutes)
 router.use('/plex', plexRoutes)
 
-router.use((req, res) => {
+router.use((_req, res) => {
   res.status(400).json({
     error: 'API does not exist',
   })
