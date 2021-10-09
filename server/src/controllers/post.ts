@@ -1,9 +1,12 @@
-import { RequestHandler } from 'express'
+import { Request, RequestHandler } from 'express'
+import { ParamsDictionary } from 'express-serve-static-core';
+import { Query } from 'mongoose';
 
 // ../models/post.ts
 import Post from '../models/post.js'
+import { NewPostRequest, UpdatePostRequest } from '../../../@types/james-giesbrecht/index'
 
-export const postNewPost: RequestHandler = (req, res) => {
+export const postNewPost: RequestHandler = (req: Request<{}, {}, NewPostRequest>, res) => {
   const { title, content, isPublic } = req.body
   const { uid, username } = req.user
   const newPost = new Post({
@@ -28,11 +31,12 @@ export const postNewPost: RequestHandler = (req, res) => {
 
 export const getPosts: RequestHandler = (req, res) => {
   console.log('Get posts')
-  let query: any = { isPublic: true }
+  const publicQuery = { isPublic: true }
+  let privateQuery
   if (req.user && req.user.uid) {
-    query = { $or: [{ uid: req.user.uid }, query] }
+    privateQuery = { $or: [{ uid: req.user.uid }, publicQuery] }
   }
-  Post.find(query)
+  Post.find(privateQuery || publicQuery)
     .sort({ dateCreated: 'desc' })
     .limit(100)
     .then((posts) => res.status(200).json(posts))
@@ -42,7 +46,7 @@ export const getPosts: RequestHandler = (req, res) => {
     })
 }
 
-export const updatePost: RequestHandler = (req, res) => {
+export const updatePost: RequestHandler = (req: Request<ParamsDictionary, {}, UpdatePostRequest>, res) => {
   const { title, content, isPublic } = req.body
   const { postId } = req.params
 
