@@ -1,11 +1,13 @@
 import express from 'express'
 import axios from 'axios'
 
+import { PlexResponse } from '../../ts/app/types'
+
 const router = express.Router()
 
-router.get('/sessions', (req: any, res: any) => {
+router.get('/sessions', (req, res) => {
   axios
-    .get(`${process.env.PLEX_SERVER_URL}/status/sessions?X-Plex-Token=${process.env.PLEX_TOKEN}`, {
+    .get<PlexResponse>(`${process.env.PLEX_SERVER_URL}/status/sessions?X-Plex-Token=${process.env.PLEX_TOKEN}`, {
       headers: {
         'Content-Type': 'application/json',
       },
