@@ -1,23 +1,27 @@
 module.exports = {
-  env: {
-    es6: true,
-    node: true,
-  },
-  extends: ['airbnb-base', 'plugin:node/recommended', 'plugin:security/recommended', 'prettier'],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
+  root: true,
   parser: '@typescript-eslint/parser',
+  plugins: ['security', '@typescript-eslint', 'prettier'],
   parserOptions: {
     ecmaVersion: 2018,
+    sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'prettier'],
+  ignorePatterns: ['./node_modules/*'],
+  extends: [
+    'airbnb-base',
+    'eslint:recommended',
+    'plugin:security/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'prettier',
+  ],
   rules: {
     'import/extensions': 'off',
+    'import/no-unresolved': 'off',
     'node/no-unsupported-features/es-syntax': 'off',
     'no-console': 'off',
     'no-shadow': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-shadow': 'error',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
@@ -32,12 +36,5 @@ module.exports = {
         semi: false,
       },
     ],
-  },
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    },
   },
 }
