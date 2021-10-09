@@ -1,16 +1,9 @@
-export default {
+module.exports = {
   env: {
-    commonjs: true,
     es6: true,
     node: true,
   },
-  extends: [
-    'typescript',
-    'airbnb-base',
-    'plugin:node/recommended',
-    'plugin:security/recommended',
-    'prettier',
-  ],
+  extends: ['airbnb-base', 'plugin:node/recommended', 'plugin:security/recommended', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -22,18 +15,12 @@ export default {
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'import/extensions': 'off',
+    'node/no-unsupported-features/es-syntax': 'off',
+    'no-console': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
-    // 'node/no-missing-import': [
-    //   'error',
-    //   {
-    //     allowModules: [],
-    //     resolvePaths: ['/src'],
-    //     tryExtensions: ['.js', '.ts', '.json', '.node'],
-    //   },
-    // ],
     'object-curly-newline': ['error', { ObjectPattern: { multiline: true } }],
     semi: ['error', 'never'],
     'prettier/prettier': [
@@ -45,5 +32,12 @@ export default {
         semi: false,
       },
     ],
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
 }
