@@ -16,8 +16,6 @@ FROM node:14
 
 WORKDIR /app/server
 
-ENV NODE_ENV=production
-
 COPY server/package.json .
 COPY server/yarn.lock .
 
@@ -29,6 +27,8 @@ COPY server/ .
 RUN yarn build
 
 COPY --from=build /app/client/build/ /app/client/build/
+
+ENV NODE_ENV=production
 
 EXPOSE 3001
 
