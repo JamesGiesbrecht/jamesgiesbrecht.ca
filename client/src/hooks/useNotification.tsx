@@ -1,14 +1,12 @@
-import { SyntheticEvent, useState } from 'react'
+import { ReactNode, SyntheticEvent, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Snackbar } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
-import { ThemeProvider } from '@material-ui/core/styles'
-import { useTheme } from '@material-ui/styles'
+import { Snackbar, Alert, ThemeProvider, StyledEngineProvider, AlertProps } from '@mui/material'
+import { useTheme } from '@mui/styles'
 
-const useNotification = (): any => {
+const useNotification = () => {
   const [open, setOpen] = useState<boolean>(false)
-  const [text, setText] = useState<any>()
-  const [severity, setSeverity] = useState<any>()
+  const [text, setText] = useState<ReactNode>()
+  const [severity, setSeverity] = useState<AlertProps['severity']>()
   const theme = useTheme()
   const notificationDiv = document.getElementById('notification')
 
@@ -18,18 +16,20 @@ const useNotification = (): any => {
   }
 
   const notification = (
-    <ThemeProvider theme={theme}>
-      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-        <Alert variant="filled" onClose={handleClose} severity={severity}>
-          {text}
-        </Alert>
-      </Snackbar>
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert variant="filled" onClose={handleClose} severity={severity}>
+            {text}
+          </Alert>
+        </Snackbar>
+      </ThemeProvider>
+    </StyledEngineProvider>
   )
 
   ReactDOM.render(notification, notificationDiv)
 
-  return (notificationText: any, notificationSeverity?: any) => {
+  return (notificationText: ReactNode, notificationSeverity?: AlertProps['severity']) => {
     setText(notificationText)
     setSeverity(notificationSeverity)
     setOpen(true)

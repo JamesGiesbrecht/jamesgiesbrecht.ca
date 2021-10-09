@@ -1,6 +1,7 @@
 import { FC, useContext } from 'react'
-import { Container, Typography } from '@material-ui/core'
+import { Container, Typography } from '@mui/material'
 import { useHistory } from 'react-router-dom'
+
 import { AuthContext } from 'context/Auth'
 
 const Account: FC = () => {
@@ -18,7 +19,7 @@ const Account: FC = () => {
         My Account
       </Typography>
       <Typography>{`Welcome to the account page ${user.displayName || user.email}.`}</Typography>
-      <Typography>More features coming soon...</Typography>
+      <Typography>More features coming soon, maybe...</Typography>
     </Container>
   )
 }

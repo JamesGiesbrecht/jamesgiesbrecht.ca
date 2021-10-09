@@ -1,8 +1,11 @@
 import { FC, useEffect, useState } from 'react'
-import axios from 'axios'
-import { Button, Container, Typography, makeStyles, Paper, Grid } from '@material-ui/core'
-import { ChevronRight, Theaters } from '@material-ui/icons'
+import { ChevronRight, Theaters } from '@mui/icons-material'
+import { Button, Container, Typography, Paper, Grid } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import axios, { AxiosResponse } from 'axios'
+
 import WaitFor from 'components/utility/WaitFor'
+import { GetPlexStatusResponse } from '../../../@types/james-giesbrecht'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -29,18 +32,16 @@ const useStyles = makeStyles((theme) => ({
 
 const PlexStatus: FC = () => {
   const classes = useStyles()
-  const [plexStats, setPlexStats] = useState<any>()
+  const [plexStats, setPlexStats] = useState<GetPlexStatusResponse>()
   const [hasError, setHasError] = useState<Boolean>(false)
 
   useEffect(() => {
     axios
       .get('/api/plex/sessions')
-      .then((result) => {
+      .then((result: AxiosResponse<GetPlexStatusResponse>) => {
         setPlexStats(result.data)
       })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error.message)
+      .catch(() => {
         setHasError(true)
       })
   }, [])

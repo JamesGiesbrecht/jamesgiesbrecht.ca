@@ -1,8 +1,9 @@
 import { FC } from 'react'
-import { makeStyles, IconButton, Button } from '@material-ui/core'
-import { Link as RouterLink } from 'react-router-dom'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@material-ui/icons'
+import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@mui/icons-material'
+import { IconButton, Button } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import { Link as RouterLink } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -47,7 +48,7 @@ const Footer: FC = () => {
   const resetPrompts = () => localStorage.removeItem('hiddenMessages')
 
   const icons = socialMedia.map((social) => (
-    <IconButton key={social.name} href={social.link} target="_blank">
+    <IconButton key={social.name} href={social.link} target="_blank" size="large">
       {social.icon}
     </IconButton>
   ))
@@ -55,10 +56,10 @@ const Footer: FC = () => {
   return (
     <footer className={classes.footer}>
       {icons}
-      <Button size="small" component={RouterLink} to="/privacy">
+      <Button size="small" color="inherit" component={RouterLink} to="/privacy">
         Privacy
       </Button>
-      <Button size="small" onClick={resetPrompts}>
+      <Button size="small" color="inherit" onClick={resetPrompts}>
         Reset Prompts
       </Button>
     </footer>

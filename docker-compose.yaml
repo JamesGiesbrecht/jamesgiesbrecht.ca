@@ -1,3 +1,4 @@
+# docker exec -t -i mycontainer /bin/bash
 version: "3.8"
 services:
   mongodb:
@@ -9,23 +10,35 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+    logging:
+      driver: "none"
   server:
-    build: ./server
+    build:
+      context: ./
+      dockerfile: ./server/Dockerfile
     ports:
       - '3001:3001'
     volumes:
-      - ./server:/app
+      - ./server:/app/server
+      - ./@types:/app/@types
       - /app/node_modules
     env_file:
       - ./server/.env
+    environment:
+      MONGODB_USER: root
+      MONGODB_PASSWORD: password
+      MONGODB_URL: mongodb://USER:PASSWORD@mongodb:27017/james-giesbrecht-dev
     depends_on:
       - mongodb
   client:
-    build: ./client
+    build:
+      context: ./
+      dockerfile: ./client/Dockerfile
     ports:
       - '3000:3000'
     volumes:
-      - ./client:/app
+      - ./client:/app/client
+      - ./@types:/app/@types
       - /app/node_modules
 volumes:
   data:

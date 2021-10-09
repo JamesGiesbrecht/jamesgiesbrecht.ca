@@ -1,31 +1,41 @@
-module.exports = {
+export default {
   env: {
     commonjs: true,
     es6: true,
     node: true,
   },
-  extends: ['airbnb-base', 'plugin:node/recommended', 'plugin:security/recommended', 'prettier'],
+  extends: [
+    'typescript',
+    'airbnb-base',
+    'plugin:node/recommended',
+    'plugin:security/recommended',
+    'prettier',
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2018,
   },
-  plugins: ['prettier'],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'import/extensions': 'off',
-    'no-console': 'off',
-    'no-unused-vars': 'warn',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    // 'node/no-missing-import': [
+    //   'error',
+    //   {
+    //     allowModules: [],
+    //     resolvePaths: ['/src'],
+    //     tryExtensions: ['.js', '.ts', '.json', '.node'],
+    //   },
+    // ],
     'object-curly-newline': ['error', { ObjectPattern: { multiline: true } }],
-    'node/file-extension-in-import': ['error', 'always'],
-    'node/prefer-global/buffer': ['error', 'always'],
-    'node/prefer-global/console': ['error', 'always'],
-    'node/prefer-global/process': ['error', 'always'],
-    'node/prefer-global/url-search-params': ['error', 'always'],
-    'node/prefer-global/url': ['error', 'always'],
-    'node/prefer-promises/dns': 'error',
-    semi: 'off',
+    semi: ['error', 'never'],
     'prettier/prettier': [
       'warn',
       {

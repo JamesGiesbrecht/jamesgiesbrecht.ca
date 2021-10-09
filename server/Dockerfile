@@ -1,14 +1,16 @@
 FROM node:14
 
-WORKDIR /app
+WORKDIR /app/server
 
-COPY package.json .
-COPY yarn.lock .
+COPY server/package.json .
+COPY server/yarn.lock .
 
 RUN yarn install
 
-COPY . .
+COPY @types/ /app/@types/
+COPY server/. .
+COPY client/build/ /app/client/build/
 
 EXPOSE 3001
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "dev" ]

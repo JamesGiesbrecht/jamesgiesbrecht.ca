@@ -1,11 +1,13 @@
-import { FC, useContext, useState } from 'react'
-import { Button, makeStyles, Typography, Container } from '@material-ui/core'
-// import { Apple, GitHub, Twitter } from '@material-ui/icons'
-import GoogleIcon from 'components/icons/GoogleIcon'
-import WaitFor from 'components/utility/WaitFor'
-import InfoMessage from 'components/ui/InfoMessage'
-import { AuthContext } from 'context/Auth'
+import { FC, ReactNode, useContext, useState } from 'react'
+// import { Apple, GitHub, Twitter } from '@mui/icons-material'
+import { Button, Typography, Container } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { useHistory } from 'react-router-dom'
+
+import { AuthContext } from 'context/Auth'
+import GoogleIcon from 'components/icons/GoogleIcon'
+import InfoMessage from 'components/ui/InfoMessage'
+import WaitFor from 'components/utility/WaitFor'
 
 const useStyles = makeStyles((theme) => ({
   loginButtons: {
@@ -36,8 +38,8 @@ const Login: FC = () => {
     return null
   }
 
-  const getLoginButton = (onClick: () => void, icon: JSX.Element, text: String) => (
-    <Button onClick={onClick} variant="outlined" startIcon={icon}>
+  const getLoginButton = (onClick: () => void, icon: ReactNode, text: string) => (
+    <Button onClick={onClick} variant="outlined" color="inherit" startIcon={icon}>
       {text}
     </Button>
   )
@@ -62,6 +64,7 @@ const Login: FC = () => {
         </Typography>
         <WaitFor isLoading={isLoading}>
           {getLoginButton(handleSignInWithGoogle, <GoogleIcon />, 'Sign In with Google')}
+          {/* When adding providers update privacy policy */}
           {/* {getLoginButton(() => {}, <Apple />, 'Coming soon, maybe...')}
           {getLoginButton(() => {}, <GitHub />, 'Coming soon, maybe...')}
           {getLoginButton(() => {}, <Twitter />, 'Coming soon, maybe...')} */}

@@ -1,4 +1,6 @@
-import { Container, Typography, Link, Box, makeStyles } from '@material-ui/core'
+import { FC } from 'react'
+import { Container, Typography, Link, Box } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme) => ({
   section: {
@@ -9,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Privacy = () => {
+const Privacy: FC = () => {
   const classes = useStyles()
 
   return (

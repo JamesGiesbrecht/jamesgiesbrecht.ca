@@ -1,18 +1,29 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import { Add } from '@mui/icons-material'
+import { Box, Container, Typography, Theme, Link, Fab, useMediaQuery } from '@mui/material'
+import { useTheme, makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
 import Masonry from 'react-masonry-css'
-import { Box, Container, Typography, makeStyles, Theme, Link } from '@material-ui/core'
-import Post from 'components/posts/Post'
-import NewPost from 'components/posts/NewPost'
-import WaitFor from 'components/utility/WaitFor'
-import { useTheme } from '@material-ui/styles'
-import { AuthContext } from 'context/Auth'
 import { Link as RouterLink } from 'react-router-dom'
+
+import { AuthContext } from 'context/Auth'
+import Post from 'components/posts/Post'
+import PostModal from 'components/posts/PostModal'
 import InfoMessage from 'components/ui/InfoMessage'
+import WaitFor from 'components/utility/WaitFor'
+import useNotification from 'hooks/useNotification'
+import {
+  GetPostsResponse,
+  NewPostRequest,
+  NewPostResponse,
+  PostType,
+  UpdatePostRequest,
+  UpdatePostResponse,
+} from '../../../../@types/james-giesbrecht'
 
 const gridGutter = 15
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   posts: {
     display: 'flex',
     marginLeft: -gridGutter,
@@ -24,15 +35,31 @@ const useStyles = makeStyles(() => ({
   post: {
     marginBottom: gridGutter,
   },
+  button: {
+    [theme.breakpoints.down('sm')]: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+      zIndex: 999,
+    },
+  },
+  buttonIcon: {
+    [theme.breakpoints.up('sm')]: {
+      marginRight: theme.spacing(1),
+    },
+  },
 }))
 
 const Posts: FC = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
-  const [posts, setPosts] = useState<Array<any>>([])
+  const [posts, setPosts] = useState<PostType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { api, authInitialized, user } = useContext(AuthContext)
+  const isMobile = useMediaQuery(() => theme.breakpoints.down('sm'))
+  const notify = useNotification()
 
   const columnBreakpoints = {
     default: 3,
@@ -40,17 +67,47 @@ const Posts: FC = () => {
     [theme.breakpoints.values.md]: 1,
   }
 
+  const handleModalOpen = () => setModalOpen(true)
+
+  const handleModalClose = () => setModalOpen(false)
+
+  const handleRemovePost = (id: string) => setPosts((prev) => prev.filter((p) => p._id !== id))
+
+  const handleUpdatePost = ({ title, content, isPublic, postId }: UpdatePostRequest) =>
+    api
+      .put(`/api/posts/${postId}`, { title, content, isPublic })
+      .then((result: AxiosResponse<UpdatePostResponse>) => {
+        setPosts((prev) => prev.map((p) => (p._id === postId ? result.data.post : p)))
+        notify('Post Updated', 'success')
+      })
+      .catch(() => {
+        notify('Error Updating Post', 'error')
+      })
+
+  const handleSubmitNewPost = async (post: NewPostRequest) =>
+    api
+      .post('/api/posts/new', post)
+      .then((result: AxiosResponse<NewPostResponse>) => {
+        notify('Post Submitted', 'success')
+        setPosts((prev) => [result.data, ...prev])
+      })
+      .catch(() => {
+        notify('Error Submitting Post', 'error')
+      })
+      .finally(() => {
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
+      })
+
   useEffect(() => {
     if (authInitialized) {
       setIsLoading(true)
       api
         .get('/api/posts')
-        .then((result: AxiosResponse<any>) => {
+        .then((result: AxiosResponse<GetPostsResponse>) => {
           setPosts(result.data)
         })
-        .catch((error: any) => {
-          // eslint-disable-next-line no-console
-          console.log(error)
+        .catch(() => {
           setHasError(true)
         })
         .finally(() => setIsLoading(false))
@@ -58,7 +115,6 @@ const Posts: FC = () => {
   }, [authInitialized, api])
 
   let content
-  let message: string | Array<any> = ''
 
   if (posts.length > 0) {
     content = (
@@ -78,13 +134,14 @@ const Posts: FC = () => {
             isUser={user ? user.uid === post.uid : false}
             name={post.username}
             date={new Date(post.dateCreated)}
-            removePost={() => setPosts((prev) => prev.filter((p) => p._id !== post._id))}
-            setPosts={setPosts}
+            onRemove={handleRemovePost}
+            onUpdate={handleUpdatePost}
           />
         ))}
       </Masonry>
     )
   } else {
+    let message: ReactNode = ''
     if (hasError) {
       message = 'Uh oh, something went wrong.'
     } else if (user) {
@@ -110,7 +167,7 @@ const Posts: FC = () => {
         </Typography>
         <Typography>
           This page is just meant as a demo and not to provide any production level functionality.
-          If you choose to make a post, the first part of your email will be display, everything
+          If you choose to make a post, the first part of your email will be displayed, everything
           before the "@".
         </Typography>
         <Typography>
@@ -127,13 +184,23 @@ const Posts: FC = () => {
       >
         <Typography variant="h3">Posts</Typography>
         {user ? (
-          <NewPost setPosts={setPosts} />
+          <Fab
+            className={classes.button}
+            color="primary"
+            variant={isMobile ? 'circular' : 'extended'}
+            size={isMobile ? 'large' : 'medium'}
+            onClick={handleModalOpen}
+          >
+            <Add className={classes.buttonIcon} />
+            {!isMobile && 'New Post'}
+          </Fab>
         ) : (
           <Link component={RouterLink} to="/login">
             Login to submit a post
           </Link>
         )}
       </Box>
+      <PostModal open={modalOpen} onSubmit={handleSubmitNewPost} onClose={handleModalClose} />
       <Container>
         <WaitFor isLoading={isLoading || !authInitialized}>{content}</WaitFor>
       </Container>

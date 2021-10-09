@@ -1,18 +1,14 @@
+import { CssBaseline } from '@mui/material'
+import { blue, cyan } from '@mui/material/colors'
+import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom'
+
+import routes from 'consts/routes'
 import { AuthContextProvider } from 'context/Auth'
-import { CssBaseline } from '@material-ui/core'
-import { blue } from '@material-ui/core/colors'
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import Layout from 'components/layout/Layout'
-import useColorScheme from 'hooks/useColorScheme'
-import Home from 'components/Home'
-import Login from 'components/Login'
-import Posts from 'components/posts/Posts'
-import Account from 'components/Account'
-import PlexStatus from 'components/PlexStatus'
-import Privacy from 'components/Privacy'
+import ScreenSize from 'components/ScreenSize'
 import ScrollToTop from 'components/utility/ScrollToTop'
-// import ScreenSize from 'components/ScreenSize'
+import useColorScheme from 'hooks/useColorScheme'
 
 /*
 TODO: Add bio, contact section, multiple links for code button
@@ -23,49 +19,47 @@ const App = () => {
   const [colorScheme, toggleColorScheme] = useColorScheme()
   const theme = createTheme({
     palette: {
-      type: colorScheme,
+      mode: colorScheme,
+      primary: cyan,
     },
-    overrides: {
+    components: {
       MuiLink: {
-        root: {
-          color: colorScheme === 'dark' ? blue[300] : blue[900],
+        styleOverrides: {
+          root: {
+            color: colorScheme === 'dark' ? blue[300] : blue[900],
+          },
         },
       },
     },
   })
   /* THEMING AND STYLES END */
 
+  const appRoutes = Object.keys(routes).map((routeName) => {
+    const route = routes[routeName]
+    const { Component, path, props } = route
+    return (
+      <Route key={path} path={path} {...props}>
+        <Component />
+      </Route>
+    )
+  })
+
   return (
     <BrowserRouter>
       <ScrollToTop />
       <AuthContextProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {/* <ScreenSize /> */}
-          <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
-            <Switch>
-              <Route path="/plex">
-                <PlexStatus />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/posts">
-                <Posts />
-              </Route>
-              <Route path="/account">
-                <Account />
-              </Route>
-              <Route path="/privacy">
-                <Privacy />
-              </Route>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Redirect push to="/" />
-            </Switch>
-          </Layout>
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {process.env.REACT_APP_ENV === 'development' && <ScreenSize />}
+            <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
+              <Switch>
+                {appRoutes}
+                <Redirect push to="/" />
+              </Switch>
+            </Layout>
+          </ThemeProvider>
+        </StyledEngineProvider>
       </AuthContextProvider>
     </BrowserRouter>
   )

@@ -1,20 +1,20 @@
-import { FC, useState } from 'react'
+import { FC, ReactNode, useState } from 'react'
+import { Close } from '@mui/icons-material'
 import {
   Card,
   CardHeader,
   CardContent,
   IconButton,
-  makeStyles,
   CardActions,
   FormControlLabel,
   Checkbox,
-} from '@material-ui/core'
-import { Close } from '@material-ui/icons'
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 
 interface Props {
   title: string
-  children: any
   id: string
+  children: ReactNode
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InfoMessage: FC<Props> = ({ title, children, id }) => {
+const InfoMessage: FC<Props> = ({ title, id, children }) => {
   const classes = useStyles()
   const localMessages = JSON.parse(localStorage.getItem('hiddenMessages') || '[]')
   const messageIsHidden = localMessages.includes(id)
-  const [doNotShow, setDoNotShow] = useState<Boolean>(false)
-  const [showMessage, setShowMessage] = useState<Boolean>(!messageIsHidden)
+  const [doNotShow, setDoNotShow] = useState<boolean>(false)
+  const [showMessage, setShowMessage] = useState<boolean>(!messageIsHidden)
 
-  const setLS = (hiddenMessages: Array<String>) =>
+  const setLS = (hiddenMessages: string[]) =>
     localStorage.setItem('hiddenMessages', JSON.stringify(hiddenMessages))
 
   const handleClose = () => {
@@ -47,12 +47,14 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
     }
   }
 
-  return showMessage ? (
-    <Card className={classes.card}>
+  if (!showMessage) return null
+
+  return (
+    <Card raised className={classes.card}>
       <CardHeader
         title={title}
         action={
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={handleClose} size="large">
             <Close />
           </IconButton>
         }
@@ -74,7 +76,7 @@ const InfoMessage: FC<Props> = ({ title, children, id }) => {
         />
       </CardActions>
     </Card>
-  ) : null
+  )
 }
 
 export default InfoMessage

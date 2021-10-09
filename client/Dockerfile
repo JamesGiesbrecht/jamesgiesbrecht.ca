@@ -1,13 +1,14 @@
 FROM node:14
 
-WORKDIR /app
+WORKDIR /app/client
 
-COPY package.json .
-COPY yarn.lock .
+COPY client/package.json .
+COPY client/yarn.lock .
 
 RUN yarn install
 
-COPY . .
+COPY @types/ /app/@types/
+COPY client/. .
 
 EXPOSE 3000
 

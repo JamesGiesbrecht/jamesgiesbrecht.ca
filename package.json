@@ -3,26 +3,24 @@
   "version": "1.0.0",
   "description": "jamesgiesbrecht.ca",
   "scripts": {
-    "start:docker": "docker-compose up --build ",
+    "install:client": "cd client && yarn install",
+    "install:server": "cd server && yarn install",
+    "start:client": "cd client && yarn start",
+    "start:server": "cd server && yarn dev",
+    "start": "yarn run start:server & yarn run start:client",
+    "start:docker": "docker-compose up --build",
+    "dev": "concurrently \"docker-compose up --build server mongodb\" \"yarn start:client\"",
     "stop": "docker-compose down",
     "restart": "yarn stop && yarn start:docker",
     "build:dev": "docker build -t jamesgiesbrecht/james-giesbrecht-ca:dev .",
     "build:prod": "docker build -t jamesgiesbrecht/james-giesbrecht-ca:prod .",
-    "deploy": "yarn build:docker && docker push jamesgiesbrecht/james-giesbrecht-ca",
+    "build:client": "cd client && yarn build",
+    "build:server": "cd server && yarn build",
     "deploy:local": "yarn run install:client && yarn run install:server && yarn run build && yarn run start:server:dev",
     "deploy:dev": "yarn build:dev && docker push jamesgiesbrecht/james-giesbrecht-ca:dev",
     "deploy:prod": "yarn build:prod && docker push jamesgiesbrecht/james-giesbrecht-ca:prod",
-    "install:client": "cd client && yarn install",
-    "install:server": "cd server && yarn install",
-    "install:prod:client": "cd client && yarn ci",
-    "install:prod:server": "cd server && yarn ci",
-    "start": "yarn run start:server & yarn run start:client",
-    "build": "cd client && npm run build",
-    "start:client": "cd client && yarn start",
-    "start:server": "cd server && yarn start",
-    "start:dev": "NODE_ENV=dev PORT=3002 pm2 reload james-giesbrecht-node-dev --update-env",
-    "start:prod": "pm2 reload james-giesbrecht-node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:dev": "yarn build:dev && docker run --rm --init --env-file server/.env -p 3001:3001 jamesgiesbrecht/james-giesbrecht-ca:dev"
   },
   "repository": {
     "type": "git",
@@ -33,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/JamesGiesbrecht/james-giesbrecht/issues"
   },
-  "homepage": "https://github.com/JamesGiesbrecht/james-giesbrecht#readme"
+  "homepage": "https://jamesgiesbrecht.ca",
+  "devDependencies": {
+    "concurrently": "^6.3.0"
+  }
 }

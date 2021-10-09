@@ -1,5 +1,7 @@
-import { FC } from 'react'
-import { CircularProgress, makeStyles } from '@material-ui/core'
+import { FC, ReactNode } from 'react'
+import { CircularProgress } from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles((theme) => ({
   centered: {
@@ -10,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   isLoading: boolean
-  children: any
+  children: ReactNode
 }
 
 const WaitFor: FC<Props> = ({ isLoading, children }) => {
@@ -20,7 +22,7 @@ const WaitFor: FC<Props> = ({ isLoading, children }) => {
       <CircularProgress size={100} />
     </div>
   )
-  return isLoading ? loader : children
+  return <>{isLoading ? loader : children}</>
 }
 
 export default WaitFor

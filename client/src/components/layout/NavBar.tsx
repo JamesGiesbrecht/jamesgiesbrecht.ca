@@ -9,8 +9,8 @@ import {
   useCallback,
   ReactNode,
 } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import {
+  PaletteOptions,
   Typography,
   IconButton,
   Popper,
@@ -27,22 +27,21 @@ import {
   Avatar,
   ListItemIcon,
   Button,
-} from '@material-ui/core'
+} from '@mui/material'
 import {
-  Home,
   ExitToApp,
   Menu as MenuIcon,
-  Message,
   Brightness7 as Sun,
   Brightness3 as Moon,
-  Person,
-} from '@material-ui/icons'
-import { PaletteOptions } from '@material-ui/core/styles/createPalette'
-import { AuthContext } from 'context/Auth'
+} from '@mui/icons-material'
+import { makeStyles } from '@mui/styles'
 import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
 
+import routes from 'consts/routes'
+import { AuthContext } from 'context/Auth'
+
 interface Props {
-  theme: PaletteOptions['type']
+  theme: PaletteOptions['mode']
   toggleTheme: () => void
 }
 
@@ -57,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     margin: 'auto',
+  },
+  tab: {
+    minWidth: 150,
   },
   avatar: {
     width: theme.spacing(3),
@@ -78,26 +80,28 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type NavItem = {
-  name: string
+  name?: string
   icon: ReactNode
   path?: string
 }
 
-const initialMenuItems = [
-  { name: 'Home', icon: <Home />, path: '/' },
+const { home, posts, login, account } = routes
+
+const initialMenuItems: NavItem[] = [
+  { name: home?.nav?.name, icon: home?.nav?.icon, path: home?.path },
   // { name: 'Projects', icon: <Code /> },
   // { name: 'Contact', icon: <Mail /> },
-  { name: 'Posts', icon: <Message />, path: '/posts' },
+  { name: posts?.nav?.name, icon: posts?.nav?.icon, path: posts?.path },
 ]
 
-const loginMenuItem = { name: 'Login', icon: <Person />, path: '/login' }
+const loginMenuItem: NavItem = { name: login?.nav?.name, icon: login?.nav?.icon, path: login?.path }
 
 const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
   const { authInitialized, user, logout } = useContext(AuthContext)
   const [accountIsOpen, setAccountIsOpen] = useState(false)
   const [mobileIsOpen, setMobileIsOpen] = useState(false)
-  const [activeNav, setActiveNav] = useState<any>(false)
+  const [activeNav, setActiveNav] = useState<NavItem['path'] | false>(false)
   const [navItems, setNavItems] = useState<NavItem[]>(initialMenuItems)
   const accountRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLButtonElement>(null)
@@ -110,12 +114,12 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   }, [user, authInitialized])
 
   const accountItems = [
-    { name: 'Account', icon: <Person />, path: '/account' },
+    { name: account?.nav?.name, icon: account?.nav?.icon, path: account?.path },
     { name: 'Logout', icon: <ExitToApp />, path: '/logout', cb: logout },
   ]
 
   const setActiveNavOverride = useCallback(
-    (newActiveNav: any) => {
+    (newActiveNav: NavItem['path']) => {
       if (navItems.find((item) => item.path === newActiveNav)) {
         setActiveNav(newActiveNav)
       } else {
@@ -134,34 +138,37 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const handleAccountToggle = () => setAccountIsOpen((prevOpen) => !prevOpen)
 
   const handleCloseMobile = (
-    e: MouseEvent<HTMLLIElement | Document> | MouseEvent<Element, MouseEvent>,
+    e: globalThis.MouseEvent | MouseEvent<HTMLLIElement, globalThis.MouseEvent> | TouchEvent,
   ) => {
     if (menuRef.current && menuRef.current.contains(e.target as Node)) return
     setMobileIsOpen(false)
   }
 
   const handleCloseAccount = (
-    e: MouseEvent<HTMLLIElement | Document> | MouseEvent<Element, MouseEvent>,
+    e: globalThis.MouseEvent | MouseEvent<HTMLLIElement, globalThis.MouseEvent> | TouchEvent,
   ) => {
     if (accountRef.current && accountRef.current.contains(e.target as Node)) return
     setAccountIsOpen(false)
   }
 
   const handleTabChange = (e: ChangeEvent<{}>, newValue?: string) => {
-    setActiveNavOverride(newValue)
     history.push(newValue || '')
   }
 
   const themeButton = (
-    <IconButton onClick={toggleTheme}>{theme === 'dark' ? <Sun /> : <Moon />}</IconButton>
+    <IconButton onClick={toggleTheme} size="large">
+      {theme === 'dark' ? <Sun /> : <Moon />}
+    </IconButton>
   )
 
-  const desktopNav = navItems.map((nav) => <Tab key={nav.name} label={nav.name} value={nav.path} />)
+  const desktopNav = navItems.map((nav) => (
+    <Tab key={nav.path} className={classes.tab} label={nav.name} value={nav.path} />
+  ))
 
   const mobileMenu = (
     <>
       <div className={classes.mobileNav}>
-        <IconButton onClick={handleMobileToggle} color="inherit" ref={menuRef}>
+        <IconButton onClick={handleMobileToggle} color="inherit" ref={menuRef} size="large">
           <MenuIcon />
         </IconButton>
       </div>
@@ -201,9 +208,9 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
     </>
   )
 
-  const account = user && (
+  const accountButton = user && (
     <>
-      <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef}>
+      <IconButton onClick={handleAccountToggle} color="inherit" ref={accountRef} size="large">
         {user.photoURL ? (
           <Avatar
             className={classes.avatar}
@@ -262,7 +269,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
           </Tabs>
         </div>
         {themeButton}
-        {account}
+        {accountButton}
         {mobileMenu}
       </AppBar>
     </Slide>

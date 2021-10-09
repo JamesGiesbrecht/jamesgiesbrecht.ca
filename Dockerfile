@@ -1,29 +1,35 @@
-FROM node:14
+FROM node:14 as build
 
 WORKDIR /app/client
 
-COPY /client/package.json .
-COPY /client/yarn.lock .
+COPY client/package.json .
+COPY client/yarn.lock .
 
 RUN yarn install
 
-COPY /client .
+COPY @types/ /app/@types/
+COPY client/. .
 
 RUN yarn build
 
-RUN rm -r node_modules public src
+FROM node:14
 
 WORKDIR /app/server
 
 ENV NODE_ENV=production
 
-COPY /server/package.json .
-COPY /server/yarn.lock .
+COPY server/package.json .
+COPY server/yarn.lock .
 
 RUN yarn install
 
-COPY /server .
+COPY @types/ /app/@types/
+COPY server/ .
+
+RUN yarn build
+
+COPY --from=build /app/client/build/ /app/client/build/
 
 EXPOSE 3001
 
-CMD ["node", "app.js"]
+CMD ["node", "dist/server/src/index.js"]

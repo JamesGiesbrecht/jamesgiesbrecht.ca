@@ -1,13 +1,14 @@
-import { FC } from 'react'
-import { Container, Toolbar, makeStyles } from '@material-ui/core'
-import { PaletteOptions } from '@material-ui/core/styles/createPalette'
-import NavBar from 'components/layout/NavBar'
+import { FC, ReactNode } from 'react'
+import { Container, PaletteOptions, Toolbar } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+
 import Footer from 'components/layout/Footer'
+import NavBar from 'components/layout/NavBar'
 
 interface Props {
-  theme: PaletteOptions['type']
+  theme: PaletteOptions['mode']
   toggleTheme: () => void
-  children: any
+  children: ReactNode
 }
 
 const useStyles = makeStyles((theme) => ({
