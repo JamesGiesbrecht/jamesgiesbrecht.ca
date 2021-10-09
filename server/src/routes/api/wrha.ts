@@ -1,12 +1,12 @@
-/* eslint-disable security/detect-object-injection */
 import express from 'express'
+import { WaitTime, WinnipegHospitals } from '../../ts/app/types.js'
 
 // ../../util/scraper.ts
 import { scrapeSite } from '../../util/scraper.js'
 
 const router = express.Router()
 
-const hospitals = {
+const hospitals: WinnipegHospitals = {
   grace: {
     url: 'grace-hospital',
     friendlyName: 'Grace Hospital',
@@ -37,11 +37,10 @@ const hospitals = {
   },
 }
 
-const getMessage = (waitTimes: any, hospitalName: any) =>
+const getMessage = (waitTimes: WaitTime, hospitalName: string) =>
   `At ${hospitalName}, there are currently ${waitTimes.waiting} waiting, ${waitTimes.treating} treating, and an average wait time of ${waitTimes.wait_time} hours.`
 
-const getWaitTimes = async (hospital: any) => {
-  // @ts-ignore
+const getWaitTimes = async (hospital: keyof WinnipegHospitals) => {
   const selectedHospital = hospitals[hospital]
   const siteUrl = `https://wrha.mb.ca/wait-times/${selectedHospital.url}`
   const $ = await scrapeSite(siteUrl)
@@ -59,9 +58,8 @@ const getWaitTimes = async (hospital: any) => {
   }
 }
 
-router.get('/:hospital', async (req: any, res: any) => {
-  const hospital = req.params.hospital.toLowerCase()
-  // @ts-ignore
+router.get('/:hospital', async (req, res) => {
+  const hospital = req.params.hospital.toLowerCase() as keyof WinnipegHospitals
   if (!hospitals[hospital]) {
     return res.status(400).json({ error: 'Hospital not found' })
   }
