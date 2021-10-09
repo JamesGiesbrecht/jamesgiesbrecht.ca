@@ -19,7 +19,8 @@
     "deploy:local": "yarn run install:client && yarn run install:server && yarn run build && yarn run start:server:dev",
     "deploy:dev": "yarn build:dev && docker push jamesgiesbrecht/james-giesbrecht-ca:dev",
     "deploy:prod": "yarn build:prod && docker push jamesgiesbrecht/james-giesbrecht-ca:prod",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:dev": "yarn build:dev && docker run --rm --init --env-file server/.env -p 3001:3001 jamesgiesbrecht/james-giesbrecht-ca:dev"
   },
   "repository": {
     "type": "git",
