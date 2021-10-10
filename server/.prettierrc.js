@@ -4,5 +4,6 @@ module.exports = {
   singleQuote: true,
   printWidth: 100,
   parser: 'typescript',
-  tabWidth: 2
-};
+  tabWidth: 2,
+  endOfLine: 'auto',
+}
