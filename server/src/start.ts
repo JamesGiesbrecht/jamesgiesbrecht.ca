@@ -59,14 +59,3 @@ mongoose.connection.on('error', (error) => {
 connectToMongoDb()
 console.log(`Server is live on port ${PORT}`)
 app.listen(PORT)
-
-// FIXME Nodemon EADDRINUSE
-// process.on('SIGINT', () => {
-//   console.log('exiting…')
-//   process.exit()
-// })
-
-// process.on('exit', () => {
-//   console.log('exiting…')
-//   process.exit()
-// })
