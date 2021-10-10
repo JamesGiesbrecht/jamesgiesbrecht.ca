@@ -4,3 +4,5 @@ package.json
 package-lock.json
 server/.env
 **/Dockerfile
+server/dist
+client/build
