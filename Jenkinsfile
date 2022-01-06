@@ -36,6 +36,8 @@ node {
          to: to, attachLog: true )
     }
 
+    slackSend(color: 'danger', message: "${subject} (${env.BUILD_URL})")
+
     // mark current build as a failure and throw the error
     throw e;
   }
