@@ -7,14 +7,8 @@ node {
     commit_id = readFile('.git/commit-id').trim()
   }
   stage('Docker Build and Push') {
-    dockerBuildAndPublish {
-      repositoryName('jamesgiesbrecht/james-giesbrecht-ca')
-      tag(commit_id)
-      registryCredentials('dockerhub')
-      forcePull(false)
-      forceTag(false)
-      createFingerprints(false)
-      skipDecorate()
+    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+      def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
     }
   }
 }
