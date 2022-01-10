@@ -14,10 +14,6 @@ node {
       sh "git rev-parse --short HEAD > .git/commit-id"
       commit_id = readFile('.git/commit-id').trim()
     }
-    stage('test') {
-      println('A test has failed!')
-      sh 'exit 1'
-    }
     stage('Docker Build and Push') {
       docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
         def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
@@ -36,7 +32,7 @@ node {
          to: to, attachLog: true )
     }
 
-    slackSend(color: 'danger', message: "${subject} (${env.BUILD_URL})")
+    slackSend(color: 'danger', message: "${subject} ${env.BUILD_URL}")
 
     // mark current build as a failure and throw the error
     throw e;
