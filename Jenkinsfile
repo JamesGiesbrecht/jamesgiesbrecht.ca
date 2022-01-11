@@ -1,3 +1,4 @@
+properties([pipelineTriggers([[$class: 'SCMTrigger', scmpoll_spec: 'H/1 * * * *']])])
 node {
   def commit_id
 
@@ -9,9 +10,6 @@ node {
   ])
 
   try {
-    stage('Properties') {
-      properties([pipelineTriggers([[$class: 'SCMTrigger', scmpoll_spec: 'H/1 * * * *']])])
-    }
     stage('Preparation') {
       checkout scm
       sh "git rev-parse --short HEAD > .git/commit-id"
@@ -39,7 +37,7 @@ node {
          to: to, attachLog: true )
     }
 
-    slackSend(color: 'danger', message: "${subject} ${env.BUILD_URL}")
+    // slackSend(color: 'danger', message: "${subject} ${env.BUILD_URL}")
 
     // mark current build as a failure and throw the error
     throw e;
