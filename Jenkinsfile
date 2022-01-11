@@ -9,10 +9,17 @@ node {
   ])
 
   try {
+    stage('Properties') {
+      properties([pipelineTriggers([[$class: 'SCMTrigger', scmpoll_spec: 'H/1 * * * *']])])
+    }
     stage('Preparation') {
       checkout scm
       sh "git rev-parse --short HEAD > .git/commit-id"
       commit_id = readFile('.git/commit-id').trim()
+    }
+    stage('test') {
+      println('A test has failed!')
+      sh 'exit 1'
     }
     stage('Docker Build and Push') {
       docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
