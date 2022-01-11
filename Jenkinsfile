@@ -1,4 +1,3 @@
-// properties([pipelineTriggers([[$class: 'SCMTrigger', scmpoll_spec: 'H/1 * * * *']])])
 node {
   def commit_id
   def container_name = 'james-giesbrecht-ca-dev'
@@ -34,7 +33,6 @@ node {
         sh "docker create --name='${container_name}' --net='bridge' -e TZ='America/Chicago' -e HOST_OS='Unraid' -e 'MONGODB_USER'='${MONGODB_USER}' -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' -e 'MONGODB_URL'='${MONGODB_URL}' -e 'MONGODB_PARAMS'='${MONGODB_PARAMS}' -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' -e 'PLEX_TOKEN'='${PLEX_TOKEN}' -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' -p '${UNRAID_PORT}:3001/tcp' 'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"
 
         sh "docker start ${container_name}"
-      }
       }
     }
   } catch(e) {
