@@ -1,4 +1,4 @@
-properties([pipelineTriggers([[$class: 'SCMTrigger', scmpoll_spec: 'H/1 * * * *']])])
+// properties([pipelineTriggers([[$class: 'SCMTrigger', scmpoll_spec: 'H/1 * * * *']])])
 node {
   def commit_id
 
