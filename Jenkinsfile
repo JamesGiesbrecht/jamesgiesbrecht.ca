@@ -46,7 +46,7 @@ pipeline {
           REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
           """
           sh "echo '${client_env}' > client/.env"
-          def  FILES_LIST = sh (script: "ls -IR", returnStdout: true).trim()
+          def  FILES_LIST = sh (script: "ls -a client", returnStdout: true).trim()
           //DEBUG
           echo "FILES_LIST : ${FILES_LIST}"
           //PARSING
