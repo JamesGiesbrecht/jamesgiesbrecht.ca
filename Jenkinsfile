@@ -1,11 +1,6 @@
 #!/usr/bin/env groovy
 def commit_id
 def container_name = 'james-giesbrecht-ca-dev'
-def to = emailextrecipients([
-        [$class: 'CulpritsRecipientProvider'],
-        [$class: 'DevelopersRecipientProvider'],
-        [$class: 'RequesterRecipientProvider']
-])
 
 pipeline {
   agent any
@@ -38,21 +33,6 @@ pipeline {
     stage('Docker Build and Publish') {
       steps {
         script {
-          // def client_env = """REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
-          // REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
-          // REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
-          // REACT_APP_FIREBASE_SENDER_ID='${REACT_APP_FIREBASE_SENDER_ID}' \
-          // REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
-          // REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
-          // """
-          // sh "echo '${client_env}' > client/.env"
-          // def  FILES_LIST = sh (script: "ls -a client", returnStdout: true).trim()
-          //DEBUG
-          // echo "FILES_LIST : ${FILES_LIST}"
-          //PARSING
-          // for(String ele : FILES_LIST.split("\\r?\\n")){
-          //   println ">>>${ele}<<<"
-          // }
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
             def app = docker.build(
               "jamesgiesbrecht/james-giesbrecht-ca:${commit_id}",
@@ -77,9 +57,6 @@ pipeline {
 
           sh """docker create \
                   --name='${container_name}' \
-                  --net='bridge' \
-                  -e TZ='America/Chicago' \
-                  -e HOST_OS='Unraid' \
                   -e 'MONGODB_USER'='${MONGODB_USER}' \
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
