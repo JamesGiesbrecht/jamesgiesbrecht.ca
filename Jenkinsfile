@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 def commit_id
-def container_name = 'james-giesbrecht-ca-dev2'
+def container_name = 'james-giesbrecht-ca-dev'
 
 pipeline {
   agent any
