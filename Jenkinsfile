@@ -36,15 +36,15 @@ node {
       //   sh 'exit 1'
       // }
       stage('Docker Build and Push') {
-        withEnv([
-          "REACT_APP_FIREBASE_API_KEY=${REACT_APP_FIREBASE_API_KEY}",
-          "REACT_APP_AUTH_DOMAIN=${REACT_APP_AUTH_DOMAIN}",
-          "REACT_APP_FIREBASE_PROJECT_ID=${REACT_APP_FIREBASE_PROJECT_ID}",
-          "REACT_APP_FIREBASE_SENDER_ID=${REACT_APP_FIREBASE_SENDER_ID}",
-          "REACT_APP_FIREBASE_APP_ID=${REACT_APP_FIREBASE_APP_ID}",
-          "REACT_APP_FIREBASE_MEASUREMENT_ID=${REACT_APP_FIREBASE_MEASUREMENT_ID}"
-        ]) {
-          docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+        docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+          withEnv([
+            "REACT_APP_FIREBASE_API_KEY=${REACT_APP_FIREBASE_API_KEY}",
+            "REACT_APP_AUTH_DOMAIN=${REACT_APP_AUTH_DOMAIN}",
+            "REACT_APP_FIREBASE_PROJECT_ID=${REACT_APP_FIREBASE_PROJECT_ID}",
+            "REACT_APP_FIREBASE_SENDER_ID=${REACT_APP_FIREBASE_SENDER_ID}",
+            "REACT_APP_FIREBASE_APP_ID=${REACT_APP_FIREBASE_APP_ID}",
+            "REACT_APP_FIREBASE_MEASUREMENT_ID=${REACT_APP_FIREBASE_MEASUREMENT_ID}"
+          ]) {
             def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
           }
         }
