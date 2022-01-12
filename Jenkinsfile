@@ -54,7 +54,16 @@ pipeline {
           //   println ">>>${ele}<<<"
           // }
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-            def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}", "-e REACT_APP_FIREBASE_API_KEY -e REACT_APP_AUTH_DOMAIN -e REACT_APP_FIREBASE_PROJECT_ID -e REACT_APP_FIREBASE_SENDER_ID -e REACT_APP_FIREBASE_APP_ID -e REACT_APP_FIREBASE_MEASUREMENT_ID").push()
+            def app = docker.build(
+              """jamesgiesbrecht/james-giesbrecht-ca:${commit_id}",
+              "--build-arg \
+              REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
+              REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
+              REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
+              REACT_APP_FIREBASE_SENDER_ID='${REACT_APP_FIREBASE_SENDER_ID}' \
+              REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
+              REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}'"""
+            ).push()
           }
         }
       }
