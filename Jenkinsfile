@@ -45,11 +45,11 @@ pipeline {
           REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
           REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
           """
-          sh "echo '${client_env}' > client/.env"
-          sh "echo ls"
-          sh "cd client"
-          sh "echo ls"
-          sh "cd client; ls > listFiles"
+          // sh "echo '${client_env}' > client/.env"
+          // sh "echo ls"
+          // sh "cd client"
+          // sh "echo ls"
+          sh "ls -IR > listFiles"
           def files = readFile( "listFiles" ).split( "\\r?\\n" );
           sh "rm -f listFiles"
           // docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
