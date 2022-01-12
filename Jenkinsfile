@@ -45,13 +45,14 @@ pipeline {
           REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
           REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
           """
-          // sh "echo '${client_env}' > client/.env"
-          // sh "echo ls"
-          // sh "cd client"
-          // sh "echo ls"
-          sh "ls -IR > listFiles"
-          def files = readFile( "listFiles" ).split( "\\r?\\n" );
-          sh "rm -f listFiles"
+          sh "echo '${client_env}' > client/.env"
+          def  FILES_LIST = sh (script: "ls -IR  '${workers_dir}'", returnStdout: true).trim()
+          //DEBUG
+          echo "FILES_LIST : ${FILES_LIST}"
+          //PARSING
+          for(String ele : FILES_LIST.split("\\r?\\n")){
+            println ">>>${ele}<<<"
+          }
           // docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
           //   def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
           // }
