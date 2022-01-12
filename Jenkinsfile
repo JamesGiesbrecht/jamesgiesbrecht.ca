@@ -51,8 +51,8 @@ node {
       }
       stage('Docker Deploy') {
         // Don't exit if the container does not exist
-        sh """if [ ! "$(docker ps -q -f name=${container_name})" ]; then \
-                if [ "$(docker ps -aq -f status=exited -f name=${container_name})" ]; then \
+        sh """if [ ! "\$(docker ps -q -f name=${container_name})" ]; then \
+                if [ "\$(docker ps -aq -f status=exited -f name=${container_name})" ]; then \
                     docker stop ${container_name} \
                     docker rm ${container_name} \
                 fi \
