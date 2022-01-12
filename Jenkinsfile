@@ -37,7 +37,7 @@ pipeline {
     }
     stage('Docker Build and Publish') {
       steps {
-        script mylabel:{
+        script {
           def client_env = """REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
           REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
           REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
@@ -55,9 +55,9 @@ pipeline {
         }
       }
     }
-    stage('Docker Deploy') {
-      steps {
-        script {
+    // stage('Docker Deploy') {
+    //   steps {
+    //     script {
           // sh "docker stop ${container_name} || true"
 
           // sh "docker rm ${container_name} || true"
@@ -78,8 +78,8 @@ pipeline {
           //         'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
 
           // sh "docker start ${container_name}"
-        }
-      }
-    }
+        // }
+    //   }
+    // }
   }
 }
