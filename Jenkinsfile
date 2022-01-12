@@ -38,14 +38,14 @@ pipeline {
     stage('Docker Build and Publish') {
       steps {
         script {
-          def client_env = """REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
-          REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
-          REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
-          REACT_APP_FIREBASE_SENDER_ID='${REACT_APP_FIREBASE_SENDER_ID}' \
-          REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
-          REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
-          """
-          sh "echo '${client_env}' > client/.env"
+          // def client_env = """REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
+          // REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
+          // REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
+          // REACT_APP_FIREBASE_SENDER_ID='${REACT_APP_FIREBASE_SENDER_ID}' \
+          // REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
+          // REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
+          // """
+          // sh "echo '${client_env}' > client/.env"
           // def  FILES_LIST = sh (script: "ls -a client", returnStdout: true).trim()
           //DEBUG
           // echo "FILES_LIST : ${FILES_LIST}"
@@ -54,7 +54,7 @@ pipeline {
           //   println ">>>${ele}<<<"
           // }
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-            def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
+            def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}", "-e REACT_APP_FIREBASE_API_KEY -e REACT_APP_AUTH_DOMAIN -e REACT_APP_FIREBASE_PROJECT_ID -e REACT_APP_FIREBASE_SENDER_ID -e REACT_APP_FIREBASE_APP_ID -e REACT_APP_FIREBASE_MEASUREMENT_ID").push()
           }
         }
       }
