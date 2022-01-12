@@ -12,12 +12,12 @@ pipeline {
   environment {
       MONGODB_USER                      = credentials('MONGODB_USER')
       MONGODB_PASSWORD                  = credentials('MONGODB_PASSWORD')
-      MONGODB_URL_DEV                   = credentials('MONGODB_URL')
+      MONGODB_URL                       = credentials('MONGODB_URL_DEV')
       MONGODB_PARAMS                    = credentials('MONGODB_PARAMS')
-      PLEX_SERVER_URL_LOCAL             = credentials('PLEX_SERVER_URL')
+      PLEX_SERVER_URL                   = credentials('PLEX_SERVER_URL_LOCAL')
       PLEX_TOKEN                        = credentials('PLEX_TOKEN')
       ADMIN_SERVICE_ACCOUNT_JSON_CONFIG = credentials('ADMIN_SERVICE_ACCOUNT_JSON_CONFIG')
-      UNRAID_PORT_DEV                   = credentials('UNRAID_PORT')
+      UNRAID_PORT                       = credentials('UNRAID_PORT_DEV')
       REACT_APP_FIREBASE_API_KEY        = credentials('REACT_APP_FIREBASE_API_KEY')
       REACT_APP_AUTH_DOMAIN             = credentials('REACT_APP_AUTH_DOMAIN')
       REACT_APP_FIREBASE_PROJECT_ID     = credentials('REACT_APP_FIREBASE_PROJECT_ID')
@@ -72,7 +72,7 @@ pipeline {
                   -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
                   -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
-                  -p '${UNRAID_PORT}':3001/tcp \
+                  -p '${UNRAID_PORT}:3001/tcp' \
                   'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
 
           sh "docker start ${container_name}"
