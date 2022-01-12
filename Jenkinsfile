@@ -31,8 +31,8 @@ pipeline {
         checkout scm
         script {
           sh "git rev-parse --short HEAD > .git/commit-id"
+          commit_id = readFile('.git/commit-id').trim()
         }
-        commit_id = readFile('.git/commit-id').trim()
       }
     }
     stage('Docker Build and Publish') {
