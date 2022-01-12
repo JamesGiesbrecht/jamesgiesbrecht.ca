@@ -49,6 +49,9 @@ pipeline {
           sh "echo ls"
           sh "cd client"
           sh "echo ls"
+          sh "cd client; ls > listFiles"
+          def files = readFile( "listFiles" ).split( "\\r?\\n" );
+          sh "rm -f listFiles"
           // docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
           //   def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
           // }
