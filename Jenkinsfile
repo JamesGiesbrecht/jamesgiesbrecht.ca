@@ -48,17 +48,17 @@ pipeline {
       steps {
         script {
           // Don't exit if the container does not exist
-          sh """if [ ! "\$(docker ps -q -f name=${container_name})" ]; then
-                  echo "Container 1"
-                  if [ "\$(docker ps -aq -f status=exited -f name=${container_name})" ]; then
-                      echo "Container 2"
-                      docker stop ${container_name}
-                      docker rm ${container_name}
-                  fi
-                fi"""
-          // sh "docker stop ${container_name} || true"
+          // sh """if [ ! "\$(docker ps -q -f name=${container_name})" ]; then
+          //         echo "Container 1"
+          //         if [ "\$(docker ps -aq -f status=exited -f name=${container_name})" ]; then
+          //             echo "Container 2"
+          //             docker stop ${container_name}
+          //             docker rm ${container_name}
+          //         fi
+          //       fi"""
+          sh "docker stop ${container_name} || true"
 
-          // sh "docker rm ${container_name} || true"
+          sh "docker rm ${container_name} || true"
 
           sh """docker create \
                   --name='${container_name}' \
