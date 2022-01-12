@@ -46,44 +46,38 @@ pipeline {
           REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
           """
           sh "echo '${client_env}' > client/.env"
-          docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-            def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
-          }
+          sh "echo ls"
+          sh "cd client"
+          sh "echo ls"
+          // docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+          //   def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
+          // }
         }
       }
     }
     stage('Docker Deploy') {
       steps {
         script {
-          // Don't exit if the container does not exist
-          // sh """if [ ! "\$(docker ps -q -f name=${container_name})" ]; then
-          //         echo "Container 1"
-          //         if [ "\$(docker ps -aq -f status=exited -f name=${container_name})" ]; then
-          //             echo "Container 2"
-          //             docker stop ${container_name}
-          //             docker rm ${container_name}
-          //         fi
-          //       fi"""
-          sh "docker stop ${container_name} || true"
+          // sh "docker stop ${container_name} || true"
 
-          sh "docker rm ${container_name} || true"
+          // sh "docker rm ${container_name} || true"
 
-          sh """docker create \
-                  --name='${container_name}' \
-                  --net='bridge' \
-                  -e TZ='America/Chicago' \
-                  -e HOST_OS='Unraid' \
-                  -e 'MONGODB_USER'='${MONGODB_USER}' \
-                  -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
-                  -e 'MONGODB_URL'='${MONGODB_URL}' \
-                  -e 'MONGODB_PARAMS'='${MONGODB_PARAMS}' \
-                  -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
-                  -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
-                  -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
-                  -p '${UNRAID_PORT}:3001/tcp' \
-                  'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
+          // sh """docker create \
+          //         --name='${container_name}' \
+          //         --net='bridge' \
+          //         -e TZ='America/Chicago' \
+          //         -e HOST_OS='Unraid' \
+          //         -e 'MONGODB_USER'='${MONGODB_USER}' \
+          //         -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
+          //         -e 'MONGODB_URL'='${MONGODB_URL}' \
+          //         -e 'MONGODB_PARAMS'='${MONGODB_PARAMS}' \
+          //         -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
+          //         -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
+          //         -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
+          //         -p '${UNRAID_PORT}:3001/tcp' \
+          //         'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
 
-          sh "docker start ${container_name}"
+          // sh "docker start ${container_name}"
         }
       }
     }
