@@ -37,8 +37,8 @@ pipeline {
     }
     stage('Docker Build and Publish') {
       steps {
-        docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-          script {
+        script {
+          docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
             def app = docker.build("--no-cache", "-t jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
           }
         }
