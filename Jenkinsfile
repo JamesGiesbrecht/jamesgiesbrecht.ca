@@ -1,10 +1,17 @@
 #!/usr/bin/env groovy
 def commit_id
-def container_name = 'james-giesbrecht-ca-dev'
 
 pipeline {
   agent any
+  parameters {
+    choice(
+      choices: ['dev', 'prod'],
+      description: '',
+      name: 'DEPLOY_ENV'
+    )
+  }
   environment {
+      CONTAINER_NAME                    = 'james-giesbrecht-ca-dev'
       MONGODB_USER                      = credentials('MONGODB_USER')
       MONGODB_PASSWORD                  = credentials('MONGODB_PASSWORD')
       MONGODB_URL                       = credentials('MONGODB_URL_DEV')
@@ -48,15 +55,27 @@ pipeline {
         }
       }
     }
-    stage('Docker Deploy') {
+    stage('Production Deploy') {
+      when {
+        allOf {
+            branch 'master'
+            environment name: 'DEPLOY_ENV', value: 'prod'
+        }
+      }
+      environment {
+        UNRAID_PORT = credentials('UNRAID_PORT_DEV')
+        MONGODB_URL_PROD = credentials('MONGODB_URL_PROD')
+        CONTAINER_NAME = 'james-giesbrecht-ca-prod'
+      }
       steps {
         script {
-          sh "docker stop ${container_name} || true"
+          echo 'Deploying to production...'
+          sh "docker stop ${CONTAINER_NAME} || true"
 
-          sh "docker rm ${container_name} || true"
+          sh "docker rm ${CONTAINER_NAME} || true"
 
           sh """docker create \
-                  --name='${container_name}' \
+                  --name='${CONTAINER_NAME}' \
                   -e 'MONGODB_USER'='${MONGODB_USER}' \
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
@@ -67,7 +86,35 @@ pipeline {
                   -p '${UNRAID_PORT}:3001/tcp' \
                   'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
 
-          sh "docker start ${container_name}"
+          sh "docker start ${CONTAINER_NAME}"
+        }
+      }
+    }
+    stage('Development Deploy') {
+      when {
+        allOf {
+            environment name: 'DEPLOY_ENV', value: 'dev'
+        }
+      }
+      steps {
+        script {
+          sh "docker stop ${CONTAINER_NAME} || true"
+
+          sh "docker rm ${CONTAINER_NAME} || true"
+
+          sh """docker create \
+                  --name='${CONTAINER_NAME}' \
+                  -e 'MONGODB_USER'='${MONGODB_USER}' \
+                  -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
+                  -e 'MONGODB_URL'='${MONGODB_URL}' \
+                  -e 'MONGODB_PARAMS'='${MONGODB_PARAMS}' \
+                  -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
+                  -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
+                  -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
+                  -p '${UNRAID_PORT}:3001/tcp' \
+                  'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
+
+          sh "docker start ${CONTAINER_NAME}"
         }
       }
     }
