@@ -6,8 +6,13 @@ pipeline {
   parameters {
     choice(
       choices: ['dev', 'prod'],
-      description: '',
+      description: 'Prod will not deploy if branch is not master',
       name: 'DEPLOY_ENV'
+    )
+    string(
+      defaultValue: 'dev',
+      description: 'Branch to build from',
+      name: 'BRANCH'
     )
   }
   environment {
