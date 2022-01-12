@@ -10,19 +10,19 @@ def to = emailextrecipients([
 pipeline {
   agent any
   environment {
-      MONGODB_USER                      = credentials('MONGODB_USER'),
-      MONGODB_PASSWORD                  = credentials('MONGODB_PASSWORD'),
-      MONGODB_URL_DEV                   = credentials('MONGODB_URL'),
-      MONGODB_PARAMS                    = credentials('MONGODB_PARAMS'),
-      PLEX_SERVER_URL_LOCAL             = credentials('PLEX_SERVER_URL'),
-      PLEX_TOKEN                        = credentials('PLEX_TOKEN'),
-      ADMIN_SERVICE_ACCOUNT_JSON_CONFIG = credentials('ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'),
-      UNRAID_PORT_DEV                   = credentials('UNRAID_PORT'),
-      REACT_APP_FIREBASE_API_KEY        = credentials('REACT_APP_FIREBASE_API_KEY'),
-      REACT_APP_AUTH_DOMAIN             = credentials('REACT_APP_AUTH_DOMAIN'),
-      REACT_APP_FIREBASE_PROJECT_ID     = credentials('REACT_APP_FIREBASE_PROJECT_ID'),
-      REACT_APP_FIREBASE_SENDER_ID      = credentials('REACT_APP_FIREBASE_SENDER_ID'),
-      REACT_APP_FIREBASE_APP_ID         = credentials('REACT_APP_FIREBASE_APP_ID'),
+      MONGODB_USER                      = credentials('MONGODB_USER')
+      MONGODB_PASSWORD                  = credentials('MONGODB_PASSWORD')
+      MONGODB_URL_DEV                   = credentials('MONGODB_URL')
+      MONGODB_PARAMS                    = credentials('MONGODB_PARAMS')
+      PLEX_SERVER_URL_LOCAL             = credentials('PLEX_SERVER_URL')
+      PLEX_TOKEN                        = credentials('PLEX_TOKEN')
+      ADMIN_SERVICE_ACCOUNT_JSON_CONFIG = credentials('ADMIN_SERVICE_ACCOUNT_JSON_CONFIG')
+      UNRAID_PORT_DEV                   = credentials('UNRAID_PORT')
+      REACT_APP_FIREBASE_API_KEY        = credentials('REACT_APP_FIREBASE_API_KEY')
+      REACT_APP_AUTH_DOMAIN             = credentials('REACT_APP_AUTH_DOMAIN')
+      REACT_APP_FIREBASE_PROJECT_ID     = credentials('REACT_APP_FIREBASE_PROJECT_ID')
+      REACT_APP_FIREBASE_SENDER_ID      = credentials('REACT_APP_FIREBASE_SENDER_ID')
+      REACT_APP_FIREBASE_APP_ID         = credentials('REACT_APP_FIREBASE_APP_ID')
       REACT_APP_FIREBASE_MEASUREMENT_ID = credentials('REACT_APP_FIREBASE_MEASUREMENT_ID')
   }
   stages {
