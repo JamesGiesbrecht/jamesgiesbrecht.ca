@@ -37,7 +37,7 @@ pipeline {
     }
     stage('Docker Build and Publish') {
       steps {
-        script {
+        script mylabel:{
           def client_env = """REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
           REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
           REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
