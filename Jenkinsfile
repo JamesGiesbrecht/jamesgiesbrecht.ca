@@ -55,13 +55,14 @@ pipeline {
           // }
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
             def app = docker.build(
-              "-t jamesgiesbrecht/james-giesbrecht-ca:${commit_id}",
+              "jamesgiesbrecht/james-giesbrecht-ca:${commit_id}",
               """--build-arg REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
               --build-arg REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
               --build-arg REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
               --build-arg REACT_APP_FIREBASE_SENDER_ID='${REACT_APP_FIREBASE_SENDER_ID}' \
               --build-arg REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
-              --build-arg REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}'"""
+              --build-arg REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
+              -f Dockerfile ."""
             ).push()
           }
         }
