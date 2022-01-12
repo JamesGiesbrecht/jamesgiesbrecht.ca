@@ -45,7 +45,7 @@ node {
           "REACT_APP_FIREBASE_MEASUREMENT_ID=${REACT_APP_FIREBASE_MEASUREMENT_ID}"
         ]) {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
-            def app = docker.build("jamesgiesbrecht/james-giesbrecht-ca:${commit_id}", "--no-cache").push()
+            def app = docker.build("--no-cache", "-t jamesgiesbrecht/james-giesbrecht-ca:${commit_id}").push()
           }
         }
       }
