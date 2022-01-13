@@ -4,9 +4,9 @@ def commit_id
 pipeline {
   agent any
   parameters {
-    choice(
-      choices: ['dev', 'prod'],
-      description: 'Prod will not deploy if branch is not master',
+    string(
+      defaultValue: 'dev',
+      description: 'dev OR prod. Prod will not deploy if branch is not master',
       name: 'DEPLOY_ENV'
     )
     string(
