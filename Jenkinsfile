@@ -76,13 +76,15 @@ pipeline {
       steps {
         script {
           echo 'Deploying to production...'
-          echo "${MONGODB_URL_PROD} ${UNRAID_PORT} ${CONTAINER_NAME}"
+
           sh "docker stop ${CONTAINER_NAME} || true"
 
           sh "docker rm ${CONTAINER_NAME} || true"
 
-          sh """docker create \
+          sh """docker run \
+                  -d \
                   --name='${CONTAINER_NAME}' \
+                  --net='bridge' \
                   -e 'MONGODB_USER'='${MONGODB_USER}' \
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
@@ -92,8 +94,6 @@ pipeline {
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
                   -p '${UNRAID_PORT}:3001/tcp' \
                   'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
-
-          sh "docker start ${CONTAINER_NAME}"
         }
       }
     }
@@ -109,9 +109,10 @@ pipeline {
 
           sh "docker rm ${CONTAINER_NAME} || true"
 
-          sh """docker create \
+          sh """docker run \
+                  -d \
                   --name='${CONTAINER_NAME}' \
-                  --network='bridge' \
+                  --net='bridge' \
                   -e 'MONGODB_USER'='${MONGODB_USER}' \
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
@@ -121,8 +122,6 @@ pipeline {
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
                   -p '${UNRAID_PORT}:3001/tcp' \
                   'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
-
-          sh "docker start ${CONTAINER_NAME}"
         }
       }
     }
