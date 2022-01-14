@@ -111,6 +111,7 @@ pipeline {
 
           sh """docker create \
                   --name='${CONTAINER_NAME}' \
+                  --network='bridge' \
                   -e 'MONGODB_USER'='${MONGODB_USER}' \
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
