@@ -15,6 +15,7 @@ TODO: Add bio, contact section, multiple links for code button
 */
 
 const App = () => {
+  console.log('Testing in prod... 🤭')
   /* THEMING AND STYLES START */
   const [colorScheme, toggleColorScheme] = useColorScheme()
   const theme = createTheme({
