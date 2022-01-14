@@ -4,10 +4,10 @@ def commit_id
 pipeline {
   agent any
   parameters {
-    string(
-      defaultValue: 'dev',
+    choice(
+      name: 'DEPLOY_ENV',
       description: 'dev OR prod. Prod will not deploy if branch is not master',
-      name: 'DEPLOY_ENV'
+      choices: ['dev', 'prod'],
     )
     string(
       defaultValue: 'dev',
@@ -76,6 +76,7 @@ pipeline {
       steps {
         script {
           echo 'Deploying to production...'
+          echo "${MONGODB_URL_PROD} ${UNRAID_PORT} ${CONTAINER_NAME}"
           sh "docker stop ${CONTAINER_NAME} || true"
 
           sh "docker rm ${CONTAINER_NAME} || true"
