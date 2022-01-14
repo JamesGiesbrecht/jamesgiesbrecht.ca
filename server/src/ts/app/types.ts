@@ -1,19 +1,21 @@
 export type PlexResponse = {
   MediaContainer?: {
-    Metadata?: [{
+    Metadata?: [
+      {
         Player: {
           remotePublicAddress: string
-        },
+        }
         Session: {
           location: string
         }
-    }]
+      },
+    ]
   }
 }
 
 type Hospital = {
-  url: string,
-  friendlyName: string,
+  url: string
+  friendlyName: string
 }
 
 export type WinnipegHospitals = {
@@ -29,5 +31,6 @@ export type WinnipegHospitals = {
 export type WaitTime = {
   waiting: string
   treating: string
+  // eslint-disable-next-line camelcase
   wait_time: string
 }

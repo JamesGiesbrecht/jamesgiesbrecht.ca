@@ -1,12 +1,14 @@
 import { Request, RequestHandler } from 'express'
-import { ParamsDictionary } from 'express-serve-static-core';
-import { Query } from 'mongoose';
+import { ParamsDictionary } from 'express-serve-static-core'
 
 // ../models/post.ts
 import Post from '../models/post.js'
 import { NewPostRequest, UpdatePostRequest } from '../../../@types/james-giesbrecht/index'
 
-export const postNewPost: RequestHandler = (req: Request<{}, {}, NewPostRequest>, res) => {
+export const postNewPost: RequestHandler = (
+  req: Request<unknown, unknown, NewPostRequest>,
+  res,
+) => {
   const { title, content, isPublic } = req.body
   const { uid, username } = req.user
   const newPost = new Post({
@@ -46,7 +48,10 @@ export const getPosts: RequestHandler = (req, res) => {
     })
 }
 
-export const updatePost: RequestHandler = (req: Request<ParamsDictionary, {}, UpdatePostRequest>, res) => {
+export const updatePost: RequestHandler = (
+  req: Request<ParamsDictionary, never, UpdatePostRequest>,
+  res,
+) => {
   const { title, content, isPublic } = req.body
   const { postId } = req.params
 
