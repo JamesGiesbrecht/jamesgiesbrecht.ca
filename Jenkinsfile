@@ -57,13 +57,14 @@ pipeline {
               -f Dockerfile ."""
             ).push()
           }
+          echo "Attempting to deploy branch ${BRANCH} to ${DEPLOY_ENV}"
         }
       }
     }
     stage('Production Deploy') {
       when {
         allOf {
-            branch 'master'
+            environment name: 'BRANCH', value: 'master'
             environment name: 'DEPLOY_ENV', value: 'prod'
         }
       }
