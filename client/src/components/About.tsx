@@ -39,7 +39,7 @@ const About = () => {
       <img className={classes.picture} src={james} alt="James Giesbrecht" />
       <Typography variant="h3" align="center">
         {"Hi, I'm "}
-        <span className={classes.name}>Auto Deploy Test</span>.
+        <span className={classes.name}>Auto Deploy Test 2</span>.
       </Typography>
     </div>
   )

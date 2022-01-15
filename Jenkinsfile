@@ -105,6 +105,8 @@ pipeline {
       }
       steps {
         script {
+          echo 'Deploying to dev...'
+
           sh "docker stop ${CONTAINER_NAME} || true"
 
           sh "docker rm ${CONTAINER_NAME} || true"
