@@ -69,7 +69,7 @@ pipeline {
         }
       }
       environment {
-        UNRAID_PORT = credentials('UNRAID_PORT_DEV')
+        UNRAID_PORT = credentials('UNRAID_PORT_PROD')
         MONGODB_URL_PROD = credentials('MONGODB_URL_PROD')
         CONTAINER_NAME = 'james-giesbrecht-ca-prod'
       }
