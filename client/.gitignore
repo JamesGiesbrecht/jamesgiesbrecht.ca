@@ -1,0 +1,5 @@
+# production
+/build
+
+# development
+/src/assets/full-res
