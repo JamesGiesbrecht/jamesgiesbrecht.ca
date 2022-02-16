@@ -7,18 +7,9 @@ const Home: NextPage = () => (
   <div className={styles.container}>
     <Head>
       <title>James Giesbrecht</title>
-      <link rel="icon" href="/favicon.ico" />
+      <meta name="description" content="Home of James Giesbrecht on the Web" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content="#000000" />
-      <meta name="description" content="Home of James Giesbrecht on the Web" />
-
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-      <link rel="apple-touch-icon" href="/logo192.png" />
-      <link rel="manifest" href="/manifest.json" />
     </Head>
 
     <main className={styles.main}>
