@@ -4,10 +4,10 @@ import { CssBaseline } from '@mui/material'
 import { blue, cyan } from '@mui/material/colors'
 import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
 
-import { AuthContextProvider } from 'context/Auth'
+// import { AuthContextProvider } from 'context/Auth'
 import Layout from 'components/layout/Layout'
-import ScreenSize from 'components/ScreenSize'
-import ScrollToTop from 'components/utility/ScrollToTop'
+import ScreenSize from 'components/utility/ScreenSize'
+// import ScrollToTop from 'components/utility/ScrollToTop'
 import useColorScheme from 'hooks/useColorScheme'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -37,19 +37,18 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
       </Head>
-
-      <ScrollToTop />
-      <AuthContextProvider>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {process.env.REACT_APP_ENV === 'development' && <ScreenSize />}
-            <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
-        </StyledEngineProvider>
-      </AuthContextProvider>
+      {/* <ScrollToTop /> */}
+      {/* <AuthContextProvider> */}
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
+          <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </StyledEngineProvider>
+      {/* </AuthContextProvider> */}
     </>
   )
 }
