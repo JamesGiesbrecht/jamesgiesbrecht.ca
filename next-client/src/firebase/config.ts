@@ -1,6 +1,7 @@
-/* eslint-disable prefer-destructuring */
+/* eslint-disable import/no-mutable-exports */
+import { Analytics, getAnalytics } from 'firebase/analytics'
 import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
+import { Auth, getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,6 +13,16 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
 
-export const firebaseApp = initializeApp(firebaseConfig)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const analytics = getAnalytics(firebaseApp)
+let firebaseAnalytics: Analytics
+let firebaseAuth: Auth
+if (firebaseConfig?.projectId) {
+  const firebaseApp = initializeApp(firebaseConfig)
+
+  if (firebaseApp.name && typeof window !== 'undefined') {
+    firebaseAnalytics = getAnalytics(firebaseApp)
+  }
+
+  firebaseAuth = getAuth()
+}
+
+export { firebaseAnalytics, firebaseAuth }
