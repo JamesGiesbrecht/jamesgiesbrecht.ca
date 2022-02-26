@@ -1,7 +1,6 @@
 /* eslint-disable prefer-destructuring */
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -16,4 +15,3 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const analytics = getAnalytics(firebaseApp)
-export const firebaseAuth = getAuth(firebaseApp)

@@ -1,9 +1,9 @@
 /* eslint-disable prefer-destructuring */
 import { useState, useEffect, useContext, createContext, FC } from 'react'
 import axios, { AxiosInstance } from 'axios'
-import { signInWithPopup, OAuthProvider, User, UserCredential } from 'firebase/auth'
+import { signInWithPopup, OAuthProvider, User, UserCredential, getAuth } from 'firebase/auth'
 
-import { firebaseAuth } from '../firebase/config'
+import { firebaseApp } from '../firebase/config'
 
 const NEXT_PUBLIC_PROXY = process.env.NEXT_PUBLIC_PROXY
 const NEXT_PUBLIC_ENV = process.env.NEXT_PUBLIC_ENV
@@ -12,7 +12,7 @@ interface AuthContextType {
   user: User | null | undefined
   api: AxiosInstance
   authInitialized: boolean
-  logout: typeof firebaseAuth.signOut
+  logout: () => Promise<void>
   signInWithGoogle: () => Promise<UserCredential>
 }
 
@@ -53,6 +53,7 @@ export const AuthContextProvider: FC = ({ children }) => {
   const [user, setUser] = useState<AuthContextType['user']>()
   const [authInitialized, setAuthInitialized] = useState<AuthContextType['authInitialized']>(false)
   const googleAuthProvider = new OAuthProvider('google.com')
+  const firebaseAuth = getAuth(firebaseApp)
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(async (authUser) => {

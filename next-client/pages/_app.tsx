@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 
-// import { AuthContextProvider } from 'context/Auth'
+import { AuthContextProvider } from 'context/Auth'
 import Layout from 'components/layout/Layout'
 import ScreenSize from 'components/utility/ScreenSize'
 // import ScrollToTop from 'components/utility/ScrollToTop'
@@ -32,15 +32,15 @@ const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
         <meta name="theme-color" content="#000000" />
       </Head>
       {/* <ScrollToTop /> */}
-      {/* <AuthContextProvider> */}
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
-        <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
-      {/* </AuthContextProvider> */}
+      <AuthContextProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
+          <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </AuthContextProvider>
     </CacheProvider>
   )
 }
