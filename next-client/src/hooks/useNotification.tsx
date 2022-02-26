@@ -10,7 +10,7 @@ const useNotification = () => {
   const theme = useTheme()
   const notificationDiv = document.getElementById('notification')
 
-  const handleClose = (event: SyntheticEvent<Element, Event>, reason?: string) => {
+  const handleClose = (event: SyntheticEvent<Element, Event> | Event, reason?: string) => {
     if (reason === 'clickaway') return
     setOpen(false)
   }

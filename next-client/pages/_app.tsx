@@ -1,36 +1,30 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { CssBaseline } from '@mui/material'
-import { blue, cyan } from '@mui/material/colors'
-import { createTheme, ThemeProvider, StyledEngineProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
 // import { AuthContextProvider } from 'context/Auth'
 import Layout from 'components/layout/Layout'
 import ScreenSize from 'components/utility/ScreenSize'
 // import ScrollToTop from 'components/utility/ScrollToTop'
 import useColorScheme from 'hooks/useColorScheme'
+import { EmotionCache } from '@emotion/cache'
+import createEmotionCache from 'styles/createEmotionCache'
+import getTheme from 'styles/theme'
+import { CacheProvider } from '@emotion/react'
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
-  /* THEMING AND STYLES START */
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: MyAppProps) => {
   const [colorScheme, toggleColorScheme] = useColorScheme()
-  const theme = createTheme({
-    palette: {
-      mode: colorScheme,
-      primary: cyan,
-    },
-    components: {
-      MuiLink: {
-        styleOverrides: {
-          root: {
-            color: colorScheme === 'dark' ? blue[300] : blue[900],
-          },
-        },
-      },
-    },
-  })
-  /* THEMING AND STYLES END */
+  const theme = getTheme(colorScheme)
+
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <title>James Giesbrecht</title>
         <meta name="description" content="Home of James Giesbrecht on the Web" />
@@ -39,17 +33,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       {/* <ScrollToTop /> */}
       {/* <AuthContextProvider> */}
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
-          <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
+        <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
       {/* </AuthContextProvider> */}
-    </>
+    </CacheProvider>
   )
 }
 
