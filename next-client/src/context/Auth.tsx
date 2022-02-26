@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import { useState, useEffect, useContext, createContext, FC } from 'react'
+import { useState, useEffect, useContext, createContext, FC, useMemo } from 'react'
 import axios, { AxiosInstance } from 'axios'
 import { signInWithPopup, OAuthProvider, User, UserCredential } from 'firebase/auth'
 
@@ -9,7 +9,7 @@ const NEXT_PUBLIC_PROXY = process.env.NEXT_PUBLIC_PROXY
 const NEXT_PUBLIC_ENV = process.env.NEXT_PUBLIC_ENV
 
 interface AuthContextType {
-  user: User | null | undefined
+  user: User | null
   api: AxiosInstance
   authInitialized: boolean
   logout: () => Promise<void>
@@ -49,10 +49,11 @@ export const AuthContext = createContext<AuthContextType>({
   signInWithGoogle: noAuthProvider,
 })
 
+const googleAuthProvider = new OAuthProvider('google.com')
+
 export const AuthContextProvider: FC = ({ children }) => {
-  const [user, setUser] = useState<AuthContextType['user']>()
+  const [user, setUser] = useState<AuthContextType['user']>(null)
   const [authInitialized, setAuthInitialized] = useState<AuthContextType['authInitialized']>(false)
-  const googleAuthProvider = new OAuthProvider('google.com')
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(async (authUser) => {
@@ -69,15 +70,16 @@ export const AuthContextProvider: FC = ({ children }) => {
     }
   })
 
-  // FIXME
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const store = {
-    user,
-    api,
-    authInitialized,
-    logout: firebaseAuth.signOut.bind(firebaseAuth),
-    signInWithGoogle: async () => signInWithPopup(firebaseAuth, googleAuthProvider),
-  }
+  const store = useMemo(
+    () => ({
+      user,
+      api,
+      authInitialized,
+      logout: firebaseAuth.signOut.bind(firebaseAuth),
+      signInWithGoogle: async () => signInWithPopup(firebaseAuth, googleAuthProvider),
+    }),
+    [user, authInitialized],
+  )
   return <AuthContext.Provider value={store}>{children}</AuthContext.Provider>
 }
 
