@@ -36,10 +36,11 @@ import {
   Brightness3 as Moon,
 } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-// import { useHistory, useLocation, Link as RouterLink } from 'react-router-dom'
+// import { useHistory, useLocation } from 'react-router-dom'
 
 // import routes from 'consts/routes'
 import { AuthContext } from 'context/Auth'
+import RouterLink from 'next/link'
 
 interface Props {
   theme: PaletteOptions['mode']
@@ -260,11 +261,13 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   return (
     <Slide appear={false} direction="down" in={!scrollTrigger}>
       <AppBar className={classes.navBar} color="inherit">
-        {/* <Button component={RouterLink} to="/">
-          <Typography variant="h6" className={classes.title}>
-            JG
-          </Typography>
-        </Button> */}
+        <RouterLink href="/" passHref>
+          <Button>
+            <Typography variant="h6" className={classes.title}>
+              JG
+            </Typography>
+          </Button>
+        </RouterLink>
         <div className={classes.grow} />
         <div className={classes.desktopNav}>
           {/* <Tabs value={activeNav} onChange={handleTabChange}>

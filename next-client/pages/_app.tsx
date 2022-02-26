@@ -6,7 +6,6 @@ import { ThemeProvider } from '@mui/material/styles'
 import { AuthContextProvider } from 'context/Auth'
 import Layout from 'components/layout/Layout'
 import ScreenSize from 'components/utility/ScreenSize'
-// import ScrollToTop from 'components/utility/ScrollToTop'
 import useColorScheme from 'hooks/useColorScheme'
 import { EmotionCache } from '@emotion/cache'
 import createEmotionCache from 'styles/createEmotionCache'
@@ -31,7 +30,6 @@ const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
       </Head>
-      {/* <ScrollToTop /> */}
       <AuthContextProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />

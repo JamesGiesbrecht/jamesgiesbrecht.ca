@@ -1,9 +1,9 @@
 import { FC } from 'react'
+import RouterLink from 'next/link'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@mui/icons-material'
 import { IconButton, Button, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-// import { Link as RouterLink } from 'react-router-dom'
 
 const useStyles = makeStyles((theme: Theme) => ({
   footer: {
@@ -56,10 +56,11 @@ const Footer: FC = () => {
   return (
     <footer className={classes.footer}>
       {icons}
-      {/* FIXME */}
-      {/* <Button size="small" color="inherit" component={RouterLink} to="/privacy">
-        Privacy
-      </Button> */}
+      <RouterLink href="/privacy" passHref>
+        <Button size="small" color="inherit">
+          Privacy
+        </Button>
+      </RouterLink>
       <Button size="small" color="inherit" onClick={resetPrompts}>
         Reset Prompts
       </Button>
