@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Theme, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
-import jamesPic from 'public/img/james.jpg'
+import jamesPic from '../../../public/img/james.jpg'
 
 const useStyles = makeStyles((theme: Theme) => ({
   intro: {
