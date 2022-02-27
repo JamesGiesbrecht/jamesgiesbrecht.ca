@@ -11,6 +11,7 @@ import { EmotionCache } from '@emotion/cache'
 import createEmotionCache from 'styles/createEmotionCache'
 import getTheme from 'styles/theme'
 import { CacheProvider } from '@emotion/react'
+import { NotificationContextProvider } from 'context/Notification'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -31,13 +32,15 @@ const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
         <meta name="theme-color" content="#000000" />
       </Head>
       <AuthContextProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {/* {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />} */}
-          <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
+        <NotificationContextProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
+            <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </NotificationContextProvider>
       </AuthContextProvider>
     </CacheProvider>
   )

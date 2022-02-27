@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles'
 
 import Footer from 'components/layout/Footer'
 import NavBar from 'components/layout/NavBar'
+import { useNotification } from 'context/Notification'
 
 interface Props {
   theme: PaletteOptions['mode']
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Layout: FC<Props> = ({ theme, toggleTheme, children }) => {
   const classes = useStyles()
+  const { notification } = useNotification()
 
   return (
     <div className={classes.root}>
@@ -32,6 +34,7 @@ const Layout: FC<Props> = ({ theme, toggleTheme, children }) => {
       <Toolbar />
       <Container className={classes.content}>{children}</Container>
       <Footer />
+      {notification}
     </div>
   )
 }
