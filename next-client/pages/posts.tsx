@@ -4,6 +4,7 @@ import { Add } from '@mui/icons-material'
 import { Box, Container, Typography, Theme, Link, Fab, useMediaQuery, Button } from '@mui/material'
 import { useTheme, makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
+import { useSnackbar } from 'notistack'
 import Masonry from 'react-masonry-css'
 
 import { AuthContext } from 'context/Auth'
@@ -11,7 +12,6 @@ import Post from 'components/sections/posts/Post'
 import PostModal from 'components/sections/posts/PostModal'
 import InfoMessage from 'components/utility/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
-import { useNotification } from 'context/Notification'
 import {
   GetPostsResponse,
   NewPostRequest,
@@ -60,7 +60,7 @@ const Posts: FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { api, authInitialized, user } = useContext(AuthContext)
   const isMobile = useMediaQuery(() => theme.breakpoints.down('sm'))
-  const { createNotification } = useNotification()
+  const { enqueueSnackbar } = useSnackbar()
 
   const columnBreakpoints = {
     default: 3,
@@ -79,21 +79,21 @@ const Posts: FC = () => {
       .put(`/api/posts/${postId}`, { title, content, isPublic })
       .then((result: AxiosResponse<UpdatePostResponse>) => {
         setPosts((prev) => prev.map((p) => (p._id === postId ? result.data.post : p)))
-        createNotification('Post Updated', 'success')
+        enqueueSnackbar('Post Updated Successfully', { variant: 'success' })
       })
       .catch(() => {
-        createNotification('Error Updating Post', 'error')
+        enqueueSnackbar('Error Updating Post', { variant: 'error' })
       })
 
   const handleSubmitNewPost = async (post: NewPostRequest) =>
     api
       .post('/api/posts/new', post)
       .then((result: AxiosResponse<NewPostResponse>) => {
-        createNotification('Post Submitted', 'success')
+        enqueueSnackbar('Post Submitted Successfully', { variant: 'success' })
         setPosts((prev) => [result.data, ...prev])
       })
       .catch(() => {
-        createNotification('Error Submitting Post', 'error')
+        enqueueSnackbar('Error Submitting Post', { variant: 'error' })
       })
       .finally(() => {
         document.body.scrollTop = 0
@@ -179,7 +179,9 @@ const Posts: FC = () => {
       </InfoMessage>
       <Button
         variant="contained"
-        onClick={() => createNotification(`Test Notification ${Math.random()}`, 'success')}
+        onClick={() =>
+          enqueueSnackbar(`Test Notification ${Math.random()}`, { variant: 'success' })
+        }
       >
         Test Notification
       </Button>

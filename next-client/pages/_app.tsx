@@ -1,17 +1,17 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { EmotionCache } from '@emotion/cache'
+import { CacheProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
+import { SnackbarProvider } from 'notistack'
 
 import { AuthContextProvider } from 'context/Auth'
 import Layout from 'components/layout/Layout'
 import ScreenSize from 'components/utility/ScreenSize'
 import useColorScheme from 'hooks/useColorScheme'
-import { EmotionCache } from '@emotion/cache'
 import createEmotionCache from 'styles/createEmotionCache'
 import getTheme from 'styles/theme'
-import { CacheProvider } from '@emotion/react'
-import { NotificationContextProvider } from 'context/Notification'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -32,7 +32,7 @@ const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
         <meta name="theme-color" content="#000000" />
       </Head>
       <AuthContextProvider>
-        <NotificationContextProvider>
+        <SnackbarProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
@@ -40,7 +40,7 @@ const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
               <Component {...pageProps} />
             </Layout>
           </ThemeProvider>
-        </NotificationContextProvider>
+        </SnackbarProvider>
       </AuthContextProvider>
     </CacheProvider>
   )
