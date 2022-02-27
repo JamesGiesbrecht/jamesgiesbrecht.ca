@@ -18,6 +18,7 @@ import {
 import { Delete, Edit, MoreHoriz } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
+import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 
 import PostModal from 'components/sections/posts/PostModal'
@@ -73,6 +74,7 @@ const Post: FC<Props> = ({
   const [updateOpen, setUpdateOpen] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const openMenu = Boolean(anchorEl)
+  const { enqueueSnackbar } = useSnackbar()
   const { api } = useAuth()
   const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
   const dateFormatted = `${date.toLocaleString('default', {
@@ -105,8 +107,11 @@ const Post: FC<Props> = ({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((response: AxiosResponse<DeletePostResponse>) => {
         onRemove(postId)
+        enqueueSnackbar('Post Deleted Successfully', { variant: 'success' })
       })
-      .catch(() => {})
+      .catch(() => {
+        enqueueSnackbar('Error Deleting Post', { variant: 'error' })
+      })
       .finally(() => handleCloseDeleteModal())
   }
 
