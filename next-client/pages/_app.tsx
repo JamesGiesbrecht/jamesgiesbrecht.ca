@@ -33,7 +33,7 @@ const MyApp = ({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
       <AuthContextProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />}
+          {/* {process.env.NEXT_PUBLIC_ENV === 'development' && <ScreenSize />} */}
           <Layout theme={colorScheme} toggleTheme={toggleColorScheme}>
             <Component {...pageProps} />
           </Layout>
