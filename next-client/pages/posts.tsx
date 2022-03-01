@@ -1,8 +1,9 @@
-import { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import { Add } from '@mui/icons-material'
 import { Box, Container, Typography, Theme, Link, Fab, useMediaQuery } from '@mui/material'
 import { useTheme, makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
+import { NextPage } from 'next'
 import RouterLink from 'next/link'
 import { useSnackbar } from 'notistack'
 import Masonry from 'react-masonry-css'
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const Posts: FC = () => {
+const Posts: NextPage = () => {
   const classes = useStyles()
   const theme = useTheme<Theme>()
   const [posts, setPosts] = useState<PostType[]>([])
@@ -102,6 +103,7 @@ const Posts: FC = () => {
         document.documentElement.scrollTop = 0
       })
 
+  // We dont use getServerSideProps because the posts are not SEO relevant and may change when a user is logged in
   useEffect(() => {
     if (authInitialized) {
       setIsLoading(true)

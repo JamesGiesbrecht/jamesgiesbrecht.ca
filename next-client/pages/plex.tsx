@@ -1,10 +1,8 @@
-import { FC, useEffect, useState } from 'react'
-import { ChevronRight, Theaters } from '@mui/icons-material'
+import { ChevronRight } from '@mui/icons-material'
 import { Button, Container, Typography, Paper, Grid, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import axios, { AxiosResponse } from 'axios'
-
-import WaitFor from 'components/utility/WaitFor'
+import axios from 'axios'
+import { InferGetServerSidePropsType, NextPage } from 'next'
 
 // eslint-disable-next-line import/no-relative-packages
 import { GetPlexStatusResponse } from '../../@types/james-giesbrecht'
@@ -32,25 +30,26 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const PlexStatus: FC = () => {
+export async function getServerSideProps() {
+  let plexStats = null
+  try {
+    const result = await axios.get<GetPlexStatusResponse>(
+      `${process.env.SERVER_PROXY}/api/plex/sessions`,
+    )
+    plexStats = result.data
+  } catch (e) {
+    const message = e instanceof Error ? e.message : 'Unknown Error'
+    // eslint-disable-next-line no-console
+    console.log('Error fetching Plex Stats:', message)
+  }
+  return { props: { plexStats } }
+}
+
+const Plex: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ plexStats }) => {
   const classes = useStyles()
-  const [plexStats, setPlexStats] = useState<GetPlexStatusResponse>()
-  const [hasError, setHasError] = useState<Boolean>(false)
-
-  useEffect(() => {
-    axios
-      .get('/api/plex/sessions')
-      .then((result: AxiosResponse<GetPlexStatusResponse>) => {
-        setPlexStats(result.data)
-      })
-      .catch(() => {
-        setHasError(true)
-      })
-  }, [])
-
   let content
 
-  if (hasError) {
+  if (!plexStats) {
     content = <Typography variant="h4">Something went wrong, try again later.</Typography>
   } else if (plexStats) {
     let status
@@ -102,14 +101,6 @@ const PlexStatus: FC = () => {
         >
           Go to Plex
         </Button>
-        <Button
-          className={classes.button}
-          variant="contained"
-          href="https://goose.fans"
-          startIcon={<Theaters fontSize="large" />}
-        >
-          Request Movies/TV on Ombi
-        </Button>
       </>
     )
   }
@@ -119,11 +110,9 @@ const PlexStatus: FC = () => {
       <Typography variant="h3" gutterBottom>
         Plex Status
       </Typography>
-      <Container className={classes.content}>
-        <WaitFor isLoading={!plexStats}>{content}</WaitFor>
-      </Container>
+      <Container className={classes.content}>{content}</Container>
     </>
   )
 }
 
-export default PlexStatus
+export default Plex
