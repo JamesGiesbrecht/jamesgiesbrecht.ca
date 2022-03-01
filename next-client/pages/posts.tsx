@@ -1,6 +1,6 @@
 import { FC, ReactNode, useContext, useEffect, useState } from 'react'
 import { Add } from '@mui/icons-material'
-import { Box, Container, Typography, Theme, Link, Fab, useMediaQuery, Button } from '@mui/material'
+import { Box, Container, Typography, Theme, Link, Fab, useMediaQuery } from '@mui/material'
 import { useTheme, makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
 import RouterLink from 'next/link'
@@ -179,14 +179,6 @@ const Posts: FC = () => {
           to see their own posts, along with all other posts made public by other users.
         </Typography>
       </InfoMessage>
-      <Button
-        variant="contained"
-        onClick={() =>
-          enqueueSnackbar(`Test Notification ${Math.random()}`, { variant: 'success' })
-        }
-      >
-        Test Notification
-      </Button>
       <Box
         display="flex"
         flexDirection="row"
