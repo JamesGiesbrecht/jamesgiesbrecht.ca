@@ -36,11 +36,11 @@ import {
   Brightness3 as Moon,
 } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-// import { useHistory, useLocation } from 'react-router-dom'
 
-// import routes from 'consts/routes'
+import routes from 'consts/routes'
 import { AuthContext } from 'context/Auth'
 import RouterLink from 'next/link'
+import { useRouter } from 'next/router'
 
 interface Props {
   theme: PaletteOptions['mode']
@@ -87,18 +87,16 @@ type NavItem = {
   path?: string
 }
 
-// FIXME
+const { home, posts, login } = routes
 
-// const { home, posts, login, account } = routes
+const initialMenuItems: NavItem[] = [
+  { name: home.nav?.name, icon: home.nav?.icon, path: home.path },
+  // { name: 'Projects', icon: <Code /> },
+  // { name: 'Contact', icon: <Mail /> },
+  { name: posts.nav?.name, icon: posts.nav?.icon, path: posts.path },
+]
 
-// const initialMenuItems: NavItem[] = [
-//   { name: home?.nav?.name, icon: home?.nav?.icon, path: home?.path },
-//   // { name: 'Projects', icon: <Code /> },
-//   // { name: 'Contact', icon: <Mail /> },
-//   { name: posts?.nav?.name, icon: posts?.nav?.icon, path: posts?.path },
-// ]
-
-// const loginMenuItem: NavItem = { name: login?.nav?.name, icon: login?.nav?.icon, path: login?.path }
+const loginMenuItem: NavItem = { name: login?.nav?.name, icon: login?.nav?.icon, path: login?.path }
 
 const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const classes = useStyles()
@@ -106,36 +104,35 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
   const [accountIsOpen, setAccountIsOpen] = useState(false)
   const [mobileIsOpen, setMobileIsOpen] = useState(false)
   const [activeNav, setActiveNav] = useState<NavItem['path'] | false>(false)
-  // const [navItems, setNavItems] = useState<NavItem[]>(initialMenuItems)
+  const [navItems, setNavItems] = useState<NavItem[]>(initialMenuItems)
   const accountRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLButtonElement>(null)
   const scrollTrigger = useScrollTrigger()
-  // const history = useHistory()
-  // const location = useLocation()
+  const router = useRouter()
 
-  // useEffect(() => {
-  //   setNavItems(user || !authInitialized ? initialMenuItems : [...initialMenuItems, loginMenuItem])
-  // }, [user, authInitialized])
+  useEffect(() => {
+    setNavItems(user || !authInitialized ? initialMenuItems : [...initialMenuItems, loginMenuItem])
+  }, [user, authInitialized])
 
   const accountItems = [
-    // { name: account?.nav?.name, icon: account?.nav?.icon, path: account?.path },
-    { name: 'Logout', icon: <ExitToApp />, path: '/logout', cb: logout },
+    // { name: account.nav?.name, icon: account.nav?.icon, path: account.path },
+    { name: 'Logout', icon: <ExitToApp />, path: home.path, cb: logout },
   ]
 
-  // const setActiveNavOverride = useCallback(
-  //   (newActiveNav: NavItem['path']) => {
-  //     if (navItems.find((item) => item.path === newActiveNav)) {
-  //       setActiveNav(newActiveNav)
-  //     } else {
-  //       setActiveNav(false)
-  //     }
-  //   },
-  //   [navItems],
-  // )
+  const setActiveNavOverride = useCallback(
+    (newActiveNav: NavItem['path']) => {
+      if (navItems.find((item) => item.path === newActiveNav)) {
+        setActiveNav(newActiveNav)
+      } else {
+        setActiveNav(false)
+      }
+    },
+    [navItems],
+  )
 
-  // useEffect(() => {
-  //   setActiveNavOverride(location.pathname)
-  // }, [location.pathname, setActiveNavOverride])
+  useEffect(() => {
+    setActiveNavOverride(router.pathname)
+  }, [router.pathname, setActiveNavOverride])
 
   const handleMobileToggle = () => setMobileIsOpen((prevOpen) => !prevOpen)
 
@@ -155,9 +152,9 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
     setAccountIsOpen(false)
   }
 
-  // const handleTabChange = (e: ChangeEvent<{}>, newValue?: string) => {
-  //   history.push(newValue || '')
-  // }
+  const handleTabChange = (e: ChangeEvent<{}>, newValue?: string) => {
+    router.push(newValue || '')
+  }
 
   const themeButton = (
     <IconButton onClick={toggleTheme} size="large">
@@ -165,9 +162,9 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
     </IconButton>
   )
 
-  // const desktopNav = navItems.map((nav) => (
-  //   <Tab key={nav.path} className={classes.tab} label={nav.name} value={nav.path} />
-  // ))
+  const desktopNav = navItems.map((nav) => (
+    <Tab key={nav.path} className={classes.tab} label={nav.name} value={nav.path} />
+  ))
 
   const mobileMenu = (
     <>
@@ -191,7 +188,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
             <Paper square>
               <ClickAwayListener onClickAway={handleCloseMobile}>
                 <MenuList autoFocusItem={mobileIsOpen}>
-                  {/* {navItems.map((nav) => (
+                  {navItems.map((nav) => (
                     <MenuItem
                       key={nav.name}
                       onClick={(e) => {
@@ -202,7 +199,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
                       <ListItemIcon>{nav.icon}</ListItemIcon>
                       <p>{nav.name}</p>
                     </MenuItem>
-                  ))} */}
+                  ))}
                 </MenuList>
               </ClickAwayListener>
             </Paper>
@@ -240,7 +237,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
                     <MenuItem
                       key={item.name}
                       onClick={(e) => {
-                        // handleTabChange(e, item.path)
+                        handleTabChange(e, item.path)
                         handleCloseAccount(e)
                         if (item.cb) item.cb()
                       }}
@@ -270,9 +267,9 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
         </RouterLink>
         <div className={classes.grow} />
         <div className={classes.desktopNav}>
-          {/* <Tabs value={activeNav} onChange={handleTabChange}>
+          <Tabs value={activeNav} onChange={handleTabChange}>
             {desktopNav}
-          </Tabs> */}
+          </Tabs>
         </div>
         {themeButton}
         {accountButton}

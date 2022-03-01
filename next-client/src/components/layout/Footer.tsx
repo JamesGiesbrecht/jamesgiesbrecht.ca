@@ -4,6 +4,7 @@ import RouterLink from 'next/link'
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@mui/icons-material'
 import { IconButton, Button, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import routes from 'consts/routes'
 
 const useStyles = makeStyles((theme: Theme) => ({
   footer: {
@@ -56,7 +57,7 @@ const Footer: FC = () => {
   return (
     <footer className={classes.footer}>
       {icons}
-      <RouterLink href="/privacy" passHref>
+      <RouterLink href={routes.privacy.path} passHref>
         <Button size="small" color="inherit">
           Privacy
         </Button>

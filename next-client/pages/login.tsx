@@ -1,10 +1,11 @@
-import { ReactNode, useContext, useState } from 'react'
-import { NextPage } from 'next'
-import Router from 'next/router'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 // import { Apple, GitHub, Twitter } from '@mui/icons-material'
 import { Button, Typography, Container, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 
+import routes from 'consts/routes'
 import { AuthContext } from 'context/Auth'
 import GoogleIcon from 'components/icons/GoogleIcon'
 import InfoMessage from 'components/utility/InfoMessage'
@@ -30,11 +31,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Login: NextPage = () => {
   const classes = useStyles()
+  const router = useRouter()
   const { user, signInWithGoogle } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  useEffect(() => {
+    router.prefetch(routes.home.path)
+  }, [router])
+
   if (user) {
-    Router.push('/')
+    router.push(routes.home.path)
     return null
   }
 

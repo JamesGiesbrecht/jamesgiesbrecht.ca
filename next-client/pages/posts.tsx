@@ -12,6 +12,7 @@ import Post from 'components/sections/posts/Post'
 import PostModal from 'components/sections/posts/PostModal'
 import InfoMessage from 'components/utility/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
+import routes from 'consts/routes'
 import {
   GetPostsResponse,
   NewPostRequest,
@@ -150,7 +151,7 @@ const Posts: FC = () => {
     } else {
       message = [
         "No posts to show, why don't you ",
-        <RouterLink key="link" href="/login" passHref>
+        <RouterLink key="link" href={routes.login.path} passHref>
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link>sign-up and try making one</Link>
         </RouterLink>,
@@ -205,7 +206,7 @@ const Posts: FC = () => {
             {!isMobile && 'New Post'}
           </Fab>
         ) : (
-          <RouterLink href="/login" passHref>
+          <RouterLink href={routes.login.path} passHref>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <Link>Login to submit a post</Link>
           </RouterLink>

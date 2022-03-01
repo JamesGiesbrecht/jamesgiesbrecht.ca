@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(1),
   },
   content: {
-    position: 'relative', //  For expand arrow to position in body
+    position: 'relative', // For expand arrow to position in body
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
