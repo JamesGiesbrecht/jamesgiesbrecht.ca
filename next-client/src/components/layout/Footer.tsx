@@ -1,9 +1,10 @@
 import { FC } from 'react'
-import RouterLink from 'next/link'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GitHub, Instagram, Mail, LinkedIn, Twitter } from '@mui/icons-material'
 import { IconButton, Button, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import RouterLink from 'next/link'
+
 import routes from 'consts/routes'
 
 const useStyles = makeStyles((theme: Theme) => ({

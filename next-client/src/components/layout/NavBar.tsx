@@ -10,7 +10,6 @@ import {
   ReactNode,
 } from 'react'
 import {
-  PaletteOptions,
   Typography,
   IconButton,
   Popper,
@@ -28,6 +27,7 @@ import {
   ListItemIcon,
   Button,
   Theme,
+  PaletteMode,
 } from '@mui/material'
 import {
   ExitToApp,
@@ -36,14 +36,14 @@ import {
   Brightness3 as Moon,
 } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
-
-import routes from 'consts/routes'
-import { AuthContext } from 'context/Auth'
 import RouterLink from 'next/link'
 import { useRouter } from 'next/router'
 
+import routes from 'consts/routes'
+import { AuthContext } from 'context/Auth'
+
 interface Props {
-  theme: PaletteOptions['mode']
+  theme: PaletteMode
   toggleTheme: () => void
 }
 

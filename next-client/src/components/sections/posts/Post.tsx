@@ -1,4 +1,5 @@
 import { FC, MouseEvent, useState } from 'react'
+import { Delete, Edit, MoreHoriz } from '@mui/icons-material'
 import {
   Box,
   Card,
@@ -15,7 +16,6 @@ import {
   ListItemIcon,
   Theme,
 } from '@mui/material'
-import { Delete, Edit, MoreHoriz } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
 import { useSnackbar } from 'notistack'
@@ -23,6 +23,7 @@ import Fade from 'react-reveal/Fade'
 
 import PostModal from 'components/sections/posts/PostModal'
 import { useAuth } from 'context/Auth'
+
 // eslint-disable-next-line import/no-relative-packages
 import { DeletePostResponse, UpdatePostRequest } from '../../../../../@types/james-giesbrecht'
 

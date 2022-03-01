@@ -20,9 +20,9 @@ import {
 import { makeStyles } from '@mui/styles'
 import Fade from 'react-reveal/Fade'
 
+import ProjectButton from 'components/sections/projects/ProjectButton'
+import TechChip from 'components/sections/projects/TechChip'
 import { Project as ProjectType } from 'ts/app/types'
-import ProjectButton from './ProjectButton'
-import TechChip from './TechChip'
 
 interface Props {
   project: ProjectType

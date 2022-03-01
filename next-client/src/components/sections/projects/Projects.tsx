@@ -2,7 +2,7 @@ import { Theme, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import projectData from 'consts/projects'
-import Project from './Project'
+import Project from 'components/sections/projects/Project'
 
 const useStyles = makeStyles((theme: Theme) => ({
   projects: {

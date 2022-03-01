@@ -1,8 +1,8 @@
 import { Link as LinkIcon, Code as CodeIcon } from '@mui/icons-material'
 import { Link } from '@mui/material'
 
+import tech from 'consts/tech'
 import { Project } from 'ts/app/types'
-import tech from './tech'
 
 const craTemplate = '/img/projects/react.png'
 const craTemplateBg = '/img/projects/cra-template-bg.jpg'

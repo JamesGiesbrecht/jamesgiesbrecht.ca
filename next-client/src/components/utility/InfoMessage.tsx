@@ -12,6 +12,8 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
+import localStorageKeys from 'consts/localStorageKeys'
+
 interface Props {
   title: string
   id: string
@@ -30,21 +32,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const localStorageMessagesKey = 'hiddenMessages'
+const { hiddenMessages } = localStorageKeys
 
 const InfoMessage: FC<Props> = ({ title, id, children }) => {
   const classes = useStyles()
   let localMessages: string[] = []
   if (typeof window !== 'undefined') {
-    localMessages = JSON.parse(window.localStorage.getItem(localStorageMessagesKey) || '[]')
+    localMessages = JSON.parse(window.localStorage.getItem(hiddenMessages) || '[]')
   }
   const messageIsHidden = localMessages.includes(id)
   const [doNotShow, setDoNotShow] = useState<boolean>(false)
   const [showMessage, setShowMessage] = useState<boolean>(!messageIsHidden)
 
-  const setLS = (hiddenMessages: string[]) => {
+  const setLS = (newHiddenMessages: string[]) => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(localStorageMessagesKey, JSON.stringify(hiddenMessages))
+      localStorage.setItem(hiddenMessages, JSON.stringify(newHiddenMessages))
     }
   }
 

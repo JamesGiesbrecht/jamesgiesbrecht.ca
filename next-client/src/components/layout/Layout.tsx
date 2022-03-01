@@ -1,12 +1,12 @@
 import { FC, ReactNode } from 'react'
-import { Container, PaletteOptions, Theme, Toolbar } from '@mui/material'
+import { Container, PaletteMode, Theme, Toolbar } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import Footer from 'components/layout/Footer'
 import NavBar from 'components/layout/NavBar'
 
 interface Props {
-  theme: PaletteOptions['mode']
+  theme: PaletteMode
   toggleTheme: () => void
   children: ReactNode
 }

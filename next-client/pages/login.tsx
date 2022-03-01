@@ -5,11 +5,11 @@ import { makeStyles } from '@mui/styles'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-import routes from 'consts/routes'
-import { AuthContext } from 'context/Auth'
 import GoogleIcon from 'components/icons/GoogleIcon'
 import InfoMessage from 'components/utility/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
+import routes from 'consts/routes'
+import { AuthContext } from 'context/Auth'
 
 const useStyles = makeStyles((theme: Theme) => ({
   loginButtons: {

@@ -1,6 +1,5 @@
 import { FC, ReactNode } from 'react'
 import { CircularProgress, Theme } from '@mui/material'
-
 import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles((theme: Theme) => ({

@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles'
 import axios, { AxiosResponse } from 'axios'
 
 import WaitFor from 'components/utility/WaitFor'
+
 // eslint-disable-next-line import/no-relative-packages
 import { GetPlexStatusResponse } from '../../@types/james-giesbrecht'
 

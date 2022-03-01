@@ -1,18 +1,19 @@
 import { FC, ReactNode, useContext, useEffect, useState } from 'react'
-import RouterLink from 'next/link'
 import { Add } from '@mui/icons-material'
 import { Box, Container, Typography, Theme, Link, Fab, useMediaQuery, Button } from '@mui/material'
 import { useTheme, makeStyles } from '@mui/styles'
 import { AxiosResponse } from 'axios'
+import RouterLink from 'next/link'
 import { useSnackbar } from 'notistack'
 import Masonry from 'react-masonry-css'
 
-import { AuthContext } from 'context/Auth'
 import Post from 'components/sections/posts/Post'
 import PostModal from 'components/sections/posts/PostModal'
 import InfoMessage from 'components/utility/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
 import routes from 'consts/routes'
+import { AuthContext } from 'context/Auth'
+
 import {
   GetPostsResponse,
   NewPostRequest,

@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { Chip, Avatar, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+
 import { Tech } from 'ts/app/types'
 
 interface Props {
