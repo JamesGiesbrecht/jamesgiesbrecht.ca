@@ -4,7 +4,7 @@ import { ParamsDictionary } from 'express-serve-static-core'
 // ../models/post.ts
 import Post from '../models/post.js'
 // eslint-disable-next-line import/no-relative-packages
-import { NewPostRequest, UpdatePostRequest } from '../../../@types/james-giesbrecht/index'
+import { NewPostRequest, UpdatePostRequest } from '../../@types/james-giesbrecht/index'
 
 export const postNewPost: RequestHandler = (
   req: Request<unknown, unknown, NewPostRequest>,

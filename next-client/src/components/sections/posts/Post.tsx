@@ -25,7 +25,7 @@ import PostModal from 'components/sections/posts/PostModal'
 import { useAuth } from 'context/Auth'
 
 // eslint-disable-next-line import/no-relative-packages
-import { DeletePostResponse, UpdatePostRequest } from '../../../../../@types/james-giesbrecht'
+import { DeletePostResponse, UpdatePostRequest } from '../../../../@types/james-giesbrecht'
 
 interface Props {
   postId: string

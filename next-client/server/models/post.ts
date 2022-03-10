@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 // eslint-disable-next-line import/no-relative-packages
-import { PostType } from '../../../@types/james-giesbrecht'
+import { PostType } from '../../@types/james-giesbrecht'
 
 const { Schema } = mongoose
 

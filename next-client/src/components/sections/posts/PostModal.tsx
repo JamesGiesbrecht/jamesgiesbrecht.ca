@@ -17,7 +17,7 @@ import {
 import { makeStyles } from '@mui/styles'
 
 // eslint-disable-next-line import/no-relative-packages
-import { NewPostRequest, UpdatePostRequest } from '../../../../../@types/james-giesbrecht'
+import { NewPostRequest, UpdatePostRequest } from '../../../../@types/james-giesbrecht'
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {
