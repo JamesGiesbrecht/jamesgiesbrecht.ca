@@ -7,9 +7,9 @@
     "build:server": "tsc --project tsconfig.server.json",
     "build:server:dev": "tsc --project tsconfig.server.json --watch --preserveWatchOutput",
     "start:next": "next start",
-    "start:server": "nodemon dist/index.js",
+    "start:server": "nodemon dist/next-client/server/index.js",
     "dev": "yarn build:server && concurrently \"yarn build:server:dev\" \"yarn start:server\"",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=production node dist/next-client/server/index.js",
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {

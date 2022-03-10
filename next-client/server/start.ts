@@ -1,18 +1,16 @@
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import express from 'express'
-import nextjs from 'next'
+import nextJs from 'next'
 import mongoose from 'mongoose'
 
-// import mainRoutes from './routes/main'
-// import apiRoutes from './routes/api/index'
-// import { nextDir, publicDir } from './util/path'
+import apiRoutes from './routes/api/index'
 
 const PORT = process.env.PORT || 3001
 const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_URL, MONGODB_PARAMS, NODE_ENV } = process.env
 const dev = NODE_ENV !== 'production'
 
-const nextApp = nextjs({ dev })
+const nextApp = nextJs({ dev })
 const handle = nextApp.getRequestHandler()
 
 nextApp.prepare().then(() => {
@@ -24,7 +22,6 @@ nextApp.prepare().then(() => {
 
   expressApp.use(bodyParser.json())
   expressApp.use(bodyParser.urlencoded({ extended: false }))
-  // expressApp.use(express.static(publicDir))
   expressApp.set('trust proxy', true)
   expressApp.use((req, _res, next) => {
     const ip = req.header('x-forwarded-for') || req.connection.remoteAddress
@@ -32,9 +29,8 @@ nextApp.prepare().then(() => {
     next()
   })
 
-  // expressApp.use('/api', apiRoutes)
+  expressApp.use('/api', apiRoutes)
   expressApp.get('*', (_req, res) => handle(_req, res))
-  // expressApp.use(mainRoutes)
 
   if (!MONGODB_URL) {
     throw new Error(
