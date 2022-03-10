@@ -21,6 +21,7 @@
     "@mui/lab": "^5.0.0-alpha.69",
     "@mui/material": "^5.4.2",
     "@mui/styles": "^5.4.2",
+    "@types/express-serve-static-core": "^4.17.28",
     "axios": "^0.26.0",
     "body-parser": "^1.19.2",
     "cheerio": "^1.0.0-rc.10",

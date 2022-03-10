@@ -31,6 +31,5 @@ export type WinnipegHospitals = {
 export type WaitTime = {
   waiting: string
   treating: string
-  // eslint-disable-next-line camelcase
   wait_time: string
 }

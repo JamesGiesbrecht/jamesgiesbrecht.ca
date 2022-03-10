@@ -6,5 +6,4 @@ admin.initializeApp({
   ),
 })
 
-// eslint-disable-next-line import/prefer-default-export
 export const adminAuth = admin.auth()
