@@ -2,7 +2,8 @@
 **/.git
 package.json
 package-lock.json
-server/.env
+# .env
 **/Dockerfile
-server/dist
-client/build
+dist
+.next
+blog

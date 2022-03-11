@@ -7,9 +7,24 @@ webpack.txt
 /.pnp
 .pnp.js
 
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/dist
+
+# vercel
+.vercel
+
 # misc
 .DS_Store
 *.pem
+/src/assets/full-res
 
 # debug
 npm-debug.log*

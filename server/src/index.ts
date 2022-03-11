@@ -1,2 +1,0 @@
-import './loadEnv'
-import './start'
