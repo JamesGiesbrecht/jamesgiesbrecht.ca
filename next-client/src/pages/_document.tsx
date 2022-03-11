@@ -21,6 +21,7 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {(this.props as any).emotionStyleTags}
         </Head>
         <body>
@@ -66,6 +67,7 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       enhanceApp: (App: any) =>
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />

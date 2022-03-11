@@ -152,7 +152,7 @@ const NavBar: FC<Props> = ({ theme, toggleTheme }) => {
     setAccountIsOpen(false)
   }
 
-  const handleTabChange = (e: ChangeEvent<{}>, newValue?: string) => {
+  const handleTabChange = (e: ChangeEvent<unknown>, newValue?: string) => {
     router.push(newValue || '')
   }
 

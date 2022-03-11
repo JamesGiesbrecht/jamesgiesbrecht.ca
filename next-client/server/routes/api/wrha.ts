@@ -40,7 +40,7 @@ const getMessage = (waitTimes: WaitTime, hospitalName: string) =>
   `At ${hospitalName}, there are currently ${waitTimes.waiting} waiting, ${waitTimes.treating} treating, and an average wait time of ${waitTimes.wait_time} hours.`
 
 const getWaitTimes = async (hospital: keyof WinnipegHospitals) => {
-  const selectedHospital = hospitals[hospital]
+  const selectedHospital = hospitals[hospital as keyof WinnipegHospitals]
   const siteUrl = `https://wrha.mb.ca/wait-times/${selectedHospital.url}`
   const $ = await scrapeSite(siteUrl)
   let waitTime = $('.table-wait-times-data[data-label="Wait Time"]').text()
@@ -58,11 +58,11 @@ const getWaitTimes = async (hospital: keyof WinnipegHospitals) => {
 }
 
 router.get('/:hospital', async (req, res) => {
-  const hospital = req.params.hospital.toLowerCase() as keyof WinnipegHospitals
-  if (!hospitals[hospital]) {
+  const hospital = req.params.hospital.toLowerCase()
+  if (!hospitals[hospital as keyof WinnipegHospitals]) {
     return res.status(400).json({ error: 'Hospital not found' })
   }
-  const waitTimes = await getWaitTimes(hospital)
+  const waitTimes = await getWaitTimes(hospital as keyof WinnipegHospitals)
   return res.json(waitTimes)
 })
 
