@@ -5,7 +5,6 @@ import { signInWithPopup, OAuthProvider, User, UserCredential } from 'firebase/a
 
 import { firebaseAuth } from '../firebase/config'
 
-const NEXT_PUBLIC_PROXY = process.env.NEXT_PUBLIC_PROXY
 const NEXT_PUBLIC_ENV = process.env.NEXT_PUBLIC_ENV
 
 interface AuthContextType {
@@ -35,10 +34,6 @@ if (NEXT_PUBLIC_ENV === 'development') {
       return Promise.reject(error)
     },
   )
-}
-
-if (NEXT_PUBLIC_PROXY) {
-  api.defaults.baseURL = NEXT_PUBLIC_PROXY
 }
 
 export const AuthContext = createContext<AuthContextType>({

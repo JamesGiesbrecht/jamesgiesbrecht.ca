@@ -2,7 +2,8 @@
 **/.git
 package.json
 package-lock.json
-# .env
+.env
+.env.development.local
 **/Dockerfile
 dist
 .next

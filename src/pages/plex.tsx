@@ -34,7 +34,7 @@ export async function getServerSideProps() {
   let plexStats = null
   try {
     const result = await axios.get<GetPlexStatusResponse>(
-      `${process.env.SERVER_PROXY}/api/plex/sessions`,
+      `http://localhost:${process.env.PORT}/api/plex/sessions`,
     )
     plexStats = result.data
   } catch (e) {
