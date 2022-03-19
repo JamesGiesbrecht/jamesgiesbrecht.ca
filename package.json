@@ -7,9 +7,11 @@
     "build:server": "tsc --project tsconfig.server.json",
     "build:server:dev": "tsc --project tsconfig.server.json --watch --preserveWatchOutput",
     "start:next": "next start",
-    "start:server": "nodemon dist/server/index.js",
-    "dev": "yarn build:server && concurrently \"yarn build:server:dev\" \"yarn start:server\"",
+    "start:server": "concurrently \"yarn build:server:dev\" \"nodemon dist/server/index.js\"",
+    "dev": "yarn build:server && yarn start:server",
     "start": "NODE_ENV=production node dist/server/index.js",
+    "compose:dev": "docker-compose -f docker-compose.yaml -f docker-compose.watch.yaml up -d --build && yarn compose:logs",
+    "compose:logs": "docker-compose logs -f",
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {

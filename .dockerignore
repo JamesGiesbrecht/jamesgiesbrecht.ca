@@ -1,9 +1,5 @@
 **/.node_modules
 **/.git
-package.json
-package-lock.json
-.env
-.env.development.local
 **/Dockerfile
 dist
 .next
