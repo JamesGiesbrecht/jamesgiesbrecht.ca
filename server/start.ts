@@ -70,7 +70,6 @@ const startServer = async () =>
     })
     .catch((error) => {
       console.error('Error starting server', error)
-      startServer()
     })
 
 startServer()

@@ -16,17 +16,18 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+      target: prod
     ports:
       - '3001:3001'
     volumes:
       - /app/node_modules
-      - /app/.next
     env_file:
       - .env
     environment:
       MONGODB_USER: root
       MONGODB_PASSWORD: password
-      MONGODB_URL: mongodb://USER:PASSWORD@mongodb:27017/james-giesbrecht-dev
+      MONGODB_URL: mongodb://USER:PASSWORD@mongodb:27017/james-giesbrecht
+      NODE_ENV: production
     depends_on:
       - mongodb
 volumes:

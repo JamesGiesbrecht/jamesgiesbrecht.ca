@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:16 AS base
 
 WORKDIR /app
 
@@ -11,8 +11,14 @@ COPY . .
 
 RUN yarn build
 
-ENV NODE_ENV=production
-
 EXPOSE 3001
 
-CMD ["yarn", "start"]
+FROM base AS dev
+CMD ["yarn", "dev"]
+
+FROM node:16 AS prod
+WORKDIR /app
+COPY --from=base /app/.next/ /app/.next/
+COPY --from=base /app/public/ /app/public/
+COPY --from=base /app/dist/ /app/dist/
+CMD ["node", "dist/server/index.js"]

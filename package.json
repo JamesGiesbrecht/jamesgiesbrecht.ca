@@ -2,6 +2,7 @@
   "name": "next-client",
   "private": true,
   "scripts": {
+    "browser": "open -a \"Google Chrome\" http://localhost:3001/",
     "build": "yarn build:next && yarn build:server",
     "build:next": "next build",
     "build:server": "tsc --project tsconfig.server.json",
@@ -10,7 +11,8 @@
     "start:server": "concurrently \"yarn build:server:dev\" \"nodemon dist/server/index.js\"",
     "dev": "yarn build:server && yarn start:server",
     "start": "NODE_ENV=production node dist/server/index.js",
-    "compose:dev": "docker-compose -f docker-compose.yaml -f docker-compose.watch.yaml up -d --build && yarn compose:logs",
+    "compose:dev": "docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d --build && yarn browser && yarn compose:logs",
+    "compose:prod": "docker-compose up -d --build && yarn browser && yarn compose:logs",
     "compose:logs": "docker-compose logs -f",
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}'"
   },
