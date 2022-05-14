@@ -89,6 +89,9 @@ pipeline {
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
                   -e 'MONGODB_PARAMS'='${MONGODB_PARAMS}' \
+                  -e 'UNRAID_USER'='${UNRAID_USER}' \
+                  -e 'UNRAID_PASSWORD'='${UNRAID_PASSWORD}' \
+                  -e 'UNRAID_URL'='${UNRAID_URL}' \
                   -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
                   -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
