@@ -1,12 +1,40 @@
+# dependancies
 node_modules
 .eslintcache
 .env
 .env.production
 webpack.txt
+/.pnp
+.pnp.js
 
-# client
-/client/build
-/client/src/assets/full-res
+# testing
+/coverage
 
-# server
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/dist
+
+# vercel
+.vercel
+
+# misc
+.DS_Store
+*.pem
+/src/assets/full-res
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# typescript
+*.tsbuildinfo
+
+# temp
+/blog
 /server/dist
+/client/build

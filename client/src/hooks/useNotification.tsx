@@ -1,6 +1,13 @@
 import { ReactNode, SyntheticEvent, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Snackbar, Alert, ThemeProvider, StyledEngineProvider, AlertProps } from '@mui/material'
+import {
+  Snackbar,
+  Alert,
+  ThemeProvider,
+  StyledEngineProvider,
+  AlertProps,
+  SnackbarCloseReason,
+} from '@mui/material'
 import { useTheme } from '@mui/styles'
 
 const useNotification = () => {
@@ -10,7 +17,7 @@ const useNotification = () => {
   const theme = useTheme()
   const notificationDiv = document.getElementById('notification')
 
-  const handleClose = (event: SyntheticEvent<Element, Event>, reason?: string) => {
+  const handleClose = (event: Event | SyntheticEvent<any, Event>, reason?: SnackbarCloseReason) => {
     if (reason === 'clickaway') return
     setOpen(false)
   }

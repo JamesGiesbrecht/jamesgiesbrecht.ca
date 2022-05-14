@@ -10,7 +10,7 @@
     "start": "node dist/server/src/index.js",
     "kill": "kill -9 $(lsof -ti:3001)",
     "build": "tsc",
-    "start:dev": "nodemon dist/server/src/index.js",
+    "start:dev": "nodemon --delay 1500ms dist/server/src/index.js",
     "build:dev": "tsc --watch --preserveWatchOutput",
     "dev": "concurrently \"yarn build:dev\" \"yarn:start:dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -51,6 +51,7 @@
     "firebase-admin": "^9.11.1",
     "mongodb": "^4.1.1",
     "mongoose": "^6.0.5",
+    "puppeteer": "^14.1.0",
     "typescript": "^4.4.3"
   }
 }

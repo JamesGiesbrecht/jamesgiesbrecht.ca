@@ -2,6 +2,7 @@ import express from 'express'
 
 import plexRoutes from './plex'
 import postsRoutes from './post'
+import unraidRoutes from './unraid'
 import wrhaRoutes from './wrha'
 
 const router = express.Router()
@@ -17,6 +18,7 @@ router.get('/', (_req, res) => {
 router.use('/posts', postsRoutes)
 router.use('/wrha', wrhaRoutes)
 router.use('/plex', plexRoutes)
+router.use('/unraid', unraidRoutes)
 
 router.use((_req, res) => {
   res.status(400).json({
