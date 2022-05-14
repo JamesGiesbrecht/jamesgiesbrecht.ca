@@ -14,7 +14,6 @@
     "alwaysStrict": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
