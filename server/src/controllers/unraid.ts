@@ -137,6 +137,7 @@ export const getUnraidStats: RequestHandler = async (_req, res) => {
 
     res.json(stats)
   } catch (e) {
+    console.error('Error fetching Unraid Stats', e)
     res.status(500).json({ error: e })
   }
 }
