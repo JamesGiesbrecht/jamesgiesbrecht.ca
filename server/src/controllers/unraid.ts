@@ -19,7 +19,7 @@ const getText = async (page: Page, selector: string, notEmpty?: boolean): Promis
       await page.waitForSelector(`${selector}:not(:empty)`)
     }
     const text = await page.$eval(selector, (el) => el.textContent)
-    return text.toString()
+    return text ? text.toString() : ''
   } catch (e) {
     console.error(`Error Grabbing Text with selector: ${selector}`, e)
     return ''
