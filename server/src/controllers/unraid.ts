@@ -1,13 +1,18 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable import/prefer-default-export */
 import { RequestHandler } from 'express'
-import Puppeteer, { Page } from 'puppeteer'
+import puppeteer, { Page } from 'puppeteer'
 
 const UNRAID_BASE_URL = process.env.UNRAID_URL
 const { UNRAID_USER, UNRAID_PASSWORD } = process.env
 
 const getPage = async (url: string): Promise<Page> => {
-  const browser = await Puppeteer.launch()
+  const browser = await puppeteer.launch({
+    headless: true,
+    ignoreHTTPSErrors: true,
+    executablePath: '/usr/bin/google-chrome',
+    args: ['--no-sandbox'],
+  })
   const page = await browser.newPage()
   await page.goto(url)
   return page
@@ -19,7 +24,7 @@ const getText = async (page: Page, selector: string, notEmpty?: boolean): Promis
       await page.waitForSelector(`${selector}:not(:empty)`)
     }
     const text = await page.$eval(selector, (el) => el.textContent)
-    return text.toString()
+    return text ? text.toString() : ''
   } catch (e) {
     console.error(`Error Grabbing Text with selector: ${selector}`, e)
     return ''
@@ -137,6 +142,7 @@ export const getUnraidStats: RequestHandler = async (_req, res) => {
 
     res.json(stats)
   } catch (e) {
+    console.error('Error fetching Unraid Stats', e)
     res.status(500).json({ error: e })
   }
 }

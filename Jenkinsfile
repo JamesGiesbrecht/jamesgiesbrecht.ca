@@ -25,6 +25,9 @@ pipeline {
       PLEX_TOKEN                        = credentials('PLEX_TOKEN')
       ADMIN_SERVICE_ACCOUNT_JSON_CONFIG = credentials('ADMIN_SERVICE_ACCOUNT_JSON_CONFIG')
       UNRAID_PORT                       = credentials('UNRAID_PORT_DEV')
+      UNRAID_USER                       = credentials('UNRAID_USER')
+      UNRAID_PASSWORD                   = credentials('UNRAID_PASSWORD')
+      UNRAID_URL                        = credentials('UNRAID_URL')
       REACT_APP_FIREBASE_API_KEY        = credentials('REACT_APP_FIREBASE_API_KEY')
       REACT_APP_AUTH_DOMAIN             = credentials('REACT_APP_AUTH_DOMAIN')
       REACT_APP_FIREBASE_PROJECT_ID     = credentials('REACT_APP_FIREBASE_PROJECT_ID')
@@ -89,6 +92,9 @@ pipeline {
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
                   -e 'MONGODB_PARAMS'='${MONGODB_PARAMS}' \
+                  -e 'UNRAID_USER'='${UNRAID_USER}' \
+                  -e 'UNRAID_PASSWORD'='${UNRAID_PASSWORD}' \
+                  -e 'UNRAID_URL'='${UNRAID_URL}' \
                   -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
                   -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
@@ -119,6 +125,9 @@ pipeline {
                   -e 'MONGODB_PASSWORD'='${MONGODB_PASSWORD}' \
                   -e 'MONGODB_URL'='${MONGODB_URL}' \
                   -e 'MONGODB_PARAMS'='${MONGODB_PARAMS}' \
+                  -e 'UNRAID_USER'='${UNRAID_USER}' \
+                  -e 'UNRAID_PASSWORD'='${UNRAID_PASSWORD}' \
+                  -e 'UNRAID_URL'='${UNRAID_URL}' \
                   -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
                   -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
