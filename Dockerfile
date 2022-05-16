@@ -24,6 +24,9 @@ RUN yarn build
 
 FROM node:14
 
+RUN apk --no-cache add bash g++ gcc libgcc make python chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
 WORKDIR /app/server
 
 COPY server/package.json .
