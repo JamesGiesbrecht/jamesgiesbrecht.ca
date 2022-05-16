@@ -1,13 +1,18 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable import/prefer-default-export */
 import { RequestHandler } from 'express'
-import Puppeteer, { Page } from 'puppeteer'
+import puppeteer, { Page } from 'puppeteer'
 
 const UNRAID_BASE_URL = process.env.UNRAID_URL
 const { UNRAID_USER, UNRAID_PASSWORD } = process.env
 
 const getPage = async (url: string): Promise<Page> => {
-  const browser = await Puppeteer.launch()
+  const browser = await puppeteer.launch({
+    headless: true,
+    ignoreHTTPSErrors: true,
+    executablePath: '/usr/bin/chromium-browser',
+    args: ['--no-sandbox'],
+  })
   const page = await browser.newPage()
   await page.goto(url)
   return page
