@@ -10,7 +10,7 @@ const getPage = async (url: string): Promise<Page> => {
   const browser = await puppeteer.launch({
     headless: true,
     ignoreHTTPSErrors: true,
-    executablePath: '/usr/bin/chromium-browser',
+    executablePath: '/usr/bin/google-chrome',
     args: ['--no-sandbox'],
   })
   const page = await browser.newPage()
