@@ -14,15 +14,12 @@ const firebaseConfig = {
 }
 
 let firebaseAnalytics: Analytics
-let firebaseAuth: Auth
-if (firebaseConfig?.projectId) {
-  const firebaseApp = initializeApp(firebaseConfig)
 
-  if (firebaseApp.name && typeof window !== 'undefined') {
-    firebaseAnalytics = getAnalytics(firebaseApp)
-  }
+const firebaseApp = initializeApp(firebaseConfig)
+const firebaseAuth = getAuth()
 
-  firebaseAuth = getAuth()
+if (firebaseApp.name && typeof window !== 'undefined') {
+  firebaseAnalytics = getAnalytics(firebaseApp)
 }
 
 export { firebaseAnalytics, firebaseAuth }
