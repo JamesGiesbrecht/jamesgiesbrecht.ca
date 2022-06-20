@@ -1,9 +1,21 @@
 /* eslint-disable prefer-destructuring */
 import { useState, useEffect, useContext, createContext, FC, useMemo } from 'react'
 import axios, { AxiosInstance } from 'axios'
-import { signInWithPopup, OAuthProvider, User, UserCredential } from 'firebase/auth'
+import { initializeApp } from 'firebase/app'
+import { Analytics, getAnalytics } from 'firebase/analytics'
+import { signInWithPopup, OAuthProvider, User, UserCredential, getAuth } from 'firebase/auth'
 
-import { firebaseAuth } from '../firebase/config'
+import { firebaseConfig } from '../firebase/config'
+
+let firebaseAnalytics: Analytics
+
+const firebaseApp = initializeApp(firebaseConfig)
+const firebaseAuth = getAuth(firebaseApp)
+
+if (firebaseApp.name && typeof window !== 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  firebaseAnalytics = getAnalytics(firebaseApp)
+}
 
 const NEXT_PUBLIC_ENV = process.env.NEXT_PUBLIC_ENV
 
