@@ -16,7 +16,7 @@ const firebaseConfig = {
 let firebaseAnalytics: Analytics
 
 const firebaseApp = initializeApp(firebaseConfig)
-const firebaseAuth = getAuth()
+const firebaseAuth = getAuth(firebaseApp)
 
 if (firebaseApp.name && typeof window !== 'undefined') {
   firebaseAnalytics = getAnalytics(firebaseApp)
