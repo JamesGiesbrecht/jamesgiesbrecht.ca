@@ -14,7 +14,7 @@ const firebaseConfig = {
 }
 
 let firebaseAnalytics: Analytics
-let firebaseAuth: Auth
+let firebaseAuth: Auth = getAuth()
 if (firebaseConfig?.projectId) {
   const firebaseApp = initializeApp(firebaseConfig)
 
