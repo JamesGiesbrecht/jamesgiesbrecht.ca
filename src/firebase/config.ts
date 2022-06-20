@@ -14,7 +14,8 @@ const firebaseConfig = {
 }
 
 let firebaseAnalytics: Analytics
-let firebaseAuth: Auth = getAuth()
+// eslint-disable-next-line @typescript-eslint/ban-types
+let firebaseAuth: Auth | {} = {}
 if (firebaseConfig?.projectId) {
   const firebaseApp = initializeApp(firebaseConfig)
 
