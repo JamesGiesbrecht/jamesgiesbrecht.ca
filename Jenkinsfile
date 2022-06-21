@@ -26,7 +26,7 @@ pipeline {
       ADMIN_SERVICE_ACCOUNT_JSON_CONFIG   = credentials('ADMIN_SERVICE_ACCOUNT_JSON_CONFIG')
       UNRAID_PORT                         = credentials('UNRAID_PORT_DEV')
       NEXT_PUBLIC_FIREBASE_API_KEY        = credentials('NEXT_PUBLIC_FIREBASE_API_KEY')
-      NEXT_PUBLIC_AUTH_DOMAIN             = credentials('NEXT_PUBLIC_AUTH_DOMAIN')
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN    = credentials('NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN')
       NEXT_PUBLIC_FIREBASE_PROJECT_ID     = credentials('NEXT_PUBLIC_FIREBASE_PROJECT_ID')
       NEXT_PUBLIC_FIREBASE_SENDER_ID      = credentials('NEXT_PUBLIC_FIREBASE_SENDER_ID')
       NEXT_PUBLIC_FIREBASE_APP_ID         = credentials('NEXT_PUBLIC_FIREBASE_APP_ID')
@@ -48,12 +48,12 @@ pipeline {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
             def app = docker.build(
               "jamesgiesbrecht/james-giesbrecht-ca:${commit_id}",
-              """--build-arg NEXT_PUBLIC_FIREBASE_API_KEY='${NEXT_PUBLIC_FIREBASE_API_KEY}' \
-              --build-arg NEXT_PUBLIC_AUTH_DOMAIN='${NEXT_PUBLIC_AUTH_DOMAIN}' \
-              --build-arg NEXT_PUBLIC_FIREBASE_PROJECT_ID='${NEXT_PUBLIC_FIREBASE_PROJECT_ID}' \
-              --build-arg NEXT_PUBLIC_FIREBASE_SENDER_ID='${NEXT_PUBLIC_FIREBASE_SENDER_ID}' \
-              --build-arg NEXT_PUBLIC_FIREBASE_APP_ID='${NEXT_PUBLIC_FIREBASE_APP_ID}' \
-              --build-arg NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID='${NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}' \
+              """--build-arg FIREBASE_API_KEY='${NEXT_PUBLIC_FIREBASE_API_KEY}' \
+              --build-arg FIREBASE_AUTH_DOMAIN='${NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}' \
+              --build-arg FIREBASE_PROJECT_ID='${NEXT_PUBLIC_FIREBASE_PROJECT_ID}' \
+              --build-arg FIREBASE_SENDER_ID='${NEXT_PUBLIC_FIREBASE_SENDER_ID}' \
+              --build-arg FIREBASE_APP_ID='${NEXT_PUBLIC_FIREBASE_APP_ID}' \
+              --build-arg FIREBASE_MEASUREMENT_ID='${NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}' \
               --target prod \
               -f Dockerfile ."""
             ).push()
