@@ -41,10 +41,8 @@ COPY --from=base /app/.next/ /app/.next/
 COPY --from=base /app/public/ /app/public/
 COPY --from=base /app/dist/ /app/dist/
 
-WORKDIR /app/dist
-
 COPY package.json .
 COPY yarn.lock .
 RUN yarn install --production
 
-CMD ["node", "server/index.js"]
+CMD ["node", "dist/server/index.js"]
