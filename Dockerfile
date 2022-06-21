@@ -30,9 +30,21 @@ EXPOSE 3001
 FROM base AS dev
 CMD ["yarn", "dev"]
 
+
 FROM node:16 AS prod
+
 WORKDIR /app
+
+ENV NODE_ENV=production
+
 COPY --from=base /app/.next/ /app/.next/
 COPY --from=base /app/public/ /app/public/
 COPY --from=base /app/dist/ /app/dist/
-CMD ["node", "dist/server/index.js"]
+
+WORKDIR /app/dist
+
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install --production
+
+CMD ["node", "server/index.js"]
