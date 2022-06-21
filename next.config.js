@@ -1,6 +1,9 @@
 /* eslint-disable no-param-reassign */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverRuntimeConfig: {
+    PORT: process.env.PORT,
+  },
   reactStrictMode: true,
   typescript: {
     // FIXME

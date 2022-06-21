@@ -3,9 +3,12 @@ import { Button, Container, Typography, Paper, Grid, Theme } from '@mui/material
 import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 import { InferGetServerSidePropsType, NextPage } from 'next'
+import getConfig from 'next/config'
 
 // eslint-disable-next-line import/no-relative-packages
 import { GetPlexStatusResponse } from '../../@types/james-giesbrecht'
+
+const { serverRuntimeConfig } = getConfig()
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -34,7 +37,7 @@ export async function getServerSideProps() {
   let plexStats = null
   try {
     const result = await axios.get<GetPlexStatusResponse>(
-      `http://localhost:${process.env.PORT}/api/plex/sessions`,
+      `http://localhost:${serverRuntimeConfig.PORT}/api/plex/sessions`,
     )
     plexStats = result.data
   } catch (e) {
