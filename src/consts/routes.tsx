@@ -1,5 +1,10 @@
 import { ReactNode } from 'react'
-import { Home as HomeIcon, Message as MessageIcon, Person as PersonIcon } from '@mui/icons-material'
+import {
+  Home as HomeIcon,
+  Message as MessageIcon,
+  Newspaper as NewspaperIcon,
+  Person as PersonIcon,
+} from '@mui/icons-material'
 
 export type Route = {
   path: string
@@ -10,6 +15,7 @@ export type Route = {
 }
 
 type Routes = {
+  blog: Route
   plex: Route
   login: Route
   posts: Route
@@ -21,6 +27,13 @@ type Routes = {
 const routes: Routes = {
   plex: {
     path: '/plex',
+  },
+  blog: {
+    path: '/blog',
+    nav: {
+      name: 'Blog',
+      icon: <NewspaperIcon />,
+    },
   },
   login: {
     path: '/login',

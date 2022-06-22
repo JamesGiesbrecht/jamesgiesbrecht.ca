@@ -87,10 +87,11 @@ type NavItem = {
   path?: string
 }
 
-const { home, posts, login } = routes
+const { home, blog, posts, login } = routes
 
 const initialMenuItems: NavItem[] = [
   { name: home.nav?.name, icon: home.nav?.icon, path: home.path },
+  { name: blog.nav?.name, icon: blog.nav?.icon, path: blog.path },
   // { name: 'Projects', icon: <Code /> },
   // { name: 'Contact', icon: <Mail /> },
   { name: posts.nav?.name, icon: posts.nav?.icon, path: posts.path },
