@@ -20,7 +20,7 @@ const projects: Project[] = [
   {
     name: 'JamesGiesbrecht.ca',
     summary:
-      "The website you're on right now! Express backend and MongoDB for personal APIs, React frontend, all containerized through Docker.",
+      "The website you're on right now! Express backend and MongoDB for personal APIs, SSR React frontend with Next.js, all containerized through Docker and deployed with Jenkins.",
     description: [
       {
         title: 'Features',
@@ -28,14 +28,13 @@ const projects: Project[] = [
           'Backend NodeJS/Express server to build and learn with RESTful APIs',
           'Login and Authentication with Firebase and JWT',
           'CRUD operations in the Posts tab. Authenticated users can create, view, edit, and delete posts.',
-          'Dockerized for straightforward and reliable deployments and updates.',
+          'Dockerized and deployed in a Jenkins pipeline for straightforward and reliable deployments and updates.',
           <>
             {'WRHA wait times web scraping for my wife so she can ask her phone for the '}
             <Link target="_blank" href="/api/wrha/grace">
               current wait times at her workplace
             </Link>
           </>,
-          'Hosted on a Linux Digital Ocean droplet',
           'Light/dark mode',
           'Mobile Responsive',
         ],
@@ -59,14 +58,16 @@ const projects: Project[] = [
     ],
     stack: [
       tech.react,
-      tech.materialUI,
       tech.typescript,
+      tech.nextJs,
+      tech.express,
+      tech.mongoDB,
       tech.docker,
+      tech.jenkins,
       tech.firebase,
       tech.node,
-      tech.express,
       tech.jwt,
-      tech.mongoDB,
+      tech.materialUI,
     ],
   },
   {

@@ -19,6 +19,8 @@ const rails = '/img/logos/rails.svg'
 const react = '/img/logos/react.svg'
 const sqlite = '/img/logos/sqlite.svg'
 const typescript = '/img/logos/typescript.png'
+const nextjs = '/img/logos/nextjs.png'
+const jenkins = '/img/logos/jenkins.png'
 
 const offWhite = '#F5F5F5'
 const white = '#FFF'
@@ -137,6 +139,18 @@ const tech: { [name: string]: Tech } = {
     name: 'Firebase',
     logo: firebase,
     color: '#071D34',
+    fontColor: white,
+  },
+  nextJs: {
+    name: 'Next.js',
+    logo: nextjs,
+    color: white,
+    fontColor: black,
+  },
+  jenkins: {
+    name: 'Jenkins',
+    logo: jenkins,
+    color: black,
     fontColor: white,
   },
 }
