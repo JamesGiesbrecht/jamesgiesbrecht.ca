@@ -50,7 +50,7 @@ const About = () => {
       </div>
       <Typography variant="h3" align="center">
         {"Hi, I'm "}
-        <span className={classes.name}>James Giesbrecht</span>.
+        <span className={classes.name}>Testing Next.js autodeploy</span>.
       </Typography>
     </div>
   )
