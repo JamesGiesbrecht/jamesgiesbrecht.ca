@@ -16,21 +16,21 @@ pipeline {
     )
   }
   environment {
-      CONTAINER_NAME                    = 'james-giesbrecht-ca-dev'
-      MONGODB_USER                      = credentials('MONGODB_USER')
-      MONGODB_PASSWORD                  = credentials('MONGODB_PASSWORD')
-      MONGODB_URL                       = credentials('MONGODB_URL_DEV')
-      MONGODB_PARAMS                    = credentials('MONGODB_PARAMS')
-      PLEX_SERVER_URL                   = credentials('PLEX_SERVER_URL_LOCAL')
-      PLEX_TOKEN                        = credentials('PLEX_TOKEN')
-      ADMIN_SERVICE_ACCOUNT_JSON_CONFIG = credentials('ADMIN_SERVICE_ACCOUNT_JSON_CONFIG')
-      UNRAID_PORT                       = credentials('UNRAID_PORT_DEV')
-      REACT_APP_FIREBASE_API_KEY        = credentials('REACT_APP_FIREBASE_API_KEY')
-      REACT_APP_AUTH_DOMAIN             = credentials('REACT_APP_AUTH_DOMAIN')
-      REACT_APP_FIREBASE_PROJECT_ID     = credentials('REACT_APP_FIREBASE_PROJECT_ID')
-      REACT_APP_FIREBASE_SENDER_ID      = credentials('REACT_APP_FIREBASE_SENDER_ID')
-      REACT_APP_FIREBASE_APP_ID         = credentials('REACT_APP_FIREBASE_APP_ID')
-      REACT_APP_FIREBASE_MEASUREMENT_ID = credentials('REACT_APP_FIREBASE_MEASUREMENT_ID')
+      CONTAINER_NAME                      = 'james-giesbrecht-ca-dev'
+      MONGODB_USER                        = credentials('MONGODB_USER')
+      MONGODB_PASSWORD                    = credentials('MONGODB_PASSWORD')
+      MONGODB_URL                         = credentials('MONGODB_URL_DEV')
+      MONGODB_PARAMS                      = credentials('MONGODB_PARAMS')
+      PLEX_SERVER_URL                     = credentials('PLEX_SERVER_URL_LOCAL')
+      PLEX_TOKEN                          = credentials('PLEX_TOKEN')
+      ADMIN_SERVICE_ACCOUNT_JSON_CONFIG   = credentials('ADMIN_SERVICE_ACCOUNT_JSON_CONFIG')
+      UNRAID_PORT                         = credentials('UNRAID_PORT_DEV')
+      NEXT_PUBLIC_FIREBASE_API_KEY        = credentials('NEXT_PUBLIC_FIREBASE_API_KEY')
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN    = credentials('NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN')
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID     = credentials('NEXT_PUBLIC_FIREBASE_PROJECT_ID')
+      NEXT_PUBLIC_FIREBASE_SENDER_ID      = credentials('NEXT_PUBLIC_FIREBASE_SENDER_ID')
+      NEXT_PUBLIC_FIREBASE_APP_ID         = credentials('NEXT_PUBLIC_FIREBASE_APP_ID')
+      NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID = credentials('NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID')
   }
   stages {
     stage('Preparation') {
@@ -48,12 +48,13 @@ pipeline {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
             def app = docker.build(
               "jamesgiesbrecht/james-giesbrecht-ca:${commit_id}",
-              """--build-arg REACT_APP_FIREBASE_API_KEY='${REACT_APP_FIREBASE_API_KEY}' \
-              --build-arg REACT_APP_AUTH_DOMAIN='${REACT_APP_AUTH_DOMAIN}' \
-              --build-arg REACT_APP_FIREBASE_PROJECT_ID='${REACT_APP_FIREBASE_PROJECT_ID}' \
-              --build-arg REACT_APP_FIREBASE_SENDER_ID='${REACT_APP_FIREBASE_SENDER_ID}' \
-              --build-arg REACT_APP_FIREBASE_APP_ID='${REACT_APP_FIREBASE_APP_ID}' \
-              --build-arg REACT_APP_FIREBASE_MEASUREMENT_ID='${REACT_APP_FIREBASE_MEASUREMENT_ID}' \
+              """--build-arg FIREBASE_API_KEY='${NEXT_PUBLIC_FIREBASE_API_KEY}' \
+              --build-arg FIREBASE_AUTH_DOMAIN='${NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}' \
+              --build-arg FIREBASE_PROJECT_ID='${NEXT_PUBLIC_FIREBASE_PROJECT_ID}' \
+              --build-arg FIREBASE_SENDER_ID='${NEXT_PUBLIC_FIREBASE_SENDER_ID}' \
+              --build-arg FIREBASE_APP_ID='${NEXT_PUBLIC_FIREBASE_APP_ID}' \
+              --build-arg FIREBASE_MEASUREMENT_ID='${NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}' \
+              --target prod \
               -f Dockerfile ."""
             ).push()
           }

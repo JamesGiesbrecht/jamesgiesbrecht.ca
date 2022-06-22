@@ -9,6 +9,7 @@ webpack.txt
 
 # testing
 /coverage
+/test
 
 # next.js
 /.next/

@@ -1,45 +1,48 @@
-FROM node:14 as build
+FROM node:16 AS base
 
-WORKDIR /app/client
+WORKDIR /app
 
-ARG REACT_APP_FIREBASE_API_KEY
-ARG REACT_APP_AUTH_DOMAIN
-ARG REACT_APP_FIREBASE_PROJECT_ID
-ARG REACT_APP_FIREBASE_SENDER_ID
-ARG REACT_APP_FIREBASE_APP_ID
-ARG REACT_APP_FIREBASE_MEASUREMENT_ID
+ARG FIREBASE_API_KEY
+ARG FIREBASE_AUTH_DOMAIN
+ARG FIREBASE_PROJECT_ID
+ARG FIREBASE_SENDER_ID
+ARG FIREBASE_APP_ID
+ARG FIREBASE_MEASUREMENT_ID
 
-COPY client/package.json .
-COPY client/yarn.lock .
+ENV NEXT_PUBLIC_FIREBASE_API_KEY=$FIREBASE_API_KEY
+ENV NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=$FIREBASE_AUTH_DOMAIN
+ENV NEXT_PUBLIC_FIREBASE_PROJECT_ID=$FIREBASE_PROJECT_ID
+ENV NEXT_PUBLIC_FIREBASE_SENDER_ID=$FIREBASE_SENDER_ID
+ENV NEXT_PUBLIC_FIREBASE_APP_ID=$FIREBASE_APP_ID
+ENV NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=$FIREBASE_MEASUREMENT_ID
 
-RUN yarn install
-
-COPY @types/ /app/@types/
-COPY client/. .
-
-COPY generate-env.sh .
-RUN sh generate-env.sh REACT_APP_FIREBASE_API_KEY=${REACT_APP_FIREBASE_API_KEY} REACT_APP_AUTH_DOMAIN=${REACT_APP_AUTH_DOMAIN} REACT_APP_FIREBASE_PROJECT_ID=${REACT_APP_FIREBASE_PROJECT_ID} REACT_APP_FIREBASE_SENDER_ID=${REACT_APP_FIREBASE_SENDER_ID} REACT_APP_FIREBASE_APP_ID=${REACT_APP_FIREBASE_APP_ID} REACT_APP_FIREBASE_MEASUREMENT_ID=${REACT_APP_FIREBASE_MEASUREMENT_ID}
-
-RUN yarn build
-
-FROM node:14
-
-WORKDIR /app/server
-
-COPY server/package.json .
-COPY server/yarn.lock .
+COPY package.json .
+COPY yarn.lock .
 
 RUN yarn install
 
-COPY @types/ /app/@types/
-COPY server/ .
+COPY . .
 
 RUN yarn build
-
-COPY --from=build /app/client/build/ /app/client/build/
-
-ENV NODE_ENV=production
 
 EXPOSE 3001
 
-CMD ["node", "dist/server/src/index.js"]
+FROM base AS dev
+CMD ["yarn", "dev"]
+
+
+FROM node:16 AS prod
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+COPY --from=base /app/.next/ /app/.next/
+COPY --from=base /app/public/ /app/public/
+COPY --from=base /app/dist/ /app/dist/
+
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install --production
+
+CMD ["node", "dist/server/index.js"]
