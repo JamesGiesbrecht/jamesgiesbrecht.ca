@@ -93,7 +93,6 @@ pipeline {
                   -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
                   -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
-                  -e 'SERVER_PORT'='${UNRAID_PORT}' \
                   -p '${UNRAID_PORT}:3001' \
                   'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
         }
@@ -124,7 +123,6 @@ pipeline {
                   -e 'PLEX_SERVER_URL'='${PLEX_SERVER_URL}' \
                   -e 'PLEX_TOKEN'='${PLEX_TOKEN}' \
                   -e 'ADMIN_SERVICE_ACCOUNT_JSON_CONFIG'='${ADMIN_SERVICE_ACCOUNT_JSON_CONFIG}' \
-                  -e 'SERVER_PORT'='${UNRAID_PORT}' \
                   -p '${UNRAID_PORT}:3001' \
                   'jamesgiesbrecht/james-giesbrecht-ca:${commit_id}'"""
         }

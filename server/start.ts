@@ -14,7 +14,7 @@ const nextApp = nextJs({
   dev,
   conf: {
     serverRuntimeConfig: {
-      SERVER_PORT: process.env.SERVER_PORT,
+      SERVER_PORT: PORT,
     },
   },
 })
