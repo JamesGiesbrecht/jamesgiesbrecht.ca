@@ -10,7 +10,14 @@ const PORT = process.env.PORT || 3001
 const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_URL, MONGODB_PARAMS, NODE_ENV } = process.env
 const dev = NODE_ENV !== 'production'
 
-const nextApp = nextJs({ dev })
+const nextApp = nextJs({
+  dev,
+  conf: {
+    serverRuntimeConfig: {
+      SERVER_PORT: process.env.SERVER_PORT,
+    },
+  },
+})
 const handle = nextApp.getRequestHandler()
 
 const startServer = async () =>

@@ -19,7 +19,7 @@ ENV NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=$FIREBASE_MEASUREMENT_ID
 COPY package.json .
 COPY yarn.lock .
 
-RUN yarn install
+RUN yarn install --production
 
 COPY . .
 
@@ -40,6 +40,7 @@ ENV NODE_ENV=production
 COPY --from=base /app/.next/ /app/.next/
 COPY --from=base /app/public/ /app/public/
 COPY --from=base /app/dist/ /app/dist/
+COPY --from=base /app/node_modules/ /app/node_modules
 
 COPY package.json .
 COPY yarn.lock .
