@@ -35,7 +35,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export async function getServerSideProps() {
   let plexStats = null
-  console.log(`http://localhost:${serverRuntimeConfig.SERVER_PORT}/api/plex/sessions`)
+  console.log(
+    `http://localhost:${serverRuntimeConfig.SERVER_PORT}/api/plex/sessions`,
+    serverRuntimeConfig,
+  )
   try {
     const result = await axios.get<GetPlexStatusResponse>(
       `http://localhost:${serverRuntimeConfig.SERVER_PORT}/api/plex/sessions`,
