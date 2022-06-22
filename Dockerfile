@@ -39,6 +39,7 @@ ENV NODE_ENV=production
 
 COPY --from=base /app/.next/ /app/.next/
 COPY --from=base /app/public/ /app/public/
+COPY --from=base /app/posts/ /app/posts/
 COPY --from=base /app/dist/ /app/dist/
 
 COPY package.json .
