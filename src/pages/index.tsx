@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Home: NextPage = () => {
   const classes = useStyles()
-  console.log('Test Deploy')
   return (
     <div className={classes.sections}>
       <About />
