@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverRuntimeConfig: {
-    PORT: process.env.PORT,
+    SERVER_PORT: process.env.SERVER_PORT,
   },
   reactStrictMode: true,
   typescript: {
