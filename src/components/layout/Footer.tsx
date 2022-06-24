@@ -5,7 +5,7 @@ import { IconButton, Button, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import RouterLink from 'next/link'
 
-import routes from 'consts/routes'
+import ROUTES from 'consts/routes'
 
 const useStyles = makeStyles((theme: Theme) => ({
   footer: {
@@ -58,7 +58,7 @@ const Footer: FC = () => {
   return (
     <footer className={classes.footer}>
       {icons}
-      <RouterLink href={routes.privacy.path} passHref>
+      <RouterLink href={ROUTES.privacy.path} passHref>
         <Button size="small" color="inherit">
           Privacy
         </Button>

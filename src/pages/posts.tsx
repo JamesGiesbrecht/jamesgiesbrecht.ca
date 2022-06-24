@@ -13,7 +13,7 @@ import PostModal from 'components/sections/posts/PostModal'
 import InfoMessage from 'components/utility/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
 import { SERVER_SIDE_ROUTES } from 'consts/app'
-import routes from 'consts/routes'
+import ROUTES from 'consts/routes'
 import { AuthContext } from 'context/Auth'
 
 import {
@@ -155,7 +155,7 @@ const Posts: NextPage = () => {
     } else {
       message = [
         "No posts to show, why don't you ",
-        <RouterLink key="link" href={routes.login.path} passHref>
+        <RouterLink key="link" href={ROUTES.login.path} passHref>
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link>sign-up and try making one</Link>
         </RouterLink>,
@@ -202,7 +202,7 @@ const Posts: NextPage = () => {
             {!isMobile && 'New Post'}
           </Fab>
         ) : (
-          <RouterLink href={routes.login.path} passHref>
+          <RouterLink href={ROUTES.login.path} passHref>
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <Link>Login to submit a post</Link>
           </RouterLink>

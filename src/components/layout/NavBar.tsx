@@ -39,7 +39,7 @@ import { makeStyles } from '@mui/styles'
 import RouterLink from 'next/link'
 import { useRouter } from 'next/router'
 
-import routes from 'consts/routes'
+import ROUTES from 'consts/routes'
 import { AuthContext } from 'context/Auth'
 
 interface Props {
@@ -87,7 +87,7 @@ type NavItem = {
   path?: string
 }
 
-const { home, blog, posts, login } = routes
+const { home, blog, posts, login } = ROUTES
 
 const initialMenuItems: NavItem[] = [
   { name: home.nav?.name, icon: home.nav?.icon, path: home.path },

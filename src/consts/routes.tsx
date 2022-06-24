@@ -24,7 +24,7 @@ type Routes = {
   home: Route
 }
 
-const routes: Routes = {
+const ROUTES: Routes = {
   plex: {
     path: '/plex',
   },
@@ -68,4 +68,4 @@ const routes: Routes = {
   },
 }
 
-export default routes
+export default ROUTES

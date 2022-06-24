@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import GoogleIcon from 'components/icons/GoogleIcon'
 import InfoMessage from 'components/utility/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
-import routes from 'consts/routes'
+import ROUTES from 'consts/routes'
 import { AuthContext } from 'context/Auth'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -36,11 +36,11 @@ const Login: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    router.prefetch(routes.home.path)
+    router.prefetch(ROUTES.home.path)
   }, [router])
 
   if (user) {
-    router.push(routes.home.path)
+    router.push(ROUTES.home.path)
     return null
   }
 
