@@ -9,16 +9,17 @@ import {
   ListItemButton,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { FILESYSTEM } from 'consts/app'
 import fs from 'fs'
 import matter from 'gray-matter'
 import RouterLink from 'next/link'
 
 export const getStaticProps = async () => {
-  const files = fs.readdirSync('posts')
+  const files = fs.readdirSync(FILESYSTEM.POSTS)
 
   const blogPosts = files.map((fileName) => {
     const slug = fileName.replace('.md', '')
-    const readFile = fs.readFileSync(`posts/${fileName}`, 'utf-8')
+    const readFile = fs.readFileSync(FILESYSTEM.POSTS + fileName, 'utf-8')
     const { data: frontMatter } = matter(readFile)
     return {
       slug,

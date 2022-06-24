@@ -12,6 +12,7 @@ import Post from 'components/sections/posts/Post'
 import PostModal from 'components/sections/posts/PostModal'
 import InfoMessage from 'components/utility/InfoMessage'
 import WaitFor from 'components/utility/WaitFor'
+import { SERVER_SIDE_ROUTES } from 'consts/app'
 import routes from 'consts/routes'
 import { AuthContext } from 'context/Auth'
 
@@ -79,7 +80,7 @@ const Posts: NextPage = () => {
 
   const handleUpdatePost = ({ title, content, isPublic, postId }: UpdatePostRequest) =>
     api
-      .put(`/api/posts/${postId}`, { title, content, isPublic })
+      .put(SERVER_SIDE_ROUTES.POSTS.UPDATE_POST(postId || ''), { title, content, isPublic })
       .then((result: AxiosResponse<UpdatePostResponse>) => {
         setPosts((prev) => prev.map((p) => (p._id === postId ? result.data.post : p)))
         enqueueSnackbar('Post Updated Successfully', { variant: 'success' })
@@ -90,7 +91,7 @@ const Posts: NextPage = () => {
 
   const handleSubmitNewPost = async (post: NewPostRequest) =>
     api
-      .post('/api/posts/new', post)
+      .post(SERVER_SIDE_ROUTES.POSTS.POST_NEW_POST, post)
       .then((result: AxiosResponse<NewPostResponse>) => {
         enqueueSnackbar('Post Submitted Successfully', { variant: 'success' })
         setPosts((prev) => [result.data, ...prev])
@@ -108,7 +109,7 @@ const Posts: NextPage = () => {
     if (authInitialized) {
       setIsLoading(true)
       api
-        .get('/api/posts')
+        .get(SERVER_SIDE_ROUTES.POSTS.GET_POSTS)
         .then((result: AxiosResponse<GetPostsResponse>) => {
           setPosts(result.data)
         })

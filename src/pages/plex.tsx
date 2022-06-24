@@ -2,13 +2,11 @@ import { ChevronRight } from '@mui/icons-material'
 import { Button, Container, Typography, Paper, Grid, Theme } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import axios from 'axios'
+import { SERVER_SIDE_HOST, SERVER_SIDE_ROUTES } from 'consts/app'
 import { InferGetServerSidePropsType, NextPage } from 'next'
-import getConfig from 'next/config'
 
 // eslint-disable-next-line import/no-relative-packages
 import { GetPlexStatusResponse } from '../../@types/james-giesbrecht'
-
-const { serverRuntimeConfig } = getConfig()
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
@@ -37,7 +35,7 @@ export async function getServerSideProps() {
   let plexStats = null
   try {
     const result = await axios.get<GetPlexStatusResponse>(
-      `http://localhost:${serverRuntimeConfig.SERVER_PORT}/api/plex/sessions`,
+      SERVER_SIDE_HOST + SERVER_SIDE_ROUTES.PLEX_SESSIONS,
     )
     plexStats = result.data
   } catch (e) {

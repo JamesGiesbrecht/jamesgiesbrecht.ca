@@ -22,6 +22,7 @@ import { useSnackbar } from 'notistack'
 import Fade from 'react-reveal/Fade'
 
 import PostModal from 'components/sections/posts/PostModal'
+import { SERVER_SIDE_ROUTES } from 'consts/app'
 import { useAuth } from 'context/Auth'
 
 // eslint-disable-next-line import/no-relative-packages
@@ -104,7 +105,7 @@ const Post: FC<Props> = ({
   const deletePost = () => {
     setIsLoading(true)
     api
-      .delete(`/api/posts/${postId}`)
+      .delete(SERVER_SIDE_ROUTES.POSTS.UPDATE_POST(postId))
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((response: AxiosResponse<DeletePostResponse>) => {
         onRemove(postId)

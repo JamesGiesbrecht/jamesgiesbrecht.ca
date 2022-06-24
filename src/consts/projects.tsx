@@ -1,20 +1,21 @@
 import { Link as LinkIcon, Code as CodeIcon } from '@mui/icons-material'
 import { Link } from '@mui/material'
 
+import { FILESYSTEM } from 'consts/app'
 import tech from 'consts/tech'
 import { Project } from 'ts/app/types'
 
-const craTemplate = '/img/projects/react.png'
-const craTemplateBg = '/img/projects/cra-template-bg.jpg'
-const critterCompanion = '/img/projects/critter-companion.png'
-const critterCompanionBg = '/img/projects/critter-companion-bg.jpg'
-const gamePit = '/img/projects/game-pit.png'
-const gamePitBg = '/img/projects/game-pit-bg.jpg'
-const jamesGiesbrecht = '/img/projects/james-giesbrecht.png'
-const onesnap = '/img/projects/onesnap.png'
-const onesnapBg = '/img/projects/onesnap-bg.jpg'
-const wrha = '/img/projects/wrha-wait-times.png'
-const wrhaBg = '/img/projects/wrha-wait-times-bg.jpg'
+const craTemplate = `${FILESYSTEM.IMAGES.PROJECTS}react.png`
+const craTemplateBg = `${FILESYSTEM.IMAGES.PROJECTS}cra-template-bg.jpg`
+const critterCompanion = `${FILESYSTEM.IMAGES.PROJECTS}critter-companion.png`
+const critterCompanionBg = `${FILESYSTEM.IMAGES.PROJECTS}critter-companion-bg.jpg`
+const gamePit = `${FILESYSTEM.IMAGES.PROJECTS}game-pit.png`
+const gamePitBg = `${FILESYSTEM.IMAGES.PROJECTS}game-pit-bg.jpg`
+const jamesGiesbrecht = `${FILESYSTEM.IMAGES.PROJECTS}james-giesbrecht.png`
+const onesnap = `${FILESYSTEM.IMAGES.PROJECTS}onesnap.png`
+const onesnapBg = `${FILESYSTEM.IMAGES.PROJECTS}onesnap-bg.jpg`
+const wrha = `${FILESYSTEM.IMAGES.PROJECTS}wrha-wait-times.png`
+const wrhaBg = `${FILESYSTEM.IMAGES.PROJECTS}wrha-wait-times-bg.jpg`
 
 const projects: Project[] = [
   {
