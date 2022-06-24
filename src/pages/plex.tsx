@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export async function getServerSideProps() {
+export const getServerSideProps = async () => {
   let plexStats = null
   try {
     const result = await axios.get<GetPlexStatusResponse>(

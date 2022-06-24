@@ -1,4 +1,9 @@
+import { ParsedUrlQuery } from 'querystring'
 import { ReactNode } from 'react'
+
+export interface Params extends ParsedUrlQuery {
+  slug: string
+}
 
 export type Tech = {
   name: string
@@ -28,4 +33,11 @@ export type Project = {
   background: string
   buttons: ProjectLinkButton[]
   stack: Tech[]
+}
+
+export type BlogPostData = {
+  metadata: {
+    [key: string]: string | string[]
+  }
+  content: string
 }

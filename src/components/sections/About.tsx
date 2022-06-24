@@ -44,6 +44,7 @@ const About = () => {
         <Image
           className={classes.picture}
           src={jamesPic}
+          priority
           alt="James Giesbrecht"
           layout="responsive"
         />

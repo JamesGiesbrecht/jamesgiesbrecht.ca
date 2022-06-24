@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import {
   Container,
   Typography,
@@ -10,33 +9,35 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { FILESYSTEM } from 'consts/app'
+import ROUTES from 'consts/routes'
 import fs from 'fs'
 import matter from 'gray-matter'
+import { InferGetStaticPropsType, NextPage } from 'next'
 import RouterLink from 'next/link'
 
 export const getStaticProps = async () => {
   const files = fs.readdirSync(FILESYSTEM.POSTS)
 
-  const blogPosts = files.map((fileName) => {
+  const posts = files.map((fileName) => {
     const slug = fileName.replace('.md', '')
     const readFile = fs.readFileSync(FILESYSTEM.POSTS + fileName, 'utf-8')
-    const { data: frontMatter } = matter(readFile)
+    const { data: metadata } = matter(readFile)
     return {
       slug,
-      frontMatter,
+      metadata,
     }
   })
 
   return {
     props: {
-      blogPosts,
+      posts,
     },
   }
 }
 
 const useStyles = makeStyles((theme: Theme) => ({}))
 
-const Blog: FC = ({ blogPosts }: any) => {
+const Blog: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ posts }) => {
   const classes = useStyles()
 
   return (
@@ -45,11 +46,11 @@ const Blog: FC = ({ blogPosts }: any) => {
         Blog
       </Typography>
       <List>
-        {blogPosts.map(({ slug, frontMatter }: any) => (
+        {posts.map(({ slug, metadata }) => (
           <ListItem key={slug}>
             <ListItemButton component="a">
-              <RouterLink href={`/blog/${slug}`} passHref>
-                <ListItemText primary={frontMatter.title} />
+              <RouterLink href={`${ROUTES.blog.path}/${slug}`} passHref>
+                <ListItemText primary={metadata.title} />
               </RouterLink>
             </ListItemButton>
           </ListItem>
