@@ -36,8 +36,14 @@ export type Project = {
 }
 
 export type BlogPostData = {
+  slug: string
   metadata: {
-    [key: string]: string | string[]
+    author: string
+    title: string
+    metaTitle: string
+    metaDesc: string
+    date: string
+    tags: string[]
   }
   content: string
 }

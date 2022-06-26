@@ -1,4 +1,5 @@
 import { Request, RequestHandler } from 'express'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { ParamsDictionary } from 'express-serve-static-core'
 
 // ../models/post.ts
